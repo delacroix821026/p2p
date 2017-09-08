@@ -1,0 +1,33 @@
+---
+management:
+    security:
+        enabled: false
+...
+
+---
+spring:
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+    cloud:
+        bus:
+            trace:
+                enabled: true
+        config:
+            server:
+                git:
+                    uri: https://github.com/delacroix821026/p2p_config.git
+                    force-pull: true
+                    searchPaths: p2p*
+                    username: 66039496@qq.com
+                    password: philips1234
+    springapplication:
+        name: p2p-config-server
+...
+
+---
+server:
+    port: 2001
+...

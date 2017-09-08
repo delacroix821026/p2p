@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.InterestMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.Interest">
+        <id column="ITT_ID" property="ittId" jdbcType="VARCHAR"/>
+        <result column="I_PRO_ID" property="iProId" jdbcType="VARCHAR"/>
+        <result column="I_PRO_NAME" property="iProName" jdbcType="VARCHAR"/>
+        <result column="TIMES" property="times" jdbcType="NUMERIC"/>
+        <result column="INT_RATE" property="intRate" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        ITT_ID,I_PRO_ID,I_PRO_NAME,TIMES,INT_RATE
+    </sql>
+
+    <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from T_PRODUCT
+        where PRO_ID = #{proId,jdbcType=VARCHAR}
+    </select>-->
+
+    <select id="selectByProperties" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List" />
+        from T_INTEREST
+        where 1=1
+        <if test="iProId != null and iProId != ''" >
+            and I_PRO_ID = #{iProId}
+        </if>
+    </select>
+
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        DELETE FROM T_PRODUCT WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
+    </delete>-->
+
+    <insert id="insertSelective" parameterType="com.newland.financial.p2p.domain.entity.Interest">
+        <!--<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="ittId">
+            SELECT ITT_ID_SEQ.Nextval as ittId from dual
+        </selectKey>-->
+        INSERT INTO T_INTEREST (ITT_ID,I_PRO_ID,I_PRO_NAME,TIMES,INT_RATE) VALUES (#{ittId,jdbcType=VARCHAR},#{iProId,jdbcType=VARCHAR},#{iProName,jdbcType=VARCHAR},#{times,jdbcType=NUMERIC},#{intRate,jdbcType=NUMERIC})
+    </insert>
+
+    <!--<update id="updateByPrimaryKeySelective" parameterType="com.newland.financial.p2p.domain.entity.Product">
+        UPDATE T_INTEREST SET I_PRO_ID = #{proName,jdbcType=VARCHAR},PRO_LMT = #{proLmt,jdbcType=NUMERIC},PAY_DATE = #{payDate,jdbcType=DATE} WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
+    </update>-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        DELETE FROM T_INTEREST WHERE ITT_ID = #{ittId,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.ProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.Product">
+        <id column="PRO_ID" property="proId" jdbcType="VARCHAR"/>
+        <result column="PRO_NAME" property="proName" jdbcType="VARCHAR"/>
+        <result column="PRO_LMT" property="proLmt" jdbcType="NUMERIC"/>
+        <result column="PAY_DATE" property="payDate" jdbcType="DATE"/>
+        <result column="PRO_INTEREST" property="proInterest" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        PRO_ID,PRO_NAME,PRO_LMT,PAY_DATE,PRO_INTEREST
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from T_PRODUCT
+        where PRO_ID = #{proId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from T_PRODUCT
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        DELETE FROM T_PRODUCT WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.newland.financial.p2p.domain.entity.Product">
+       <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="proId">
+            SELECT PRO_ID_SEQ.Nextval as proId from dual
+        </selectKey>-->
+        INSERT INTO T_PRODUCT (PRO_ID,PRO_NAME,PRO_LMT,PAY_DATE,PRO_INTEREST) VALUES (#{proId,jdbcType=VARCHAR},#{proName,jdbcType=VARCHAR},#{proLmt,jdbcType=NUMERIC},#{payDate,jdbcType=DATE},#{proInterest,jdbcType=NUMERIC})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.newland.financial.p2p.domain.entity.Product">
+        UPDATE T_PRODUCT SET PRO_NAME = #{proName,jdbcType=VARCHAR},PRO_LMT = #{proLmt,jdbcType=NUMERIC},PAY_DATE = #{payDate,jdbcType=DATE},PRO_INTEREST = #{proInterest,jdbcType=NUMERIC} WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

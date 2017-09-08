@@ -1,0 +1,10 @@
+---
+spring:
+    application:
+        name: p2p-eureka
+    cloud:
+        config:
+            profile: dev
+            label: brunch
+            uri: http://localhost:7001/
+...

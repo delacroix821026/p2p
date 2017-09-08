@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.LenderMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.Lender">
+        <id column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+        <result column="LO_ID" property="loId" jdbcType="VARCHAR"/>
+        <result column="LENDER_NAME" property="lenderName" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="IDENTITY_CARD" property="identityCard" jdbcType="VARCHAR"/>
+        <result column="TOTLE_LMT" property="totleLmt" jdbcType="NUMERIC"/>
+        <result column="CURRENT_LMT" property="currentLmt" jdbcType="NUMERIC"/>
+        <result column="REPAY" property="repay" jdbcType="NUMERIC"/>
+        <result column="IN_ACT" property="inAct" jdbcType="VARCHAR"/>
+        <result column="IN_BANK" property="inBank" jdbcType="VARCHAR"/>
+        <result column="OUT_ACT" property="outAct" jdbcType="VARCHAR"/>
+        <result column="OUT_BANK" property="outBank" jdbcType="VARCHAR"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="INDUSTRY" property="industry" jdbcType="VARCHAR"/>
+        <result column="COMPANY_ADDRESS" property="companyAddress" jdbcType="VARCHAR"/>
+        <result column="REGIST_TIME" property="registTime" jdbcType="DATE"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        USER_ID,LO_ID,LENDER_NAME,PHONE,IDENTITY_CARD,TOTLE_LMT,CURRENT_LMT,REPAY,IN_ACT,IN_BANK,OUT_ACT,OUT_BANK,USER_NAME,INDUSTRY,COMPANY_ADDRESS,REGIST_TIME
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from LENDER
+        where USER_ID = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        DELETE FROM LENDER WHERE USER_ID = #{userId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.newland.financial.p2p.domain.entity.Lender">
+        INSERT INTO LENDER (<include refid="Base_Column_List"/>) VALUES
+        (#{userId,jdbcType=VARCHAR},#{loId,jdbcType=VARCHAR},#{lenderName,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{identityCard,jdbcType=VARCHAR},#{totleLmt,jdbcType=NUMERIC},#{currentLmt,jdbcType=NUMERIC},#{repay,jdbcType=NUMERIC},#{inAct,jdbcType=VARCHAR},#{inBank,jdbcType=VARCHAR},#{outAct,jdbcType=VARCHAR},#{outBank,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},#{industry,jdbcType=VARCHAR},#{companyAddress,jdbcType=VARCHAR},#{registTime,jdbcType=DATE})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.newland.financial.p2p.domain.entity.Lender">
+        UPDATE LENDER SET LO_ID = #{loId,jdbcType=VARCHAR},LENDER_NAME = #{lenderName,jdbcType=VARCHAR},PHONE = #{phone,jdbcType=VARCHAR},IDENTITY_CARD = #{identityCard,jdbcType=VARCHAR},TOTLE_LMT = #{totleLmt,jdbcType=NUMERIC},CURRENT_LMT = #{currentLmt,jdbcType=NUMERIC},REPAY =  #{repay,jdbcType=NUMERIC},IN_ACT = #{inAct,jdbcType=VARCHAR},IN_BANK = #{inBank,jdbcType=VARCHAR},OUT_ACT = #{outAct,jdbcType=VARCHAR},OUT_BANK = #{outBank,jdbcType=VARCHAR},USER_NAME = #{userName,jdbcType=VARCHAR},INDUSTRY = #{industry,jdbcType=VARCHAR},COMPANY_ADDRESS = #{companyAddress,jdbcType=VARCHAR},REGIST_TIME = #{registTime,jdbcType=DATE} WHERE USER_ID = #{userId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="getBackData" parameterType="Map">/*测试所用*/
+        UPDATE LENDER SET CURRENT_LMT = 100000
+        <where>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+        </where>
+    </update>
+
+</mapper>
