@@ -19,7 +19,7 @@ public class ResultCut {
     /**
      * 测试.
      */
-    @Pointcut("execution(* com.newland.financial.p2p.client.controller.*.*(..))")
+    @Pointcut("execution(* com.newland.financial.p2p.controller.aa.bb.*.*(..))")
     private void controllerAspect() {
     }
 

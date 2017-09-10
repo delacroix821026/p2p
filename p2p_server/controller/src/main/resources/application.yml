@@ -9,9 +9,9 @@ spring:
                 enabled: true
     datasource:
         name: dataSource
-        url: jdbc:mysql://rm-uf69lhw3233u18lt1o.mysql.rds.aliyuncs.com/p2p_dev?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-        username: p2p
-        password: admin123!
+        url: ${datasource.url}
+        username: ${atasource.username}
+        password: ${datasource.password}
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -36,13 +36,6 @@ spring:
 ...
 
 ---
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:1111/eureka/
-
-...
----
 mybatis:
-    mapperLocations: classpath*:com/newland/financial/p2p/mapping/*-Mapper.xml
+    mapperLocations: classpath*:com/newland/financial/p2p/dao/mapping/*-Mapper.xml
 ...

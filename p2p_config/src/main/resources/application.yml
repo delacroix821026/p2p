@@ -19,15 +19,33 @@ spring:
             server:
                 git:
                     uri: https://github.com/delacroix821026/p2p_config.git
+                    cloneOnStart: true
                     force-pull: true
                     searchPaths: p2p*
                     username: 66039496@qq.com
                     password: philips1234
-    springapplication:
+                health:
+                    repositories:
+                        p2p-config-server:
+                            profiles: dev
+                            label: master
+                        p2p-config-server-branch:
+                            name: p2p-config-server
+                            profiles: prod
+                            label: branch
+    application:
         name: p2p-config-server
 ...
 
 ---
-server:
-    port: 2001
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:1111/eureka/
+        healthcheck:
+            enabled: false
+    instance:
+        lease-expiration-duration-in-seconds: 40
+        lease-renewal-interval-in-seconds: 20
 ...
+

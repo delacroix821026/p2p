@@ -21,7 +21,11 @@ eureka:
         statusPageUrl: https://${eureka.instance.hostname}/info
         healthCheckUrl: https://${eureka.instance.hostname}/health
         homePageUrl: https://${eureka.instance.hostname}/
+    server:
+        #enable-self-preservation: false
+        eviction-interval-timer-in-ms: 4000
     healthcheck:
         enabled: true
+
 ...
 

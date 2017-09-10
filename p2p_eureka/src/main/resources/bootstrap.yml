@@ -3,8 +3,16 @@ spring:
     application:
         name: p2p-eureka
     cloud:
-        config:
-            profile: dev
-            label: brunch
-            uri: http://localhost:7001/
+            config:
+                #profile: {profile}
+                #label: master
+                #uri: http://localhost:2001/
+                discovery:
+                    enabled: true
+                    serviceId: P2P-CONFIG-SERVER
+                    profile: {profile}
+            discovery:
+                enabled: true
+                serviceId: p2p-config-server
+                label: master
 ...
