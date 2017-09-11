@@ -29,7 +29,7 @@
         <!-- checkStyle跳过检验 -->
         <checkstyle.skip>false</checkstyle.skip>
         <!-- junit跳过测试 -->
-        <junit.skipTests>true</junit.skipTests>
+        <junit.skipTests>false</junit.skipTests>
         <!-- junit错误中断发布 -->
         <junit.testFailureIgnore>false</junit.testFailureIgnore>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -75,6 +75,28 @@
                 </plugins>
             </build>
         </profile>
+        <!-- Life Cycle profile declear -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profile.active>dev</profile.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <profile>test</profile>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profile>prod</profile>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
@@ -106,6 +128,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -128,8 +160,6 @@
 
 
     <build>
-
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -148,11 +178,9 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
-
                     </execution>
                 </executions>
             </plugin>
-
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -166,6 +194,17 @@
                     <skip>${junit.skipTests}</skip>
                     <testFailureIgnore>${junit.testFailureIgnore}</testFailureIgnore>
                     <argLine>${surefireArgLine}</argLine>
+
+                    <systemProperties>
+                        <property>
+                            <name>server.port</name>
+                            <value>3001</value>
+                        </property>
+                        <property>
+                            <name>spring.profiles.active</name>
+                            <value>${profile.active}</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
             </plugin>
 
@@ -271,28 +310,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>spring-snapshots</id>
-            <url>http://repo.spring.io/snapshot</url>
-            <snapshots><enabled>true</enabled></snapshots>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <url>http://repo.spring.io/milestone</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-snapshots</id>
-            <url>http://repo.spring.io/snapshot</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <url>http://repo.spring.io/milestone</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <distributionManagement>
         <repository>
