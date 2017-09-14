@@ -1,3 +1,5 @@
+package unit;
+
 import com.newland.financial.p2p.domain.entity.Interest;
 import com.newland.financial.p2p.domain.entity.Product;
 import org.junit.Before;

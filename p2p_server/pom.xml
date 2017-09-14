@@ -20,8 +20,6 @@
         <spring.boot.version>1.5.6.RELEASE</spring.boot.version>
         <junit.version>4.12</junit.version>
         <lo4j2.version>2.6.2</lo4j2.version>
-        <!-- surefire -->
-        <surefireArgLine></surefireArgLine>
         <!-- checkStyle控制台输出 -->
         <checkstyle.consoleOutput>false</checkstyle.consoleOutput>
         <!-- checkStyle错误中断发布 -->
@@ -128,16 +126,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -175,6 +163,7 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <phase>package</phase>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
@@ -191,7 +180,7 @@
                         <additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
                         <additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
                     </additionalClasspathElements>
-                    <skip>${junit.skipTests}</skip>
+                    <skip>true</skip>
                     <testFailureIgnore>${junit.testFailureIgnore}</testFailureIgnore>
                     <argLine>${surefireArgLine}</argLine>
 
@@ -206,6 +195,34 @@
                         </property>
                     </systemProperties>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>run-integration-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${junit.skipTests}</skip>
+                            <includes>
+                                <include>**/integration/**/*.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>run-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${junit.skipTests}</skip>
+                            <includes>
+                                <include>**/unit/**/*.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- 单元测试代码覆盖率 -->

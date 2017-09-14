@@ -1,9 +1,8 @@
-Server:
-    serviceName: Test1
-    address: 127.0.0.1
+---
 management:
     security:
         enabled: false
+...
 
 ---
 spring:

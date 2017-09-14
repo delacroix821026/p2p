@@ -5,7 +5,7 @@
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://localhost:1111/eureka/
+            defaultZone: http://peer1:1111/eureka/,http://peer2:1112/eureka/,http://peer3:1113/eureka/
 ...
 
 ---
@@ -14,13 +14,13 @@ spring:
         name: p2p-client
     cloud:
         config:
-            profile: {profile}
+            #profile: ${profile}
             label: master
             #uri: http://localhost:2001/
             discovery:
                 enabled: true
                 serviceId: P2P-CONFIG-SERVER
-                #profile: {profile}
+                #profile: {profile.active}
                 #label: master
 
 ...

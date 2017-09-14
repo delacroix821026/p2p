@@ -1,31 +1,63 @@
 ---
+spring:
+  profiles: server1
 server:
     port: 1111
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
+    instance:
+        #preferIpAddress: true
+        hostname: eurekaserver1
 ...
 
 ---
-management:
-    security:
-        enabled: false
+spring:
+  profiles: server2
+server:
+    port: 1112
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver3:1113/eureka/
+    instance:
+        #preferIpAddress: true
+        hostname: eurekaserver2
+...
+
+---
+spring:
+  profiles: server3
+server:
+    port: 1113
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/
+    instance:
+        #preferIpAddress: true
+        hostname: eurekaserver3
+...
+
+---
+spring:
+    application:
+        name: p2p-eureka-server
+
 ...
 
 ---
 eureka:
-    client:
-        register-with-eureka: false
-        fetch-registry: false
-        serviceUrl:
-            defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-    instance:
-        hostname: localhost
-        statusPageUrl: https://${eureka.instance.hostname}/info
-        healthCheckUrl: https://${eureka.instance.hostname}/health
-        homePageUrl: https://${eureka.instance.hostname}/
     server:
         #enable-self-preservation: false
         eviction-interval-timer-in-ms: 4000
     healthcheck:
         enabled: true
-
+    client:
+        register-with-eureka: false
+        fetch-registry: false
 ...
+
+
 
