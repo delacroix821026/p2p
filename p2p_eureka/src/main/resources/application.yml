@@ -43,21 +43,42 @@ eureka:
 ---
 spring:
     application:
-        name: p2p-eureka-server
-
+        name: "@project.name@"
 ...
 
 ---
 eureka:
+    instance:
+        metadata-map:
+            securit:
+                user:
+                    name: ${security.user.name}
+                    password: ${security.user.password}
+            management:
+                context-path: ${management.context-path}
+        statusPageUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/info
+        healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
     server:
         #enable-self-preservation: false
         eviction-interval-timer-in-ms: 4000
     healthcheck:
         enabled: true
     client:
-        register-with-eureka: false
+        register-with-eureka: true
         fetch-registry: false
 ...
 
-
-
+---
+management:
+    security:
+        enabled: true
+        roles: SUPERUSER
+    context-path: /manage
+security:
+    user:
+        name: admin
+        password: 123456
+    basic:
+        enabled: true
+        path: ${management.context-path}
+...

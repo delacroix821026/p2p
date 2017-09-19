@@ -8,6 +8,7 @@
     <artifactId>p2p_server</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
+    <name>p2p-server</name>
 
     <modules>
         <module>controller</module>
@@ -25,7 +26,7 @@
         <!-- checkStyle错误中断发布 -->
         <checkstyle.failOnViolation>true</checkstyle.failOnViolation>
         <!-- checkStyle跳过检验 -->
-        <checkstyle.skip>false</checkstyle.skip>
+        <checkstyle.skip>true</checkstyle.skip>
         <!-- junit跳过测试 -->
         <junit.skipTests>false</junit.skipTests>
         <!-- junit错误中断发布 -->
@@ -148,11 +149,27 @@
 
 
     <build>
+        <finalName>p2p_server-${project.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>1.5.6.RELEASE</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>repackage</goal>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration> <!--指定该Main Class为全局的唯一入口-->
                     <mainClass>com.newland.financial.p2p.Application</mainClass>
                     <layout>ZIP</layout>
@@ -161,14 +178,6 @@
                     <excludeArtifactIds>p2p_server_domain, p2p_server_dao， p2p_server_service</excludeArtifactIds>
                     -->
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>

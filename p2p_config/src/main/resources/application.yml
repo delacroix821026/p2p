@@ -1,10 +1,4 @@
 ---
-management:
-    security:
-        enabled: false
-...
-
----
 spring:
     rabbitmq:
         host: localhost
@@ -34,18 +28,41 @@ spring:
                             profiles: prod
                             label: branch
     application:
-        name: p2p-config-server
+        name: "@project.name@"
 ...
 
 ---
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://localhost:1111/eureka/
+            defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
         healthcheck:
             enabled: false
     instance:
         lease-expiration-duration-in-seconds: 40
         lease-renewal-interval-in-seconds: 20
+        metadata-map:
+            securit:
+                user:
+                    name: ${security.user.name}
+                    password: ${security.user.password}
+            management:
+                context-path: ${management.context-path}
+        statusPageUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/info
+        healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
 ...
 
+---
+management:
+    security:
+        enabled: true
+        roles: SUPERUSER
+    context-path: /manage
+security:
+    user:
+        name: admin
+        password: 123456
+    basic:
+        enabled: true
+        path: ${management.context-path}
+...
