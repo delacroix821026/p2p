@@ -1,15 +1,4 @@
 ---
-server:
-    port: 5001
-...
-
----
-management:
-    security:
-        enabled: false
-...
-
----
 spring:
     application:
         name: p2p-api-gateway
@@ -24,15 +13,22 @@ spring:
 
 ---
 zuul:
+    addProxyHeaders: true
     routes:
         p2p:
             path: /p2p/**
+            sensitiveHeaders: Cookie,Set-Cookie
             serviceId: p2p-client
+...
+
+---
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ...
 
 ---
 ribbon:
     restclient:
         enabled: true
+    ConnectTimeout: 3000
+    ReadTimeout: 60000
 ...
-
