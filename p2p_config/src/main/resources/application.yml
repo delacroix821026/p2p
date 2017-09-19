@@ -37,32 +37,33 @@ eureka:
         serviceUrl:
             defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
         healthcheck:
-            enabled: false
+            enabled: true
     instance:
         lease-expiration-duration-in-seconds: 40
         lease-renewal-interval-in-seconds: 20
         metadata-map:
-            securit:
-                user:
-                    name: ${security.user.name}
-                    password: ${security.user.password}
-            management:
-                context-path: ${management.context-path}
+            user.name: ${security.user.name}
+            user.password: ${security.user.password}
+            management.context-path: ${management.context-path}
+        metadataMap:
+            user: ${security.user.name}
+            password: ${security.user.password}
         statusPageUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/info
         healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
+        secure-health-check-url: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
 ...
 
 ---
 management:
-    security:
-        enabled: true
-        roles: SUPERUSER
+    #security:
+        #enabled: true
+        #roles: SUPERUSER
     context-path: /manage
 security:
     user:
         name: admin
         password: 123456
-    basic:
-        enabled: true
-        path: ${management.context-path}
+    #basic:
+        #enabled: true
+        #path: ${management.context-path}
 ...

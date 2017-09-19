@@ -25,23 +25,33 @@ spring:
 ...
 
 ---
-server:
-    port: 6001
-...
-
----
-management:
-    security:
-        enabled: false
-...
-
----
 eureka:
     instance:
-        hostname: bootadmin
+        metadata-map:
+            user.name: ${security.user.name}
+            user.password: ${security.user.password}
+            management.context-path: ${management.context-path}
+        statusPageUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/info
+        healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
+        secure-health-check-url: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
         leaseRenewalIntervalInSeconds: 10
     client:
         registryFetchIntervalSeconds: 5
         serviceUrl:
             defaultZone: ${EUREKA_SERVICE_URL:http://localhost:1111}/eureka/
+...
+
+---
+management:
+    #security:
+        #enabled: true
+        #roles: SUPERUSER
+    context-path: /manage
+security:
+    user:
+        name: admin
+        password: 123456
+    #basic:
+        #enabled: true
+        #path: ${management.context-path}
 ...

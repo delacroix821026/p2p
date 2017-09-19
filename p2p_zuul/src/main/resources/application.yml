@@ -30,3 +30,9 @@ zuul:
             serviceId: p2p-client
 ...
 
+---
+ribbon:
+    restclient:
+        enabled: true
+...
+

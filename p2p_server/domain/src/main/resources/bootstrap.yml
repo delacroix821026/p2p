@@ -1,8 +1,15 @@
 # spring-boot:run -Drun.arguments=--server.port=3001,--spring.profiles.active=test
 # java -jar target/xxx.jar --server.port=9090 --server.context-path=/test
-
 ---
 eureka:
+    instance:
+        metadata-map:
+            user.name: ${security.user.name}
+            user.password: ${security.user.password}
+            management.context-path: ${management.context-path}
+        statusPageUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/info
+        healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
+        secure-health-check-url: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
     client:
         serviceUrl:
             defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
@@ -23,4 +30,13 @@ spring:
                 #profile: {profile.active}
                 #label: master
 #spring.cloud.config.failFast=true spring-retry spring-boot-starter-aop spring.cloud.config.retry.*
+...
+
+---
+management:
+    context-path: /manage
+security:
+    user:
+        name: admin
+        password: 123456
 ...

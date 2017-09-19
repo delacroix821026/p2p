@@ -3,9 +3,17 @@
 
 ---
 eureka:
+    instance:
+        metadata-map:
+            user.name: ${security.user.name}
+            user.password: ${security.user.password}
+            management.context-path: ${management.context-path}
+        statusPageUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/info
+        healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
+        secure-health-check-url: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
     client:
         serviceUrl:
-            defaultZone: http://peer1:1111/eureka/,http://peer2:1112/eureka/,http://peer3:1113/eureka/
+            defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
 ...
 
 ---
@@ -22,9 +30,15 @@ spring:
                 serviceId: P2P-CONFIG-SERVER
                 #profile: {profile.active}
                 #label: master
-
 ...
 
-
+---
+management:
+    context-path: /manage
+security:
+    user:
+        name: admin
+        password: 123456
+...
 
 
