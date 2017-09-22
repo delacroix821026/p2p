@@ -32,7 +32,7 @@
         <include refid="Base_Column_List" />
         from T_CMM_CITY
         where 1=1
-        <if test="provNm != null and  provNm != ''" >
+        <if Test="provNm != null and  provNm != ''" >
             and PROV_NM = #{provNm}
         </if>
     </select>

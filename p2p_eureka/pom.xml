@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <docker.image.prefix>p2p</docker.image.prefix>
     </properties>
 
     <dependencyManagement>
@@ -71,12 +72,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-
     </dependencies>
 
 
     <build>
-        <finalName>p2p_eureka-${project.version}</finalName>
+        <finalName>p2p-eureka-server</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -97,6 +97,34 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>delacroix821026/firstdemo:${project.build.finalName}</imageName>
+                    <baseImage>daocloud.io/library/java:latest</baseImage>
+
+                    <volumes><volume>/tmp</volume></volumes>
+
+                    <entryPoint>[ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /${project.build.finalName}.jar" ]</entryPoint>
+                    <!--<dockerDirectory>docker</dockerDirectory>-->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <forceTags>true</forceTags>
+                   <!-- <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>-->
+                    <serverId>p2p-docker-hub</serverId>
+                    <registryUrl>https://index.docker.io/v1/</registryUrl>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -105,12 +133,12 @@
         <repository>
             <id>nexus</id>
             <name>Releases</name>
-            <url>http://localhost:8081/repository/p2p_maven_release</url>
+            <url>http://192.168.10.38:8081/repository/p2p_maven_release</url>
         </repository>
         <snapshotRepository>
             <id>nexus</id>
             <name>Snapshot</name>
-            <url>http://localhost:8081/repository/p2p_maven_snapshot</url>
+            <url>http://192.168.10.38:8081/repository/p2p_maven_snapshot</url>
         </snapshotRepository>
     </distributionManagement>
 </project>

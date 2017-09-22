@@ -10,6 +10,8 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @EnableDiscoveryClient
 public class Application {
     public static void main(String[] args) {
+        System.out.println("--------------GOOGLE_APPLICATION_CREDENTIALS------------"
+                + System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
         new SpringApplicationBuilder(Application.class).web(true).run(args);
     }
 }

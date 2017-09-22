@@ -51,7 +51,7 @@
     <update id="getBackData" parameterType="Map">/*测试所用*/
         UPDATE LENDER SET CURRENT_LMT = 100000
         <where>
-            <if test="userId != null and userId != ''">
+            <if Test="userId != null and userId != ''">
                 and USER_ID = #{userId}
             </if>
         </where>

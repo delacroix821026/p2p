@@ -28,7 +28,7 @@
         <include refid="Base_Column_List" />
         from T_INTEREST
         where 1=1
-        <if test="iProId != null and iProId != ''" >
+        <if Test="iProId != null and iProId != ''" >
             and I_PRO_ID = #{iProId}
         </if>
     </select>

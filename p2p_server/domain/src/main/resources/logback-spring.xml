@@ -14,7 +14,7 @@
         <!--<File>/Users/yuan/log/dubboserver/dubboserver.log</File>-->
         <!--&lt;!&ndash;<File>/usr/local/logs/dubboserver/dubboserver.log</File>&ndash;&gt;-->
         <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
-            <!--<FileNamePattern>/home/test-%d{yyyy-MM-dd}.log-->
+            <!--<FileNamePattern>/home/Test-%d{yyyy-MM-dd}.log-->
             <!--</FileNamePattern>-->
             <!--<MaxHistory>10</MaxHistory>-->
             <!--<TimeBasedFileNamingAndTriggeringPolicy-->
