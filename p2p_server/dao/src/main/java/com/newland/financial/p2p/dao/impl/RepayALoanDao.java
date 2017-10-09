@@ -29,7 +29,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param repayALoan RepayALoan还款单对象
      * @return boolean插入成功返回true,失败false
      * */
-    public boolean insertRepayAloan(final RepayALoan repayALoan) {
+    public boolean insertRepayAloan(RepayALoan repayALoan) {
         return super.insertSelective(repayALoan);
     }
 
@@ -38,7 +38,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param repayALoan RepayALoan还款单对象
      * @return boolean插入成功返回true,失败false
      * */
-    public boolean updateRepayAloan(final RepayALoan repayALoan) {
+    public boolean updateRepayAloan(RepayALoan repayALoan) {
         return super.updateByPrimaryKeySelective(repayALoan);
     }
 
@@ -47,7 +47,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param userId String用户Id
      * @return List返回该用户所有的还款单
      * */
-    public List<RepayALoan> findByUserId(final String userId) {
+    public List<RepayALoan> findByUserId(String userId) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
         /*List<RepayALoan> list = super.select("selectByPropertie",map);
@@ -62,7 +62,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param reId String还款单编号
      * @return RepayALoan返回相应编号的还款单信息
      * */
-    public RepayALoan findByReId(final String reId) {
+    public RepayALoan findByReId(String reId) {
         return super.selectByPrimaryKey(reId);
     }
 
@@ -71,7 +71,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param userId String用户id
      * @return BigDecimal返回用户还未还款的金额
      * */
-    public BigDecimal findUnPay(final String userId) {
+    public BigDecimal findUnPay(String userId) {
         Calendar calendar = Calendar.getInstance(); // 获取Calendar
         calendar.set(Calendar.DATE,
                 calendar.getActualMaximum(Calendar.DATE)); // 设置日期为本月最大日期
@@ -84,7 +84,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param userId String用户id
      * @return BigDecimal返回用户已还款总额
      * */
-    public BigDecimal findYetPay(final String userId) {
+    public BigDecimal findYetPay(String userId) {
         return findUnPay(userId, 1, null);
     }
 
@@ -93,7 +93,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param userId String用户id
      * @return BigDecimal返回未还款总额
      * */
-    public BigDecimal findNeedPay(final String userId) {
+    public BigDecimal findNeedPay(String userId) {
         return findUnPay(userId, 0, null);
     }
 
@@ -102,7 +102,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param id String还款单编号
      * @return boolean删除成功返回true,失败false
      * */
-    public boolean deleteRepayAloan(final String id) {
+    public boolean deleteRepayAloan(String id) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", id);
         return super.deletes("deleteByPropertie", map);
@@ -112,7 +112,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param userId String还款单编号
      * @return boolean更新成功返回true,失败false
      * */
-    public boolean updateStatus(final String userId) {
+    public boolean updateStatus(String userId) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
         return super.update("updateStatus", map);
@@ -124,8 +124,8 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param date Date
      * @return BigDecimal
      * */
-    private BigDecimal findUnPay(final String userId, final Integer status,
-                                 final Date date) {
+    private BigDecimal findUnPay(String userId, Integer status,
+                                 Date date) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
         map.put("payDate", date);
