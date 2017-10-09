@@ -17,7 +17,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param product Product产品对象
      * @return  boolean插入成功返回true,失败false
      * */
-    public boolean insertProduct(final Product product) {
+    public boolean insertProduct(Product product) {
         return super.insertSelective(product);
     }
 
@@ -26,7 +26,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param proId String产品编号
      * @return  boolean删除成功返回true,失败false
      * */
-    public boolean deleteProduct(final String proId) {
+    public boolean deleteProduct(String proId) {
         return super.deleteByPrimaryKey(proId);
     }
 
@@ -35,7 +35,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param product Product产品对象
      * @return  boolean更新成功返回true,失败false
      * */
-    public boolean updateProduct(final Product product) {
+    public boolean updateProduct(Product product) {
         return super.updateByPrimaryKeySelective(product);
     }
 
@@ -44,7 +44,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param proId String产品编号
      * @return  Product返回对应编号的产品信息对象
      * */
-    public Product findById(final String proId) {
+    public Product findById(String proId) {
         return super.selectByPrimaryKey(proId);
     }
     /**
