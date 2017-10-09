@@ -54,9 +54,9 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param interestId String利率编号
      * @throws OverloadException 贷款金额超出额度限制
      */
-    public void createDebitAndCredit(final String userId,
-            final String productId, final BigDecimal money,
-            final String interestId) throws OverloadException {
+    public void createDebitAndCredit(String userId,
+            String productId, BigDecimal money,
+            String interestId) throws OverloadException {
         Lender lender = lenderDao.findById(userId);
         AbstractProduct product = productDao.findById(productId);
         product.setInterestList(interestDao.findByProId((productId)));
@@ -87,7 +87,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param userId String用户编号
      * @return List返回该用户所有的贷款信息
      */
-    public List<DebitAndCredit> findDebitAndCreditHistory(final String userId) {
+    public List<DebitAndCredit> findDebitAndCreditHistory(String userId) {
         return debitAndCreditDao.findByUserId(userId);
     }
 
@@ -96,7 +96,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param lender Lender对象
      * @return  boolean成功返回true,失败false
      * */
-    public boolean insertLender(final Lender lender) {
+    public boolean insertLender(Lender lender) {
         return lenderDao.insertLender(lender);
     }
     /**
@@ -104,7 +104,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param interest Interest对象
      * @return  boolean成功返回true,失败false
      * */
-    public boolean insertInterest(final Interest interest) {
+    public boolean insertInterest(Interest interest) {
         return interestDao.insertInterest(interest);
     }
     /**
@@ -112,7 +112,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param product Product对象
      * @return  boolean成功返回true,失败false
      * */
-    public boolean insertProduct(final Product product) {
+    public boolean insertProduct(Product product) {
         return productDao.insertProduct(product);
     }
     /**
@@ -120,7 +120,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param userId String用户编号
      * @return  boolean成功返回true,失败false
      * */
-    public boolean deleteLender(final String userId) {
+    public boolean deleteLender(String userId) {
         return lenderDao.deleteLender(userId);
     }
     /**
@@ -128,7 +128,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param ittId String利率编号
      * @return  boolean成功返回true,失败false
      * */
-    public boolean deleteInterest(final String ittId) {
+    public boolean deleteInterest(String ittId) {
         return interestDao.deleteInterest(ittId);
     }
     /**
@@ -136,7 +136,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param proId String产品编号
      * @return  boolean成功返回true,失败false
      * */
-    public boolean deleteProduct(final String proId) {
+    public boolean deleteProduct(String proId) {
         return productDao.deleteProduct(proId);
     }
     /**
@@ -144,7 +144,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param userId String用户编号
      * @return  boolean成功返回true,失败false
      * */
-    public boolean deleteRepayALoan(final String userId) {
+    public boolean deleteRepayALoan(String userId) {
         return repayALoanDao.deleteRepayAloan(userId);
     }
     /**
@@ -152,7 +152,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param userId String用户编号
      * @return  boolean成功返回true,失败false
      * */
-    public boolean deleteDebitAndCredit(final String userId) {
+    public boolean deleteDebitAndCredit(String userId) {
         return debitAndCreditDao.deleteDebitAndCredit(userId);
     }
 }
