@@ -11,13 +11,7 @@ import java.util.Calendar;
  * 创建还款单的工厂.
  * @author cendaijuan
  * */
-public final class RepayALoanFactory {
-    /**
-     * 无参构造.
-     * */
-    private RepayALoanFactory() {
-
-    }
+public class RepayALoanFactory {
     /**
      * 根据传进的参数进行还款单创建.
      * @param product IProduct 产品实体
@@ -27,9 +21,9 @@ public final class RepayALoanFactory {
      * @param debitId String 贷款单编号
      * @return List 按照分期数返回相应size的一个还款单List集合
      * */
-    public static List<RepayALoan> createRepayAloan(final IProduct product,
-        final IPositionExchange lender, final BigDecimal money,
-         final String interestId, final String debitId) {
+    public static List<RepayALoan> createRepayAloan(IProduct product,
+        IPositionExchange lender, BigDecimal money,
+         String interestId, String debitId) {
         List<RepayALoan> repayALoanList = new ArrayList<RepayALoan>();
         //按分期数遍历生成相应期数的还款单
         for (int count = 0;
