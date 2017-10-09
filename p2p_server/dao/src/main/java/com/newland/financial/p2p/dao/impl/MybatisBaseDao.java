@@ -46,7 +46,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      */
     @Resource
     public void setSqlSessionFactory(
-            final SqlSessionFactory sqlSessionFactory) {
+            SqlSessionFactory sqlSessionFactory) {
         super.setSqlSessionFactory(sqlSessionFactory);
     }
 
@@ -70,7 +70,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean insertSelective(final T entity)
+    protected boolean insertSelective(T entity)
             throws DataAccessException {
         return insert("insertSelective", entity);
     }
@@ -80,7 +80,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean deleteByPrimaryKey(final Long pk)
+    protected boolean deleteByPrimaryKey(Long pk)
             throws DataAccessException {
         boolean flag = false;
         try {
@@ -100,7 +100,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return 返回搜索结果.
      * @throws DataAccessException has a error
      */
-    protected T selectByPrimaryKey(final Long pk) throws DataAccessException {
+    protected T selectByPrimaryKey(Long pk) throws DataAccessException {
         T result = null;
         try {
             result = (T) this.getSqlSession().selectOne(
@@ -116,7 +116,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return 返回搜索结果.
      * @throws DataAccessException has a error
      */
-    protected T selectByPrimaryKey(final String pk) throws DataAccessException {
+    protected T selectByPrimaryKey(String pk) throws DataAccessException {
         T result = null;
         try {
             result = (T) this.getSqlSession().selectOne(
@@ -132,7 +132,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return List
      * @throws DataAccessException has a error
      */
-    protected List<T> selectByEntity(final T entity)
+    protected List<T> selectByEntity(T entity)
             throws DataAccessException {
 
         return select("selectByEntity", entity);
@@ -146,8 +146,8 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return PageInfo
      * @throws Exception has a error
      */
-    protected PageInfo selectByEntityAndPage(final String listId,
-         final Object params, final int offset, final int limit)
+    protected PageInfo selectByEntityAndPage(String listId,
+         Object params, int offset, int limit)
             throws Exception {
         return selectByPage(listId, params, offset, limit);
     }
@@ -159,8 +159,8 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return PageModel
      * @throws Exception has a error
      */
-    protected PageModel selectByEntityAndPage(final String listId,
-         final Object params, final PageModel pageModel) throws Exception {
+    protected PageModel selectByEntityAndPage(String listId,
+         Object params, PageModel pageModel) throws Exception {
         PageInfo pageInfo = selectByPage(listId, params,
                 pageModel.getCurrentPage(), pageModel.getPageSize());
         pageModel.setTotalRecord(new Long(pageInfo.getTotal()).intValue());
@@ -176,8 +176,8 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return PageModel
      * @throws Exception has a error
      */
-    protected PageModel selectByEntityAndPage(final String listId,
-         final Map<String, String> params) throws Exception {
+    protected PageModel selectByEntityAndPage(String listId,
+         Map<String, String> params) throws Exception {
         String curPage = StringUtils.defaultIfEmpty((String) params.get(
                 Constants.PAGED_CURPAGE), "1"); // 当前页数
         String numPerPage = StringUtils.defaultIfEmpty((String) params.get(
@@ -195,8 +195,8 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return PageInfo
      * @throws Exception has a error
      */
-    protected PageInfo selectByPage(final String listId,
-         final Object params, final int offset, final int limit)
+    protected PageInfo selectByPage(String listId,
+         Object params, int offset, int limit)
             throws Exception {
         List<T> result = new ArrayList<T>();
         result = this.getSqlSession().selectList(getMapperNamespace() + "."
@@ -211,7 +211,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean delete(final String id, final T entity)
+    protected boolean delete(String id, T entity)
             throws DataAccessException {
         boolean flag = false;
         try {
@@ -230,7 +230,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return Long
      * @throws DataAccessException has a error
      */
-    protected Long getTotalCount(final String id, final Object params)
+    protected Long getTotalCount(String id, Object params)
             throws DataAccessException {
         return getSqlSession().selectOne(getMapperNamespace() + "." + id,
                 params);
@@ -258,7 +258,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean update(final String id, final T entity)
+    protected boolean update(String id, T entity)
             throws DataAccessException {
         boolean flag = false;
         try {
@@ -277,7 +277,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return List
      * @throws DataAccessException has a error
      */
-    protected List<T> select(final String id, final Object params)
+    protected List<T> select(String id, Object params)
             throws DataAccessException {
         List<T> result = new ArrayList<T>();
         try {
@@ -294,7 +294,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean updateByPrimaryKeySelective(final T entity)
+    protected boolean updateByPrimaryKeySelective(T entity)
             throws DataAccessException {
 
         return update("updateByPrimaryKeySelective", entity);
@@ -310,7 +310,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
     /**
      * @param entityCla Class
      */
-    protected void setEntityClass(final Class<T> entityCla) {
+    protected void setEntityClass(Class<T> entityCla) {
         this.entityClass = entityCla;
         setMapperNamespace(entityClass.getName().substring(
                 entityClass.getName().lastIndexOf(".") + 1));
@@ -326,7 +326,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
     /**
      * @param className String
      */
-    protected void setMapperNamespace(final String className) {
+    protected void setMapperNamespace(String className) {
         this.mapperNamespace = "com.newland.financial.p2p.mapping."
                 + className + "Mapper";
     }
@@ -336,7 +336,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean saveOrUpdate(final T entity)
+    protected boolean saveOrUpdate(T entity)
             throws DataAccessException {
         return saveOrUpdate("insertSelective", "updateByPrimaryKeySelective",
                 entity);
@@ -349,8 +349,8 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean saveOrUpdate(final String insertId,
-            final String updateId, final T entity)
+    protected boolean saveOrUpdate(String insertId,
+            String updateId, T entity)
             throws DataAccessException {
         BeanWrapper beanWrapper = new BeanWrapperImpl(entity);
         Long id = (Long) beanWrapper.getPropertyValue("id");
@@ -367,7 +367,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean insert(final String id, final T entity)
+    protected boolean insert(String id, T entity)
             throws DataAccessException {
         return insertObj(id, entity);
     }
@@ -390,7 +390,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean insertObj(final String id, final Object params)
+    protected boolean insertObj(String id, Object params)
             throws DataAccessException {
         boolean flag = false;
         try {
@@ -409,7 +409,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return T
      * @throws DataAccessException has a error
      */
-    protected T selectEntity(final String id, final Object params)
+    protected T selectEntity(String id, Object params)
             throws DataAccessException {
         List<T> list = select(id, params);
         if (list != null && list.size() > 0) {
@@ -424,7 +424,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return List
      * @throws DataAccessException has a error
      */
-    protected List selects(final String id, final Object params)
+    protected List selects(String id, Object params)
             throws DataAccessException {
         List result = new ArrayList();
         try {
@@ -442,7 +442,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean deletes(final String id, final Object object)
+    protected boolean deletes(String id, Object object)
             throws DataAccessException {
         boolean flag = false;
         try {
@@ -460,7 +460,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @param object Object
      * @return Object
      */
-    protected Object getObject(final String id, final Object object) {
+    protected Object getObject(String id, Object object) {
         // TODO Auto-generated method stub
         return this.getSqlSession().selectOne(
                 getMapperNamespace() + "." + id, object);
@@ -472,7 +472,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return List
      * @throws DataAccessException has a error
      */
-    public List<T> selectAll(final int curPage, final int pageNum)
+    public List<T> selectAll(int curPage, int pageNum)
             throws DataAccessException {
 
         List<T> result = new ArrayList<T>();
@@ -498,7 +498,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean deleteByPrimaryKey(final String pk)
+    protected boolean deleteByPrimaryKey(String pk)
             throws DataAccessException {
         boolean flag = false;
         try {
@@ -518,7 +518,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return List
      * @throws DataAccessException has a error
      */
-    protected List<T> select(final String id) throws DataAccessException {
+    protected List<T> select(String id) throws DataAccessException {
         List<T> result = new ArrayList<T>();
         try {
             result = this.getSqlSession().selectList(
@@ -537,7 +537,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @return boolean
      * @throws DataAccessException has a error
      */
-    protected boolean update(final String id, final Object object)
+    protected boolean update(String id, Object object)
             throws DataAccessException {
         boolean flag = false;
         try {
