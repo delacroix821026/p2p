@@ -33,7 +33,7 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
      *@param userId String用户编号
      * @return List返回该用户所有的还款单
      * */
-    public List<RepayALoan> getRepayALoanList(final String userId) {
+    public List<RepayALoan> getRepayALoanList(String userId) {
 
         return repayALoanDao.findByUserId(userId);
     }
@@ -43,7 +43,7 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
      * @param  repayId String还款单编号
      * @throws  AlreadyRepayException 如之前已还则抛出异常
      */
-    public void repay(final String repayId)  throws AlreadyRepayException {
+    public void repay(String repayId)  throws AlreadyRepayException {
         RepayALoan repayALoan = repayALoanDao.findByReId(repayId);
         Lender lender = lenderDao.findById(repayALoan.getReLndId());
         logger.info("service--lender----------:" + lender.toString());
@@ -61,7 +61,7 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
      * @param userId String用户编号
      * @return  BigDecimal返回本月应还款金额
      */
-    public BigDecimal getTotalMoney(final String userId) {
+    public BigDecimal getTotalMoney(String userId) {
         return repayALoanDao.findUnPay(userId);
     }
 
@@ -70,7 +70,7 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
      * @param userId String用户编号
      * @return  BigDecimal返回已还款金额
      */
-    public BigDecimal getTotalMoneyRepayed(final String userId) {
+    public BigDecimal getTotalMoneyRepayed(String userId) {
         return repayALoanDao.findYetPay(userId);
     }
 
@@ -79,7 +79,7 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
      * @param userId String用户编号
      * @return  BigDecimal返回未还款总额
      */
-    public BigDecimal getTotalMoneyNeedRepay(final String userId) {
+    public BigDecimal getTotalMoneyNeedRepay(String userId) {
         return repayALoanDao.findNeedPay(userId);
     }
     /**
@@ -87,7 +87,7 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
      * @param userId String用户编号
      * @return  DebitAndRepaySummary对象
      */
-    public DebitAndRepaySummary getDebitAndRepaySummary(final String userId) {
+    public DebitAndRepaySummary getDebitAndRepaySummary(String userId) {
         DebitAndRepaySummary debitAndRepaySummary = new DebitAndRepaySummary();
         debitAndRepaySummary.setRepayInMonth(getTotalMoney(userId)); //本月应还金额
         debitAndRepaySummary.setRepayed(getTotalMoneyRepayed(userId)); //已还金额
@@ -102,7 +102,7 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
      * @param userId String用户编号
      * @return boolean成功true,失败false
      * */
-    public boolean updateSta(final String userId) {
+    public boolean updateSta(String userId) {
         return repayALoanDao.updateStatus(userId);
     }
 
