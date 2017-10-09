@@ -65,7 +65,7 @@ public class ProductController {
     @ResponseBody
     @RequestMapping(value = "/GetProduct",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object getProduct(@RequestBody final String jsonStr) {
+    public Object getProduct(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String productId = paramJSON.getString("productId");
@@ -87,7 +87,7 @@ public class ProductController {
      * */
     @ResponseBody
     @RequestMapping(value = "/InsertProduct", method = {RequestMethod.POST, RequestMethod.GET})
-    public Object insertProduct(@RequestBody final String jsonStr) {
+    public Object insertProduct(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String proId = paramJSON.getString("productId");
