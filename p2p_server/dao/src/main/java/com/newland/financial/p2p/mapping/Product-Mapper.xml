@@ -10,10 +10,11 @@
         <result column="PRO_LMT" property="proLmt" jdbcType="NUMERIC"/>
         <result column="PAY_DATE" property="payDate" jdbcType="DATE"/>
         <result column="PRO_INTEREST" property="proInterest" jdbcType="NUMERIC"/>
+        <result column="PRO_NAME_OPERATOR" property="proNameOperator" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        PRO_ID,PRO_NAME,PRO_LMT,PAY_DATE,PRO_INTEREST
+        PRO_ID,PRO_NAME,PRO_LMT,PAY_DATE,PRO_INTEREST,PRO_NAME_OPERATOR
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -35,11 +36,11 @@
        <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="proId">
             SELECT PRO_ID_SEQ.Nextval as proId from dual
         </selectKey>-->
-        INSERT INTO T_PRODUCT (PRO_ID,PRO_NAME,PRO_LMT,PAY_DATE,PRO_INTEREST) VALUES (#{proId,jdbcType=VARCHAR},#{proName,jdbcType=VARCHAR},#{proLmt,jdbcType=NUMERIC},#{payDate,jdbcType=DATE},#{proInterest,jdbcType=NUMERIC})
+        INSERT INTO T_PRODUCT (<include refid="Base_Column_List" />) VALUES (#{proId,jdbcType=VARCHAR},#{proName,jdbcType=VARCHAR},#{proLmt,jdbcType=NUMERIC},#{payDate,jdbcType=DATE},#{proInterest,jdbcType=NUMERIC},#{proNameOperator,jdbcType=VARCHAR})
     </insert>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.newland.financial.p2p.domain.entity.Product">
-        UPDATE T_PRODUCT SET PRO_NAME = #{proName,jdbcType=VARCHAR},PRO_LMT = #{proLmt,jdbcType=NUMERIC},PAY_DATE = #{payDate,jdbcType=DATE},PRO_INTEREST = #{proInterest,jdbcType=NUMERIC} WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
+        UPDATE T_PRODUCT SET PRO_NAME = #{proName,jdbcType=VARCHAR},PRO_LMT = #{proLmt,jdbcType=NUMERIC},PAY_DATE = #{payDate,jdbcType=DATE},PRO_INTEREST = #{proInterest,jdbcType=NUMERIC},PRO_NAME_OPERATOR = #{proNameOperator,jdbcType=VARCHAR} WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
     </update>
 
 </mapper>

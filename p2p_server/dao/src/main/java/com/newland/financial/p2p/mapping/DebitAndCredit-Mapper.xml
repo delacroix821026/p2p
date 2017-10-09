@@ -43,7 +43,7 @@
         left join T_REPAYALOAN repay1
           on debit.DT_ID = repay1.DEBIT_ID AND  repay1.STATUS = 1
         <where>
-            <if Test="userId != null and userId != ''">
+            <if test="userId != null and userId != ''">
                 and D_LNR_ID = #{userId}
             </if>
         </where>
@@ -56,7 +56,7 @@
         SUM(repay0.TOTLE_MONEY) END AS UN_PAY from T_DEBITANDCREDIT debit left join T_REPAYALOAN repay0 on debit.DT_ID
         = repay0.DEBIT_ID AND repay0.STATUS = 0
         <where>
-            <if Test="userId != null and userId != ''">
+            <if test="userId != null and userId != ''">
                 and D_LNR_ID = #{userId}
             </if>
         </where>
@@ -83,7 +83,7 @@
     <delete id="deleteByProperties" parameterType="Map">
         DELETE FROM T_DEBITANDCREDIT
         <where>
-            <if Test="userId != null and userId != ''">
+            <if test="userId != null and userId != ''">
                 and D_LNR_ID = #{userId}
             </if>
         </where>

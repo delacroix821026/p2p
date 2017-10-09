@@ -4,6 +4,7 @@ import com.newland.financial.p2p.dao.IInterestDao;
 import com.newland.financial.p2p.dao.IProductDao;
 import com.newland.financial.p2p.domain.entity.AbstractProduct;
 import com.newland.financial.p2p.domain.entity.IProduct;
+import com.newland.financial.p2p.domain.entity.Product;
 import com.newland.financial.p2p.service.IProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,14 @@ public class ProductServiceImpl implements IProductService {
         product.setInterestList(interestDao.findByProId((id)));
 
         return product;
+    }
+    /**
+     * 插入新产品.
+     *@param product 产品实例
+     *@return boolean 返回布尔值
+     * */
+    public boolean insertProduct(Product product) {
+        return productDao.insertProduct(product);
     }
 
 }
