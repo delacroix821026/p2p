@@ -17,7 +17,7 @@ public class Lender extends BaseEntity implements IPositionExchange {
      * describtion:标记额度的改变.
      *@param number 传入所需贷款的额度
      * */
-    public void changePosition(final BigDecimal number) {
+    public void changePosition(BigDecimal number) {
         currentLmt = currentLmt.add(number);
     }
     /**
@@ -32,7 +32,7 @@ public class Lender extends BaseEntity implements IPositionExchange {
      *@param position  所需贷款金额
      *@throws OverloadException 超出当前剩余额度异常
      * */
-    public void canDebit(final BigDecimal position) throws OverloadException {
+    public void canDebit(BigDecimal position) throws OverloadException {
         if (position.compareTo(currentLmt) > 0) {
             throw new OverloadException("个人额度不足，还剩：" + this.currentLmt);
         }
