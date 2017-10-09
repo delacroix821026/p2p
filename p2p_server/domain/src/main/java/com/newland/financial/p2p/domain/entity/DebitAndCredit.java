@@ -20,7 +20,7 @@ public class DebitAndCredit extends BaseEntity {
      * 有参构造.
      *@param pe 传入Lender
      * */
-    public DebitAndCredit(final IPositionExchange pe) {
+    public DebitAndCredit(IPositionExchange pe) {
         this.positionExchange = pe;
     }
     /**
@@ -32,7 +32,7 @@ public class DebitAndCredit extends BaseEntity {
      * 根据所贷金额,来修改贷前贷后剩余的额度.
      * @param money 所需贷款金额
      */
-    public void debit(final BigDecimal money) {
+    public void debit(BigDecimal money) {
         dMoney = money; //贷款金额
         dBef = positionExchange.getPosition(); //记录贷款或还款前额度
         positionExchange.changePosition(
