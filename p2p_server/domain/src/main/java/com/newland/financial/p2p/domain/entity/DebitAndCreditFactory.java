@@ -1,4 +1,4 @@
-package com.newland.financial.p2p.domain.entity;
+    package com.newland.financial.p2p.domain.entity;
 
 import com.newland.financial.p2p.common.exception.OverloadException;
 
@@ -25,9 +25,9 @@ public final class DebitAndCreditFactory {
      * @return DebitAndCredit 返回生成的贷款单实体
      * @throws OverloadException 所贷金额超出额度限定
      */
-    public static DebitAndCredit createDebitAndCredit(final IProduct product,
-         final IPositionExchange lender,
-         final BigDecimal money, final String interestId)
+    public static DebitAndCredit createDebitAndCredit(IProduct product,
+         IPositionExchange lender,
+         BigDecimal money, String interestId)
           throws OverloadException {
         DebitAndCredit debitAndCredit = new DebitAndCredit(lender);
         debitAndCredit.setDtId(UUID.randomUUID().toString().replaceAll(
