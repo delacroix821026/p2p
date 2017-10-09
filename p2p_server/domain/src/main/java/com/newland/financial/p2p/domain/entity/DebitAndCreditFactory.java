@@ -1,4 +1,4 @@
-    package com.newland.financial.p2p.domain.entity;
+package com.newland.financial.p2p.domain.entity;
 
 import com.newland.financial.p2p.common.exception.OverloadException;
 
@@ -11,10 +11,7 @@ import java.util.UUID;
  * 生成贷款单的工厂类.
  * @author cendaijuan
  */
-public final class DebitAndCreditFactory {
-    /**默认构造.*/
-    private DebitAndCreditFactory() {
-    }
+public class DebitAndCreditFactory {
 
     /**
      * 用以创建贷款单.
