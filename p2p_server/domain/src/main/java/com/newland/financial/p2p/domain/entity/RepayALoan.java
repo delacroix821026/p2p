@@ -22,7 +22,7 @@ public class RepayALoan extends BaseEntity {
     /**
      * @param pe IPositionExchange的实现类Lender
      * */
-    public RepayALoan(final IPositionExchange pe) {
+    public RepayALoan(IPositionExchange pe) {
         this.positionExchange = pe;
     }
     /**IPositionExchange的实现类Lender.*/
