@@ -31,7 +31,7 @@ public class LenderServiceImpl implements ILenderService {
      * @param userId String用户编号
      * @return Lender返回用户信息.
      * */
-    public Lender getLender(final String userId) {
+    public Lender getLender(String userId) {
         logger.info("LenderService:lenderId(userId)--:" + userId);
         return lenderDao.findById(userId);
     }
@@ -39,7 +39,7 @@ public class LenderServiceImpl implements ILenderService {
      * 清楚用户数据,目前禁止使用.
      *@param userId String用户编号
      * */
-    public void clear(final String userId) {
+    public void clear(String userId) {
         logger.info("LenderService:clear(userId)--:" + userId);
         debitAndCreditDao.deleteDebitAndCredit(userId);
         repayALoanDao.deleteRepayAloan(userId);
