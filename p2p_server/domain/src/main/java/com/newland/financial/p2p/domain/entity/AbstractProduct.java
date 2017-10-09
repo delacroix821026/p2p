@@ -71,7 +71,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      * */
     private String proId;
     /**
-     *产品名称.
+     *管理员所看到的产品名称.
      * */
     private String proName;
     /**
@@ -90,4 +90,8 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      * 利率信息.
      * */
     private List<Interest> interestList;
+    /**
+     *操作员所看到的产品名称.
+     */
+    private String proNameOperator;
 }

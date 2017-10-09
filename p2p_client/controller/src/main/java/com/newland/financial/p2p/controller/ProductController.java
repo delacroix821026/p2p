@@ -1,12 +1,30 @@
 package com.newland.financial.p2p.controller;
 
-import org.springframework.stereotype.Controller;
+import com.newland.financial.p2p.service.IProductService;
+import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author cendaijuan
  * */
-@Controller
-@RequestMapping("/ProductController")
+@RestController
+@Log
+@RequestMapping("/product")
 public class ProductController {
+    @Autowired
+    IProductService productService;
+
+    @RequestMapping(value = "/GetProductList", method = RequestMethod.POST)
+    public Object getProductList(){
+        return productService.getProductList();
+    }
+
+    @RequestMapping(value = "/GetProduct", method = RequestMethod.POST)
+    public Object getProduct(@RequestBody final String jsonStr){
+        return productService.getProduct(jsonStr);
+    }
 }

@@ -1,6 +1,7 @@
 package com.newland.financial.p2p.service;
 
 import com.newland.financial.p2p.domain.entity.IProduct;
+import com.newland.financial.p2p.domain.entity.Product;
 
 import java.util.List;
 /**
@@ -19,4 +20,10 @@ public interface IProductService {
      *@return IProduct返回指定的产品
      * */
     IProduct getProduct(String id);
+    /**
+     * 插入新产品.
+     * @param product 产品实例
+     * @return boolean 返回布尔值
+     * */
+    boolean insertProduct(Product product);
 }
