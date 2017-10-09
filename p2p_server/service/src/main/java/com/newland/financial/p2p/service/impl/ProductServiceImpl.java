@@ -38,7 +38,7 @@ public class ProductServiceImpl implements IProductService {
      *@param id String产品编号
      *@return IProduct返回指定的产品
      * */
-    public IProduct getProduct(final String id) {
+    public IProduct getProduct(String id) {
         AbstractProduct product = productDao.findById(id);
         logger.info("service--product-------:" + product);
         product.setInterestList(interestDao.findByProId((id)));
