@@ -19,7 +19,7 @@ public class LenderDao extends
     /**
      * 日志对象.
      * */
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 增加用户信息.
@@ -27,7 +27,7 @@ public class LenderDao extends
      * @param lender Lender用户对象
      * @return boolean插入成功返回true,失败false
      */
-    public boolean insertLender(final Lender lender) {
+    public boolean insertLender(Lender lender) {
         return super.insertSelective(lender);
     }
 
@@ -37,7 +37,7 @@ public class LenderDao extends
      * @param userId String用户编号
      * @return boolean删除成功返回true,失败false
      */
-    public boolean deleteLender(final String userId) {
+    public boolean deleteLender(String userId) {
         return super.deleteByPrimaryKey(userId);
     }
 
@@ -47,7 +47,7 @@ public class LenderDao extends
      * @param lender Lender用户对象
      * @return boolean修改成功返回true,失败false
      */
-    public boolean updateLender(final Lender lender) {
+    public boolean updateLender(Lender lender) {
         return super.updateByPrimaryKeySelective(lender);
     }
 
@@ -57,7 +57,7 @@ public class LenderDao extends
      * @param userId String用户编号
      * @return Lender根据用户编号,返回用户实体
      */
-    public Lender findById(final String userId) {
+    public Lender findById(String userId) {
         logger.info("LenderDao.userId--:" + userId);
         logger.info("查询结果:" + super.selectByPrimaryKey(userId).toString());
         return super.selectByPrimaryKey(userId);
@@ -69,7 +69,7 @@ public class LenderDao extends
      * @param userId String用户编号
      * @return boolean恢复成功返回true,失败false
      */
-    public boolean getBack(final String userId) {
+    public boolean getBack(String userId) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
         return super.update("getBackData", map);
