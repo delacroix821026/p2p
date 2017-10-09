@@ -54,7 +54,7 @@ public class LenderController {
     @ResponseBody
     @RequestMapping(value = "/GetLender",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object getLender(@RequestBody final String jsonStr) {
+    public Object getLender(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String lenderId = paramJSON.getString("lenderId");
@@ -74,7 +74,7 @@ public class LenderController {
     @ResponseBody
     @RequestMapping(value = "/Debit",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object debit(@RequestBody final String jsonStr)
+    public Object debit(@RequestBody String jsonStr)
             throws OverloadException {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
@@ -103,7 +103,7 @@ public class LenderController {
     @ResponseBody
     @RequestMapping(value = "/Repay",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object repay(@RequestBody final String jsonStr)
+    public Object repay(@RequestBody String jsonStr)
             throws AlreadyRepayException {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
@@ -135,7 +135,7 @@ public class LenderController {
     @ResponseBody
     @RequestMapping(value = "/FindAllDebit",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object findAllDebit(@RequestBody final String jsonStr) {
+    public Object findAllDebit(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
@@ -162,7 +162,7 @@ public class LenderController {
     @ResponseBody
     @RequestMapping(value = "/FindAllRepay",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object findAllRepay(@RequestBody final String jsonStr) {
+    public Object findAllRepay(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
@@ -180,7 +180,7 @@ public class LenderController {
     @ResponseBody
     @RequestMapping(value = "/FindTotalMoney",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object findTotalMoney(@RequestBody final String jsonStr) {
+    public Object findTotalMoney(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
@@ -203,7 +203,7 @@ public class LenderController {
     @ResponseBody
     @RequestMapping(value = "/getDebitAndRepaySummary",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object getDebitAndRepaySummary(@RequestBody final String jsonStr) {
+    public Object getDebitAndRepaySummary(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
@@ -234,7 +234,7 @@ public class LenderController {
     @ResponseBody
     @RequestMapping(value = "/UpdateStatus",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object clearData(@RequestBody final String jsonStr) {
+    public Object clearData(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
