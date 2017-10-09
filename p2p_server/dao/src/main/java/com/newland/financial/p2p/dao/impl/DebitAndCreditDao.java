@@ -34,7 +34,7 @@ public class DebitAndCreditDao extends
      * @param userId String用户编号
      * @return List返回该用户所有的贷款信息
      */
-    public final List<DebitAndCredit> findByUserId(final String userId) {
+    public List<DebitAndCredit> findByUserId(final String userId) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
         return super.select("selectByProperties", map);

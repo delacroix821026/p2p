@@ -80,7 +80,7 @@
 
 
     <build>
-        <finalName>p2p_zuul-${project.version}</finalName>
+        <finalName>p2p-zuul</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -100,6 +100,46 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--<imageName>delacroix821026/firstdemo:${project.build.finalName}</imageName>-->
+                    <imageName>192.168.10.38:8082/${project.build.finalName}</imageName>
+                    <baseImage>daocloud.io/library/java:latest</baseImage>
+
+                    <!--<cmd>docker login 192.168.10.38:8082 -u admin -p admin123%</cmd>-->
+                    <volumes><volume>/tmp</volume></volumes>
+
+                    <entryPoint>[ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /${project.build.finalName}.jar" ]</entryPoint>
+                    <!--<dockerDirectory>docker</dockerDirectory>-->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <forceTags>true</forceTags>
+                    <!-- <imageTags>
+                         <imageTag>${project.version}</imageTag>
+                         <imageTag>latest</imageTag>
+                     </imageTags>-->
+                    <serverId>p2p-docker-hub</serverId>
+                    <registryUrl>http://192.168.10.38:8082/v1/</registryUrl>
+                    <!--<registryUrl>https://index.docker.io/v1/</registryUrl>-->
+                </configuration>
             </plugin>
         </plugins>
     </build>

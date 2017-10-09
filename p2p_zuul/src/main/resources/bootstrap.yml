@@ -2,18 +2,32 @@
 # java -jar target/xxx.jar --server.port=9090 --server.context-path=/Test
 
 ---
+server:
+    port: ${SERVER_PORT:5001}
+...
+
+---
 eureka:
+    client:
+        serviceUrl:
+            defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
     instance:
+        #preferIpAddress: true
+        #ip-address: ${spring.cloud.client.ipAddress}
+        #instance-id: ${spring.cloud.client.ipAddress}-${server.port}
+        hostname: ${HOSTNAME}
+        lease-expiration-duration-in-seconds: 40
+        lease-renewal-interval-in-seconds: 20
         metadata-map:
             user.name: ${security.user.name}
             user.password: ${security.user.password}
             management.context-path: ${management.context-path}
-        statusPageUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/info
-        healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
-        secure-health-check-url: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
-    client:
-        serviceUrl:
-            defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
+        metadataMap:
+            user: ${security.user.name}
+            password: ${security.user.password}
+        statusPageUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/info
+        healthCheckUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/health
+        secure-health-check-url: http://${HOSTNAME}:${server.port}/${management.context-path}/health
 ...
 
 ---

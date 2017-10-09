@@ -10,8 +10,6 @@ eureka:
     client:
         serviceUrl:
             defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
-        healthcheck:
-            enabled: true
     instance:
         #preferIpAddress: true
         #ip-address: ${spring.cloud.client.ipAddress}
