@@ -1,8 +1,10 @@
 ---
 spring:
     rabbitmq:
-        host: localhost
+        host: 192.168.10.38
         port: 5672
+        username: user_admin
+        password: admin123%
     cloud:
         bus:
             trace:
@@ -35,7 +37,4 @@ spring:
         filters: mergeStat
 ...
 
----
-mybatis:
-    mapperLocations: classpath*:com/newland/financial/p2p/mapping/*-Mapper.xml
-...
+

@@ -49,13 +49,13 @@
         sum(TOTLE_MONEY)
         from T_REPAYALOAN
         <where>
-            <if Test="userId != null and userId != ''">
+            <if test="userId != null and userId != ''">
                 and RE_LND_ID = #{userId}
             </if>
-            <if Test="status != null">
+            <if test="status != null">
                 and STATUS = #{status}
             </if>
-            <if Test="payDate != null">
+            <if test="payDate != null">
                 and CREATE_DATE &lt;= #{payDate}
             </if>
             ORDER BY CREATE_DATE
@@ -68,7 +68,7 @@
         from T_REPAYALOAN
         <where>
                 and RE_LND_ID = #{userId}
-            <if Test="status != null">
+            <if test="status != null">
                 and STATUS = #{status}
             </if>
         </where>
@@ -95,7 +95,7 @@
     <delete id="deleteByPropertie" parameterType="Map">
         DELETE FROM T_REPAYALOAN
         <where>
-            <if Test="userId != null and userId != ''">
+            <if test="userId != null and userId != ''">
                 and RE_LND_ID = #{userId}
            </if>
         </where>
@@ -104,7 +104,7 @@
     <update id="updateStatus" parameterType="Map">
         UPDATE T_REPAYALOAN SET STATUS = 2
         <where>
-            <if Test="userId != null and userId != ''">
+            <if test="userId != null and userId != ''">
                 and RE_LND_ID = #{userId}
             </if>
         </where>

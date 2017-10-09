@@ -45,7 +45,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @param sqlSessionFactory SqlSessionFactory
      */
     @Resource
-    public final void setSqlSessionFactory(
+    public void setSqlSessionFactory(
             final SqlSessionFactory sqlSessionFactory) {
         super.setSqlSessionFactory(sqlSessionFactory);
     }

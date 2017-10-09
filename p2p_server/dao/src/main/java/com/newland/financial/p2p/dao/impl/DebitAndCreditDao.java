@@ -23,7 +23,7 @@ public class DebitAndCreditDao extends
      * @param debitAndCredit DebitAndCredit对象
      * @return boolean插入成功返回true,失败false
      */
-    public final boolean insertDebitAndCredit(
+    public boolean insertDebitAndCredit(
             final DebitAndCredit debitAndCredit) {
         return super.insertSelective(debitAndCredit);
     }
@@ -46,7 +46,7 @@ public class DebitAndCreditDao extends
      * @param userId String用户编号
      * @return boolean删除成功返回true,失败false
      */
-    public final boolean deleteDebitAndCredit(final String userId) {
+    public boolean deleteDebitAndCredit(final String userId) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
         return super.deletes("deleteByProperties", map);

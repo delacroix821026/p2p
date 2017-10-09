@@ -1,0 +1,45 @@
+version: '3'
+services:
+    p2peureka1:
+        image: 192.168.10.38:8082/p2p-eureka-server:latest
+        networks:
+            docker-net:
+                aliases:
+                   - eurekaserver
+                   - eurekaserver1
+        ports:
+            - "1111:1111"
+        environment:
+            - spring.profiles.active=server1
+            - ADDITIONAL_EUREKA_SERVER_LIST=http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
+
+    p2peureka2:
+        image: 192.168.10.38:8082/p2p-eureka-server:latest
+        networks:
+            docker-net:
+                aliases:
+                   - eurekaserver
+                   - eurekaserver2
+        ports:
+            - "1112:1111"
+        environment:
+            - spring.profiles.active=server2
+            - ADDITIONAL_EUREKA_SERVER_LIST=http://eurekaserver1:1111/eureka/,http://eurekaserver3:1113/eureka/
+
+    p2peureka3:
+        image: 192.168.10.38:8082/p2p-eureka-server:latest
+        networks:
+            docker-net:
+                aliases:
+                    - eurekaserver
+                    - eurekaserver3
+        ports:
+            - "1113:1111"
+        environment:
+            - spring.profiles.active=server3
+            - ADDITIONAL_EUREKA_SERVER_LIST=http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/
+
+networks:
+    docker-net:
+        external:
+            name: docker-net

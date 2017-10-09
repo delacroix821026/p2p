@@ -10,7 +10,7 @@ server:
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
+            defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
     instance:
         #preferIpAddress: true
         hostname: eurekaserver1
@@ -24,7 +24,7 @@ server:
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver3:1113/eureka/
+            defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver1:1111/eureka/,http://eurekaserver3:1113/eureka/}
     instance:
         #preferIpAddress: true
         hostname: eurekaserver2
@@ -38,7 +38,7 @@ server:
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/
+            defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/}
     instance:
         #preferIpAddress: true
         hostname: eurekaserver3
@@ -65,7 +65,7 @@ eureka:
         healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
         secure-health-check-url: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
     server:
-        #enable-self-preservation: false
+        enable-self-preservation: false
         eviction-interval-timer-in-ms: 4000
     healthcheck:
         enabled: true

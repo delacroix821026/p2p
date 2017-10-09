@@ -1,5 +1,20 @@
 ---
+server:
+    port: ${SERVER_PORT:6001}
+...
+
+---
+
 spring:
+    rabbitmq:
+        host: 192.168.10.38
+        port: 5672
+        username: user_admin
+        password: admin123%
+    cloud:
+        bus:
+            trace:
+                enabled: true
     application:
         name: "@project.artifactId@"
     boot:
@@ -22,23 +37,28 @@ spring:
                     starttls:
                         enable: true
                         required: true
+    profiles:
+        active: ${SPRING_PROFILES_ACTIVE:dev}
 ...
 
 ---
 eureka:
     instance:
+        preferIpAddress: true
+        ip-address: ${spring.cloud.client.ipAddress}
+        #hostname: ${EUREKA_INSTANCE_HOSTNAME:p2padmin}
         metadata-map:
             user.name: ${security.user.name}
             user.password: ${security.user.password}
             management.context-path: ${management.context-path}
-        statusPageUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/info
-        healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
-        secure-health-check-url: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
+        statusPageUrl: http://${eureka.instance.ip-address}:${server.port}/${management.context-path}/info
+        healthCheckUrl: http://${eureka.instance.ip-address}:${server.port}/${management.context-path}/health
+        secure-health-check-url: http://${eureka.instance.ip-address}:${server.port}/${management.context-path}/health
         leaseRenewalIntervalInSeconds: 10
     client:
         registryFetchIntervalSeconds: 5
         serviceUrl:
-            defaultZone: ${EUREKA_SERVICE_URL:http://localhost:1111}/eureka/
+            defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
 ...
 
 ---

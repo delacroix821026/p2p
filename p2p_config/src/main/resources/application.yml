@@ -1,10 +1,16 @@
+#--server.port=9090 --spring.profiles.active=dev,--eureka.instance.hostname=configserver2
+---
+server:
+    port: ${SERVER_PORT:2001}
+...
+
 ---
 spring:
     rabbitmq:
-        host: localhost
+        host: 192.168.10.38
         port: 5672
-        username: guest
-        password: guest
+        username: user_admin
+        password: admin123%
     cloud:
         bus:
             trace:
@@ -29,16 +35,22 @@ spring:
                             label: branch
     application:
         name: "@project.name@"
+    profiles:
+        active: ${SPRING_PROFILES_ACTIVE:dev}
 ...
 
 ---
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
+            defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
         healthcheck:
             enabled: true
     instance:
+        #preferIpAddress: true
+        #ip-address: ${spring.cloud.client.ipAddress}
+        #instance-id: ${spring.cloud.client.ipAddress}-${server.port}
+        hostname: ${HOSTNAME}
         lease-expiration-duration-in-seconds: 40
         lease-renewal-interval-in-seconds: 20
         metadata-map:
@@ -48,9 +60,9 @@ eureka:
         metadataMap:
             user: ${security.user.name}
             password: ${security.user.password}
-        statusPageUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/info
-        healthCheckUrl: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
-        secure-health-check-url: http://${eureka.instance.hostname}:${server.port}/${management.context-path}/health
+        statusPageUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/info
+        healthCheckUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/health
+        secure-health-check-url: http://${HOSTNAME}:${server.port}/${management.context-path}/health
 ...
 
 ---

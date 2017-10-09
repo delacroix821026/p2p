@@ -19,7 +19,7 @@ public class LenderDao extends
     /**
      * 日志对象.
      * */
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 增加用户信息.

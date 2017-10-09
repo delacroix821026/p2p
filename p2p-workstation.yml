@@ -1,0 +1,23 @@
+version: '3'
+services:
+    p2pserver:
+        image: 192.168.10.38:8082/p2p-server:latest
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+        networks:
+            docker-net:
+                aliases:
+                    - p2pconfig
+        ports:
+            - "3001:3001"
+        environment:
+            - SPRING_PROFILES_ACTIVE=dev
+            - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
+            - SERVER_PORT = 3001
+
+networks:
+    docker-net:
+        external:
+            name: docker-net
