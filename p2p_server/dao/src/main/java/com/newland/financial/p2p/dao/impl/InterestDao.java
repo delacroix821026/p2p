@@ -20,7 +20,7 @@ public class InterestDao extends MybatisBaseDao<Interest>
      * @param interest Interest对象
      * @return boolean插入成功返回true,失败false
      */
-    public boolean insertInterest(final Interest interest) {
+    public boolean insertInterest(Interest interest) {
         return super.insertSelective(interest);
     }
     /**
@@ -28,7 +28,7 @@ public class InterestDao extends MybatisBaseDao<Interest>
      * @param ittId String利率编号
      * @return boolean删除成功返回true,失败false
      */
-    public boolean deleteInterest(final String ittId) {
+    public boolean deleteInterest(String ittId) {
         return super.deleteByPrimaryKey(ittId);
     }
 
@@ -37,7 +37,7 @@ public class InterestDao extends MybatisBaseDao<Interest>
      * @param interest Interest对象
      * @return boolean修改成功返回true,失败false
      */
-    public boolean updateInterest(final Interest interest) {
+    public boolean updateInterest(Interest interest) {
         return super.updateByPrimaryKeySelective(interest);
     }
 
@@ -46,7 +46,7 @@ public class InterestDao extends MybatisBaseDao<Interest>
      * @param iProId String产品编号
      * @return List返回对应产品的所有利率信息
      */
-    public List<Interest> findByProId(final String iProId) {
+    public List<Interest> findByProId(String iProId) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("iProId", iProId);
         return super.select("selectByProperties", map);
