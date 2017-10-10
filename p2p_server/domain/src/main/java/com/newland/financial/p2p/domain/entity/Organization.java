@@ -8,11 +8,17 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class Organization {
+public class Organization extends BaseEntity{
     /**主键.*/
     private int id;
+    /**产品编号.*/
+    private String proId;
     /**机构号.*/
     private String organization;
-    /**产品编号.*/
-    private String productId;
+    /**机构名称.*/
+    private String orgaName;
+    /**机构的父级机构号.*/
+    private String parentId;
+    /**机构状态.*/
+    private String orgStus;
 }
