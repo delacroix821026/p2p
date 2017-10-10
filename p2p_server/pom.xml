@@ -188,7 +188,7 @@
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.0.0</version>
-                <executions>
+                <!--<executions>
                     <execution>
                         <id>push-image</id>
                         <phase>deploy</phase>
@@ -196,7 +196,7 @@
                             <goal>push</goal>
                         </goals>
                     </execution>
-                </executions>
+                </executions>-->
                 <configuration>
                     <!--<imageName>delacroix821026/firstdemo:${project.build.finalName}</imageName>-->
                     <imageName>192.168.10.38:8082/${project.build.finalName}</imageName>
