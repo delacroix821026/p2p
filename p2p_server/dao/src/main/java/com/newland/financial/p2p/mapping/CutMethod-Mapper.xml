@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.CutMethodMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.CutMethod">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="PROID" property="proId" jdbcType="VARCHAR"/>
+        <result column="CUT_MHD" property="cutMhd" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,PROID,CUT_MHD
+    </sql>
+
+    <select id="selectByProperty" resultMap="BaseResultMap" parameterType="Map">
+        select <include refid="Base_Column_List"/> from p2p_pro_cutmhd
+        <where>
+            <if test="proId != null and proId != ''">
+                and PROID = #{proId}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertSelective" parameterType="com.newland.financial.p2p.domain.entity.CutMethod">
+        INSERT INTO p2p_pro_cutmhd
+        (<include refid="Base_Column_List"/>) VALUES
+        (#{id,jdbcType=INTEGER},#{proId,jdbcType=VARCHAR},#{cutMhd,jdbcType=VARCHAR})
+    </insert>
+
+    <delete id="deleteByProperty" parameterType="Map">
+        DELETE FROM p2p_pro_cutmhd
+        <where>
+            <if test="proId != null and proId != ''">
+                and PROID = #{proId}
+            </if>
+        </where>
+    </delete>
+
+</mapper>

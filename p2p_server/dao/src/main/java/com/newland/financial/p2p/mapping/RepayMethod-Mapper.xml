@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.RepayMethodMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.RepayMethod">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="PROID" property="proId" jdbcType="VARCHAR"/>
+        <result column="REPAY_MHD" property="repayMhd" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,PROID,REPAY_MHD
+    </sql>
+
+    <select id="selectByProperty" resultMap="BaseResultMap" parameterType="Map">
+        select <include refid="Base_Column_List"/> from p2p_pro_repaymhd
+        <where>
+            <if test="proId != null and proId != ''">
+                and PROID = #{proId}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertEntiy" parameterType="Map">
+        INSERT INTO p2p_pro_repaymhd
+        (<include refid="Base_Column_List"/>) VALUES
+        (#{id,jdbcType=INTEGER},#{proId,jdbcType=VARCHAR},#{repayMhd,jdbcType=VARCHAR})
+    </insert>
+
+    <delete id="deleteByProperty" parameterType="Map">
+        DELETE FROM p2p_pro_repaymhd
+        <where>
+            <if test="proId != null and proId != ''">
+                and PROID = #{proId}
+            </if>
+        </where>
+    </delete>
+
+</mapper>
