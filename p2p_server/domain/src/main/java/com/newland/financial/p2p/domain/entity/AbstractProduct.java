@@ -85,9 +85,9 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     /**出资方产品名称.*/
     private String sprProName;
     /**创建时间.*/
-    private Date createTime;
+    private String createTime;
     /**最后操作时间.*/
-    private Date lastModiTime;
+    private String lastModiTime;
     /**最大贷款额.*/
     private BigDecimal maxLmt;
     /**角色：1管理员，2操作员，0全部.*/

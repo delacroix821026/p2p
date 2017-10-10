@@ -13,8 +13,8 @@
         <result column="PRO_NAME_OPERATOR" property="proNameOperator" jdbcType="VARCHAR"/>
         <result column="SPONSOR" property="sponsor" jdbcType="VARCHAR"/>
         <result column="SPR_PRO_NAME" property="sprProName" jdbcType="VARCHAR"/>
-        <result column="CREATE_TIME" property="createTime" jdbcType="DATE"/>
-        <result column="LAST_MODI_TIME" property="lastModiTime" jdbcType="DATE"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR"/>
+        <result column="LAST_MODI_TIME" property="lastModiTime" jdbcType="VARCHAR"/>
         <result column="MAX_LMT" property="maxLmt" jdbcType="NUMERIC"/>
         <result column="ROLE" property="role" jdbcType="VARCHAR"/>
         <result column="PUTANDDOWN" property="putAndDown" jdbcType="VARCHAR"/>
@@ -48,7 +48,7 @@
          </selectKey>-->
         INSERT INTO T_PRODUCT (<include refid="Base_Column_List"/>) VALUES
         (#{proId,jdbcType=VARCHAR},#{proName,jdbcType=VARCHAR},#{proLmt,jdbcType=NUMERIC},#{payDate,jdbcType=DATE},#{proInterest,jdbcType=NUMERIC},#{proNameOperator,jdbcType=VARCHAR},
-        #{sponsor,jdbcType=VARCHAR},#{sprProName,jdbcType=VARCHAR},#{createTime,jdbcType=DATE},#{lastModiTime,jdbcType=DATE},
+        #{sponsor,jdbcType=VARCHAR},#{sprProName,jdbcType=VARCHAR},#{createTime,jdbcType=VARCHAR},#{lastModiTime,jdbcType=VARCHAR},
         #{maxLmt,jdbcType=NUMERIC},#{role,jdbcType=VARCHAR},#{putAndDown,jdbcType=VARCHAR},#{advanceRepay,jdbcType=VARCHAR},
         #{formula,jdbcType=VARCHAR},#{latefee,jdbcType=NUMERIC})
     </insert>
@@ -56,7 +56,7 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.newland.financial.p2p.domain.entity.Product">
         UPDATE T_PRODUCT SET PRO_NAME = #{proName,jdbcType=VARCHAR},PRO_LMT = #{proLmt,jdbcType=NUMERIC},
         PAY_DATE = #{payDate,jdbcType=DATE},PRO_INTEREST = #{proInterest,jdbcType=NUMERIC},PRO_NAME_OPERATOR = #{proNameOperator,jdbcType=VARCHAR},
-        SPONSOR = #{sponsor,jdbcType=VARCHAR},SPR_PRO_NAME = #{sprProName,jdbcType=VARCHAR},CREATE_TIME = #{createTime,jdbcType=DATE},LAST_MODI_TIME = #{lastModiTime,jdbcType=DATE},
+        SPONSOR = #{sponsor,jdbcType=VARCHAR},SPR_PRO_NAME = #{sprProName,jdbcType=VARCHAR},CREATE_TIME = #{createTime,jdbcType=VARCHAR},LAST_MODI_TIME = #{lastModiTime,jdbcType=VARCHAR},
         MAX_LMT = #{maxLmt,jdbcType=NUMERIC},ROLE = #{role,jdbcType=VARCHAR},PUTANDDOWN = #{putAndDown,jdbcType=VARCHAR},ADVANCE_REPAY = #{advanceRepay,jdbcType=VARCHAR},
         FORMULA = #{formula,jdbcType=VARCHAR},LATEFEE = #{latefee,jdbcType=NUMERIC}
         WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
