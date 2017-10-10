@@ -20,7 +20,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id Interest中的编号
      * @return BigDecimal 返回对应编号的利率
      * */
-    public BigDecimal getInterest(final String id) {
+    public BigDecimal getInterest(String id) {
         Interest interest = getInterestById(id);
         return interest != null ? interest.getIntRate() : new BigDecimal(0);
     }
@@ -29,7 +29,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id Interest中的编号
      * @return Integer 返回对应编号的分期数
      * */
-    public Integer getByStages(final String id) {
+    public Integer getByStages(String id) {
         Interest interest = getInterestById(id);
         return interest != null ? interest.getTimes() : 0;
     }
@@ -38,7 +38,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id 利率编号
      * @return BigDecimal 返回产品的月利率
      * */
-    public BigDecimal getInterestByMonth(final String id) {
+    public BigDecimal getInterestByMonth(String id) {
         return getInterest(id).divide(new BigDecimal(getByStages(id)).multiply(
                 new BigDecimal(100)), 4, BigDecimal.ROUND_HALF_UP);
     }
@@ -47,7 +47,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id 利率编号
      * @return 返回对应利率编号的利率信息
      * */
-    private Interest getInterestById(final String id) {
+    private Interest getInterestById(String id) {
         for (int count = 0; count < interestList.size(); count++) {
             Interest interest = interestList.get(count);
             if (interest.getIttId().equals(id)) {
@@ -61,37 +61,43 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param position 所需贷款金额
      * @throws OverloadException 超过产品限定的额度
      * */
-    public void canDebit(final BigDecimal position) throws OverloadException {
+    public void canDebit(BigDecimal position) throws OverloadException {
         if (position.compareTo(this.proLmt) > 0) {
             throw new OverloadException("额度超过产品限额");
         }
     }
-    /**
-     *产品编号.
-     * */
+    /**产品编号.*/
     private String proId;
-    /**
-     *管理员所看到的产品名称.
-     * */
+    /**管理员所看到的产品名称.*/
     private String proName;
-    /**
-     *产品限额.
-     * */
+    /**最低贷款额度.*/
     private BigDecimal proLmt;
-    /**
-     *产品还款日期.
-     * */
+    /**产品还款日期.*/
     private Date payDate;
-    /**
-     *产品利率.
-     * */
+    /**产品利率.*/
     private BigDecimal proInterest;
-    /**
-     * 利率信息.
-     * */
+    /**利率信息.*/
     private List<Interest> interestList;
-    /**
-     *操作员所看到的产品名称.
-     */
+    /**操作员所看到的产品名称.*/
     private String proNameOperator;
+    /**出资方.*/
+    private String sponsor;
+    /**出资方产品名称.*/
+    private String sprProName;
+    /**创建时间.*/
+    private Date createTime;
+    /**最后操作时间.*/
+    private Date lastModiTime;
+    /**最大贷款额.*/
+    private BigDecimal maxLmt;
+    /**角色：1管理员，2操作员，0全部.*/
+    private String role;
+    /**上下架：1上架，2下架,默认未上架.*/
+    private String putAndDown = "1";
+    /**是否允许提前还款：1允许，2不允许.*/
+    private String advanceRepay;
+    /**手续费公式，如为空则表示无手续费.*/
+    private String formula;
+    /**逾期滞纳金，如为空则表示逾期无滞纳金.*/
+    private BigDecimal latefee;
 }
