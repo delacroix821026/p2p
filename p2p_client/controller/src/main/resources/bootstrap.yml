@@ -67,7 +67,7 @@ spring:
         config:
             profile: ${SPRING_PROFILES_ACTIVE}
             label: master
-            name: @project.parent.artifactId@
+            name: @project.parent.name@
             #uri: http://localhost:2001/
             failFast: true
             retry:
