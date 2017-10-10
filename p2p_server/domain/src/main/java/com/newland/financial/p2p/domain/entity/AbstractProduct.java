@@ -20,7 +20,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id Interest中的编号
      * @return BigDecimal 返回对应编号的利率
      * */
-    public BigDecimal getInterest(final String id) {
+    public BigDecimal getInterest(String id) {
         Interest interest = getInterestById(id);
         return interest != null ? interest.getIntRate() : new BigDecimal(0);
     }
