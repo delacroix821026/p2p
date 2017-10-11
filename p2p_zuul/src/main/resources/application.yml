@@ -1,14 +1,14 @@
 ---
 spring:
-    application:
-        name: p2p-api-gateway
     rabbitmq:
-        host: localhost
+        host: 192.168.10.38
         port: 5672
-        cloud:
-            bus:
-                trace:
-                    enabled: true
+        username: user_admin
+        password: admin123%
+    cloud:
+        bus:
+            trace:
+                enabled: true
 ...
 
 ---
@@ -18,7 +18,7 @@ zuul:
         p2p:
             path: /p2p/**
             sensitiveHeaders: Cookie,Set-Cookie
-            serviceId: p2p-client
+            serviceId: p2p-client${DEVLOPER_NAME:}
 ...
 
 ---

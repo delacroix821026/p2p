@@ -3,6 +3,11 @@
 
 ---
 spring:
+    profiles:
+        active: ${SPRING_PROFILES_ACTIVE:dev}
+...
+---
+spring:
     profiles: dev
     application:
           name: @project.parent.name@${DEVLOPER_NAME:}
@@ -14,8 +19,8 @@ eureka:
     client:
         serviceUrl:
             #defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
-            defaultZone: http://192.168.10.38:1111/eureka/
-            #${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
+            defaultZone: #${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
+
 ...
 
 ---
@@ -69,14 +74,12 @@ spring:
         config:
             profile: ${SPRING_PROFILES_ACTIVE}
             label: master
-            name: @project.parent.name@
+            name: p2p-server
             #uri: http://localhost:2001/
             #failFast: true
             #retry:
                 #max-attempts: 10
                 #initial-interval: 1000
-    profiles:
-        active: ${SPRING_PROFILES_ACTIVE:dev}
 ...
 
 ---
