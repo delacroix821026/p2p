@@ -36,7 +36,12 @@ spring:
         logAbandoned: true
         filters: mergeStat
 
-
 ...
 
+---
+pagehelper:
+    dialect: com.github.pagehelper.dialect.helper.MySqlDialect
+    rowBoundsWithCount: true
+
+...
 
