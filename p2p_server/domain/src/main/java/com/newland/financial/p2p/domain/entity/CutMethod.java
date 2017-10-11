@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class CutMethod {
+public class CutMethod extends BaseEntity {
     /**自增长主键.*/
     private int id;
     /**产品编号.*/
