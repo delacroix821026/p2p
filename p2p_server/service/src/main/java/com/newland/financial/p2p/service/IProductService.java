@@ -22,8 +22,8 @@ public interface IProductService {
     IProduct getProduct(String id);
     /**
      * 插入新产品.
-     * @param product 产品实例
-     * @return boolean 返回布尔值
+     *@param jsonStr json字符串
+     *@return boolean 返回布尔值
      * */
-    boolean insertProduct(Product product);
+    boolean insertProduct(String jsonStr);
 }

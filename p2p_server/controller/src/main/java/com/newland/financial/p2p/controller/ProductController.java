@@ -97,14 +97,15 @@ public class ProductController {
      *  &nbsp;&nbsp;"proName":"管理员所看到的产品名称",<BR>
      *  &nbsp;&nbsp;"proLmt":最低贷款额度,<BR>
      *  &nbsp;&nbsp;"payDate":产品还款日期,<BR>
-     *  &nbsp;&nbsp;"proInterest":[{"3":利率值},{"6":利率值}],<BR>
+     *  &nbsp;&nbsp;"proInterest":<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"times":分期数,"intRate":利率},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{"times":分期数,"intRate":利率}],<BR>
      *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
      *  &nbsp;&nbsp;"sponsor":"出资方",<BR>
      *  &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
      *  &nbsp;&nbsp;"maxLmt":最大贷款额,<BR>
      *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
      *  &nbsp;&nbsp;"orgs":{"机构编号1","机构编号2"},<BR>
-     *  &nbsp;&nbsp;"putanddown":"0下架，1上架",<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
      *  &nbsp;&nbsp;"cutMhd":"产品对应扣款方式：1银行代扣，2自主还款",<BR>
@@ -123,47 +124,7 @@ public class ProductController {
     public Object insertProduct(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String proId = paramJSON.getString("productId");
-        String proName = paramJSON.getString("proName");
-        String productLimit = paramJSON.getString("proLmt");
-        BigDecimal proLmt = new BigDecimal(productLimit);
-        String date = paramJSON.getString("payDate");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        Date payDate = null;
-        try {
-            payDate = sdf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String productInterest = paramJSON.getString("proInterest");
-        BigDecimal proInterest = new BigDecimal(productInterest);
-        String proNameOperator = paramJSON.getString("proNameOperator");
-        String sponsor = paramJSON.getString("sponsor");
-        String sprProName = paramJSON.getString("sprProName");
-        Date createTime = new Date();
-        String proMaxLmt = paramJSON.getString("maxLmt");
-        BigDecimal maxLmt = new BigDecimal(proMaxLmt);
-        String role = paramJSON.getString("role");
-        Product product = new Product();
-        product.setProId(proId);
-        product.setProName(proName);
-        product.setProLmt(proLmt);
-        product.setPayDate(payDate);
-        product.setProInterest(proInterest);
-        product.setProNameOperator(proNameOperator);
-        product.setSponsor(sponsor);
-        product.setSprProName(sprProName);
-        //product.setCreateTime(createTime);
-        product.setMaxLmt(maxLmt);
-        product.setRole(role);
-
-
-        ArrayList org = paramJSON.getObject("org",ArrayList.class);
-        Map m = new HashMap();
-        if(org != null) {
-            m.put(proId,org);
-        }
-        //Boolean b1 = productService.insertProduct(jsonStr);
+        
         return null;
     }
     /**

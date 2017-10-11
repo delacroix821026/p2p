@@ -76,8 +76,6 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private Date payDate;
     /**产品利率.*/
     private BigDecimal proInterest;
-    /**利率信息.*/
-    private List<Interest> interestList;
     /**操作员所看到的产品名称.*/
     private String proNameOperator;
     /**出资方.*/
@@ -85,9 +83,9 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     /**出资方产品名称.*/
     private String sprProName;
     /**创建时间.*/
-    private String createTime;
+    private Date createTime;
     /**最后操作时间.*/
-    private String lastModiTime;
+    private Date lastModiTime;
     /**最大贷款额.*/
     private BigDecimal maxLmt;
     /**角色：1管理员，2操作员，0全部.*/
@@ -108,4 +106,12 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private String interestMhd;
     /**还款方式:1等额本息，2等额本金.*/
     private String repayMhd;
+
+    /**利率信息.*/
+    private List<Interest> interestList;
+    /**维护的机构权限数据.*/
+    private List<Organization> organizationsList;
+    /**维护的扣款方式.*/
+    private List<CutMethod> cutMethodList;
+
 }
