@@ -96,8 +96,16 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private String putAndDown = "1";
     /**是否允许提前还款：1允许，2不允许.*/
     private String advanceRepay;
-    /**手续费公式，如为空则表示无手续费.*/
+    /**提前还款是否收取手取费1收取，2不收取*/
+    private String poundage;
+    /**手续费公式.*/
     private String formula;
-    /**逾期滞纳金，如为空则表示逾期无滞纳金.*/
+    /**是否收取滞纳金:1收取，2不收取.*/
+    private String isLatefee;
+    /**逾期滞纳金.*/
     private BigDecimal latefee;
+    /**利息方式.*/
+    private String interestMhd;
+    /**还款方式:1等额本息，2等额本金.*/
+    private String repayMhd;
 }

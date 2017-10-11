@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Setter
 public class Interest extends BaseEntity {
     /**利率编号.*/
-    private String ittId;
+    private Integer ittId;
     /**产品编号.*/
     private String iProId;
     /**产品名称.*/
@@ -21,6 +21,4 @@ public class Interest extends BaseEntity {
     private Integer times;
     /**利率.*/
     private BigDecimal intRate;
-    /**利息方式：1固定利息，2浮动利息.*/
-    private String interestMhd;
 }

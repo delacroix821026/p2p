@@ -21,6 +21,7 @@
         <result column="ADVANCE_REPAY" property="advanceRepay" jdbcType="VARCHAR"/>
         <result column="FORMULA" property="formula" jdbcType="VARCHAR"/>
         <result column="LATEFEE" property="latefee" jdbcType="NUMERIC"/>
+        <result column="INTEREST_MHD" property="latefee" jdbcType="NUMERIC"/>
     </resultMap>
 
     <sql id="Base_Column_List">

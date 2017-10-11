@@ -21,7 +21,7 @@ public interface IInterestDao {
      * @param ittId String利率编号
      * @return boolean删除成功返回true,失败false
      */
-    boolean deleteInterest(String ittId);
+    boolean deleteInterest(Integer ittId);
 
     /**
      * 修改利率信息.

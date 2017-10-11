@@ -5,7 +5,7 @@
 <mapper namespace="com.newland.financial.p2p.mapping.InterestMapper">
 
     <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.Interest">
-        <id column="ITT_ID" property="ittId" jdbcType="VARCHAR"/>
+        <id column="ITT_ID" property="ittId" jdbcType="INTEGER"/>
         <result column="I_PRO_ID" property="iProId" jdbcType="VARCHAR"/>
         <result column="I_PRO_NAME" property="iProName" jdbcType="VARCHAR"/>
         <result column="TIMES" property="times" jdbcType="NUMERIC"/>
@@ -41,14 +41,14 @@
         <!--<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="ittId">
             SELECT ITT_ID_SEQ.Nextval as ittId from dual
         </selectKey>-->
-        INSERT INTO T_INTEREST (ITT_ID,I_PRO_ID,I_PRO_NAME,TIMES,INT_RATE) VALUES (#{ittId,jdbcType=VARCHAR},#{iProId,jdbcType=VARCHAR},#{iProName,jdbcType=VARCHAR},#{times,jdbcType=NUMERIC},#{intRate,jdbcType=NUMERIC})
+        INSERT INTO T_INTEREST (ITT_ID,I_PRO_ID,I_PRO_NAME,TIMES,INT_RATE) VALUES (#{ittId,jdbcType=INTEGER},#{iProId,jdbcType=VARCHAR},#{iProName,jdbcType=VARCHAR},#{times,jdbcType=NUMERIC},#{intRate,jdbcType=NUMERIC})
     </insert>
 
     <!--<update id="updateByPrimaryKeySelective" parameterType="com.newland.financial.p2p.domain.entity.Product">
         UPDATE T_INTEREST SET I_PRO_ID = #{proName,jdbcType=VARCHAR},PRO_LMT = #{proLmt,jdbcType=NUMERIC},PAY_DATE = #{payDate,jdbcType=DATE} WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
     </update>-->
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        DELETE FROM T_INTEREST WHERE ITT_ID = #{ittId,jdbcType=VARCHAR}
+    <delete id="deleteByProperty" parameterType="java.lang.Integer">
+        DELETE FROM T_INTEREST WHERE ITT_ID = #{ittId,jdbcType=INTEGER}
     </delete>
 
 </mapper>

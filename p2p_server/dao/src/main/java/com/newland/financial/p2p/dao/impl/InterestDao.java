@@ -20,7 +20,7 @@ public class InterestDao extends MybatisBaseDao<Interest>
      * @param interest Interest对象
      * @return boolean插入成功返回true,失败false
      */
-    public boolean insertInterest(final Interest interest) {
+    public boolean insertInterest(Interest interest) {
         return super.insertSelective(interest);
     }
     /**
@@ -28,8 +28,8 @@ public class InterestDao extends MybatisBaseDao<Interest>
      * @param ittId String利率编号
      * @return boolean删除成功返回true,失败false
      */
-    public boolean deleteInterest(final String ittId) {
-        return super.deleteByPrimaryKey(ittId);
+    public boolean deleteInterest(Integer ittId) {
+        return super.deletes("deleteByProperty",ittId);
     }
 
     /**
