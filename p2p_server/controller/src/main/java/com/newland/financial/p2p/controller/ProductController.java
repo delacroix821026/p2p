@@ -153,7 +153,7 @@ public class ProductController {
         product.setProNameOperator(proNameOperator);
         product.setSponsor(sponsor);
         product.setSprProName(sprProName);
-        product.setCreateTime(createTime);
+        //product.setCreateTime(createTime);
         product.setMaxLmt(maxLmt);
         product.setRole(role);
 
@@ -163,8 +163,8 @@ public class ProductController {
         if(org != null) {
             m.put(proId,org);
         }
-        Boolean b1 = productService.insertProduct(jsonStr);
-        return b1;
+        //Boolean b1 = productService.insertProduct(jsonStr);
+        return null;
     }
     /**
      *更新产品信息
