@@ -124,7 +124,7 @@ public class ProductController {
     public Object insertProduct(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        
+
         return null;
     }
     /**

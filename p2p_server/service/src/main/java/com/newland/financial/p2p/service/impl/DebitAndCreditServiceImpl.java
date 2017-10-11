@@ -129,7 +129,8 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @return  boolean成功返回true,失败false
      * */
     public boolean deleteInterest(final String ittId) {
-        return interestDao.deleteInterest(ittId);
+        //return interestDao.deleteInterest(ittId);
+        return true;
     }
     /**
      * 删除产品.
