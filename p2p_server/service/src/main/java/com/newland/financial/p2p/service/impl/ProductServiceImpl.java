@@ -100,6 +100,7 @@ public class ProductServiceImpl implements IProductService {
         product.setPoundage(poundage);
         product.setIsLatefee(isLatefee);
         product.setRepayMhd(repayMhd);
+        product.setPositiveOrNegative(positiveOrNegative);
 
         List<Interest> list = new ArrayList<Interest>();
         String[] interestList = paramJSON.getObject("interestList",String[].class);
@@ -134,7 +135,7 @@ public class ProductServiceImpl implements IProductService {
         }
 
         List<CutMethod> list2 = new ArrayList<CutMethod>();
-        String[] cutMhds = paramJSON.getObject("cutMhd",String[].class);
+        String[] cutMhds = paramJSON.getObject("cutMhds",String[].class);
         for (int i = 0; i < cutMhds.length; i++){
             String str = cutMhds[i];
             JSONObject ob = JSON.parseObject(str);

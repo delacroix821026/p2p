@@ -61,29 +61,53 @@ public class ProductController {
      *  &nbsp;&nbsp;"proName":"管理员所看到的产品名称",<BR>
      *  &nbsp;&nbsp;"proLmt":最低贷款额度,<BR>
      *  &nbsp;&nbsp;"payDate":产品还款日期,<BR>
-     *  &nbsp;&nbsp;"interestList":<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"times":分期数,"intRate":利率},<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{"times":分期数,"intRate":利率}]<BR>
+     *  &nbsp;&nbsp;"proInterest":产品本身利率,<BR>
+     *  &nbsp;&nbsp;"interestList":[<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数,<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"intRate":利率<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数,<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"intRate":利率<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+     *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
      *  &nbsp;&nbsp;"sponsor":"出资方",<BR>
      *  &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
-     *  &nbsp;&nbsp;"createTime":"创建时间",<BR>
-     *  &nbsp;&nbsp;"lastModiTime":"最后修改时间",<BR>
+     *  &nbsp;&nbsp;"createTime":创建时间,<BR>
+     *  &nbsp;&nbsp;"lastModiTime":最后修改时间,<BR>
      *  &nbsp;&nbsp;"maxLmt":最大贷款额,<BR>
      *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
-     *  &nbsp;&nbsp;"orgs":<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"organization":"机构号","orgaName":"机构名称","parentId":"父机构号","orgStus":"机构状态"},<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{"organization":"机构号","orgaName":"机构名称","parentId":"父机构号","orgStus":"机构状态"}]<BR>
+     *  &nbsp;&nbsp;"orgs":[<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgaName":"机构名称",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"parentId":"父机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgaName":"机构名称",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"parentId":"父机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+     *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
-     *  &nbsp;&nbsp;"cutMhds":"产品对应扣款方式：1银行代扣，2自主还款",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"cutMhd":"扣款方式"},<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{"cutMhd":"扣款方式"}]<BR>
+     *  &nbsp;&nbsp;"cutMhds":[<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+     *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"advanceRepay":"是否允许提前还款：1允许，2不允许",<BR>
      *  &nbsp;&nbsp;"poundage":"提前还款是否收取手续费：1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
-     *  &nbsp;&nbsp;"latefee":"逾期滞纳金额"<BR>
+     *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
      *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
      *  }<BR>
      * */
@@ -93,42 +117,65 @@ public class ProductController {
     public Object getProduct(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String productId = paramJSON.getString("productId");
-        logger.info("ProductController GetProductList:productId--" + productId);
-        IProduct product = productService.getProduct(productId);
+        String proId = paramJSON.getString("proId");
+        logger.info("ProductController GetProductList:proId--" + proId);
+        IProduct product = productService.getProduct(proId);
         logger.info(product.toString());
         return product;
     }
     /**
      * 新增产品.
      * @param jsonStr 接受的json字符串:<BR>
-     *{<BR>
+     * {<BR>
      *  &nbsp;&nbsp;"proId":"产品编号",<BR>
      *  &nbsp;&nbsp;"proName":"管理员所看到的产品名称",<BR>
      *  &nbsp;&nbsp;"proLmt":最低贷款额度,<BR>
-     *  &nbsp;&nbsp;"interestList":<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"times":分期数,"intRate":利率},<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{"times":分期数,"intRate":利率}]<BR>
+     *  &nbsp;&nbsp;"interestList":[<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数,<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"intRate":利率<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数,<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"intRate":利率<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+     *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
      *  &nbsp;&nbsp;"sponsor":"出资方",<BR>
      *  &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
      *  &nbsp;&nbsp;"maxLmt":最大贷款额,<BR>
      *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
-     *  &nbsp;&nbsp;"orgs":<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"organization":"机构号","orgaName":"机构名称","parentId":"父机构号","orgStus":"机构状态"},<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{"organization":"机构号","orgaName":"机构名称","parentId":"父机构号","orgStus":"机构状态"}]<BR>
+     *  &nbsp;&nbsp;"orgs":[<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgaName":"机构名称",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"parentId":"父机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgaName":"机构名称",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"parentId":"父机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+     *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
-     *  &nbsp;&nbsp;"cutMhds":<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"cutMhd":"产品对应扣款方式：1银行代扣，2自主还款"},<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{"cutMhd":"产品对应扣款方式：1银行代扣，2自主还款"}]<BR>
+     *  &nbsp;&nbsp;"cutMhds":[<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+     *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"advanceRepay":"是否允许提前还款：1允许，2不允许",<BR>
      *  &nbsp;&nbsp;"poundage":"提前还款是否收取手续费：1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
-     *  &nbsp;&nbsp;"latefee":逾期滞纳金额<BR>
+     *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
      *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
-     * }
+     *  }<BR>
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： Boolean;<BR>
      * {<BR>
@@ -139,9 +186,7 @@ public class ProductController {
     @RequestMapping(value = "/InsertProduct", method = {RequestMethod.POST, RequestMethod.GET})
     public Object insertProduct(@RequestBody String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
-        JSONObject paramJSON = JSON.parseObject(jsonStr);
-
-        return null;
+        return productService.insertProduct(jsonStr);
     }
     /**
      *更新产品信息
@@ -209,7 +254,7 @@ public class ProductController {
      * 操作上下架
      * @param jsonStr 接受的json字符串:<BR>
      *{<BR>
-     *  &nbsp;&nbsp;"productId":"产品编号",<BR>
+     *  &nbsp;&nbsp;"proId":"产品编号",<BR>
      *  &nbsp;&nbsp;"putAndDown":"上下架状态",<BR>
      * }
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
