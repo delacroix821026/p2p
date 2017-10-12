@@ -119,9 +119,13 @@ public class ProductController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String proId = paramJSON.getString("proId");
         logger.info("ProductController GetProductList:proId--" + proId);
-        IProduct product = productService.getProduct(proId);
-        logger.info(product.toString());
-        return product;
+        if (proId != null && proId != "") {
+            IProduct product = productService.getProduct(proId);
+            logger.info(product.toString());
+            return product;
+        } else {
+            return "proId不可为空";
+        }
     }
     /**
      * 新增产品.

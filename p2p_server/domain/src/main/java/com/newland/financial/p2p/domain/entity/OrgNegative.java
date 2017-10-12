@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class OrgNegative {
+public class OrgNegative extends BaseEntity{
     /**主键.*/
     private int id;
     /**产品编号.*/
