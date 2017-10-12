@@ -46,11 +46,4 @@ public class Example {
                 + ", service_id:" + instance.getServiceId() + ", result:" + r);
         return r;
     }
-    public static void main(String[] args) {
-        String jsonStr = "{\"proId\": \"kv111\",\"proName\": \"星贷\",\"proLmt\": 10000,\"proInterest\": [{\"times\": 3,\"intRate\": 1.1},{\"times\": 6,\"intRate\": 1.2}],\"proNameOperator\": \"星贷aa\",\"sponsor\": \"小明公司\",\"sprProName\": \"消费贷\",\"maxLmt\": 100000,\"role\": \"1\",\"orgs\":[{\"organization\": \"005\",\"orgaName\": \"新大陆\",\"parentId\": \"001\",\"orgStus\": \"valid\"},{\"organization\": \"006\",\"orgaName\": \"旧大陆\",\"parentId\": \"001\",\"orgStus\": \"valid\"}],\"repayMhd\": \"1\",\"interestMhd\": \"1\",\"cutMhds\": [{\"cutMhd\": \"1\"},{\"cutMhd\": \"2\"}],\"advanceRepay\": \"1\",\"poundage\": \"1\",\"formula\": \"5+1=6\",\"isLatefee\": \"1\",\"latefee\": 20}";
-        JSONObject paramJSON = JSON.parseObject(jsonStr);
-        Product pro = paramJSON.toJavaObject(Product.class);
-        System.out.println(pro.toString());
-    }
-
 }

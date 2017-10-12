@@ -22,6 +22,10 @@ public class ProductServiceImpl implements IProductService {
     public Object getProduct(String jsonStr) {
         return restTemplate.postForEntity("http://P2P-SERVER/ProductController/GetProduct", jsonStr, Object.class).getBody();
     }
+    @HystrixCommand(fallbackMethod = "addFallback")
+    public boolean insertProduct(String jsonStr) {
+        return restTemplate.postForEntity("http://P2P-SERVER/ProductController/InsertProduct", jsonStr, Boolean.class).getBody();
+    }
 
     public String addFallback() {
         log.info("ooxx");

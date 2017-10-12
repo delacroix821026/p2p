@@ -24,7 +24,12 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/GetProduct", method = RequestMethod.POST)
-    public Object getProduct(@RequestBody final String jsonStr){
+    public Object getProduct(@RequestBody String jsonStr){
         return productService.getProduct(jsonStr);
+    }
+
+    @RequestMapping(value = "/InsertProduct", method = RequestMethod.POST)
+    public Object insertProduct(@RequestBody String jsonStr){
+        return productService.insertProduct(jsonStr);
     }
 }

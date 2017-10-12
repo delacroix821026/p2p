@@ -22,7 +22,7 @@ public interface IDebitAndCreditService {
      * @throws OverloadException 贷款金额超出额度限制
      */
     void createDebitAndCredit(String userId, String productId,
-        BigDecimal money, String interestId) throws OverloadException;
+        BigDecimal money, int interestId) throws OverloadException;
 
     /**
      * 查询历史借款记录.

@@ -1,4 +1,4 @@
-package unit;
+/*package unit;
 
 import com.newland.financial.p2p.common.exception.OverloadException;
 import com.newland.financial.p2p.domain.entity.*;
@@ -58,4 +58,4 @@ public class DebitAndCreditFactoryTest {
     public void C_createDebitAndCredit ()throws OverloadException {
         DebitAndCreditFactory.createDebitAndCredit(product,lender,new BigDecimal("1001"),2);
     }
-}
+}*/

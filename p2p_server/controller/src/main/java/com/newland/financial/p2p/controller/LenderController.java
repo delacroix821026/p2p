@@ -81,7 +81,7 @@ public class LenderController {
         String userId = paramJSON.getString("userId");
         String productId = paramJSON.getString("productId");
         BigDecimal money = paramJSON.getBigDecimal("money");
-        String interestId = paramJSON.getString("interestId");
+        Integer interestId = Integer.parseInt(paramJSON.getString("interestId"));
         logger.info("LenderController GetLender:userId--" + userId);
         logger.info("LenderController GetLender:productId--" + productId);
         logger.info("LenderController GetLender:productId--" + money);
