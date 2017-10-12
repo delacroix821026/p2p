@@ -94,14 +94,7 @@ public class ProductController {
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
-     *  &nbsp;&nbsp;"cutMhds":[<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
-     *  &nbsp;&nbsp;],<BR>
+     *  &nbsp;&nbsp;"cutMhd":"扣款方式：1银行代扣，2自主还款"<BR>
      *  }<BR>
      * */
     @ResponseBody
@@ -150,14 +143,7 @@ public class ProductController {
      *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
-     *  &nbsp;&nbsp;"cutMhds":[<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
-     *  &nbsp;&nbsp;],<BR>
+     *  &nbsp;&nbsp;"cutMhd":"扣款方式：1银行代扣，2自主还款",<BR>
      *  &nbsp;&nbsp;"advanceRepay":"是否允许提前还款：1允许，2不允许",<BR>
      *  &nbsp;&nbsp;"poundage":"提前还款是否收取手续费：1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>

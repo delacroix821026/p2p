@@ -108,12 +108,11 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private String repayMhd;
     /**机构权限正反选：1正选，2反选.*/
     private String positiveOrNegative;
+    /**扣款方式：1银行代扣，2自主还款.*/
+    private String cutMhd;
 
     /**利率信息.*/
     private List<Interest> interestList;
     /**维护的机构权限数据.*/
     private List organizationsList;
-    /**维护的扣款方式.*/
-    private List<CutMethod> cutMethodList;
-
 }

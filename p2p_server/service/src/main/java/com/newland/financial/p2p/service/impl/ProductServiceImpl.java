@@ -30,9 +30,6 @@ public class ProductServiceImpl implements IProductService {
     private IInterestDao interestDao;
     /**Dao层对象.*/
     @Autowired
-    private ICutMethodDao cutMethodDao;
-    /**Dao层对象.*/
-    @Autowired
     private IOrganizationDao organizationDao;
     /**Dao层对象.*/
     @Autowired
@@ -60,8 +57,6 @@ public class ProductServiceImpl implements IProductService {
         }
         logger.info("service--product-------:" + product);
         product.setInterestList(interestDao.findByProId((id)));
-        product.setCutMethodList(cutMethodDao.selectCutMethod(id));
-
         return product;
     }
     /**
@@ -89,7 +84,7 @@ public class ProductServiceImpl implements IProductService {
         String isLatefee = paramJSON.getString("isLatefee");
         String repayMhd = paramJSON.getString("repayMhd");
         String positiveOrNegative = paramJSON.getString("positiveOrNegative");
-
+        String cutMhd = paramJSON.getString("cutMhd");
         product.setProId(proId);
         product.setProName(proName);
         product.setProLmt(proLmt);
@@ -107,6 +102,7 @@ public class ProductServiceImpl implements IProductService {
         product.setIsLatefee(isLatefee);
         product.setRepayMhd(repayMhd);
         product.setPositiveOrNegative(positiveOrNegative);
+        product.setCutMhd(cutMhd);
 
         List<Interest> list = new ArrayList<Interest>();
         String[] interestList = paramJSON.getObject("interestList",String[].class);
@@ -120,17 +116,6 @@ public class ProductServiceImpl implements IProductService {
             list.add(in);
         }
 
-        List<CutMethod> list2 = new ArrayList<CutMethod>();
-        String[] cutMhds = paramJSON.getObject("cutMhds",String[].class);
-        for (int i = 0; i < cutMhds.length; i++){
-            String str = cutMhds[i];
-            JSONObject ob = JSON.parseObject(str);
-            CutMethod cutMethod = new CutMethod();
-            String cutMhd = ob.getString("cutMhd");
-            cutMethod.setProId(proId);
-            cutMethod.setCutMhd(cutMhd);
-            list2.add(cutMethod);
-        }
         Boolean b2 = null;
         String[] orgs = paramJSON.getObject("orgs",String[].class);
         if ("1".equals(positiveOrNegative)) {
@@ -161,9 +146,8 @@ public class ProductServiceImpl implements IProductService {
             b2 = false;
         }
         Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
-        Boolean b3 = cutMethodDao.insertCutMethod(list2); //将该产品对应的扣款方式插入表中
-        Boolean b4 = productDao.insertProduct(product); //将产品信息插入产品表中
-        if (b1 && b2 && b3 && b4) {
+        Boolean b3 = productDao.insertProduct(product); //将产品信息插入产品表中
+        if (b1 && b2 && b3) {
             return true;
         } else {
             return false;
