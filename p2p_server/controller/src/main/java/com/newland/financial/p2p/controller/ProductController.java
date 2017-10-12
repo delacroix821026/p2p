@@ -64,12 +64,10 @@ public class ProductController {
      *  &nbsp;&nbsp;"proInterest":产品本身利率,<BR>
      *  &nbsp;&nbsp;"interestList":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数,<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"intRate":利率<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数,<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"intRate":利率<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
@@ -81,16 +79,10 @@ public class ProductController {
      *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
      *  &nbsp;&nbsp;"orgs":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgaName":"机构名称",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"parentId":"父机构号",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgaName":"机构名称",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"parentId":"父机构号",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
@@ -136,12 +128,10 @@ public class ProductController {
      *  &nbsp;&nbsp;"proLmt":最低贷款额度,<BR>
      *  &nbsp;&nbsp;"interestList":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数,<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"intRate":利率<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数,<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"intRate":利率<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
@@ -151,16 +141,10 @@ public class ProductController {
      *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
      *  &nbsp;&nbsp;"orgs":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgaName":"机构名称",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"parentId":"父机构号",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgaName":"机构名称",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"parentId":"父机构号",<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>

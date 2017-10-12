@@ -2,12 +2,14 @@ package com.newland.financial.p2p.dao.impl;
 
 import com.newland.financial.p2p.dao.IOrgNegativeDao;
 import com.newland.financial.p2p.domain.entity.OrgNegative;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 /**
  * Dao层接口实现.
  * @author Mxia
  */
+@Repository
 public class OrgNegativeDao extends
         MybatisBaseDao<OrgNegative> implements IOrgNegativeDao {
     /**
