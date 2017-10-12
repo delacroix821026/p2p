@@ -222,6 +222,13 @@ public class ProductController {
     @RequestMapping(value = "/PutOrDown",method = {RequestMethod.POST, RequestMethod.GET})
     public Object putOrDown(@RequestBody String jsonStr){
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        return null;
+        logger.info("jsonStr：" + jsonStr);
+        String proId = paramJSON.getString("proId");
+        String putAndDown = paramJSON.getString("putAndDown");
+        if (proId != null && proId != "" && putAndDown != null && putAndDown != "") {
+            return productService.updatePutAndDown(proId,putAndDown);
+        } else {
+            return false;
+        }
     }
 }

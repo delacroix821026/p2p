@@ -65,4 +65,8 @@
         WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
     </update>
 
+    <update id="updatePutAndDown" parameterType="Map">
+        UPDATE T_PRODUCT SET PUTANDDOWN = #{putAndDown} WHERE PRO_ID = #{proId}
+    </update>
+
 </mapper>

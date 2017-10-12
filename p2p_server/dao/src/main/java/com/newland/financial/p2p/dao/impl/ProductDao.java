@@ -4,7 +4,10 @@ import com.newland.financial.p2p.dao.IProductDao;
 import com.newland.financial.p2p.domain.entity.Product;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * 对产品进行操作的Dao层类.
  * @author Mxia
@@ -17,7 +20,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param product Product产品对象
      * @return  boolean插入成功返回true,失败false
      * */
-    public boolean insertProduct(final Product product) {
+    public boolean insertProduct(Product product) {
         return super.insertSelective(product);
     }
 
@@ -26,7 +29,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param proId String产品编号
      * @return  boolean删除成功返回true,失败false
      * */
-    public boolean deleteProduct(final String proId) {
+    public boolean deleteProduct(String proId) {
         return super.deleteByPrimaryKey(proId);
     }
 
@@ -35,7 +38,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param product Product产品对象
      * @return  boolean更新成功返回true,失败false
      * */
-    public boolean updateProduct(final Product product) {
+    public boolean updateProduct(Product product) {
         return super.updateByPrimaryKeySelective(product);
     }
 
@@ -44,7 +47,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param proId String产品编号
      * @return  Product返回对应编号的产品信息对象
      * */
-    public Product findById(final String proId) {
+    public Product findById(String proId) {
         return super.selectByPrimaryKey(proId);
     }
     /**
@@ -54,6 +57,17 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
     public List<Product> findAll() {
         return super.selectAll();
     }
-
+    /**
+     * 更改产品的上下架状态.
+     *@param proId 产品编码
+     *@param putAndDown 上下架状态
+     *@return true成功
+     * */
+    public boolean updatePutAndDown(String proId, String putAndDown) {
+        Map map = new HashMap();
+        map.put("proId", proId);
+        map.put("putAndDown", putAndDown);
+        return super.update("updatePutAndDown",map);
+    }
 
 }

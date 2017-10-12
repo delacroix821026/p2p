@@ -26,4 +26,11 @@ public interface IProductService {
      *@return boolean 返回布尔值
      * */
     boolean insertProduct(String jsonStr);
+    /**
+     * 更改产品的上下架状态.
+     *@param proId 产品编码
+     *@param putAndDown 上下架状态
+     *@return boolean 返回布尔值
+     * */
+    boolean updatePutAndDown(String proId,String putAndDown);
 }

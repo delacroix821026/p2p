@@ -161,5 +161,15 @@ public class ProductServiceImpl implements IProductService {
             return false;
         }
     }
+    /**
+     * 更改产品的上下架状态.
+     *@param proId 产品编码
+     *@param putAndDown 上下架状态
+     *@return boolean 返回布尔值
+     * */
+    public boolean updatePutAndDown(String proId, String putAndDown) {
+        productDao.updatePutAndDown(proId,putAndDown);
+        return true;
+    }
 
 }
