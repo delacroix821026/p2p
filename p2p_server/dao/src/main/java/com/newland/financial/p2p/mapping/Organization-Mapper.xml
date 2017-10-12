@@ -26,11 +26,11 @@
         </where>
     </select>
 
-    <insert id="insertEntiy" parameterType="Map">
+    <insert id="insertOrganizations" parameterType="List">
         INSERT INTO p2p_org
-        (<include refid="Base_Column_List"/>) VALUES
-        <foreach collection="data" item="Organization" index="" separator=" ,">
-
+        (PROID,ORGANIZATION,ORGA_NAME,PARENTID,ORGSTUS) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.proId},#{item.organization},#{item.orgaName},#{item.parentId},#{item.orgStus})
         </foreach>
     </insert>
 

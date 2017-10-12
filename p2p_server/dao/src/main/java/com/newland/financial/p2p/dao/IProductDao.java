@@ -37,5 +37,12 @@ public interface IProductDao {
      * @return  List返回所有产品信息的集合
      * */
     List<Product> findAll();
+    /**
+     * 更改产品的上下架状态.
+     *@param proId 产品编码
+     *@param putAndDown 上下架状态
+     *@return true成功
+     * */
+    boolean updatePutAndDown(String proId, String putAndDown);
 
 }

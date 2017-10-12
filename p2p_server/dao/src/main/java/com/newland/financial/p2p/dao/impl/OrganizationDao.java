@@ -31,9 +31,7 @@ public class OrganizationDao extends
      * @return true or false
      */
     public Boolean insertOrganizationList(List<Organization> list) {
-        Map map = new HashMap();
-        map.put("data", list);
-        return super.insertObj("insertEntiy", map);
+        return super.insertObj("insertOrganizations", list);
     }
     /**
      * 根据产品编码返回一个机构号列表.

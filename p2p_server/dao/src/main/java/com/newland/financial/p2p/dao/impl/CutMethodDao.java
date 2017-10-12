@@ -43,4 +43,12 @@ public class CutMethodDao extends
         map.put("proId",proId);
         return super.select("selectByProperty",map);
     }
+    /**
+     * 插入多个扣款方式.
+     * @param list CutMethod集合
+     * @return true or false
+     */
+    public boolean insertCutMethod(List<CutMethod> list) {
+        return super.insertObj("insertCutMethods",list);
+    }
 }

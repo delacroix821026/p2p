@@ -84,6 +84,7 @@ public class ProductController {
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额"<BR>
+     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
      *  }<BR>
      * */
     @ResponseBody
@@ -126,6 +127,7 @@ public class ProductController {
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"latefee":逾期滞纳金额<BR>
+     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
      * }
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： Boolean;<BR>
@@ -220,6 +222,13 @@ public class ProductController {
     @RequestMapping(value = "/PutOrDown",method = {RequestMethod.POST, RequestMethod.GET})
     public Object putOrDown(@RequestBody String jsonStr){
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        return null;
+        logger.info("jsonStr：" + jsonStr);
+        String proId = paramJSON.getString("proId");
+        String putAndDown = paramJSON.getString("putAndDown");
+        if (proId != null && proId != "" && putAndDown != null && putAndDown != "") {
+            return productService.updatePutAndDown(proId,putAndDown);
+        } else {
+            return false;
+        }
     }
 }

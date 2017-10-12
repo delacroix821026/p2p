@@ -50,11 +50,12 @@ public class ProductServiceImpl implements IProductService {
      *@param id String产品编号
      *@return IProduct返回指定的产品
      * */
-    public IProduct getProduct(final String id) {
+    public IProduct getProduct(String id) {
         AbstractProduct product = productDao.findById(id);
         logger.info("service--product-------:" + product);
         product.setInterestList(interestDao.findByProId((id)));
-
+        product.setCutMethodList(cutMethodDao.selectCutMethod(id));
+        product.setOrganizationsList(organizationDao.selectOrganizationList(id));
         return product;
     }
     /**
@@ -81,6 +82,7 @@ public class ProductServiceImpl implements IProductService {
         String poundage = paramJSON.getString("poundage");
         String isLatefee = paramJSON.getString("isLatefee");
         String repayMhd = paramJSON.getString("repayMhd");
+        String positiveOrNegative = paramJSON.getString("positiveOrNegative");
 
         product.setProId(proId);
         product.setProName(proName);
@@ -143,7 +145,14 @@ public class ProductServiceImpl implements IProductService {
             list2.add(cutMethod);
         }
         Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
-        Boolean b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入表中
+        Boolean b2 = null;
+        if ("1".equals(positiveOrNegative)) {
+            b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入正选表中
+        } else if ("2".equals(positiveOrNegative)){
+            b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入反选表中
+        } else {
+            b2 = false;
+        }
         Boolean b3 = cutMethodDao.insertCutMethod(list2); //将该产品对应的扣款方式插入表中
         Boolean b4 = productDao.insertProduct(product); //将产品信息插入产品表中
         if (b1 && b2 && b3 && b4) {
@@ -151,6 +160,16 @@ public class ProductServiceImpl implements IProductService {
         } else {
             return false;
         }
+    }
+    /**
+     * 更改产品的上下架状态.
+     *@param proId 产品编码
+     *@param putAndDown 上下架状态
+     *@return boolean 返回布尔值
+     * */
+    public boolean updatePutAndDown(String proId, String putAndDown) {
+        productDao.updatePutAndDown(proId,putAndDown);
+        return true;
     }
 
 }

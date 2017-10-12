@@ -106,6 +106,8 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private String interestMhd;
     /**还款方式:1等额本息，2等额本金.*/
     private String repayMhd;
+    /**机构权限正反选：1正选，2反选.*/
+    private String positiveOrNegative;
 
     /**利率信息.*/
     private List<Interest> interestList;
