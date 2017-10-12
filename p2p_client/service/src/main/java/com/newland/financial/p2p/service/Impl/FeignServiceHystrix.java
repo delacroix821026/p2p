@@ -12,4 +12,6 @@ public class FeignServiceHystrix implements FeignService {
         log.info("FeignServiceHystrix:add");
         return 1026;
     }
+
+
 }
