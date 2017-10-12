@@ -33,4 +33,10 @@ public interface IProductService {
      *@return boolean 返回布尔值
      * */
     boolean updatePutAndDown(String proId,String putAndDown);
+    /**
+     * 查看产品编号是否存在.
+     * @param id 产品编码
+     * @return producr
+     */
+    IProduct findProduct(String id);
 }

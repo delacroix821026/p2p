@@ -112,7 +112,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     /**利率信息.*/
     private List<Interest> interestList;
     /**维护的机构权限数据.*/
-    private List<Organization> organizationsList;
+    private List organizationsList;
     /**维护的扣款方式.*/
     private List<CutMethod> cutMethodList;
 

@@ -60,8 +60,24 @@ public class ProductController {
      *  &nbsp;&nbsp;"proId":"产品编号",<BR>
      *  &nbsp;&nbsp;"proName":"管理员所看到的产品名称",<BR>
      *  &nbsp;&nbsp;"proLmt":最低贷款额度,<BR>
-     *  &nbsp;&nbsp;"payDate":产品还款日期,<BR>
-     *  &nbsp;&nbsp;"proInterest":产品本身利率,<BR>
+     *  &nbsp;&nbsp;"payDate":null,<BR>
+     *  &nbsp;&nbsp;"proInterest":null,<BR>
+     *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
+     *  &nbsp;&nbsp;"sponsor":"出资方",<BR>
+     *  &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
+     *  &nbsp;&nbsp;"createTime":创建时间,<BR>
+     *  &nbsp;&nbsp;"lastModiTime":最后修改时间,<BR>
+     *  &nbsp;&nbsp;"maxLmt":最大贷款额,<BR>
+     *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
+     *  &nbsp;&nbsp;"putAndDown":"1上架，2下架",<BR>
+     *  &nbsp;&nbsp;"advanceRepay":"是否允许提前还款：1允许，2不允许",<BR>
+     *  &nbsp;&nbsp;"poundage":"提前还款是否收取手续费：1收取，2不收取",<BR>
+     *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
+     *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
+     *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
+     *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
+     *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
+     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
      *  &nbsp;&nbsp;"interestList":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数<BR>
@@ -70,14 +86,7 @@ public class ProductController {
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
-     *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
-     *  &nbsp;&nbsp;"sponsor":"出资方",<BR>
-     *  &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
-     *  &nbsp;&nbsp;"createTime":创建时间,<BR>
-     *  &nbsp;&nbsp;"lastModiTime":最后修改时间,<BR>
-     *  &nbsp;&nbsp;"maxLmt":最大贷款额,<BR>
-     *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
-     *  &nbsp;&nbsp;"orgs":[<BR>
+     *  &nbsp;&nbsp;"organizationsList":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
@@ -85,8 +94,6 @@ public class ProductController {
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
-     *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
-     *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
      *  &nbsp;&nbsp;"cutMhds":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
@@ -95,12 +102,6 @@ public class ProductController {
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cutMhd":"扣款方式"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
-     *  &nbsp;&nbsp;"advanceRepay":"是否允许提前还款：1允许，2不允许",<BR>
-     *  &nbsp;&nbsp;"poundage":"提前还款是否收取手续费：1收取，2不收取",<BR>
-     *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
-     *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
-     *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
-     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
      *  }<BR>
      * */
     @ResponseBody
@@ -176,7 +177,7 @@ public class ProductController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         logger.info("jsonStr：" + jsonStr);
         String proId = paramJSON.getString("proId");
-        if (productService.getProduct(proId) != null) {
+        if (productService.findProduct(proId) != null) {
             return "已存在该产品编号";
         }
         return productService.insertProduct(jsonStr);

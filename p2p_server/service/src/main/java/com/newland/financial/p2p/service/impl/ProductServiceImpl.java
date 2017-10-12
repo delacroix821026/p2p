@@ -52,10 +52,16 @@ public class ProductServiceImpl implements IProductService {
      * */
     public IProduct getProduct(String id) {
         AbstractProduct product = productDao.findById(id);
+        String postiveOrNegative = product.getPositiveOrNegative();
+        if (postiveOrNegative.equals("1")) {
+            product.setOrganizationsList(organizationDao.selectOrganizationList(id));
+        } else {
+            product.setOrganizationsList(orgNegativeDao.selectOrgNegativeList(id));
+        }
         logger.info("service--product-------:" + product);
         product.setInterestList(interestDao.findByProId((id)));
         product.setCutMethodList(cutMethodDao.selectCutMethod(id));
-        product.setOrganizationsList(organizationDao.selectOrganizationList(id));
+
         return product;
     }
     /**
@@ -109,9 +115,7 @@ public class ProductServiceImpl implements IProductService {
             JSONObject ob = JSON.parseObject(str);
             Interest in = new Interest();
             Integer times = Integer.parseInt(ob.getString("times"));
-            //BigDecimal intRate = new BigDecimal(ob.getString("intRate"));
             in.setTimes(times);
-            //in.setIntRate(intRate);
             in.setIProId(proId);
             list.add(in);
         }
@@ -136,14 +140,8 @@ public class ProductServiceImpl implements IProductService {
                 JSONObject ob = JSON.parseObject(str);
                 Organization org = new Organization();
                 String organization = ob.getString("organization");
-                //String orgaName = ob.getString("orgaName");
-                //String parentId = ob.getString("parentId");
-                //String orgStus = ob.getString("orgStus");
                 org.setProId(proId);
                 org.setOrganization(organization);
-                //org.setOrgaName(orgaName);
-                //org.setParentId(parentId);
-                //org.setOrgStus(orgStus);
                 list1.add(org);
             }
             b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入正选表中
@@ -154,14 +152,8 @@ public class ProductServiceImpl implements IProductService {
                 JSONObject ob = JSON.parseObject(str);
                 OrgNegative org = new OrgNegative();
                 String organization = ob.getString("organization");
-                //String orgaName = ob.getString("orgaName");
-                //String parentId = ob.getString("parentId");
-                //String orgStus = ob.getString("orgStus");
                 org.setProId(proId);
                 org.setOrganization(organization);
-                //org.setOrgaName(orgaName);
-                //org.setParentId(parentId);
-                //org.setOrgStus(orgStus);
                 list1.add(org);
             }
             b2 = orgNegativeDao.insertOrgNegativeList(list1); //将该产品对应可查看到的机构插入反选表中
@@ -185,6 +177,15 @@ public class ProductServiceImpl implements IProductService {
      * */
     public boolean updatePutAndDown(String proId, String putAndDown) {
         return productDao.updatePutAndDown(proId,putAndDown);
+    }
+    /**
+     * 查看产品编号是否存在.
+     * @param id 产品编码
+     * @return producr
+     */
+    public IProduct findProduct(String id) {
+        AbstractProduct product = productDao.findById(id);
+        return product;
     }
 
 }
