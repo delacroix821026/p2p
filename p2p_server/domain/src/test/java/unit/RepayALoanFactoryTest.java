@@ -31,7 +31,7 @@ public class RepayALoanFactoryTest {
         interest.setIntRate(new BigDecimal("1.6"));
         interest.setIProId("4");
         interest.setIProName("星贷");
-        interest.setIttId("2");
+//        interest.setIttId("2");
         interest.setTimes(1);
         list.add(interest);
         product.setInterestList(list);
