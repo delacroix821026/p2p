@@ -22,3 +22,6 @@ p2p_server/domain/src/main/resources/bootstrap.yml
 p2p_server/domain/src/main/resources/bootstrap.yml
 .gitignore.bak
 *.xml
+p2p_server/target/classes/META-INF/build-info.properties
+p2p_common/target/classes/checkstyle.properties
+.idea/workspace.xml___jb_tmp___

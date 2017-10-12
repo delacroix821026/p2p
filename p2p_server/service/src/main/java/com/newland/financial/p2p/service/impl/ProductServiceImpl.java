@@ -169,8 +169,7 @@ public class ProductServiceImpl implements IProductService {
      *@return boolean 返回布尔值
      * */
     public boolean updatePutAndDown(String proId, String putAndDown) {
-        productDao.updatePutAndDown(proId,putAndDown);
-        return true;
+        return productDao.updatePutAndDown(proId,putAndDown);
     }
 
 }
