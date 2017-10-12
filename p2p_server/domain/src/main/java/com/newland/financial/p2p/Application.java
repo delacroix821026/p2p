@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * @author cendaijuan
@@ -14,6 +15,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableConfigurationProperties
+@ImportResource(value = "classpath*:datasource-spring.xml")
 @Log
 public class Application {
     /**
