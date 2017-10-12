@@ -38,10 +38,10 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id 利率编号
      * @return BigDecimal 返回产品的月利率
      * */
-    public BigDecimal getInterestByMonth(int id) {
+    /*public BigDecimal getInterestByMonth(int id) {
         return getInterest(id).divide(new BigDecimal(getByStages(id)).multiply(
                 new BigDecimal(100)), 4, BigDecimal.ROUND_HALF_UP);
-    }
+    }*/
     /**
      * 一个产品会根据分期数有不同的利率信息,根据传进来的利率编号进行匹配需要使用哪一条利率.
      *@param id 利率编号

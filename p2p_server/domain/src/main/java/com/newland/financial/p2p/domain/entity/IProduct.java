@@ -26,7 +26,7 @@ public interface IProduct {
      *@param id String 利率编号
      * @return BigDecimal 月利率
      * */
-    BigDecimal getInterestByMonth(String id);
+    //BigDecimal getInterestByMonth(String id);
     /**
      * @throws OverloadException 所贷金额超出产品本身的限定额度.
      *@param position BigDecimal 贷款金额
