@@ -29,7 +29,7 @@ public class DebitAndCreditFactoryTest {
 
         Interest interest = new Interest();
         interest.setTimes(1);
-        interest.setIttId("2");
+        interest.setIttId(2);
         interest.setIProName("星贷");
         interest.setIProId("4");
         interest.setIntRate(new BigDecimal("1.6"));

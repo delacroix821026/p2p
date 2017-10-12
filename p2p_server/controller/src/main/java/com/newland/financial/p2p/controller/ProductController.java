@@ -57,24 +57,33 @@ public class ProductController {
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： com.newland.financial.p2p.domain.entity.Product;<BR>
      * {<BR>
-     *  &nbsp;&nbsp;"productId":"产品编号",<BR>
+     *  &nbsp;&nbsp;"proId":"产品编号",<BR>
      *  &nbsp;&nbsp;"proName":"管理员所看到的产品名称",<BR>
      *  &nbsp;&nbsp;"proLmt":最低贷款额度,<BR>
      *  &nbsp;&nbsp;"payDate":产品还款日期,<BR>
-     *  &nbsp;&nbsp;"proInterest":[{"3":利率值},{"6":利率值}],<BR>
+     *  &nbsp;&nbsp;"interestList":<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"times":分期数,"intRate":利率},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{"times":分期数,"intRate":利率}]<BR>
      *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
      *  &nbsp;&nbsp;"sponsor":"出资方",<BR>
      *  &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
+     *  &nbsp;&nbsp;"createTime":"创建时间",<BR>
+     *  &nbsp;&nbsp;"lastModiTime":"最后修改时间",<BR>
      *  &nbsp;&nbsp;"maxLmt":最大贷款额,<BR>
      *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
-     *  &nbsp;&nbsp;"orgs":{"机构编号1","机构编号2"},<BR>
-     *  &nbsp;&nbsp;"putanddown":"0下架，1上架",<BR>
+     *  &nbsp;&nbsp;"orgs":<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"organization":"机构号","orgaName":"机构名称","parentId":"父机构号","orgStus":"机构状态"},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{"organization":"机构号","orgaName":"机构名称","parentId":"父机构号","orgStus":"机构状态"}]<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
-     *  &nbsp;&nbsp;"cutMhd":"产品对应扣款方式：1银行代扣，2自主还款",<BR>
+     *  &nbsp;&nbsp;"cutMhds":"产品对应扣款方式：1银行代扣，2自主还款",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"cutMhd":"扣款方式"},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{"cutMhd":"扣款方式"}]<BR>
      *  &nbsp;&nbsp;"advanceRepay":"是否允许提前还款：1允许，2不允许",<BR>
+     *  &nbsp;&nbsp;"poundage":"提前还款是否收取手续费：1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
-     *  &nbsp;&nbsp;"latefee":"逾期滞纳金，如为空则表示逾期无滞纳金"<BR>
+     *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
+     *  &nbsp;&nbsp;"latefee":"逾期滞纳金额"<BR>
      *  }<BR>
      * */
     @ResponseBody
@@ -93,25 +102,30 @@ public class ProductController {
      * 新增产品.
      * @param jsonStr 接受的json字符串:<BR>
      *{<BR>
-     *  &nbsp;&nbsp;"productId":"产品编号",<BR>
+     *  &nbsp;&nbsp;"proId":"产品编号",<BR>
      *  &nbsp;&nbsp;"proName":"管理员所看到的产品名称",<BR>
      *  &nbsp;&nbsp;"proLmt":最低贷款额度,<BR>
-     *  &nbsp;&nbsp;"payDate":产品还款日期,<BR>
-     *  &nbsp;&nbsp;"proInterest":<BR>
+     *  &nbsp;&nbsp;"interestList":<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;[{"times":分期数,"intRate":利率},<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;{"times":分期数,"intRate":利率}],<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{"times":分期数,"intRate":利率}]<BR>
      *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
      *  &nbsp;&nbsp;"sponsor":"出资方",<BR>
      *  &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
      *  &nbsp;&nbsp;"maxLmt":最大贷款额,<BR>
      *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
-     *  &nbsp;&nbsp;"orgs":{"机构编号1","机构编号2"},<BR>
+     *  &nbsp;&nbsp;"orgs":<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"organization":"机构号","orgaName":"机构名称","parentId":"父机构号","orgStus":"机构状态"},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{"organization":"机构号","orgaName":"机构名称","parentId":"父机构号","orgStus":"机构状态"}]<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
-     *  &nbsp;&nbsp;"cutMhd":"产品对应扣款方式：1银行代扣，2自主还款",<BR>
+     *  &nbsp;&nbsp;"cutMhds":<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;[{"cutMhd":"产品对应扣款方式：1银行代扣，2自主还款"},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{"cutMhd":"产品对应扣款方式：1银行代扣，2自主还款"}]<BR>
      *  &nbsp;&nbsp;"advanceRepay":"是否允许提前还款：1允许，2不允许",<BR>
+     *  &nbsp;&nbsp;"poundage":"提前还款是否收取手续费：1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
-     *  &nbsp;&nbsp;"latefee":"逾期滞纳金，如为空则表示逾期无滞纳金"<BR>
+     *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
+     *  &nbsp;&nbsp;"latefee":逾期滞纳金额<BR>
      * }
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： Boolean;<BR>

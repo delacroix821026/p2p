@@ -239,7 +239,11 @@ public class LenderController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
         logger.info("LenderController Clear:lenderId--" + userId);
-        repayALoanService.updateSta(userId);
+        try {
+            repayALoanService.updateSta(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "Status changed";
     }
 

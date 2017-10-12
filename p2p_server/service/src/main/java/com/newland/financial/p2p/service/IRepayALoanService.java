@@ -58,5 +58,5 @@ public interface IRepayALoanService {
      * @param userId String用户编号
      * @return boolean成功true,失败false
      * */
-    boolean updateSta(String userId);
+    boolean updateSta(String userId) throws Exception;
 }

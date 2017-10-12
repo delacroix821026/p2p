@@ -2,7 +2,9 @@ package com.newland.financial.p2p.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.newland.financial.p2p.dao.ICutMethodDao;
 import com.newland.financial.p2p.dao.IInterestDao;
+import com.newland.financial.p2p.dao.IOrganizationDao;
 import com.newland.financial.p2p.dao.IProductDao;
 import com.newland.financial.p2p.domain.entity.*;
 import com.newland.financial.p2p.service.IProductService;
@@ -29,6 +31,13 @@ public class ProductServiceImpl implements IProductService {
     /**Dao层对象.*/
     @Autowired
     private IInterestDao interestDao;
+    /**Dao层对象.*/
+    @Autowired
+    private ICutMethodDao cutMethodDao;
+    /**Dao层对象.*/
+    @Autowired
+    private IOrganizationDao organizationDao;
+
     /**
      * 查询所有产品.
      * @return List返回所有产品
@@ -55,6 +64,7 @@ public class ProductServiceImpl implements IProductService {
      * */
     public boolean insertProduct(String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
+        Product pro = paramJSON.toJavaObject(Product.class);
         Product product = new Product();
         String proId = paramJSON.getString("proId");
         String proName = paramJSON.getString("proName");
@@ -88,10 +98,11 @@ public class ProductServiceImpl implements IProductService {
         product.setPoundage(poundage);
         product.setIsLatefee(isLatefee);
         product.setRepayMhd(repayMhd);
+
         List<Interest> list = new ArrayList<Interest>();
-        String[] proInterest = paramJSON.getObject("proInterest",String[].class);
-        for (int i = 0; i < proInterest.length; i++){
-            String str = proInterest[i];
+        String[] interestList = paramJSON.getObject("interestList",String[].class);
+        for (int i = 0; i < interestList.length; i++){
+            String str = interestList[i];
             JSONObject ob = JSON.parseObject(str);
             Interest in = new Interest();
             Integer times = Integer.parseInt(ob.getString("times"));
@@ -101,10 +112,11 @@ public class ProductServiceImpl implements IProductService {
             in.setIProId(proId);
             list.add(in);
         }
+
         List<Organization> list1 = new ArrayList<Organization>();
         String[] orgs = paramJSON.getObject("orgs",String[].class);
         for (int i = 0; i < orgs.length; i++){
-            String str = proInterest[i];
+            String str = orgs[i];
             JSONObject ob = JSON.parseObject(str);
             Organization org = new Organization();
             String organization = ob.getString("organization");
@@ -118,6 +130,7 @@ public class ProductServiceImpl implements IProductService {
             org.setOrgStus(orgStus);
             list1.add(org);
         }
+
         List<CutMethod> list2 = new ArrayList<CutMethod>();
         String[] cutMhds = paramJSON.getObject("cutMhd",String[].class);
         for (int i = 0; i < cutMhds.length; i++){
@@ -129,7 +142,15 @@ public class ProductServiceImpl implements IProductService {
             cutMethod.setCutMhd(cutMhd);
             list2.add(cutMethod);
         }
-        return true;
+        Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
+        Boolean b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入表中
+        Boolean b3 = cutMethodDao.insertCutMethod(list2); //将该产品对应的扣款方式插入表中
+        Boolean b4 = productDao.insertProduct(product); //将产品信息插入产品表中
+        if (b1 && b2 && b3 && b4) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

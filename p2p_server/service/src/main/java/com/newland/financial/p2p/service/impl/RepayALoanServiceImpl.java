@@ -102,8 +102,9 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
      * @param userId String用户编号
      * @return boolean成功true,失败false
      * */
-    public boolean updateSta(final String userId) {
-        return repayALoanDao.updateStatus(userId);
+    public boolean updateSta(final String userId) throws Exception{
+        repayALoanDao.updateStatus(userId);
+        throw new Exception();
     }
 
 }
