@@ -173,7 +173,12 @@ public class ProductController {
     @ResponseBody
     @RequestMapping(value = "/InsertProduct", method = {RequestMethod.POST, RequestMethod.GET})
     public Object insertProduct(@RequestBody String jsonStr) {
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
         logger.info("jsonStr：" + jsonStr);
+        String proId = paramJSON.getString("proId");
+        if (productService.getProduct(proId) != null) {
+            return "已存在该产品编号";
+        }
         return productService.insertProduct(jsonStr);
     }
     /**
