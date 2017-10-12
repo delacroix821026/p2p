@@ -20,7 +20,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id Interest中的编号
      * @return BigDecimal 返回对应编号的利率
      * */
-    public BigDecimal getInterest(String id) {
+    public BigDecimal getInterest(int id) {
         Interest interest = getInterestById(id);
         return interest != null ? interest.getIntRate() : new BigDecimal(0);
     }
@@ -29,7 +29,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id Interest中的编号
      * @return Integer 返回对应编号的分期数
      * */
-    public Integer getByStages(String id) {
+    public Integer getByStages(int id) {
         Interest interest = getInterestById(id);
         return interest != null ? interest.getTimes() : 0;
     }
@@ -38,7 +38,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id 利率编号
      * @return BigDecimal 返回产品的月利率
      * */
-    public BigDecimal getInterestByMonth(String id) {
+    public BigDecimal getInterestByMonth(int id) {
         return getInterest(id).divide(new BigDecimal(getByStages(id)).multiply(
                 new BigDecimal(100)), 4, BigDecimal.ROUND_HALF_UP);
     }
@@ -47,7 +47,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id 利率编号
      * @return 返回对应利率编号的利率信息
      * */
-    private Interest getInterestById(String id) {
+    private Interest getInterestById(int id) {
         for (int count = 0; count < interestList.size(); count++) {
             Interest interest = interestList.get(count);
             if (interest.getIttId().equals(id)) {
