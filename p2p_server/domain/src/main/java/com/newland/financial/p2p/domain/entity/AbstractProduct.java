@@ -104,7 +104,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private BigDecimal latefee;
     /**利息方式.*/
     private String interestMhd;
-    /**还款方式:1等额本息，2等额本金.*/
+    /**还款方式:1等额本息，2等额本金,3全部.*/
     private String repayMhd;
     /**机构权限正反选：1正选，2反选.*/
     private String positiveOrNegative;

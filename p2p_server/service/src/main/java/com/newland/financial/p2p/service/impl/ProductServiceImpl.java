@@ -2,10 +2,7 @@ package com.newland.financial.p2p.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.newland.financial.p2p.dao.ICutMethodDao;
-import com.newland.financial.p2p.dao.IInterestDao;
-import com.newland.financial.p2p.dao.IOrganizationDao;
-import com.newland.financial.p2p.dao.IProductDao;
+import com.newland.financial.p2p.dao.*;
 import com.newland.financial.p2p.domain.entity.*;
 import com.newland.financial.p2p.service.IProductService;
 import org.slf4j.Logger;
@@ -37,6 +34,9 @@ public class ProductServiceImpl implements IProductService {
     /**Dao层对象.*/
     @Autowired
     private IOrganizationDao organizationDao;
+    /**Dao层对象.*/
+    @Autowired
+    private IOrgNegativeDao orgNegativeDao;
 
     /**
      * 查询所有产品.
@@ -116,24 +116,6 @@ public class ProductServiceImpl implements IProductService {
             list.add(in);
         }
 
-        List<Organization> list1 = new ArrayList<Organization>();
-        String[] orgs = paramJSON.getObject("orgs",String[].class);
-        for (int i = 0; i < orgs.length; i++){
-            String str = orgs[i];
-            JSONObject ob = JSON.parseObject(str);
-            Organization org = new Organization();
-            String organization = ob.getString("organization");
-            String orgaName = ob.getString("orgaName");
-            String parentId = ob.getString("parentId");
-            String orgStus = ob.getString("orgStus");
-            org.setProId(proId);
-            org.setOrganization(organization);
-            org.setOrgaName(orgaName);
-            org.setParentId(parentId);
-            org.setOrgStus(orgStus);
-            list1.add(org);
-        }
-
         List<CutMethod> list2 = new ArrayList<CutMethod>();
         String[] cutMhds = paramJSON.getObject("cutMhds",String[].class);
         for (int i = 0; i < cutMhds.length; i++){
@@ -145,15 +127,48 @@ public class ProductServiceImpl implements IProductService {
             cutMethod.setCutMhd(cutMhd);
             list2.add(cutMethod);
         }
-        Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
         Boolean b2 = null;
+        String[] orgs = paramJSON.getObject("orgs",String[].class);
         if ("1".equals(positiveOrNegative)) {
+            List<Organization> list1 = new ArrayList<Organization>();
+            for (int i = 0; i < orgs.length; i++){
+                String str = orgs[i];
+                JSONObject ob = JSON.parseObject(str);
+                Organization org = new Organization();
+                String organization = ob.getString("organization");
+                String orgaName = ob.getString("orgaName");
+                String parentId = ob.getString("parentId");
+                String orgStus = ob.getString("orgStus");
+                org.setProId(proId);
+                org.setOrganization(organization);
+                org.setOrgaName(orgaName);
+                org.setParentId(parentId);
+                org.setOrgStus(orgStus);
+                list1.add(org);
+            }
             b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入正选表中
         } else if ("2".equals(positiveOrNegative)){
-            b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入反选表中
+            List<OrgNegative> list1 = new ArrayList<OrgNegative>();
+            for (int i = 0; i < orgs.length; i++){
+                String str = orgs[i];
+                JSONObject ob = JSON.parseObject(str);
+                OrgNegative org = new OrgNegative();
+                String organization = ob.getString("organization");
+                String orgaName = ob.getString("orgaName");
+                String parentId = ob.getString("parentId");
+                String orgStus = ob.getString("orgStus");
+                org.setProId(proId);
+                org.setOrganization(organization);
+                org.setOrgaName(orgaName);
+                org.setParentId(parentId);
+                org.setOrgStus(orgStus);
+                list1.add(org);
+            }
+            b2 = orgNegativeDao.insertOrgNegativeList(list1); //将该产品对应可查看到的机构插入反选表中
         } else {
             b2 = false;
         }
+        Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
         Boolean b3 = cutMethodDao.insertCutMethod(list2); //将该产品对应的扣款方式插入表中
         Boolean b4 = productDao.insertProduct(product); //将产品信息插入产品表中
         if (b1 && b2 && b3 && b4) {

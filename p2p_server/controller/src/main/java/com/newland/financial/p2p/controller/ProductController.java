@@ -93,7 +93,7 @@ public class ProductController {
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
-     *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金",<BR>
+     *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
      *  &nbsp;&nbsp;"cutMhds":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
@@ -163,7 +163,7 @@ public class ProductController {
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"orgStus":"机构状态"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
-     *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金",<BR>
+     *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
      *  &nbsp;&nbsp;"cutMhds":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
