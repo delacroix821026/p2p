@@ -22,7 +22,7 @@ public class ProductTest {
         product.getInterestList();
         product.setInterestList(new ArrayList<Interest>());
         Interest interest1 = new Interest();
-        interest1.setIttId(1);
+//        interest1.setIttId("I1");
         interest1.setIProId(product.getProId());
         interest1.setIntRate(new BigDecimal(19));
         interest1.setTimes(3);
@@ -30,14 +30,14 @@ public class ProductTest {
 
         Interest interest2 = new Interest();
         interest2.setIProId(product.getProId());
-        interest2.setIttId(2);
+//        interest2.setIttId("I2");
         interest2.setIntRate(new BigDecimal(19));
         interest2.setTimes(6);
         interest2.setIProName("六期");
 
         Interest interest3 = new Interest();
         interest3.setIProId(product.getProId());
-        interest3.setIttId(3);
+//        interest3.setIttId("I3");
         interest3.setIntRate(new BigDecimal(19));
         interest3.setTimes(12);
         interest3.setIProName("十二期");
