@@ -38,4 +38,11 @@
         </where>
     </delete>
 
+    <insert id="insertCutMethods" parameterType="List">
+        INSERT INTO p2p_pro_cutmhd (PROID,CUT_MHD)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.proId},#{item.cutMhd})
+        </foreach>
+    </insert>
 </mapper>

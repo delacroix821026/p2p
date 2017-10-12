@@ -38,9 +38,6 @@
     </delete>-->
 
     <insert id="insertSelective" parameterType="com.newland.financial.p2p.domain.entity.Interest">
-        <!--<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="ittId">
-            SELECT ITT_ID_SEQ.Nextval as ittId from dual
-        </selectKey>-->
         INSERT INTO T_INTEREST (ITT_ID,I_PRO_ID,I_PRO_NAME,TIMES,INT_RATE) VALUES (#{ittId,jdbcType=INTEGER},#{iProId,jdbcType=VARCHAR},#{iProName,jdbcType=VARCHAR},#{times,jdbcType=NUMERIC},#{intRate,jdbcType=NUMERIC})
     </insert>
 
@@ -50,5 +47,13 @@
     <delete id="deleteByProperty" parameterType="java.lang.Integer">
         DELETE FROM T_INTEREST WHERE ITT_ID = #{ittId,jdbcType=INTEGER}
     </delete>
+
+    <insert id="insertInterests" parameterType="List">
+        INSERT INTO T_INTEREST (I_PRO_ID,TIMES,INT_RATE)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.iProId},#{item.times},#{item.intRate})
+        </foreach>
+    </insert>
 
 </mapper>

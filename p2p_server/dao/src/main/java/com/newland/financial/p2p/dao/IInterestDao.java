@@ -36,4 +36,10 @@ public interface IInterestDao {
      * @return List返回对应产品的所有利率信息
      */
     List<Interest> findByProId(String proId);
+    /**
+     * 增加多个利率信息.
+     * @param list Interest集合
+     * @return boolean插入成功返回true,失败false
+     */
+    boolean insertInterest(List<Interest> list);
 }

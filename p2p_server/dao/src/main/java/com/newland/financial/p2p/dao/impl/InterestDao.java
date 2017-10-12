@@ -51,6 +51,14 @@ public class InterestDao extends MybatisBaseDao<Interest>
         map.put("iProId", iProId);
         return super.select("selectByProperties", map);
     }
+    /**
+     * 增加多个利率信息.
+     * @param list Interest集合
+     * @return boolean插入成功返回true,失败false
+     */
+    public boolean insertInterest(List<Interest> list) {
+        return super.insertObj("insertInterests",list);
+    }
 
 
 }

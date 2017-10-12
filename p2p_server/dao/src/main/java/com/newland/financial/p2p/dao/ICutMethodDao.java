@@ -25,4 +25,10 @@ public interface ICutMethodDao {
      * @return List CutMethod集合
      */
     List<CutMethod> selectCutMethod(String proId);
+    /**
+     * 插入多个扣款方式.
+     * @param list CutMethod集合
+     * @return true or false
+     */
+    boolean insertCutMethod(List<CutMethod> list);
 }
