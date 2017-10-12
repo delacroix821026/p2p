@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 public class SessionFilter extends ZuulFilter {
     @Override
     public int filterOrder() {
-        return 0; // run before PreDecoration
+        return 1; // run before PreDecoration
     }
 
     @Override
@@ -19,46 +19,16 @@ public class SessionFilter extends ZuulFilter {
     }
 
     public boolean shouldFilter() {
-        System.out.println("request.getSession()");
         return true;
     }
 
-    /* public Object run() {
-         RequestContext ctx = RequestContext.getCurrentContext();
-         HttpServletRequest request = ctx.getRequest();
-         HttpSession session = request.getSession(false);
-         List<String> cookies = Collections.list(request.getHeaders("cookie"));
-         if (session != null && cookies.stream().noneMatch(new Predicate<String>() {
-             public boolean test(String s) {
-                 return s.startsWith("SESSION=");
-             }
-         })) {
-             ctx.addZuulRequestHeader("cookie", "SESSION=" + session.getId());
-         }
-         //session.setAttribute("abc", "123");
-         Enumeration enu = request.getHeaderNames();
-         while (enu.hasMoreElements()) {
-             String headerName = (String) enu.nextElement();
-             String headerValue = request.getHeader(headerName);
-             System.out.print("headerName:" + headerName + "====");
-             System.out.println("headerValue:" + headerValue);
-         }
-         //System.out.println(session.getAttribute("abc"));
-         return null;
-     }*/
     public Object run() {
+
         RequestContext ctx = RequestContext.getCurrentContext();
-        HttpServletRequest request = ctx.getRequest();
-        HttpSession httpSession = request.getSession(false);
-       /* httpSession.setAttribute("abc", "123");
-        Enumeration enu = request.getHeaderNames();
-        while (enu.hasMoreElements()) {
-            String headerName = (String) enu.nextElement();
-            String headerValue = request.getHeader(headerName);
-            System.out.print("headerName:" + headerName + "====");
-            System.out.println("headerValue:" + headerValue);
-        }
-        System.out.println(httpSession.getAttribute("abc"));*/
+        HttpSession httpSession = ctx.getRequest().getSession(true);
+        httpSession.setAttribute("abc", "123");
+        ctx.addZuulRequestHeader("Cookie", "SESSION=" + httpSession.getId());
+        System.out.println("request.getSession()::::::::" + httpSession.getId());
         return null;
     }
 }

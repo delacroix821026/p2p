@@ -7,9 +7,15 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RefreshScope
@@ -37,8 +43,11 @@ public class Example {
 
 
     @RequestMapping(value = "/add_ws", method = RequestMethod.GET)
-    public Object addWS() {
-        log.info("ws controller add Enter");
+    public Object addWS(HttpServletRequest request) {
+        log.info("ws controller add Enter:::::::::::::" + request.getRequestedSessionId());
+        //HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession();
+        log.info("ws controller add Enter:::::::::::::" + session.getAttribute("abc"));
         return feignService.add(5, 18);
     }
 }

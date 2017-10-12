@@ -10,7 +10,7 @@ spring:
             trace:
                 enabled: true
     redis:
-        host: 127.0.0.1
+        host: 192.168.10.47
         port: 6379
         database: 0
     session:
@@ -23,7 +23,7 @@ zuul:
     routes:
         p2p:
             path: /p2p/**
-            sensitiveHeaders: Cookie,Set-Cookie
+            sensitiveHeaders:
             serviceId: p2p-client${DEVLOPER_NAME:}
 ...
 

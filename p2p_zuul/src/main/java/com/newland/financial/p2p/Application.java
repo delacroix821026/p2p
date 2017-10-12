@@ -11,7 +11,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableZuulProxy
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableRedisHttpSession
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 86400*30)
 public class Application {
     public static void main(String[] args) {
         new SpringApplicationBuilder(Application.class).web(true).run(args);
@@ -21,4 +21,5 @@ public class Application {
     public SessionFilter addSessionFilter() {
         return new SessionFilter();
     }
+
 }
