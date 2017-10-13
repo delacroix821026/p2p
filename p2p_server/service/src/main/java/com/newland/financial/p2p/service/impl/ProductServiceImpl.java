@@ -117,7 +117,7 @@ public class ProductServiceImpl implements IProductService {
             list.add(in);
         }
 
-        Boolean b2 = null;
+        Boolean b2 = false;
         String[] orgs = paramJSON.getObject("orgs",String[].class);
         if ("1".equals(positiveOrNegative)) {
             List<Organization> list1 = new ArrayList<Organization>();
@@ -131,7 +131,8 @@ public class ProductServiceImpl implements IProductService {
                 list1.add(org);
             }
             b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入正选表中
-        } else if ("2".equals(positiveOrNegative)){
+        }
+        if ("2".equals(positiveOrNegative)){
             List<OrgNegative> list1 = new ArrayList<OrgNegative>();
             for (int i = 0; i < orgs.length; i++){
                 String str = orgs[i];
@@ -143,8 +144,6 @@ public class ProductServiceImpl implements IProductService {
                 list1.add(org);
             }
             b2 = orgNegativeDao.insertOrgNegativeList(list1); //将该产品对应可查看到的机构插入反选表中
-        } else {
-            b2 = false;
         }
         Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
         Boolean b3 = productDao.insertProduct(product); //将产品信息插入产品表中
