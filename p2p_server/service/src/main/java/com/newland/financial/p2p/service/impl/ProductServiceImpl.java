@@ -68,7 +68,6 @@ public class ProductServiceImpl implements IProductService {
      * */
     public boolean insertProduct(String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        Product pro = paramJSON.toJavaObject(Product.class);
         Product product = new Product();
         String proId = paramJSON.getString("proId");
         String proName = paramJSON.getString("proName");
