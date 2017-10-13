@@ -4,10 +4,7 @@ import com.newland.financial.p2p.service.FeignService;
 import com.newland.financial.p2p.service.IProductService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author cendaijuan
@@ -19,18 +16,21 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
-    @RequestMapping(value = "/GetProduct", method = RequestMethod.POST)
-    public Object getProduct(@RequestBody String jsonStr){
+    @RequestMapping(value = "/GetProduct/{paramA}", method = RequestMethod.POST)
+    public Object getProduct(@PathVariable(name="paramA") String paramA, @RequestBody String jsonStr){
+        log.info("controller add Enter: A:" +paramA);
         return productService.getProduct(jsonStr);
     }
 
-    @RequestMapping(value = "/InsertProduct", method = RequestMethod.POST)
-    public Object insertProduct(@RequestBody String jsonStr){
+    @RequestMapping(value = "/InsertProduct/{paramA}", method = RequestMethod.POST)
+    public Object insertProduct(@PathVariable(name="paramA") String paramA, @RequestBody String jsonStr){
+        log.info("controller add Enter: A:" +paramA);
         return productService.insertProduct(jsonStr);
     }
 
-    @RequestMapping(value = "/PutOrDown", method = RequestMethod.POST)
-    public Object putOrDown(@RequestBody String jsonStr){
+    @RequestMapping(value = "/PutOrDown/{paramA}", method = RequestMethod.POST)
+    public Object putOrDown(@PathVariable(name="paramA") String paramA, @RequestBody String jsonStr){
+        log.info("controller add Enter: A:" +paramA);
         return productService.putOrDown(jsonStr);
     }
 }
