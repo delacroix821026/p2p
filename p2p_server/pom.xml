@@ -234,7 +234,7 @@
                         <additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
                         <additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
                     </additionalClasspathElements>
-                    <skip>true</skip>
+                    <skip>false</skip>
                     <testFailureIgnore>${junit.testFailureIgnore}</testFailureIgnore>
                     <argLine>${surefireArgLine}</argLine>
 

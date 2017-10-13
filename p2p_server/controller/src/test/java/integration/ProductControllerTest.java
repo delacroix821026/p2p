@@ -32,23 +32,12 @@ public class    ProductControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(productController).build();
     }
 
-/*
-    @Test
-    public void testGetProductList()throws Exception{
-        ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
-                .post("/ProductController/GetProductList")
-                .contentType(MediaType.APPLICATION_JSON).content("{}"));
-        MvcResult mr = ra.andReturn();
-        String result = mr.getResponse().getContentAsString();
-        logger.info("aaaaaaaaaaaaaaaa:" + result);
-    }
-*/
 
     @Test
     public void testGetProduct()throws Exception{
         ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/ProductController/GetProduct")
-                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"4\"}"));
+                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"kv222\"}"));
         MvcResult mr = ra.andReturn();
         String result = mr.getResponse().getContentAsString();
         logger.info("aaaaaaaaaaaaaaaa:" + result);
