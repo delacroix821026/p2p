@@ -105,12 +105,12 @@ public class ProductController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String proId = paramJSON.getString("proId");
         logger.info("ProductController GetProductList:proId--" + proId);
-        if (proId == null || proId.equals("")) {
-            return "proId不可为空";
-        } else {
+        if (proId != null && proId != "") {
             IProduct product = productService.getProduct(proId);
             logger.info(product.toString());
             return product;
+        } else {
+            return "proId不可为空";
         }
     }
     /**
@@ -225,10 +225,32 @@ public class ProductController {
      * @return  返回参数：<BR>{<BR>
      *             &nbsp;&nbsp;"total":"总记录数",<BR>
      *             &nbsp;&nbsp;"rows:"[<BR>
-     *             &nbsp;&nbsp;&nbsp;{"proId":"产品编号","proName":"产品名称","sponsor":"资方名称","putanddown":"0下架，1上架","createTime":"创建时间","lastModiTime":"最后修改时间"},<BR>
-     *             &nbsp;&nbsp;&nbsp;{"proId":"产品编号","proName":"产品名称","sponsor":"资方名称","putanddown":"0下架，1上架","createTime":"创建时间","lastModiTime":"最后修改时间"}<BR>
-     *             &nbsp;]<BR>
-     *              }
+     *             &nbsp;&nbsp;&nbsp;{<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proId": "5",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proName": "管理员所看到的产品名称",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proLmt": "最低贷款额度",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"payDate": "产品还款日期",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proInterest": 产品利率,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proNameOperator": 操作员所看到的产品名称,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"sponsor": 出资方,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"sprProName": 出资方产品名称,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"createTime": 1156219870000,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"lastModiTime": 1156219870000,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"maxLmt": 最大贷款额,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"role": "角色",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"putAndDown": "上下架",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"advanceRepay": 是否允许提前还款,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"poundage": 提前还款是否收取手取费1收取，2不收取,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"formula": 手续费公式,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"isLatefee": 是否收取滞纳金:1收取，2不收取,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"latefee": 逾期滞纳金,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"interestMhd": 利息方式,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp; "repayMhd": 还款方式:1等额本息，2等额本金,3全部,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"positiveOrNegative": 机构权限正反选：1正选，2反选,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"cutMhd": 扣款方式：1银行代扣，2自主还款,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"interestList": [{"times":分期数},{"times":分期数}]<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"organizationsList":[{"organization":"机构号"},{"organization":"机构号"}]<BR>
+     *             &nbsp;&nbsp;&nbsp;}
      */
     @ResponseBody
     @RequestMapping(value = "/GetProdList",method = {RequestMethod.POST, RequestMethod.GET})
