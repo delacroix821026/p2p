@@ -19,11 +19,6 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
-/*    @RequestMapping(value = "/GetProductList", method = RequestMethod.POST)
-    public Object getProductList(){
-        return productService.getProductList();
-    }*/
-
     @RequestMapping(value = "/GetProduct", method = RequestMethod.POST)
     public Object getProduct(@RequestBody String jsonStr){
         return productService.getProduct(jsonStr);

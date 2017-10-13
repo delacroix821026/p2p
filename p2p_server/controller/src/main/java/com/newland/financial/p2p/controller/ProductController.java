@@ -78,6 +78,7 @@ public class ProductController {
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
      *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
+     *  &nbsp;&nbsp;"cutMhd":"扣款方式：1银行代扣，2自主还款"<BR>
      *  &nbsp;&nbsp;"interestList":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数<BR>
@@ -94,7 +95,6 @@ public class ProductController {
      *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
-     *  &nbsp;&nbsp;"cutMhd":"扣款方式：1银行代扣，2自主还款"<BR>
      *  }<BR>
      * */
     @ResponseBody
