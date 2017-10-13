@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.OrgNegativeMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.OrgNegative">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="PROID" property="proId" jdbcType="VARCHAR"/>
+        <result column="ORGANIZATION" property="organization" jdbcType="VARCHAR"/>
+        <result column="ORGA_NAME" property="orgaName" jdbcType="VARCHAR"/>
+        <result column="PARENTID" property="parentId" jdbcType="VARCHAR"/>
+        <result column="ORGSTUS" property="orgStus" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,PROID,ORGANIZATION,ORGA_NAME,PARENTID,ORGSTUS
+    </sql>
+
+    <select id="selectByProperty" resultMap="BaseResultMap" parameterType="Map">
+        select <include refid="Base_Column_List"/> from p2p_org_negative WHERE PROID = #{proId}
+    </select>
+
+    <insert id="insertOrgNegativeList" parameterType="List">
+        INSERT INTO p2p_org_negative
+        (PROID,ORGANIZATION,ORGA_NAME,PARENTID,ORGSTUS) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.proId},#{item.organization},#{item.orgaName},#{item.parentId},#{item.orgStus})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByProperty" parameterType="String">
+        DELETE FROM p2p_org WHERE PROID = #{proId}
+    </delete>
+
+</mapper>
