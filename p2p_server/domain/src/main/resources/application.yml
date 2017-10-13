@@ -40,8 +40,10 @@ spring:
 
 ---
 pagehelper:
-    dialect: com.github.pagehelper.dialect.helper.MySqlDialect
-    rowBoundsWithCount: true
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
 
 ...
 
