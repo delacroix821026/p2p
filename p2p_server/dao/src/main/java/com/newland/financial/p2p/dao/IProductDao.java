@@ -3,6 +3,8 @@ package com.newland.financial.p2p.dao;
 import com.newland.financial.p2p.domain.entity.Product;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 定义对产品进行增删改查的接口.
  * @author Mxia
@@ -45,4 +47,10 @@ public interface IProductDao {
      * */
     boolean updatePutAndDown(String proId, String putAndDown);
 
+    /**
+     * 有条件分页查询产品信息.
+     * @param map 查询条件
+     * @return 分页信息
+     */
+    List<Product> findAll(Map<String,Object> map);
 }
