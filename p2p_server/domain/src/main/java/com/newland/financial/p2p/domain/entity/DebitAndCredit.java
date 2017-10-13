@@ -42,7 +42,7 @@ public class DebitAndCredit extends BaseEntity {
     /**贷款单编号.*/
     private String dtId;
     /**利率编号.*/
-    private String dIttId;
+    private int dIttId;
     /**贷款人编号.*/
     private String dLnrId;
     /**贷款产品编号.*/

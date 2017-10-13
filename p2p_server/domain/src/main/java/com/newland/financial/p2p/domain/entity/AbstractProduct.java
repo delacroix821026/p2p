@@ -20,7 +20,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id Interest中的编号
      * @return BigDecimal 返回对应编号的利率
      * */
-    public BigDecimal getInterest(String id) {
+    public BigDecimal getInterest(int id) {
         Interest interest = getInterestById(id);
         return interest != null ? interest.getIntRate() : new BigDecimal(0);
     }
@@ -29,7 +29,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id Interest中的编号
      * @return Integer 返回对应编号的分期数
      * */
-    public Integer getByStages(String id) {
+    public Integer getByStages(int id) {
         Interest interest = getInterestById(id);
         return interest != null ? interest.getTimes() : 0;
     }
@@ -38,16 +38,16 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
      *@param id 利率编号
      * @return BigDecimal 返回产品的月利率
      * */
-    public BigDecimal getInterestByMonth(String id) {
+    /*public BigDecimal getInterestByMonth(int id) {
         return getInterest(id).divide(new BigDecimal(getByStages(id)).multiply(
                 new BigDecimal(100)), 4, BigDecimal.ROUND_HALF_UP);
-    }
+    }*/
     /**
      * 一个产品会根据分期数有不同的利率信息,根据传进来的利率编号进行匹配需要使用哪一条利率.
      *@param id 利率编号
      * @return 返回对应利率编号的利率信息
      * */
-    private Interest getInterestById(String id) {
+    private Interest getInterestById(int id) {
         for (int count = 0; count < interestList.size(); count++) {
             Interest interest = interestList.get(count);
             if (interest.getIttId().equals(id)) {
@@ -108,12 +108,11 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private String repayMhd;
     /**机构权限正反选：1正选，2反选.*/
     private String positiveOrNegative;
+    /**扣款方式：1银行代扣，2自主还款.*/
+    private String cutMhd;
 
     /**利率信息.*/
     private List<Interest> interestList;
     /**维护的机构权限数据.*/
     private List organizationsList;
-    /**维护的扣款方式.*/
-    private List<CutMethod> cutMethodList;
-
 }

@@ -29,7 +29,7 @@ public final class RepayALoanFactory {
      * */
     public static List<RepayALoan> createRepayAloan(final IProduct product,
         final IPositionExchange lender, final BigDecimal money,
-         final String interestId, final String debitId) {
+         final int interestId, final String debitId) {
         List<RepayALoan> repayALoanList = new ArrayList<RepayALoan>();
         //按分期数遍历生成相应期数的还款单
         for (int count = 0;

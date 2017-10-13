@@ -32,11 +32,25 @@ public interface IProductService {
      *@param putAndDown 上下架状态
      *@return boolean 返回布尔值
      * */
-    boolean updatePutAndDown(String proId,String putAndDown);
+    boolean updatePutAndDown(String proId, String putAndDown);
     /**
      * 查看产品编号是否存在.
      * @param id 产品编码
      * @return producr
      */
     IProduct findProduct(String id);
+
+     /**
+     * 更新产品信息.
+     * @param jsonStr   json字符串
+     * @return  true:更新成功,false:更新失败
+     */
+    boolean updateProdInfo(String jsonStr);
+
+    /**
+     * 查询产品列表
+     * @param jsonStr   查询条件json字符串
+     * @return
+     */
+     Object getProdList(String jsonStr);
 }

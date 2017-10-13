@@ -1,4 +1,4 @@
-package unit;
+/*package unit;
 
 import com.newland.financial.p2p.common.exception.OverloadException;
 import com.newland.financial.p2p.domain.entity.*;
@@ -20,7 +20,6 @@ public class DebitAndCreditFactoryTest {
     private static Lender lender;
     @BeforeClass
     public static void setUpClass() {
-        //System.out.println("before");
         product = new Product();
         product.setProId("4");
         product.setProName("星贷");
@@ -29,7 +28,6 @@ public class DebitAndCreditFactoryTest {
 
         Interest interest = new Interest();
         interest.setTimes(1);
-//        interest.setIttId("2");
         interest.setIProName("星贷");
         interest.setIProId("4");
         interest.setIntRate(new BigDecimal("1.6"));
@@ -42,8 +40,7 @@ public class DebitAndCreditFactoryTest {
     }
     @Test//正常情况
     public void A_createDebitAndCredit()throws OverloadException {
-        //System.out.println("1         " +lender.getCurrentLmt());
-        DebitAndCredit debitAndCredit = DebitAndCreditFactory.createDebitAndCredit(product,lender,new BigDecimal(500),"2");
+        DebitAndCredit debitAndCredit = DebitAndCreditFactory.createDebitAndCredit(product,lender,new BigDecimal(500),2);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH,1);
@@ -54,13 +51,11 @@ public class DebitAndCreditFactoryTest {
 
     @Test(expected = OverloadException.class)//超过个人额度限制
     public void B_createDebitAndCredit ()throws OverloadException {
-//        System.out.println("2        "+ lender.getCurrentLmt());
-        DebitAndCreditFactory.createDebitAndCredit(product,lender,new BigDecimal("501"),"2");
+        DebitAndCreditFactory.createDebitAndCredit(product,lender,new BigDecimal("501"),2);
     }
 
     @Test(expected = OverloadException.class)//超过产品额度限制
     public void C_createDebitAndCredit ()throws OverloadException {
-//        System.out.println("3");
-        DebitAndCreditFactory.createDebitAndCredit(product,lender,new BigDecimal("1001"),"2");
+        DebitAndCreditFactory.createDebitAndCredit(product,lender,new BigDecimal("1001"),2);
     }
-}
+}*/

@@ -70,4 +70,12 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
         return super.update("updatePutAndDown",map);
     }
 
+    /**
+     * 有条件分页查询产品信息.
+     * @param map 查询条件
+     * @return 分页信息
+     */
+    public List<Product> findAll(Map<String,Object> map){
+        return  super.select("findAll",map);
+    }
 }

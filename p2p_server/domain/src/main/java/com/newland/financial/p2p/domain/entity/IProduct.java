@@ -14,19 +14,19 @@ public interface IProduct {
      * @param id 利率编号
      * @return 利率
      * */
-    BigDecimal getInterest(String id);
+    BigDecimal getInterest(int id);
     /**
      * 获取分期数.
      * @param id 利率编号
      * @return 分期数
      * */
-    Integer getByStages(String id);
+    Integer getByStages(int id);
     /**
      * 获取月利率.
      *@param id String 利率编号
      * @return BigDecimal 月利率
      * */
-    BigDecimal getInterestByMonth(String id);
+    //BigDecimal getInterestByMonth(String id);
     /**
      * @throws OverloadException 所贷金额超出产品本身的限定额度.
      *@param position BigDecimal 贷款金额

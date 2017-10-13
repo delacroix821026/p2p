@@ -54,9 +54,9 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @param interestId String利率编号
      * @throws OverloadException 贷款金额超出额度限制
      */
-    public void createDebitAndCredit(final String userId,
-            final String productId, final BigDecimal money,
-            final String interestId) throws OverloadException {
+    public void createDebitAndCredit(String userId,
+            String productId, BigDecimal money,
+            int interestId) throws OverloadException {
         Lender lender = lenderDao.findById(userId);
         AbstractProduct product = productDao.findById(productId);
         product.setInterestList(interestDao.findByProId((productId)));

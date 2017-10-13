@@ -1,4 +1,4 @@
-package unit;
+/*package unit;
 
 import com.newland.financial.p2p.common.exception.OverloadException;
 import com.newland.financial.p2p.domain.entity.Lender;
@@ -33,4 +33,4 @@ public class LenderTest {
         lender.changePosition(new BigDecimal(-25));
         Assert.assertEquals("release need be 25!", new BigDecimal(25), lender.getCurrentLmt());
     }
-}
+}*/
