@@ -30,7 +30,7 @@
     </insert>
 
     <delete id="deleteByProperty" parameterType="String">
-        DELETE FROM p2p_org WHERE PROID = #{proId}
+        DELETE FROM p2p_org_negative WHERE PROID = #{proId}
     </delete>
 
 </mapper>
