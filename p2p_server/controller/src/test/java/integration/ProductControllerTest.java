@@ -39,7 +39,39 @@ public class    ProductControllerTest {
                 .post("/ProductController/GetProduct")
                 .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"kv222\"}"));
         MvcResult mr = ra.andReturn();
+        ResultActions ra1 = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/GetProduct")
+                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"\"}"));
+        MvcResult mr1= ra1.andReturn();
+        String result1 = mr.getResponse().getContentAsString();
+        String result12 = mr1.getResponse().getContentAsString();
+        logger.info("result1:" + result1);
+        logger.info("result12:" + result12);
+    }
+
+    @Test
+    public void testInsertProduct() throws Exception {
+        ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/InsertProduct")
+                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"proName\":\"测试贷\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"星贷aa\",\"sponsor\":\"小明公司\",\"sprProName\":\"消费贷\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"999\"},{\"organization\":\"1000\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20,\"positiveOrNegative\":\"1\"}"));
+        MvcResult mr = ra.andReturn();
+        ResultActions ra1 = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/InsertProduct")
+                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"proName\":\"测试贷\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"星贷aa\",\"sponsor\":\"小明公司\",\"sprProName\":\"消费贷\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"999\"},{\"organization\":\"1000\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20,\"positiveOrNegative\":\"1\"}"));
+        MvcResult mr1 = ra1.andReturn();
+        String result1 = mr.getResponse().getContentAsString();
+        String result12 = mr1.getResponse().getContentAsString();
+        logger.info("result1:" + result1);
+        logger.info("result12:" + result12);
+    }
+
+    @Test
+    public void testPutOrDown() throws Exception {
+        ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/PutOrDown")
+                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"putAndDown\":\"1\"}"));
+        MvcResult mr = ra.andReturn();
         String result = mr.getResponse().getContentAsString();
-        logger.info("aaaaaaaaaaaaaaaa:" + result);
+        logger.info("result:" + result);
     }
 }
