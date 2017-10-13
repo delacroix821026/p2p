@@ -178,84 +178,142 @@ public class ProductServiceImpl implements IProductService {
      * 更新产品信息.
      * @param jsonStr   json字符串
      * @return  true:更新成功,false:更新失败
-     * &nbsp;&nbsp;"proId":"产品编号",<BR>
-     *                       &nbsp;&nbsp;"proId":"产品编号",<BR>
-     *                       &nbsp;&nbsp;"proName":"产品名称",<BR>
-     *                       &nbsp;&nbsp;"proNameOperator":"产品别名",<BR>
-     *                       &nbsp;&nbsp;"sponsor":"资方名称"，<BR>
-     *                       &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
-     *                       &nbsp;&nbsp;"proLmt":"最低产品限额",<BR>
-     *                       &nbsp;&nbsp;"maxLmt":"最高产品限额",<BR>
-     *                       &nbsp;&nbsp;"repayMhd":"还款方式",<BR>
-     *                       &nbsp;&nbsp;"interestMhd":"利息方式",<BR>
-     *                       &nbsp;&nbsp;"advanceRepay":"是否提前还款：1是，2否",<BR>
-     *                       &nbsp;&nbsp;"poundage":"提前还款是否收取手取费：1是，2否",<BR>
-     *                       &nbsp;&nbsp;"formula":"手续费公式",<BR>
-     *                       &nbsp;&nbsp;"isLatefee":"是否收取滞纳金,1是，2否",<BR>
-     *                       &nbsp;&nbsp;"latefee":"逾期滞纳金",<BR>
-     *                       &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
-     *                       &nbsp;&nbsp;"cutMhd":["1银行代扣"，"2自主还款"],<BR>
-     *                       &nbsp;&nbsp;"interest":[{"time":"分期1","intRate":"利率1"},{"time":"分期2","intRate":"利率2"}],<BR>
-     *                       &nbsp;&nbsp;"orgs":[{"organization":机构号,"orga_name":机构名,"parentid":父机构号,"orgstus":状态}]<BR>
      */
     public boolean updateProdInfo(String jsonStr){
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        //获取产品信息
+        Product pro = paramJSON.toJavaObject(Product.class);
         Product product = new Product();
         String proId = paramJSON.getString("proId");
         String proName = paramJSON.getString("proName");
+        BigDecimal proLmt = new BigDecimal(paramJSON.getString("proLmt"));
         String proNameOperator = paramJSON.getString("proNameOperator");
         String sponsor = paramJSON.getString("sponsor");
         String sprProName = paramJSON.getString("sprProName");
-        BigDecimal proLmt = new BigDecimal(paramJSON.getString("proLmt"));
         BigDecimal maxLmt = new BigDecimal(paramJSON.getString("maxLmt"));
-        String repayMhd = paramJSON.getString("repayMhd");
-        String interestMhd = paramJSON.getString("interestMhd");
-        String advanceRepay = paramJSON.getString("advanceRepay");
-        String poundage = paramJSON.getString("poundage");
-        String formula = paramJSON.getString("formula");
-        String isLatefee = paramJSON.getString("isLatefee");
-        BigDecimal latefee = new BigDecimal(paramJSON.getString("latefee"));
         String role = paramJSON.getString("role");
-
+        String advanceRepay = paramJSON.getString("advanceRepay");
+        String formula = paramJSON.getString("formula");
+        BigDecimal latefee = new BigDecimal(paramJSON.getString("latefee"));
+        String interestMhd = paramJSON.getString("interestMhd");
+        String poundage = paramJSON.getString("poundage");
+        String isLatefee = paramJSON.getString("isLatefee");
+        String repayMhd = paramJSON.getString("repayMhd");
+        String positiveOrNegative = paramJSON.getString("positiveOrNegative");
+        String cutMhd = paramJSON.getString("cutMhd");
         product.setProId(proId);
         product.setProName(proName);
+        product.setProLmt(proLmt);
         product.setProNameOperator(proNameOperator);
         product.setSponsor(sponsor);
         product.setSprProName(sprProName);
-        product.setProLmt(proLmt);
-        product.setMaxLmt(maxLmt);
-        product.setRepayMhd(repayMhd);
-        product.setInterestMhd(interestMhd);
-        product.setAdvanceRepay(advanceRepay);
-        product.setPoundage(poundage);
-        product.setFormula(formula);
-        product.setIsLatefee(isLatefee);
-        product.setLatefee(latefee);
-        product.setRole(role);
         product.setLastModiTime(new Date());
+        product.setMaxLmt(maxLmt);
+        product.setRole(role);
+        product.setAdvanceRepay(advanceRepay);
+        product.setFormula(formula);
+        product.setLatefee(latefee);
+        product.setInterestMhd(interestMhd);
+        product.setPoundage(poundage);
+        product.setIsLatefee(isLatefee);
+        product.setRepayMhd(repayMhd);
+        product.setPositiveOrNegative(positiveOrNegative);
+        product.setCutMhd(cutMhd);
 
         //获取产品利率信息
-        List<Interest> interestList = new ArrayList<Interest>();
-        String[] interestJson = paramJSON.getObject("interest",String[].class);
-        for(String s : interestJson){
-            JSONObject ob = JSON.parseObject(s);
-            Interest interest = ob.toJavaObject(Interest.class);
-            interestList.add(interest);
+        List<Interest> list = new ArrayList<Interest>();
+        String[] interestList = paramJSON.getObject("interestList",String[].class);
+        for (int i = 0; i < interestList.length; i++){
+            String str = interestList[i];
+            JSONObject ob = JSON.parseObject(str);
+            Interest in = new Interest();
+            Integer times = Integer.parseInt(ob.getString("times"));
+            in.setTimes(times);
+            in.setIProId(proId);
+            list.add(in);
         }
         //获取机构信息
         List<Organization> orgList = new ArrayList<Organization>();
-        String[] orgJson = paramJSON.getObject("orgs",String[].class);
-        for(String s : interestJson){
-            JSONObject ob = JSON.parseObject(s);
-            Organization organization = ob.toJavaObject(Organization.class);
-            orgList.add(organization);
+        List<OrgNegative> negList = new ArrayList<OrgNegative>();
+        String[] orgs = paramJSON.getObject("orgs",String[].class);
+        for (int i = 0; i < orgs.length; i++){
+            String str = orgs[i];
+            JSONObject ob = JSON.parseObject(str);
+            Organization org = new Organization();
+            String organization = ob.getString("organization");
+            org.setProId(proId);
+            org.setOrganization(organization);
+            orgList.add(org);
         }
-        //扣款方式
-//        String[] cutMhd = paramJSON.getObject("cutMhd",String[].class);
-        //清除原有的产品利率信息
+        for(Organization org : orgList){
+            OrgNegative orgNegative = new OrgNegative();
+            orgNegative.setId(org.getId());
+            orgNegative.setProId(org.getProId());
+            orgNegative.setOrganization(org.getOrganization());
+            orgNegative.setOrgaName(org.getOrgaName());
+            orgNegative.setParentId(org.getParentId());
+            orgNegative.setOrgStus(org.getOrgStus());
+            negList.add(orgNegative);
+        }
 
-        return  true;
+        //更新产品信息
+        if(!productDao.updateProduct(product)){
+            return false;
+        }
+        //更新利率信息
+        if(!interestDao.deleteInterestByProId(proId)){
+            return false;
+        }
+        if(!interestDao.insertInterest(list)){
+            return false;
+        }
+        //更新机构信息
+        if ("1".equals(positiveOrNegative)) {   //更新产品-机构信息（正选表）
+            //删除原有产品-机构信息（正选表）
+            if(!organizationDao.deleteOrganization(proId)){
+                return false;
+            }
+//            //删除原有产品-机构信息（反选表）
+            if(!orgNegativeDao.deleteOrgNegative(proId)){
+                return false;
+            }
+            //插入新的产品-机构信息
+            if(!organizationDao.insertOrganizationList(orgList)){
+                return false;
+            }
+        }
+        if ("2".equals(positiveOrNegative)) {   //更新产品-机构信息（反选表）
+//            //删除原有产品-机构信息（正选表）
+            if(!organizationDao.deleteOrganization(proId)){
+                return false;
+            }
+            //删除原有产品-机构信息（反选表）
+            if(!orgNegativeDao.deleteOrgNegative(proId)){
+                return false;
+            }
+            //插入新的产品-机构信息
+            if(!orgNegativeDao.insertOrgNegativeList(negList)){
+                return false;
+            }
+        }
+        return true;
+
+//        //获取产品利率信息
+//        List<Interest> interestList = new ArrayList<Interest>();
+//        String[] interestJson = paramJSON.getObject("interest",String[].class);
+//        for(String s : interestJson){
+//            JSONObject ob = JSON.parseObject(s);
+//            Interest interest = ob.toJavaObject(Interest.class);
+//            interestList.add(interest);
+//        }
+//        //获取机构信息
+//        List<Organization> orgList = new ArrayList<Organization>();
+//        String[] orgJson = paramJSON.getObject("orgs",String[].class);
+//        for(String s : interestJson){
+//            JSONObject ob = JSON.parseObject(s);
+//            Organization organization = ob.toJavaObject(Organization.class);
+//            orgList.add(organization);
+//        }
+
     }
 
     /**

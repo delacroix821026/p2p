@@ -56,4 +56,7 @@
         </foreach>
     </insert>
 
+    <delete id="deleteInterestByProId" parameterType="java.lang.String">
+        DELETE FROM T_INTEREST WHERE I_PRO_ID = #{iProId,jdbcType=VARCHAR}
+    </delete>
 </mapper>

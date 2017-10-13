@@ -105,12 +105,12 @@ public class ProductController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String proId = paramJSON.getString("proId");
         logger.info("ProductController GetProductList:proId--" + proId);
-        if (proId == null || proId.equals("")) {
-            return "proId不可为空";
-        } else {
+        if (proId != null && proId != "") {
             IProduct product = productService.getProduct(proId);
             logger.info(product.toString());
             return product;
+        } else {
+            return "proId不可为空";
         }
     }
     /**
@@ -170,34 +170,52 @@ public class ProductController {
     }
     /**
      *更新产品信息.
-     * @param jsonStr    请求参数：{<BR>
-     *                       &nbsp;&nbsp;"proId":"产品编号",<BR>
-     *                       &nbsp;&nbsp;"proName":"产品名称",<BR>
-     *                       &nbsp;&nbsp;"proNameOperator":"产品别名",<BR>
-     *                       &nbsp;&nbsp;"sponsor":"资方名称"，<BR>
-     *                       &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
-     *                       &nbsp;&nbsp;"proLmt":"最低产品限额",<BR>
-     *                       &nbsp;&nbsp;"maxLmt":"最高产品限额",<BR>
-     *                       &nbsp;&nbsp;"repayMhd":"还款方式",<BR>
-     *                       &nbsp;&nbsp;"interestMhd":"利息方式",<BR>
-     *                       &nbsp;&nbsp;"advanceRepay":"是否提前还款：1是，2否",<BR>
-     *                       &nbsp;&nbsp;"poundage":"提前还款是否收取手取费：1是，2否",<BR>
-     *                       &nbsp;&nbsp;"formula":"手续费公式",<BR>
-     *                       &nbsp;&nbsp;"isLatefee":"是否收取滞纳金,1是，2否",<BR>
-     *                       &nbsp;&nbsp;"latefee":"逾期滞纳金",<BR>
-     *                       &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
-     *                       &nbsp;&nbsp;"cutMhd":"1银行代扣,2自主还款",<BR>
-     *                       &nbsp;&nbsp;"interest":[{"time":"分期1","intRate":"利率1"},{"time":"分期2","intRate":"利率2"}],<BR>
-     *                       &nbsp;&nbsp;"orgs":[{"organization":机构号,"orga_name":机构名,"parentid":父机构号,"orgstus":状态}]<BR>
-     *                   }
+     * @param jsonStr    请求参数：<BR>
+     *  {<BR>
+     *  &nbsp;&nbsp;"proId":"产品编号",<BR>
+     *  &nbsp;&nbsp;"proName":"管理员所看到的产品名称",<BR>
+     *  &nbsp;&nbsp;"proLmt":最低贷款额度,<BR>
+     *  &nbsp;&nbsp;"interestList":[<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"times":分期数<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+     *  &nbsp;&nbsp;],<BR>
+     *  &nbsp;&nbsp;"proNameOperator":"操作员可视产品名称",<BR>
+     *  &nbsp;&nbsp;"sponsor":"出资方",<BR>
+     *  &nbsp;&nbsp;"sprProName":"资方产品名称",<BR>
+     *  &nbsp;&nbsp;"maxLmt":最大贷款额,<BR>
+     *  &nbsp;&nbsp;"role":"角色：1管理员，2操作员，0全部",<BR>
+     *  &nbsp;&nbsp;"orgs":[<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+     *  &nbsp;&nbsp;],<BR>
+     *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
+     *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
+     *  &nbsp;&nbsp;"cutMhd":"扣款方式：1银行代扣，2自主还款",<BR>
+     *  &nbsp;&nbsp;"advanceRepay":"是否允许提前还款：1允许，2不允许",<BR>
+     *  &nbsp;&nbsp;"poundage":"提前还款是否收取手续费：1收取，2不收取",<BR>
+     *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
+     *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
+     *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
+     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
+     *  }<BR>
      * @return    返回参数：{"Update Sucess"}
      */
     @ResponseBody
     @RequestMapping(value = "/UpdateProd",method = {RequestMethod.POST, RequestMethod.GET})
     public Object updateProd(@RequestBody String jsonStr){
-        productService.updateProdInfo(jsonStr);
-
-        return "Update Sucess";
+        if(productService.updateProdInfo(jsonStr)){
+            return "Update Success";
+        }else {
+            return "Update Faile";
+        }
     }
 
 
