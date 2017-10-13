@@ -105,12 +105,12 @@ public class ProductController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String proId = paramJSON.getString("proId");
         logger.info("ProductController GetProductList:proId--" + proId);
-        if (proId != null && proId != "") {
+        if (proId == null || proId.equals("")) {
+            return "proId不可为空";
+        } else {
             IProduct product = productService.getProduct(proId);
             logger.info(product.toString());
             return product;
-        } else {
-            return "proId不可为空";
         }
     }
     /**
