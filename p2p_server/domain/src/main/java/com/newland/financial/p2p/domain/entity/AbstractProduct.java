@@ -91,7 +91,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     /**角色：1管理员，2操作员，0全部.*/
     private String role;
     /**上下架：1上架，2下架,默认未上架.*/
-    private String putAndDown = "1";
+    private String putAndDown = "2";
     /**是否允许提前还款：1允许，2不允许.*/
     private String advanceRepay;
     /**提前还款是否收取手取费1收取，2不收取*/
@@ -115,4 +115,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private List<Interest> interestList;
     /**维护的机构权限数据.*/
     private List organizationsList;
+    /**维护的扣款方式.*/
+    private List<CutMethod> cutMethodList;
+
 }
