@@ -53,11 +53,11 @@ public class    ProductControllerTest {
     public void testInsertProduct() throws Exception {
         ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/ProductController/InsertProduct")
-                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"proName\":\"测试贷\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"星贷aa\",\"sponsor\":\"小明公司\",\"sprProName\":\"消费贷\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"999\"},{\"organization\":\"1000\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20,\"positiveOrNegative\":\"1\"}"));
+                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"proName\":\"apple\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"apple\",\"sponsor\":\"apple\",\"sprProName\":\"apple\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"999\"},{\"organization\":\"1000\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20,\"positiveOrNegative\":\"1\"}"));
         MvcResult mr = ra.andReturn();
         ResultActions ra1 = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/ProductController/InsertProduct")
-                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"proName\":\"测试贷\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"星贷aa\",\"sponsor\":\"小明公司\",\"sprProName\":\"消费贷\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"999\"},{\"organization\":\"1000\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20,\"positiveOrNegative\":\"1\"}"));
+                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"proName\":\"apple\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"apple\",\"sponsor\":\"apple\",\"sprProName\":\"apple\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"999\"},{\"organization\":\"1000\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20,\"positiveOrNegative\":\"1\"}"));
         MvcResult mr1 = ra1.andReturn();
         String result1 = mr.getResponse().getContentAsString();
         String result12 = mr1.getResponse().getContentAsString();
