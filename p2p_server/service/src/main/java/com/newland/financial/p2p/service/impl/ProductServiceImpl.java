@@ -182,6 +182,9 @@ public class ProductServiceImpl implements IProductService {
         Product pro = paramJSON.toJavaObject(Product.class);
         Product product = new Product();
         String proId = paramJSON.getString("proId");
+        if(proId == null || proId == ""){
+            return  false;
+        }
         String proName = paramJSON.getString("proName");
         BigDecimal proLmt = new BigDecimal(paramJSON.getString("proLmt"));
         String proNameOperator = paramJSON.getString("proNameOperator");
@@ -227,6 +230,7 @@ public class ProductServiceImpl implements IProductService {
             Integer times = Integer.parseInt(ob.getString("times"));
             in.setTimes(times);
             in.setIProId(proId);
+//            in.setIProName(proName);
             list.add(in);
         }
         //获取机构信息
@@ -255,63 +259,70 @@ public class ProductServiceImpl implements IProductService {
 
         //更新产品信息
         if(!productDao.updateProduct(product)){
+            logger.info("----------------------------------------更新产品信息失败");
             return false;
         }
         //更新利率信息
-        if(!interestDao.deleteInterestByProId(proId)){
-            return false;
+        List<Interest> interestTempList = interestDao.findByProId(proId);
+        logger.info("--------判断表中是否存在指定产品的利率信息-------"+interestDao.findByProId(proId).size());
+        if( interestTempList != null && interestTempList.size()>0){ //判断表中是否存在指定产品的利率信息
+            if(!interestDao.deleteInterestByProId(proId)){
+                logger.info("----------------------------------------删除利率失败");
+                return false;
+            }
         }
         if(!interestDao.insertInterest(list)){
+            logger.info("----------------------------------------插入利率失败");
             return false;
         }
         //更新机构信息
         if ("1".equals(positiveOrNegative)) {   //更新产品-机构信息（正选表）
             //删除原有产品-机构信息（正选表）
-            if(!organizationDao.deleteOrganization(proId)){
-                return false;
+            List<Organization> orgTempList = organizationDao.selectOrganizationList(proId);
+            if( orgTempList != null && orgTempList.size()>0){
+                if(!organizationDao.deleteOrganization(proId)){
+                    logger.info("1111111111-------------------------------删除原有产品-机构信息（正选表）失败");
+                    return false;
+                }
             }
-//            //删除原有产品-机构信息（反选表）
-            if(!orgNegativeDao.deleteOrgNegative(proId)){
-                return false;
+            //删除原有产品-机构信息（反选表）
+            List<OrgNegative> orgNeTempList = orgNegativeDao.selectOrgNegativeList(proId);
+            if( orgNeTempList != null && orgNeTempList.size()>0){
+                if(!orgNegativeDao.deleteOrgNegative(proId)){
+                    logger.info("1111111111-------------------------------删除原有产品-机构信息（反选表）失败");
+                    return false;
+                }
             }
             //插入新的产品-机构信息
             if(!organizationDao.insertOrganizationList(orgList)){
+                logger.info("1111111111------------------------------插入新的产品-机构信息失败");
                 return false;
             }
         }
         if ("2".equals(positiveOrNegative)) {   //更新产品-机构信息（反选表）
-//            //删除原有产品-机构信息（正选表）
-            if(!organizationDao.deleteOrganization(proId)){
-                return false;
+            //删除原有产品-机构信息（正选表）
+            List<Organization> orgTempList = organizationDao.selectOrganizationList(proId);
+            if(orgTempList != null && orgTempList.size()>0){
+                if(!organizationDao.deleteOrganization(proId)){
+                    logger.info("2222222222-------------------------------删除原有产品-机构信息（正选表）失败");
+                    return false;
+                }
             }
             //删除原有产品-机构信息（反选表）
-            if(!orgNegativeDao.deleteOrgNegative(proId)){
-                return false;
+            List<OrgNegative> orgNeTempList = orgNegativeDao.selectOrgNegativeList(proId);
+            if(orgNeTempList != null && orgNeTempList.size()>0){
+                if(!orgNegativeDao.deleteOrgNegative(proId)){
+                    logger.info("2222222222-------------------------------删除原有产品-机构信息（反选表）");
+                    return false;
+                }
             }
             //插入新的产品-机构信息
             if(!orgNegativeDao.insertOrgNegativeList(negList)){
+                logger.info("2222222222------------------------------插入新的产品-机构信息失败");
                 return false;
             }
         }
         return true;
-
-//        //获取产品利率信息
-//        List<Interest> interestList = new ArrayList<Interest>();
-//        String[] interestJson = paramJSON.getObject("interest",String[].class);
-//        for(String s : interestJson){
-//            JSONObject ob = JSON.parseObject(s);
-//            Interest interest = ob.toJavaObject(Interest.class);
-//            interestList.add(interest);
-//        }
-//        //获取机构信息
-//        List<Organization> orgList = new ArrayList<Organization>();
-//        String[] orgJson = paramJSON.getObject("orgs",String[].class);
-//        for(String s : interestJson){
-//            JSONObject ob = JSON.parseObject(s);
-//            Organization organization = ob.toJavaObject(Organization.class);
-//            orgList.add(organization);
-//        }
-
     }
 
     /**

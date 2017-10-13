@@ -128,7 +128,7 @@
         UPDATE T_PRODUCT SET PUTANDDOWN = #{putAndDown} WHERE PRO_ID = #{proId}
     </update>
 
-    <select id="findAllByPram" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <select id="findList" resultMap="BaseResultMap" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from T_PRODUCT where 1=1
