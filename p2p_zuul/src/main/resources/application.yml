@@ -38,3 +38,26 @@ ribbon:
     ConnectTimeout: 3000
     ReadTimeout: 60000
 ...
+
+---
+spring:
+    profiles: dev
+
+appstore:
+    masterHost: 51starpos.com
+    masterProtocol: https
+    address: http://139.224.133.239:7380/server/remote/cxf/slaveMessageService
+    #masterHost: 172.16.7.148
+    #masterProtocol: http
+    #address: http://172.16.7.148:8080/server/remote/cxf/slaveMessageService
+...
+
+---
+spring:
+    profiles: prod
+
+appstore:
+    masterHost: starpos.com.cn
+    masterProtocol: https
+    address: http://192.168.4.19:7380/server/remote/cxf/slaveMessageService
+...

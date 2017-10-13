@@ -92,7 +92,35 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- sso -->
+        <dependency>
+            <groupId>org.ohuyo.libra</groupId>
+            <artifactId>libra-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ohuyo.libra</groupId>
+            <artifactId>libra-base</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ohuyo</groupId>
+            <artifactId>ohuyo-commons</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <scope>runtime</scope>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>2.7.0</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
 

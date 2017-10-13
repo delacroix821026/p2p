@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +49,13 @@ public class Example {
         //HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         log.info("ws controller add Enter:::::::::::::" + session.getAttribute("abc"));
+        return feignService.add(5, 18);
+    }
+
+    @RequestMapping(value = "/addwith/{paramA}/{paramB}", method = RequestMethod.GET)
+    public Object urlPath(@PathVariable(name="paramA") Integer paramA, @PathVariable(name="paramB") Integer paramB) {
+        log.info("controller add Enter: A:" + paramA);
+        log.info("controller add Enter: B:" + paramB);
         return feignService.add(5, 18);
     }
 }
