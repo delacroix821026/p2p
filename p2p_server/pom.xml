@@ -240,11 +240,11 @@
 
                     <systemProperties>
                         <property>
-                            <name>server.port</name>
-                            <value>3001</value>
+                            <name>DEVLOPER_NAME</name>
+                            <value>${DEVLOPER_NAME}</value>
                         </property>
                         <property>
-                            <name>spring.profiles.active</name>
+                            <name>SPRING_PROFILES_ACTIVE</name>
                             <value>${profile.active}</value>
                         </property>
                     </systemProperties>
