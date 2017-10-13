@@ -58,12 +58,69 @@
     </insert>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.newland.financial.p2p.domain.entity.Product">
-        UPDATE T_PRODUCT SET PRO_NAME = #{proName,jdbcType=VARCHAR},PRO_LMT = #{proLmt,jdbcType=NUMERIC},
-        PAY_DATE = #{payDate,jdbcType=DATE},PRO_INTEREST = #{proInterest,jdbcType=NUMERIC},PRO_NAME_OPERATOR = #{proNameOperator,jdbcType=VARCHAR},
-        SPONSOR = #{sponsor,jdbcType=VARCHAR},SPR_PRO_NAME = #{sprProName,jdbcType=VARCHAR},CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},LAST_MODI_TIME = #{lastModiTime,jdbcType=TIMESTAMP},
-        MAX_LMT = #{maxLmt,jdbcType=NUMERIC},ROLE = #{role,jdbcType=VARCHAR},PUTANDDOWN = #{putAndDown,jdbcType=VARCHAR},ADVANCE_REPAY = #{advanceRepay,jdbcType=VARCHAR},
-        FORMULA = #{formula,jdbcType=VARCHAR},LATEFEE = #{latefee,jdbcType=NUMERIC},INTEREST_MHD = #{interestMhd,jdbcType=VARCHAR},POUNDAGE = #{poundage,jdbcType=VARCHAR},
-        IS_LATEFEE = #{isLatefee,jdbcType=VARCHAR},REPAY_MHD = #{repayMhd,jdbcType=VARCHAR},POSITIVE_OR_NEGATIVE = #{positiveOrNegative,jdbcType=VARCHAR},CUTMHD = #{cutMhd,jdbcType=VARCHAR}
+        UPDATE T_PRODUCT
+        <set>
+            <if test="proName != null">
+                PRO_NAME = #{proName,jdbcType=VARCHAR},
+            </if>
+            <if test="proLmt != null">
+                PRO_LMT = #{proLmt,jdbcType=NUMERIC},
+            </if>
+            <if test="payDate != null">
+                PAY_DATE = #{payDate,jdbcType=DATE},
+            </if>
+            <if test="proInterest != null">
+                PRO_INTEREST = #{proInterest,jdbcType=NUMERIC},
+            </if>
+            <if test="proNameOperator != null">
+                PRO_NAME_OPERATOR = #{proNameOperator,jdbcType=VARCHAR},
+            </if>
+            <if test="sponsor != null">
+                SPONSOR = #{sponsor,jdbcType=VARCHAR},
+            </if>
+            <if test="sprProName != null">
+                SPR_PRO_NAME = #{sprProName,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModiTime != null">
+                LAST_MODI_TIME = #{lastModiTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="maxLmt != null">
+                MAX_LMT = #{maxLmt,jdbcType=NUMERIC},
+            </if>
+            <if test="role != null">
+                ROLE = #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="putAndDown != null">
+                PUTANDDOWN = #{putAndDown,jdbcType=VARCHAR},
+            </if>
+            <if test="advanceRepay != null">
+                ADVANCE_REPAY = #{advanceRepay,jdbcType=VARCHAR},
+            </if>
+            <if test="formula != null">
+                FORMULA = #{formula,jdbcType=VARCHAR},
+            </if>
+            <if test="latefee != null">
+                LATEFEE = #{latefee,jdbcType=NUMERIC},
+            </if>
+            <if test="interestMhd != null">
+                INTEREST_MHD = #{interestMhd,jdbcType=VARCHAR},
+            </if>
+            <if test="poundage != null">
+                POUNDAGE = #{poundage,jdbcType=VARCHAR},
+            </if>
+            <if test="isLatefee != null">
+                IS_LATEFEE = #{isLatefee,jdbcType=VARCHAR},
+            </if>
+            <if test="repayMhd != null">
+                REPAY_MHD = #{repayMhd,jdbcType=VARCHAR},
+            </if>
+            <if test="positiveOrNegative != null">
+                POSITIVE_OR_NEGATIVE = #{positiveOrNegative,jdbcType=VARCHAR},
+            </if>
+            <if test="cutMhd != null">
+                CUTMHD = #{cutMhd,jdbcType=VARCHAR},
+            </if>
+        </set>
         WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
     </update>
 

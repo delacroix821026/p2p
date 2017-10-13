@@ -60,5 +60,12 @@ public class InterestDao extends MybatisBaseDao<Interest>
         return super.insertObj("insertInterests",list);
     }
 
-
+    /**
+     * 根据产品ID删除利率信息
+     * @param proId 产品ID
+     * @return  true:删除成功,false:删除失败
+     */
+    public boolean deleteInterestByProId(String iProId){
+        return super.deletes("deleteInterestByProId",iProId);
+    }
 }
