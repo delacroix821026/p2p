@@ -241,7 +241,7 @@
                     <systemProperties>
                         <property>
                             <name>DEVLOPER_NAME</name>
-                            <value>${DEVLOPER_NAME}</value>
+                            <value>test</value>
                         </property>
                         <property>
                             <name>SPRING_PROFILES_ACTIVE</name>
