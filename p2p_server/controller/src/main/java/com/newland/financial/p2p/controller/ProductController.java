@@ -202,7 +202,6 @@ public class ProductController {
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
-     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
      *  }<BR>
      * @return    返回参数：{"Update Sucess"}
      */
@@ -244,7 +243,6 @@ public class ProductController {
      *             &nbsp;&nbsp;&nbsp;&nbsp;"latefee": 逾期滞纳金,<BR>
      *             &nbsp;&nbsp;&nbsp;&nbsp;"interestMhd": 利息方式,<BR>
      *             &nbsp;&nbsp;&nbsp;&nbsp; "repayMhd": 还款方式:1等额本息，2等额本金,3全部,<BR>
-     *             &nbsp;&nbsp;&nbsp;&nbsp;"positiveOrNegative": 机构权限正反选：1正选，2反选,<BR>
      *             &nbsp;&nbsp;&nbsp;&nbsp;"cutMhd": 扣款方式：1银行代扣，2自主还款,<BR>
      *             &nbsp;&nbsp;&nbsp;&nbsp;"interestList": [{"times":分期数},{"times":分期数}]<BR>
      *             &nbsp;&nbsp;&nbsp;&nbsp;"organizationsList":[{"organization":"机构号"},{"organization":"机构号"}]<BR>
