@@ -65,7 +65,6 @@ public class ProductServiceImpl implements IProductService {
      */
     public IProduct getProduct(String id) {
         AbstractProduct product = productDao.findById(id);
-        //String postiveOrNegative = product.getPositiveOrNegative();
         product.setOrganizationsList(organizationDao.selectOrganizationList(id));
         logger.info("service--product-------:" + product);
         product.setInterestList(interestDao.findByProId((id)));
@@ -96,7 +95,6 @@ public class ProductServiceImpl implements IProductService {
         String poundage = paramJSON.getString("poundage");
         String isLatefee = paramJSON.getString("isLatefee");
         String repayMhd = paramJSON.getString("repayMhd");
-        String positiveOrNegative = paramJSON.getString("positiveOrNegative");
         String cutMhd = paramJSON.getString("cutMhd");
         product.setProId(proId);
         product.setProName(proName);
@@ -114,7 +112,6 @@ public class ProductServiceImpl implements IProductService {
         product.setPoundage(poundage);
         product.setIsLatefee(isLatefee);
         product.setRepayMhd(repayMhd);
-        product.setPositiveOrNegative(positiveOrNegative);
         product.setCutMhd(cutMhd);
 
         List<Interest> list = new ArrayList<Interest>();
@@ -142,19 +139,6 @@ public class ProductServiceImpl implements IProductService {
             list1.add(org);
         }
         b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入正选表中
-        /*if ("2".equals(positiveOrNegative)){
-            List<OrgNegative> list1 = new ArrayList<OrgNegative>();
-            for (int i = 0; i < orgs.length; i++){
-                String str = orgs[i];
-                JSONObject ob = JSON.parseObject(str);
-                OrgNegative org = new OrgNegative();
-                String organization = ob.getString("organization");
-                org.setProId(proId);
-                org.setOrganization(organization);
-                list1.add(org);
-            }
-            b2 = orgNegativeDao.insertOrgNegativeList(list1); //将该产品对应可查看到的机构插入反选表中
-        }*/
         Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
         Boolean b3 = productDao.insertProduct(product); //将产品信息插入产品表中
         if (b1 && b2 && b3) {
