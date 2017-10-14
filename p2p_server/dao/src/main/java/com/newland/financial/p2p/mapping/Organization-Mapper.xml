@@ -10,7 +10,7 @@
         <result column="ORGANIZATION" property="organization" jdbcType="VARCHAR"/>
         <result column="ORGA_NAME" property="orgaName" jdbcType="VARCHAR"/>
         <result column="PARENTID" property="parentId" jdbcType="VARCHAR"/>
-        <result column="ORGSTUS" property="orgStus" jdbcType="VARCHAR"/>
+        <result column="POSITIVEORNEGATIVE" property="positiveOrNegative" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -30,7 +30,7 @@
         INSERT INTO p2p_org
         (PROID,ORGANIZATION,ORGA_NAME,PARENTID,ORGSTUS) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.proId},#{item.organization},#{item.orgaName},#{item.parentId},#{item.orgStus})
+            (#{item.proId},#{item.organization},#{item.orgaName},#{item.parentId},#{item.positiveOrNegative})
         </foreach>
     </insert>
 

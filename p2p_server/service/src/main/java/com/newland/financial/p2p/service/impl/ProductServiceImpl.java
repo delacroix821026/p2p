@@ -91,6 +91,7 @@ public class ProductServiceImpl implements IProductService {
         String isLatefee = paramJSON.getString("isLatefee");
         String repayMhd = paramJSON.getString("repayMhd");
         String cutMhd = paramJSON.getString("cutMhd");
+        String positiveOrNegative = paramJSON.getString("positiveOrNegative");
         product.setProId(proId);
         product.setProName(proName);
         product.setProLmt(proLmt);
@@ -131,11 +132,13 @@ public class ProductServiceImpl implements IProductService {
             String organization = ob.getString("organization");
             org.setProId(proId);
             org.setOrganization(organization);
+            org.setPositiveOrNegative(positiveOrNegative);
             list1.add(org);
         }
-        b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入正选表中
+        b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入机构表中
         Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
         Boolean b3 = productDao.insertProduct(product); //将产品信息插入产品表中
+        logger.info("机构插入："+b2+",分期插入："+b1+",产品插入："+b3);
         if (b1 && b2 && b3) {
             return true;
         } else {
