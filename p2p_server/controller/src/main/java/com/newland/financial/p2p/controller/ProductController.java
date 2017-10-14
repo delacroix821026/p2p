@@ -88,10 +88,14 @@ public class ProductController {
      *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"organizationsList":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"proId":"产品编号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"positiveOrNegative":"1正选，1反选"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"proId":"产品编号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"positiveOrNegative":"1正选，1反选"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
      *  }<BR>
@@ -148,6 +152,7 @@ public class ProductController {
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
+     *  &nbsp;&nbsp;"positiveOrNegative":"1正选，1反选",<BR>
      *  }<BR>
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： Boolean;<BR>
@@ -202,6 +207,7 @@ public class ProductController {
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
+     *  &nbsp;&nbsp;"positiveOrNegative":"1正选，1反选",<BR>
      *  }<BR>
      * @return    返回参数：{"Update Sucess"}
      */
