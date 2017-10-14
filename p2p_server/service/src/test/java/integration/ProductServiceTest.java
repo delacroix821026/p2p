@@ -74,10 +74,7 @@ public class ProductServiceTest {
     @Test
     public void deleteData(){
         productDao.deleteProduct("cs001");
-        productDao.deleteProduct("cs002");
         iInterestDao.deleteInterestByProId("cs001");
-        iInterestDao.deleteInterestByProId("cs002");
         organizationDao.deleteOrganization("cs001");
-        organizationDao.deleteOrganization("cs002");
     }
 }
