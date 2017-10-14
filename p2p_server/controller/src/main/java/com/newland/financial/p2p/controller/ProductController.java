@@ -286,4 +286,26 @@ public class ProductController {
             return false;
         }
     }
+    /**
+     * App根据角色和机构号返回产品列表.
+     * @param jsonStr 接受的json字符串:<BR>
+     *{<BR>
+     *  &nbsp;&nbsp;"role":"角色",<BR>
+     *  &nbsp;&nbsp;"organization":"机构号",<BR>
+     * }
+     * @return 返回参数
+     * result;<BR>
+     * {<BR>
+     * &nbsp;&nbsp;<BR>
+     *  }
+     */
+    /*@ResponseBody
+    @RequestMapping(value = "/getAppProducts",method = {RequestMethod.POST, RequestMethod.GET})
+    public Object getAppProducts(@RequestBody String jsonStr){
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        logger.info("jsonStr：" + jsonStr);
+        String role = paramJSON.getString("role");
+        String organization = paramJSON.getString("organization");
+        return productService.findAppProducts(role,organization);
+    }*/
 }
