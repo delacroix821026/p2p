@@ -203,6 +203,7 @@ public class ProductServiceImpl implements IProductService {
         if(!"".equals(latefeeStr)) {
             product.setLatefee(new BigDecimal(latefeeStr));
         }
+        String positiveOrNegative = paramJSON.getString("positiveOrNegative");
 
         product.setProNameOperator(paramJSON.getString("proNameOperator"));
         product.setSponsor(paramJSON.getString("sponsor"));
@@ -224,6 +225,8 @@ public class ProductServiceImpl implements IProductService {
         for(String s : interestJson){
             JSONObject ob = JSON.parseObject(s);
             Interest interest = ob.toJavaObject(Interest.class);
+            interest.setIProId(proId);
+            interest.setIProName(proName);
             interestList.add(interest);
         }
         //获取机构信息
@@ -232,6 +235,8 @@ public class ProductServiceImpl implements IProductService {
         for(String s : interestJson){
             JSONObject ob = JSON.parseObject(s);
             Organization organization = ob.toJavaObject(Organization.class);
+            organization.setProId(proId);
+            organization.setPositiveOrNegative(positiveOrNegative);
             orgList.add(organization);
         }
 
@@ -317,10 +322,24 @@ public class ProductServiceImpl implements IProductService {
 //        String endTime = "1167494400000";
 
         Map<String, Object> reqMap = new HashMap<String, Object>();
-        reqMap.put("role", role);
-        reqMap.put("proId", proId);
-        reqMap.put("proName", proName);
-        reqMap.put("sponsor", sponsor);
+        System.out.println("*****************************role:" + role);
+        System.out.println("*****************************proId:" + proId);
+        System.out.println("*****************************proName:" + proName);
+        if(!"".equals(role)){
+            reqMap.put("role", role);
+        }
+        if(!"".equals(proId)){
+            reqMap.put("proId", proId);
+        }
+        if(!"".equals(proName)){
+            reqMap.put("proName", proName);
+        }
+        if(!"".equals(sponsor)){
+            reqMap.put("sponsor", sponsor);
+        }
+        if(!"".equals(begTime)){
+            reqMap.put("begTime", begTime);
+        }
         reqMap.put("begTime", begTime);
         reqMap.put("endTime", endTime);
 
