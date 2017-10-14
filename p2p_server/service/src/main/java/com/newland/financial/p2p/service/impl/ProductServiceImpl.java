@@ -42,11 +42,6 @@ public class ProductServiceImpl implements IProductService {
      */
     @Autowired
     private IOrganizationDao organizationDao;
-    /**
-     * Dao层对象.
-     */
-    @Autowired
-    private IOrgNegativeDao orgNegativeDao;
 
     /**
      * 查询所有产品.
