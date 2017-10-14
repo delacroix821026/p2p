@@ -77,7 +77,6 @@ public class ProductController {
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
-     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
      *  &nbsp;&nbsp;"cutMhd":"扣款方式：1银行代扣，2自主还款"<BR>
      *  &nbsp;&nbsp;"interestList":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
@@ -149,7 +148,6 @@ public class ProductController {
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
-     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
      *  }<BR>
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： Boolean;<BR>
