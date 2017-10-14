@@ -152,7 +152,7 @@ public class ProductController {
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： Boolean;<BR>
      * {<BR>
-     *  &nbsp;&nbsp;{true or flase}<BR>
+     *  &nbsp;&nbsp;true or flase<BR>
      *  }
      * */
     @ResponseBody
