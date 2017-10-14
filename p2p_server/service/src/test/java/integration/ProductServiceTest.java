@@ -38,7 +38,7 @@ public class ProductServiceTest {
     }
     @Test
     public void A_insertProduct(){
-        String jsonStr = "{\"proId\":\"cs001\",\"proName\":\"banana\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"banana\",\"sponsor\":\"banana\",\"sprProName\":\"banana\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"cs007\"},{\"organization\":\"cs008\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20}";
+        String jsonStr = "{\"proId\":\"cs001\",\"proName\":\"banana\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"banana\",\"sponsor\":\"banana\",\"sprProName\":\"banana\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"cs007\"},{\"organization\":\"cs008\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20,\"positiveOrNegative\":\"1\"}";
         productService.insertProduct(jsonStr);
         Product product = (Product) productService.getProduct("cs001");
         List<Interest> list = product.getInterestList();
