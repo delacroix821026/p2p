@@ -18,54 +18,60 @@ import java.util.*;
 
 /**
  * 对产品进行操作的service类.
+ *
  * @author cendaijuan
- * */
+ */
 @Service
 public class ProductServiceImpl implements IProductService {
-    /**日志对象.*/
+    /**
+     * 日志对象.
+     */
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    /**Dao层对象.*/
+    /**
+     * Dao层对象.
+     */
     @Autowired
     private IProductDao productDao;
-    /**Dao层对象.*/
+    /**
+     * Dao层对象.
+     */
     @Autowired
     private IInterestDao interestDao;
-    /**Dao层对象.*/
+    /**
+     * Dao层对象.
+     */
     @Autowired
     private IOrganizationDao organizationDao;
-    /**Dao层对象.*/
-    @Autowired
-    private IOrgNegativeDao orgNegativeDao;
 
     /**
      * 查询所有产品.
+     *
      * @return List返回所有产品
      */
     public List getProductList() {
         return productDao.findAll();
     }
+
     /**
      * 获取指定产品的信息.
-     *@param id String产品编号
-     *@return IProduct返回指定的产品
-     * */
+     *
+     * @param id String产品编号
+     * @return IProduct返回指定的产品
+     */
     public IProduct getProduct(String id) {
         AbstractProduct product = productDao.findById(id);
-        String postiveOrNegative = product.getPositiveOrNegative();
-        if (postiveOrNegative.equals("1")) {
-            product.setOrganizationsList(organizationDao.selectOrganizationList(id));
-        } else {
-            product.setOrganizationsList(orgNegativeDao.selectOrgNegativeList(id));
-        }
+        product.setOrganizationsList(organizationDao.selectOrganizationList(id));
         logger.info("service--product-------:" + product);
         product.setInterestList(interestDao.findByProId((id)));
         return product;
     }
+
     /**
      * 插入新产品.
-     *@param jsonStr json字符串
-     *@return boolean 返回布尔值
-     * */
+     *
+     * @param jsonStr json字符串
+     * @return boolean 返回布尔值
+     */
     public boolean insertProduct(String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         Product product = new Product();
@@ -84,8 +90,8 @@ public class ProductServiceImpl implements IProductService {
         String poundage = paramJSON.getString("poundage");
         String isLatefee = paramJSON.getString("isLatefee");
         String repayMhd = paramJSON.getString("repayMhd");
-        String positiveOrNegative = paramJSON.getString("positiveOrNegative");
         String cutMhd = paramJSON.getString("cutMhd");
+        String positiveOrNegative = paramJSON.getString("positiveOrNegative");
         product.setProId(proId);
         product.setProName(proName);
         product.setProLmt(proLmt);
@@ -102,12 +108,12 @@ public class ProductServiceImpl implements IProductService {
         product.setPoundage(poundage);
         product.setIsLatefee(isLatefee);
         product.setRepayMhd(repayMhd);
-        product.setPositiveOrNegative(positiveOrNegative);
         product.setCutMhd(cutMhd);
+        product.setPositiveOrNegative(positiveOrNegative);
 
         List<Interest> list = new ArrayList<Interest>();
-        String[] interestList = paramJSON.getObject("interestList",String[].class);
-        for (int i = 0; i < interestList.length; i++){
+        String[] interestList = paramJSON.getObject("interestList", String[].class);
+        for (int i = 0; i < interestList.length; i++) {
             String str = interestList[i];
             JSONObject ob = JSON.parseObject(str);
             Interest in = new Interest();
@@ -118,52 +124,43 @@ public class ProductServiceImpl implements IProductService {
         }
 
         Boolean b2 = false;
-        String[] orgs = paramJSON.getObject("orgs",String[].class);
-        if ("1".equals(positiveOrNegative)) {
-            List<Organization> list1 = new ArrayList<Organization>();
-            for (int i = 0; i < orgs.length; i++){
-                String str = orgs[i];
-                JSONObject ob = JSON.parseObject(str);
-                Organization org = new Organization();
-                String organization = ob.getString("organization");
-                org.setProId(proId);
-                org.setOrganization(organization);
-                list1.add(org);
-            }
-            b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入正选表中
+        String[] orgs = paramJSON.getObject("orgs", String[].class);
+        List<Organization> list1 = new ArrayList<Organization>();
+        for (int i = 0; i < orgs.length; i++) {
+            String str = orgs[i];
+            JSONObject ob = JSON.parseObject(str);
+            Organization org = new Organization();
+            String organization = ob.getString("organization");
+            org.setProId(proId);
+            org.setOrganization(organization);
+            org.setPositiveOrNegative(positiveOrNegative);
+            list1.add(org);
         }
-        if ("2".equals(positiveOrNegative)){
-            List<OrgNegative> list1 = new ArrayList<OrgNegative>();
-            for (int i = 0; i < orgs.length; i++){
-                String str = orgs[i];
-                JSONObject ob = JSON.parseObject(str);
-                OrgNegative org = new OrgNegative();
-                String organization = ob.getString("organization");
-                org.setProId(proId);
-                org.setOrganization(organization);
-                list1.add(org);
-            }
-            b2 = orgNegativeDao.insertOrgNegativeList(list1); //将该产品对应可查看到的机构插入反选表中
-        }
+        b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入机构表中
         Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
         Boolean b3 = productDao.insertProduct(product); //将产品信息插入产品表中
+        logger.info("机构插入b2---：" + b2 + ",分期插入b1---：" + b1 + ",产品插入b3----：" + b3);
         if (b1 && b2 && b3) {
             return true;
         } else {
             return false;
         }
     }
+
     /**
      * 更改产品的上下架状态.
-     *@param proId 产品编码
-     *@param putAndDown 上下架状态
-     *@return boolean 返回布尔值
-     * */
+     *
+     * @param proId      产品编码
+     * @param putAndDown 上下架状态
+     * @return boolean 返回布尔值
+     */
     public boolean updatePutAndDown(String proId, String putAndDown) {
-        return productDao.updatePutAndDown(proId,putAndDown);
+        return productDao.updatePutAndDown(proId, putAndDown);
     }
+
     /**
      * 查看产品编号是否存在.
+     *
      * @param id 产品编码
      * @return producr
      */
@@ -172,6 +169,7 @@ public class ProductServiceImpl implements IProductService {
         return product;
     }
 
+   
 	/**
      * 更新产品信息.
      * @param jsonStr   json字符串
@@ -181,158 +179,125 @@ public class ProductServiceImpl implements IProductService {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         Product pro = paramJSON.toJavaObject(Product.class);
         Product product = new Product();
+
         String proId = paramJSON.getString("proId");
-        String proName = paramJSON.getString("proName");
-        BigDecimal proLmt = new BigDecimal(paramJSON.getString("proLmt"));
-        String proNameOperator = paramJSON.getString("proNameOperator");
-        String sponsor = paramJSON.getString("sponsor");
-        String sprProName = paramJSON.getString("sprProName");
-        BigDecimal maxLmt = new BigDecimal(paramJSON.getString("maxLmt"));
-        String role = paramJSON.getString("role");
-        String advanceRepay = paramJSON.getString("advanceRepay");
-        String formula = paramJSON.getString("formula");
-        BigDecimal latefee = new BigDecimal(paramJSON.getString("latefee"));
-        String interestMhd = paramJSON.getString("interestMhd");
-        String poundage = paramJSON.getString("poundage");
-        String isLatefee = paramJSON.getString("isLatefee");
-        String repayMhd = paramJSON.getString("repayMhd");
-        String positiveOrNegative = paramJSON.getString("positiveOrNegative");
-        String cutMhd = paramJSON.getString("cutMhd");
+        if(proId == null || proId == ""){
+            return  false;
+        }
         product.setProId(proId);
+
+        String proName = paramJSON.getString("proName");
+        if(proName == null || proName == ""){
+            return  false;
+        }
         product.setProName(proName);
-        product.setProLmt(proLmt);
-        product.setProNameOperator(proNameOperator);
-        product.setSponsor(sponsor);
-        product.setSprProName(sprProName);
+
+        String proLmtStr = paramJSON.getString("proLmt");
+        String maxLmtStr = paramJSON.getString("maxLmt");
+        String latefeeStr = paramJSON.getString("latefee");
+        if(!"".equals(proLmtStr)) {
+            product.setProLmt(new BigDecimal(proLmtStr));
+        }
+        if(!"".equals(maxLmtStr)) {
+            product.setMaxLmt(new BigDecimal(maxLmtStr));
+        }
+        if(!"".equals(latefeeStr)) {
+            product.setLatefee(new BigDecimal(latefeeStr));
+        }
+        String positiveOrNegative = paramJSON.getString("positiveOrNegative");
+
+        product.setProNameOperator(paramJSON.getString("proNameOperator"));
+        product.setSponsor(paramJSON.getString("sponsor"));
+        product.setSprProName(paramJSON.getString("sprProName"));
+        product.setRole(paramJSON.getString("role"));
+        product.setAdvanceRepay(paramJSON.getString("advanceRepay"));
+        product.setFormula(paramJSON.getString("formula"));
+        product.setInterestMhd(paramJSON.getString("interestMhd"));
+        product.setPoundage(paramJSON.getString("poundage"));
+        product.setIsLatefee(paramJSON.getString("isLatefee"));
+        product.setRepayMhd(paramJSON.getString("repayMhd"));
+//        product.setPositiveOrNegative(paramJSON.getString("positiveOrNegative"));
+        product.setCutMhd(paramJSON.getString("cutMhd"));
         product.setLastModiTime(new Date());
-        product.setMaxLmt(maxLmt);
-        product.setRole(role);
-        product.setAdvanceRepay(advanceRepay);
-        product.setFormula(formula);
-        product.setLatefee(latefee);
-        product.setInterestMhd(interestMhd);
-        product.setPoundage(poundage);
-        product.setIsLatefee(isLatefee);
-        product.setRepayMhd(repayMhd);
-        product.setPositiveOrNegative(positiveOrNegative);
-        product.setCutMhd(cutMhd);
 
         //获取产品利率信息
-        List<Interest> list = new ArrayList<Interest>();
-        String[] interestList = paramJSON.getObject("interestList",String[].class);
-        for (int i = 0; i < interestList.length; i++){
-            String str = interestList[i];
-            JSONObject ob = JSON.parseObject(str);
-            Interest in = new Interest();
-            Integer times = Integer.parseInt(ob.getString("times"));
-            in.setTimes(times);
-            in.setIProId(proId);
-            list.add(in);
+        List<Interest> interestList = new ArrayList<Interest>();
+        String[] interestJson = paramJSON.getObject("interestList",String[].class);
+        for(String s : interestJson){
+            JSONObject ob = JSON.parseObject(s);
+            Interest interest = ob.toJavaObject(Interest.class);
+            interest.setIProId(proId);
+            interest.setIProName(proName);
+            interestList.add(interest);
         }
         //获取机构信息
         List<Organization> orgList = new ArrayList<Organization>();
-        List<OrgNegative> negList = new ArrayList<OrgNegative>();
-        String[] orgs = paramJSON.getObject("orgs",String[].class);
-        for (int i = 0; i < orgs.length; i++){
-            String str = orgs[i];
-            JSONObject ob = JSON.parseObject(str);
-            Organization org = new Organization();
-            String organization = ob.getString("organization");
-            org.setProId(proId);
-            org.setOrganization(organization);
-            orgList.add(org);
-        }
-        for(Organization org : orgList){
-            OrgNegative orgNegative = new OrgNegative();
-            orgNegative.setId(org.getId());
-            orgNegative.setProId(org.getProId());
-            orgNegative.setOrganization(org.getOrganization());
-            orgNegative.setOrgaName(org.getOrgaName());
-            orgNegative.setParentId(org.getParentId());
-            orgNegative.setOrgStus(org.getOrgStus());
-            negList.add(orgNegative);
+        String[] orgJson = paramJSON.getObject("orgs",String[].class);
+        for(String s : interestJson){
+            JSONObject ob = JSON.parseObject(s);
+            Organization organization = ob.toJavaObject(Organization.class);
+            organization.setProId(proId);
+            organization.setPositiveOrNegative(positiveOrNegative);
+            orgList.add(organization);
         }
 
         //更新产品信息
         if(!productDao.updateProduct(product)){
+            logger.info("----------------------------------------更新产品信息失败");
             return false;
         }
         //更新利率信息
-        if(!interestDao.deleteInterestByProId(proId)){
+        List<Interest> interestTempList = interestDao.findByProId(proId);
+        logger.info("--------判断表中是否存在指定产品的利率信息-------"+interestDao.findByProId(proId).size());
+        if( interestTempList != null && interestTempList.size()>0){ //判断表中是否存在指定产品的利率信息
+            if(!interestDao.deleteInterestByProId(proId)){
+                logger.info("----------------------------------------删除利率失败");
+                return false;
+            }
+        }
+        if(!interestDao.insertInterest(interestList)){
+            logger.info("----------------------------------------插入利率失败");
             return false;
         }
-        if(!interestDao.insertInterest(list)){
-            return false;
-        }
+
         //更新机构信息
-        if ("1".equals(positiveOrNegative)) {   //更新产品-机构信息（正选表）
-            //删除原有产品-机构信息（正选表）
+        //删除原有产品-机构信息
+        List<Organization> orgTempList = organizationDao.selectOrganizationList(proId);
+        if( orgTempList != null && orgTempList.size()>0){
             if(!organizationDao.deleteOrganization(proId)){
-                return false;
-            }
-//            //删除原有产品-机构信息（反选表）
-            if(!orgNegativeDao.deleteOrgNegative(proId)){
-                return false;
-            }
-            //插入新的产品-机构信息
-            if(!organizationDao.insertOrganizationList(orgList)){
+                logger.info("-------------------------------删除原有产品-机构信息（正选表）失败");
                 return false;
             }
         }
-        if ("2".equals(positiveOrNegative)) {   //更新产品-机构信息（反选表）
-//            //删除原有产品-机构信息（正选表）
-            if(!organizationDao.deleteOrganization(proId)){
-                return false;
-            }
-            //删除原有产品-机构信息（反选表）
-            if(!orgNegativeDao.deleteOrgNegative(proId)){
-                return false;
-            }
-            //插入新的产品-机构信息
-            if(!orgNegativeDao.insertOrgNegativeList(negList)){
-                return false;
-            }
+        //插入新的产品-机构信息
+        if(!organizationDao.insertOrganizationList(orgList)){
+            logger.info("------------------------------插入新的产品-机构信息失败");
+            return false;
         }
         return true;
-
-//        //获取产品利率信息
-//        List<Interest> interestList = new ArrayList<Interest>();
-//        String[] interestJson = paramJSON.getObject("interest",String[].class);
-//        for(String s : interestJson){
-//            JSONObject ob = JSON.parseObject(s);
-//            Interest interest = ob.toJavaObject(Interest.class);
-//            interestList.add(interest);
-//        }
-//        //获取机构信息
-//        List<Organization> orgList = new ArrayList<Organization>();
-//        String[] orgJson = paramJSON.getObject("orgs",String[].class);
-//        for(String s : interestJson){
-//            JSONObject ob = JSON.parseObject(s);
-//            Organization organization = ob.toJavaObject(Organization.class);
-//            orgList.add(organization);
-//        }
-
     }
+
 
     /**
      * 查询产品列表.
-     * @param jsonStr   查询条件json字符串
+     *
+     * @param jsonStr 查询条件json字符串
      * @return 产品分页信息
      */
-    public Object getProdList(String jsonStr){
+    public Object getProdList(String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
 
         //获取分页信息
         Integer page = paramJSON.getInteger("page");
         Integer count = paramJSON.getInteger("count");
-        if(page == null || page <1){
+        if (page == null || page < 1) {
             page = 1;
         }
-        if(count == null || count < 1){
+        if (count == null || count < 1) {
             count = 5;
         }
         //开始分页
-        PageHelper.startPage(page,count);
+        PageHelper.startPage(page, count);
         //获取产品信息
         String role = paramJSON.getString("role");
         String proId = paramJSON.getString("proId");
@@ -344,26 +309,40 @@ public class ProductServiceImpl implements IProductService {
         Long createTimeEnd = paramJSON.getLong("createTimeEnd");
         String begTime = null;
         String endTime = null;
-        if(createTimeBeg != null){
+        if (createTimeBeg != null) {
             Date begTimeDate = new Date(createTimeBeg);
             begTime = sdf.format(begTimeDate);
-            System.out.println("---------------------------------"+begTime);
+            System.out.println("---------------------------------" + begTime);
         }
-        if(createTimeEnd != null){
+        if (createTimeEnd != null) {
             Date endTimeDate = new Date(createTimeEnd);
             endTime = sdf.format(endTimeDate);
-            System.out.println("---------------------------------"+endTime);
+            System.out.println("---------------------------------" + endTime);
         }
 //        String begTime = "1043078400000";
 //        String endTime = "1167494400000";
 
-        Map<String,Object> reqMap = new HashMap<String, Object>();
-        reqMap.put("role",role);
-        reqMap.put("proId",proId);
-        reqMap.put("proName",proName);
-        reqMap.put("sponsor",sponsor);
-        reqMap.put("begTime",begTime);
-        reqMap.put("endTime",endTime);
+        Map<String, Object> reqMap = new HashMap<String, Object>();
+        System.out.println("*****************************role:" + role);
+        System.out.println("*****************************proId:" + proId);
+        System.out.println("*****************************proName:" + proName);
+        if(!"".equals(role)){
+            reqMap.put("role", role);
+        }
+        if(!"".equals(proId)){
+            reqMap.put("proId", proId);
+        }
+        if(!"".equals(proName)){
+            reqMap.put("proName", proName);
+        }
+        if(!"".equals(sponsor)){
+            reqMap.put("sponsor", sponsor);
+        }
+        if(!"".equals(begTime)){
+            reqMap.put("begTime", begTime);
+        }
+        reqMap.put("begTime", begTime);
+        reqMap.put("endTime", endTime);
 
         List<Product> productList = new ArrayList<Product>();
 //        if(proId != null){
@@ -374,10 +353,46 @@ public class ProductServiceImpl implements IProductService {
         productList = productDao.findAll(reqMap);
         PageInfo<Product> pageInfo = new PageInfo<Product>(productList);
 
-        Map<String,Object> repJson = new HashMap<String, Object>();
-        repJson.put("total",pageInfo.getSize());
-        repJson.put("rows",pageInfo.getList());
+        Map<String, Object> repJson = new HashMap<String, Object>();
+        repJson.put("total", pageInfo.getSize());
+        repJson.put("rows", pageInfo.getList());
 
         return pageInfo;
     }
+
+    /**
+     * App根据角色和机构号查询产品列表.
+     *
+     * @param role         角色
+     * @param organization 机构号
+     * @return 产品集合
+     */
+    /*public List<Product> findAppProducts(String role, String organization) {
+        List<Organization> orgs = organizationDao.findProIdByOrgId(organization, 2); //查询该机构号反选外的产品集合
+        List<Product> pros = new ArrayList<Product>();
+        //遍历orgs，如果为空则表明
+        if (orgs != null && orgs.size() != 0) {
+            List proIds = new ArrayList();
+            for (int i = 0; i < orgs.size(); i++) {
+                Organization org = orgs.get(i);
+                String proId = org.getProId();
+                proIds.add(proId);
+            }
+            List<Product> products = productDao.findProNotIn(proIds);
+            for (int i = 0; i < products.size(); i++) {
+                Product product = products.get(i);
+                if (product.getPositiveOrNegative().equals("2")) {
+                    if (product.getRole().equals(role) || product.getRole().equals("0")) {
+                        pros.add(product);
+                    }
+                } else {
+                    Organization org1 = organizationDao.findExist(product.getProId(), organization, 1);
+                    if (org1 != null) {
+                        pros.add(product);
+                    }
+                }
+            }
+        }
+        return null;
+    }*/
 }

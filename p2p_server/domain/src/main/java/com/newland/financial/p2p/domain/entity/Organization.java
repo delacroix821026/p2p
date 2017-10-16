@@ -19,6 +19,6 @@ public class Organization extends BaseEntity{
     private String orgaName;
     /**机构的父级机构号.*/
     private String parentId;
-    /**机构状态.*/
-    private String orgStus;
+    /**1正选，2反选.*/
+    private String positiveOrNegative;
 }

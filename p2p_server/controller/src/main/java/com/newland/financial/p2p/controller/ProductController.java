@@ -77,7 +77,6 @@ public class ProductController {
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
      *  &nbsp;&nbsp;"interestMhd":"利息方式：1固定利息，2浮动利息",<BR>
      *  &nbsp;&nbsp;"repayMhd":"还款方式：1等额本息，2等额本金,3全部",<BR>
-     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
      *  &nbsp;&nbsp;"cutMhd":"扣款方式：1银行代扣，2自主还款"<BR>
      *  &nbsp;&nbsp;"interestList":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
@@ -89,10 +88,14 @@ public class ProductController {
      *  &nbsp;&nbsp;],<BR>
      *  &nbsp;&nbsp;"organizationsList":[<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"proId":"产品编号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"positiveOrNegative":"1正选，1反选"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;},<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;{<BR>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号"<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"proId":"产品编号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"organization":"机构号",<BR>
+     *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"positiveOrNegative":"1正选，1反选"<BR>
      *  &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
      *  &nbsp;&nbsp;],<BR>
      *  }<BR>
@@ -149,12 +152,12 @@ public class ProductController {
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
-     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
+     *  &nbsp;&nbsp;"positiveOrNegative":"1正选，1反选",<BR>
      *  }<BR>
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： Boolean;<BR>
      * {<BR>
-     *  &nbsp;&nbsp;{true or flase}<BR>
+     *  &nbsp;&nbsp;true or flase<BR>
      *  }
      * */
     @ResponseBody
@@ -204,7 +207,7 @@ public class ProductController {
      *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
-     *  &nbsp;&nbsp;"positiveOrNegative":"机构权限正反选：1正选，2反选"<BR>
+     *  &nbsp;&nbsp;"positiveOrNegative":"1正选，1反选",<BR>
      *  }<BR>
      * @return    返回参数：{"Update Sucess"}
      */
@@ -225,10 +228,31 @@ public class ProductController {
      * @return  返回参数：<BR>{<BR>
      *             &nbsp;&nbsp;"total":"总记录数",<BR>
      *             &nbsp;&nbsp;"rows:"[<BR>
-     *             &nbsp;&nbsp;&nbsp;{"proId":"产品编号","proName":"产品名称","sponsor":"资方名称","putanddown":"0下架，1上架","createTime":"创建时间","lastModiTime":"最后修改时间"},<BR>
-     *             &nbsp;&nbsp;&nbsp;{"proId":"产品编号","proName":"产品名称","sponsor":"资方名称","putanddown":"0下架，1上架","createTime":"创建时间","lastModiTime":"最后修改时间"}<BR>
-     *             &nbsp;]<BR>
-     *              }
+     *             &nbsp;&nbsp;&nbsp;{<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proId": "5",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proName": "管理员所看到的产品名称",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proLmt": "最低贷款额度",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"payDate": "产品还款日期",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proInterest": 产品利率,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"proNameOperator": 操作员所看到的产品名称,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"sponsor": 出资方,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"sprProName": 出资方产品名称,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"createTime": 1156219870000,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"lastModiTime": 1156219870000,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"maxLmt": 最大贷款额,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"role": "角色",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"putAndDown": "上下架",<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"advanceRepay": 是否允许提前还款,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"poundage": 提前还款是否收取手取费1收取，2不收取,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"formula": 手续费公式,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"isLatefee": 是否收取滞纳金:1收取，2不收取,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"latefee": 逾期滞纳金,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"interestMhd": 利息方式,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp; "repayMhd": 还款方式:1等额本息，2等额本金,3全部,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"cutMhd": 扣款方式：1银行代扣，2自主还款,<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"interestList": [{"times":分期数},{"times":分期数}]<BR>
+     *             &nbsp;&nbsp;&nbsp;&nbsp;"organizationsList":[{"organization":"机构号"},{"organization":"机构号"}]<BR>
+     *             &nbsp;&nbsp;&nbsp;}
      */
     @ResponseBody
     @RequestMapping(value = "/GetProdList",method = {RequestMethod.POST, RequestMethod.GET})
@@ -262,4 +286,26 @@ public class ProductController {
             return false;
         }
     }
+    /**
+     * App根据角色和机构号返回产品列表.
+     * @param jsonStr 接受的json字符串:<BR>
+     *{<BR>
+     *  &nbsp;&nbsp;"role":"角色",<BR>
+     *  &nbsp;&nbsp;"organization":"机构号",<BR>
+     * }
+     * @return 返回参数
+     * result;<BR>
+     * {<BR>
+     * &nbsp;&nbsp;<BR>
+     *  }
+     */
+    /*@ResponseBody
+    @RequestMapping(value = "/getAppProducts",method = {RequestMethod.POST, RequestMethod.GET})
+    public Object getAppProducts(@RequestBody String jsonStr){
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        logger.info("jsonStr：" + jsonStr);
+        String role = paramJSON.getString("role");
+        String organization = paramJSON.getString("organization");
+        return productService.findAppProducts(role,organization);
+    }*/
 }

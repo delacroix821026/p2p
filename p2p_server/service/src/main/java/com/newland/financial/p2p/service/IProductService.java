@@ -53,4 +53,11 @@ public interface IProductService {
      * @return
      */
      Object getProdList(String jsonStr);
+    /**
+     *App根据角色和机构号查询产品列表.
+     * @param role 角色
+     * @param organization 机构号
+     * @return 产品集合
+     */
+    /*List<Product> findAppProducts(String role, String organization);*/
 }
