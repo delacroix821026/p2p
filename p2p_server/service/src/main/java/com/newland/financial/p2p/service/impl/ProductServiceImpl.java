@@ -155,6 +155,11 @@ public class ProductServiceImpl implements IProductService {
      * @return boolean 返回布尔值
      */
     public boolean updatePutAndDown(String proId, String putAndDown) {
+        Product product = productDao.findById(proId);
+        //如果该产品是已下架状态则不允许在上架
+        if ("3".equals(product.getPutAndDown())) {
+            return false;
+        }
         return productDao.updatePutAndDown(proId, putAndDown);
     }
 
