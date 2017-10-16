@@ -68,7 +68,9 @@ public interface IProductDao {
     List<Product> findAll(Map<String, Object> map);
 
     /**
-     *
+     * App产品列表展示.
+     * @param map 查询条件，包含机构号和角色
+     * @return 分页信息
      */
     List<Product> findAppProducts(Map<String, Object> map);
 }

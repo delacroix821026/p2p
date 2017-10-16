@@ -34,4 +34,9 @@ public class ProductServiceHystrix implements IProductService {
         log.info("ProductServiceHystrix:getProdList");
         return 1026;
     }
+
+    public Object getAppPro(@RequestBody String jsonStr){
+        log.info("ProductServiceHystrix:getAppPro");
+        return 1026;
+    }
 }

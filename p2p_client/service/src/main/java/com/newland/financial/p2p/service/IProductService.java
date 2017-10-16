@@ -22,4 +22,7 @@ public interface IProductService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/ProductController/GetProdList")
     Object getProdList(@RequestBody String jsonStr);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/ProductController/getAppProducts")
+    Object getAppPro(@RequestBody String jsonStr);
 }

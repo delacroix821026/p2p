@@ -155,6 +155,11 @@ public class ProductServiceImpl implements IProductService {
      * @return boolean 返回布尔值
      */
     public boolean updatePutAndDown(String proId, String putAndDown) {
+        Product product = productDao.findById(proId);
+        //如果该产品是已下架状态则不允许在上架
+        if ("3".equals(product.getPutAndDown())) {
+            return false;
+        }
         return productDao.updatePutAndDown(proId, putAndDown);
     }
 
@@ -353,7 +358,7 @@ public class ProductServiceImpl implements IProductService {
      * @param organization 机构号
      * @return 产品集合
      */
-    /*public Object findAppProducts(String role, String organization, Integer page, Integer count) {
+    public Object findAppProducts(String role, String organization, Integer page, Integer count) {
         if (page == null || page < 1) {
             page = 1;
         }
@@ -369,5 +374,5 @@ public class ProductServiceImpl implements IProductService {
         productList = productDao.findAppProducts(reqMap);
         PageInfo<Product> pageInfo = new PageInfo<Product>(productList);
         return pageInfo;
-    }*/
+    }
 }

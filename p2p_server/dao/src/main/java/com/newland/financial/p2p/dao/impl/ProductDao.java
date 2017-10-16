@@ -78,7 +78,11 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
     public List<Product> findAll(Map<String,Object> map){
         return  super.select("findList",map);
     }
-
+    /**
+     * App产品列表展示.
+     * @param map 查询条件，包含机构号和角色
+     * @return 分页信息
+     */
     public List<Product> findAppProducts(Map<String, Object> map) {
         return super.select("selectAppPro", map);
     }
