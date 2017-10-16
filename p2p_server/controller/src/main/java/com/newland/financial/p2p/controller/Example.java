@@ -1,8 +1,5 @@
 package com.newland.financial.p2p.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.newland.financial.p2p.domain.entity.Product;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 /**
- *@author cendaijuan
+ * @author cendaijuan
  */
 @RestController
 @RefreshScope
@@ -23,21 +21,24 @@ public class Example {
     /***/
     @Value("${form}")
     private String form;
+
     /**
-     *@return String
+     * @return String
      */
     @RequestMapping("/getForm")
     String getForm() {
         return form;
     }
+
     /***/
     @Autowired
     private DiscoveryClient client;
+
     /**
      * @param a Integer
      * @param b Integer
      * @return Integer
-     * */
+     */
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public Integer add(@RequestParam final Integer a, @RequestParam final Integer b) {
         ServiceInstance instance = client.getLocalServiceInstance();
