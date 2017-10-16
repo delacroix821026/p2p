@@ -17,25 +17,29 @@ public class InterestDao extends MybatisBaseDao<Interest>
 
     /**
      * 增加利率信息.
+     *
      * @param interest Interest对象
-     * @return boolean插入成功返回true,失败false
+     * @return boolean插入成功返回true, 失败false
      */
     public boolean insertInterest(Interest interest) {
         return super.insertSelective(interest);
     }
+
     /**
      * 删除利率信息.
+     *
      * @param ittId String利率编号
-     * @return boolean删除成功返回true,失败false
+     * @return boolean删除成功返回true, 失败false
      */
     public boolean deleteInterest(Integer ittId) {
-        return super.deletes("deleteByProperty",ittId);
+        return super.deletes("deleteByProperty", ittId);
     }
 
     /**
      * 修改利率信息.
+     *
      * @param interest Interest对象
-     * @return boolean修改成功返回true,失败false
+     * @return boolean修改成功返回true, 失败false
      */
     public boolean updateInterest(final Interest interest) {
         return super.updateByPrimaryKeySelective(interest);
@@ -43,6 +47,7 @@ public class InterestDao extends MybatisBaseDao<Interest>
 
     /**
      * 查看某产品的所有利率信息.
+     *
      * @param iProId String产品编号
      * @return List返回对应产品的所有利率信息
      */
@@ -51,21 +56,24 @@ public class InterestDao extends MybatisBaseDao<Interest>
         map.put("iProId", iProId);
         return super.select("selectByProperties", map);
     }
+
     /**
      * 增加多个利率信息.
+     *
      * @param list Interest集合
-     * @return boolean插入成功返回true,失败false
+     * @return boolean插入成功返回true, 失败false
      */
     public boolean insertInterest(List<Interest> list) {
-        return super.insertObj("insertInterests",list);
+        return super.insertObj("insertInterests", list);
     }
 
     /**
-     * 根据产品ID删除利率信息
-     * @param proId 产品ID
-     * @return  true:删除成功,false:删除失败
+     * 根据产品ID删除利率信息.
+     *
+     * @param iProId 产品ID
+     * @return true:删除成功,false:删除失败
      */
-    public boolean deleteInterestByProId(String iProId){
-        return super.deletes("deleteInterestByProId",iProId);
+    public boolean deleteInterestByProId(String iProId) {
+        return super.deletes("deleteInterestByProId", iProId);
     }
 }

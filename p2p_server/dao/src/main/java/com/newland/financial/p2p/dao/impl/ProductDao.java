@@ -67,7 +67,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
         Map map = new HashMap();
         map.put("proId", proId);
         map.put("putAndDown", putAndDown);
-        return super.update("updatePutAndDown",map);
+        return super.update("updatePutAndDown", map);
     }
 
     /**
@@ -75,8 +75,8 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param map 查询条件
      * @return 分页信息
      */
-    public List<Product> findAll(Map<String,Object> map){
-        return  super.select("findList",map);
+    public List<Product> findAll(Map<String, Object> map) {
+        return  super.select("findList", map);
     }
     /**
      * App产品列表展示.

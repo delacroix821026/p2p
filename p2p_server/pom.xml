@@ -362,7 +362,7 @@
                             <consoleOutput>true</consoleOutput>
                             <!--<failsOnError>true</failsOnError>
                             <skip>true</skip>-->
-                            <failOnViolation>false</failOnViolation>
+                            <failOnViolation>true</failOnViolation>
 
                             <outputFile>${project.reporting.outputDirectory}/checkstyle/checkstyle.xml</outputFile>
                         </configuration>

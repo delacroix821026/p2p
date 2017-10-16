@@ -44,7 +44,7 @@ public interface IInterestDao {
     boolean insertInterest(List<Interest> list);
 
     /**
-     * 根据产品ID删除利率信息
+     * 根据产品ID删除利率信息.
      * @param proId 产品ID
      * @return  true:删除成功,false:删除失败
      */

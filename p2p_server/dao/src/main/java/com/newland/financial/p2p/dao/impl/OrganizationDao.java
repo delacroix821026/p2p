@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Repository
 public class OrganizationDao extends
-        MybatisBaseDao<Organization> implements IOrganizationDao{
+        MybatisBaseDao<Organization> implements IOrganizationDao {
     /**
      * 根据产品编号删除机构表里有关该产品的记录.
      * @param proId 产品编号

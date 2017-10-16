@@ -1,7 +1,6 @@
 package com.newland.financial.p2p.service;
 
 import com.newland.financial.p2p.domain.entity.IProduct;
-import com.newland.financial.p2p.domain.entity.Product;
 
 import java.util.List;
 /**
@@ -48,16 +47,18 @@ public interface IProductService {
     boolean updateProdInfo(String jsonStr);
 
     /**
-     * 查询产品列表
+     * 查询产品列表.
      * @param jsonStr   查询条件json字符串
-     * @return
+     * @return Object
      */
      Object getProdList(String jsonStr);
     /**
      *App根据角色和机构号查询产品列表.
      * @param role 角色
      * @param organization 机构号
-     * @return 产品集合
+     * @param page 当前页
+     * @param count 每页条数
+     * @return Object 产品集合
      */
     Object findAppProducts(String role, String organization, Integer page, Integer count);
 }

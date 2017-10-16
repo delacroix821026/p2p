@@ -4,8 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.newland.financial.p2p.dao.*;
-import com.newland.financial.p2p.domain.entity.*;
+import com.newland.financial.p2p.dao.IInterestDao;
+import com.newland.financial.p2p.dao.IOrganizationDao;
+import com.newland.financial.p2p.dao.IProductDao;
+import com.newland.financial.p2p.domain.entity.Product;
+import com.newland.financial.p2p.domain.entity.Organization;
+import com.newland.financial.p2p.domain.entity.Interest;
+import com.newland.financial.p2p.domain.entity.IProduct;
+import com.newland.financial.p2p.domain.entity.AbstractProduct;
 import com.newland.financial.p2p.service.IProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +20,11 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Date;
 
 /**
  * 对产品进行操作的service类.
@@ -140,11 +150,7 @@ public class ProductServiceImpl implements IProductService {
         Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
         Boolean b3 = productDao.insertProduct(product); //将产品信息插入产品表中
         logger.info("机构插入b2---：" + b2 + ",分期插入b1---：" + b1 + ",产品插入b3----：" + b3);
-        if (b1 && b2 && b3) {
-            return true;
-        } else {
-            return false;
-        }
+        return b1 && b2 && b3;
     }
 
     /**
@@ -174,39 +180,40 @@ public class ProductServiceImpl implements IProductService {
         return product;
     }
 
-   
-	/**
+
+    /**
      * 更新产品信息.
-     * @param jsonStr   json字符串
-     * @return  true:更新成功,false:更新失败
+     *
+     * @param jsonStr json字符串
+     * @return true:更新成功,false:更新失败
      */
-    public boolean updateProdInfo(String jsonStr){
+    public boolean updateProdInfo(String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         Product pro = paramJSON.toJavaObject(Product.class);
         Product product = new Product();
 
         String proId = paramJSON.getString("proId");
-        if(proId == null || proId == ""){
-            return  false;
+        if (proId == null || proId == "") {
+            return false;
         }
         product.setProId(proId);
 
         String proName = paramJSON.getString("proName");
-        if(proName == null || proName == ""){
-            return  false;
+        if (proName == null || proName == "") {
+            return false;
         }
         product.setProName(proName);
 
         String proLmtStr = paramJSON.getString("proLmt");
         String maxLmtStr = paramJSON.getString("maxLmt");
         String latefeeStr = paramJSON.getString("latefee");
-        if(!"".equals(proLmtStr)) {
+        if (!"".equals(proLmtStr)) {
             product.setProLmt(new BigDecimal(proLmtStr));
         }
-        if(!"".equals(maxLmtStr)) {
+        if (!"".equals(maxLmtStr)) {
             product.setMaxLmt(new BigDecimal(maxLmtStr));
         }
-        if(!"".equals(latefeeStr)) {
+        if (!"".equals(latefeeStr)) {
             product.setLatefee(new BigDecimal(latefeeStr));
         }
         String positiveOrNegative = paramJSON.getString("positiveOrNegative");
@@ -227,8 +234,8 @@ public class ProductServiceImpl implements IProductService {
 
         //获取产品利率信息
         List<Interest> interestList = new ArrayList<Interest>();
-        String[] interestJson = paramJSON.getObject("interestList",String[].class);
-        for(String s : interestJson){
+        String[] interestJson = paramJSON.getObject("interestList", String[].class);
+        for (String s : interestJson) {
             JSONObject ob = JSON.parseObject(s);
             Interest interest = ob.toJavaObject(Interest.class);
             interest.setIProId(proId);
@@ -237,8 +244,8 @@ public class ProductServiceImpl implements IProductService {
         }
         //获取机构信息
         List<Organization> orgList = new ArrayList<Organization>();
-        String[] orgJson = paramJSON.getObject("orgs",String[].class);
-        for(String s : orgJson){
+        String[] orgJson = paramJSON.getObject("orgs", String[].class);
+        for (String s : orgJson) {
             JSONObject ob = JSON.parseObject(s);
             Organization organization = ob.toJavaObject(Organization.class);
             organization.setProId(proId);
@@ -247,17 +254,17 @@ public class ProductServiceImpl implements IProductService {
         }
 
         //更新产品信息
-        if(!productDao.updateProduct(product)){
+        if (!productDao.updateProduct(product)) {
             logger.info("----------------------------------------更新产品信息失败");
             return false;
         }
         //更新利率信息
         List<Interest> interestTempList = interestDao.findByProId(proId);
-        logger.info("--------判断表中是否存在指定产品的利率信息-------"+interestDao.findByProId(proId).size());
-        if( interestTempList != null && interestTempList.size()>0){ //判断表中是否存在指定产品的利率信息
+        logger.info("--------判断表中是否存在指定产品的利率信息-------" + interestDao.findByProId(proId).size());
+        if (interestTempList != null && interestTempList.size() > 0) { //判断表中是否存在指定产品的利率信息
             interestDao.deleteInterestByProId(proId);
         }
-        if(!interestDao.insertInterest(interestList)){
+        if (!interestDao.insertInterest(interestList)) {
             logger.info("----------------------------------------插入利率失败");
             return false;
         }
@@ -265,11 +272,11 @@ public class ProductServiceImpl implements IProductService {
         //更新机构信息
         //删除原有产品-机构信息
         List<Organization> orgTempList = organizationDao.selectOrganizationList(proId);
-        if( orgTempList != null && orgTempList.size()>0){
+        if (orgTempList != null && orgTempList.size() > 0) {
             organizationDao.deleteOrganization(proId);
         }
         //插入新的产品-机构信息
-        if(!organizationDao.insertOrganizationList(orgList)){
+        if (!organizationDao.insertOrganizationList(orgList)) {
             logger.info("------------------------------插入新的产品-机构信息失败");
             return false;
         }
@@ -325,16 +332,16 @@ public class ProductServiceImpl implements IProductService {
         System.out.println("*****************************role:" + role);
         System.out.println("*****************************proId:" + proId);
         System.out.println("*****************************proName:" + proName);
-        if(!"".equals(role)){
+        if (!"".equals(role)) {
             reqMap.put("role", role);
         }
-        if(!"".equals(proId)){
+        if (!"".equals(proId)) {
             reqMap.put("proId", proId);
         }
-        if(!"".equals(proName)){
+        if (!"".equals(proName)) {
             reqMap.put("proName", proName);
         }
-        if(!"".equals(sponsor)){
+        if (!"".equals(sponsor)) {
             reqMap.put("sponsor", sponsor);
         }
         reqMap.put("begTime", begTime);
@@ -356,6 +363,8 @@ public class ProductServiceImpl implements IProductService {
      *
      * @param role         角色
      * @param organization 机构号
+     * @param page 当前页
+     * @param count 每页显示的条数
      * @return 产品集合
      */
     public Object findAppProducts(String role, String organization, Integer page, Integer count) {

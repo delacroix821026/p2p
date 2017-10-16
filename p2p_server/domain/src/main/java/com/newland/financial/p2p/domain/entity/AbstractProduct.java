@@ -94,7 +94,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private String putAndDown = "2";
     /**是否允许提前还款：1允许，2不允许.*/
     private String advanceRepay;
-    /**提前还款是否收取手取费1收取，2不收取*/
+    /**提前还款是否收取手取费1收取，2不收取.*/
     private String poundage;
     /**手续费公式.*/
     private String formula;
