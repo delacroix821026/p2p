@@ -205,10 +205,10 @@ public class ProductController {
      *  &nbsp;&nbsp;"cutMhd":"扣款方式：1银行代扣，2自主还款",<BR>
      *  &nbsp;&nbsp;"advanceRepay":"是否允许提前还款：1允许，2不允许",<BR>
      *  &nbsp;&nbsp;"poundage":"提前还款是否收取手续费：1收取，2不收取",<BR>
-     *  &nbsp;&nbsp;"formula":"手续费公式，如为空则表示无手续费",<BR>
+     *  &nbsp;&nbsp;"formula":"手续费公式",<BR>
      *  &nbsp;&nbsp;"isLatefee":"是否收取滞纳金:1收取，2不收取",<BR>
      *  &nbsp;&nbsp;"latefee":"逾期滞纳金额",<BR>
-     *  &nbsp;&nbsp;"positiveOrNegative":"1正选，1反选",<BR>
+     *  &nbsp;&nbsp;"positiveOrNegative":"1正选，2反选",<BR>
      *  }<BR>
      * @return    返回参数：{"Update Sucess"}
      */

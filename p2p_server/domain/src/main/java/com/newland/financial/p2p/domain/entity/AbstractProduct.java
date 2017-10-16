@@ -90,7 +90,7 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private BigDecimal maxLmt;
     /**角色：1管理员，2操作员，0全部.*/
     private String role;
-    /**上下架：1上架，2下架,默认未上架,3下架.*/
+    /**上下架：1上架，2未上架,默认未上架,3下架.*/
     private String putAndDown = "2";
     /**是否允许提前还款：1允许，2不允许.*/
     private String advanceRepay;
