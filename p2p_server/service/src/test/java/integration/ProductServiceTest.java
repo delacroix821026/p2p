@@ -1,5 +1,6 @@
 package integration;
 
+import com.github.pagehelper.PageInfo;
 import com.newland.financial.p2p.Application;
 import com.newland.financial.p2p.dao.IInterestDao;
 import com.newland.financial.p2p.dao.IOrganizationDao;
@@ -18,7 +19,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -76,5 +80,120 @@ public class ProductServiceTest {
         productDao.deleteProduct("cs001");
         iInterestDao.deleteInterestByProId("cs001");
         organizationDao.deleteOrganization("cs001");
+    }
+
+    @Test
+    public void getProdList(){
+        String reqJson01 = "{\n" +
+                "    \"sponsor\":null,\n" +
+                "    \"role\":\"\",\n" +
+                "    \"proId\":null,\n" +
+                "    \"createTimeEnd\":\"\",\n" +
+                "    \"count\":3,\n" +
+                "    \"page\":1,\n" +
+                "    \"proName\":null,\n" +
+                "    \"createTimeBeg\":\"123\"}\t";
+        String reqJson02 = "{\n" +
+                "    \"sponsor\":null,\n" +
+                "    \"role\":\"1\",\n" +
+                "    \"proId\":null,\n" +
+                "    \"createTimeEnd\":\"1167494400000\",\n" +
+                "    \"count\":0,\n" +
+                "    \"page\":0,\n" +
+                "    \"proName\":null,\n" +
+                "    \"createTimeBeg\":\"123\"}\t";
+        productService.getProdList(reqJson01);
+        productService.getProdList(reqJson02);
+    }
+
+    @Test
+    public void testUpdateProd(){
+        String reqJson01 = "{\n" +
+                "    \"advanceRepay\":\"\",\n" +
+                "    \"cutMhd\":\"\",\n" +
+                "    \"formula\":\"\",\n" +
+                "    \"interestMhd\":\"\",\n" +
+                "    \"isLatefee\":\"\",\n" +
+                "    \"latefee\":0.35,\n" +
+                "    \"maxLmt\":456789,\n" +
+                "    \"positiveOrNegative\":\"1\",\n" +
+                "    \"poundage\":\"\",\n" +
+                "    \"proId\":\"7\",\n" +
+                "    \"proLmt\":\"1000\",\n" +
+                "    \"proName\":\"test7\",\n" +
+                "    \"proNameOperator\":\"\",\n" +
+                "    \"putAndDown\":\"1\",\n" +
+                "    \"repayMhd\":\"\",\n" +
+                "    \"role\":\"2\",\n" +
+                "    \"sponsor\":\"\",\n" +
+                "    \"sprProName\":\"\",\n" +
+                "    \"interestList\":[\n" +
+                "        {\"times\":6},\n" +
+                "        {\"times\":7}\n" +
+                "    ],\n" +
+                "    \"orgs\":[\n" +
+                "        {\"id\":0,\"organization\":\"2\"},\n" +
+                "        {\"id\":0,\"organization\":\"6\"}\n" +
+                "    ]\n" +
+                "}";
+        String reqJson02 = "{\n" +
+                "    \"advanceRepay\":\"\",\n" +
+                "    \"cutMhd\":\"\",\n" +
+                "    \"formula\":\"\",\n" +
+                "    \"interestMhd\":\"\",\n" +
+                "    \"isLatefee\":\"\",\n" +
+                "    \"latefee\":0.35,\n" +
+                "    \"maxLmt\":456789,\n" +
+                "    \"positiveOrNegative\":\"1\",\n" +
+                "    \"poundage\":\"\",\n" +
+                "    \"proId\":\"\",\n" +
+                "    \"proLmt\":\"1000\",\n" +
+                "    \"proName\":\"test7\",\n" +
+                "    \"proNameOperator\":\"\",\n" +
+                "    \"putAndDown\":\"1\",\n" +
+                "    \"repayMhd\":\"\",\n" +
+                "    \"role\":\"2\",\n" +
+                "    \"sponsor\":\"\",\n" +
+                "    \"sprProName\":\"\",\n" +
+                "    \"interestList\":[\n" +
+                "        {\"times\":6},\n" +
+                "        {\"times\":7}\n" +
+                "    ],\n" +
+                "    \"orgs\":[\n" +
+                "        {\"id\":0,\"organization\":\"2\"},\n" +
+                "        {\"id\":0,\"organization\":\"6\"}\n" +
+                "    ]\n" +
+                "}";
+        String reqJson03 = "{\n" +
+                "    \"advanceRepay\":\"\",\n" +
+                "    \"cutMhd\":\"\",\n" +
+                "    \"formula\":\"\",\n" +
+                "    \"interestMhd\":\"\",\n" +
+                "    \"isLatefee\":\"\",\n" +
+                "    \"latefee\":0.35,\n" +
+                "    \"maxLmt\":456789,\n" +
+                "    \"positiveOrNegative\":\"1\",\n" +
+                "    \"poundage\":\"\",\n" +
+                "    \"proId\":\"7777\",\n" +
+                "    \"proLmt\":\"1000\",\n" +
+                "    \"proName\":\"\",\n" +
+                "    \"proNameOperator\":\"\",\n" +
+                "    \"putAndDown\":\"1\",\n" +
+                "    \"repayMhd\":\"\",\n" +
+                "    \"role\":\"2\",\n" +
+                "    \"sponsor\":\"\",\n" +
+                "    \"sprProName\":\"\",\n" +
+                "    \"interestList\":[\n" +
+                "        {\"times\":6},\n" +
+                "        {\"times\":7}\n" +
+                "    ],\n" +
+                "    \"orgs\":[\n" +
+                "        {\"id\":0,\"organization\":\"2\"},\n" +
+                "        {\"id\":0,\"organization\":\"6\"}\n" +
+                "    ]\n" +
+                "}";
+        productService.updateProdInfo(reqJson01);
+        productService.updateProdInfo(reqJson02);
+        productService.updateProdInfo(reqJson03);
     }
 }
