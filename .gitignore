@@ -53,3 +53,7 @@ p2p_server/controller/target/site/jacoco-ut/com.newland.financial.p2p.controller
 p2p_server/service/target/checkstyle-cachefile
 p2p_server/service/target/coverage-reports/jacoco-ut.exec
 p2p_server/target/checkstyle-cachefile
+*.properties
+p2p_eureka/target/classes/application.yml
+p2p_config/target/classes/application.yml
+p2p_eureka/target/classes/bootstrap.yml
