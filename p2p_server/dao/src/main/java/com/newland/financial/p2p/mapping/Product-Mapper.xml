@@ -154,9 +154,9 @@
 
     <select id="selectAppPro" resultMap="BaseResultMap" parameterType="java.util.Map">
        SELECT <include refid="Base_Column_List"/> FROM T_PRODUCT WHERE ROLE IN ('0', #{role}) AND PUTANDDOWN = '1' AND PRO_ID IN
-        (SELECT DISTINCT(PROID) FROM (SELECT * FROM p2p_org WHERE POSITIVE_OR_NEGATIVE = '2') org
+        (SELECT DISTINCT(PROID) FROM (SELECT * FROM p2p_org WHERE POSITIVEORNEGATIVE = '2') org
         WHERE PROID NOT IN
-        (SELECT PROID FROM (SELECT * FROM p2p_org WHERE POSITIVE_OR_NEGATIVE = '2') a WHERE ORGANIZATION = #{organization})
-        UNION SELECT PROID FROM (SELECT * FROM p2p_org WHERE POSITIVE_OR_NEGATIVE = '1') org1 WHERE ORGANIZATION = #{organization})
+        (SELECT PROID FROM (SELECT * FROM p2p_org WHERE POSITIVEORNEGATIVE = '2') a WHERE ORGANIZATION = #{organization})
+        UNION SELECT PROID FROM (SELECT * FROM p2p_org WHERE POSITIVEORNEGATIVE = '1') org1 WHERE ORGANIZATION = #{organization})
     </select>
 </mapper>
