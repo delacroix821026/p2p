@@ -301,7 +301,10 @@ public class ProductController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         logger.info("jsonStr：" + jsonStr);
         String role = paramJSON.getString("role");
+        //获取分页信息
+        Integer page = paramJSON.getInteger("page");
+        Integer count = paramJSON.getInteger("count");
         String organization = paramJSON.getString("organization");
-        return productService.findAppProducts(role,organization);
+        return productService.findAppProducts(role,organization, page, count);
     }*/
 }

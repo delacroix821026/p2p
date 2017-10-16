@@ -359,32 +359,21 @@ public class ProductServiceImpl implements IProductService {
      * @param organization 机构号
      * @return 产品集合
      */
-    /*public List<Product> findAppProducts(String role, String organization) {
-        List<Organization> orgs = organizationDao.findProIdByOrgId(organization, 2); //查询该机构号反选外的产品集合
-        List<Product> pros = new ArrayList<Product>();
-        //遍历orgs，如果为空则表明
-        if (orgs != null && orgs.size() != 0) {
-            List proIds = new ArrayList();
-            for (int i = 0; i < orgs.size(); i++) {
-                Organization org = orgs.get(i);
-                String proId = org.getProId();
-                proIds.add(proId);
-            }
-            List<Product> products = productDao.findProNotIn(proIds);
-            for (int i = 0; i < products.size(); i++) {
-                Product product = products.get(i);
-                if (product.getPositiveOrNegative().equals("2")) {
-                    if (product.getRole().equals(role) || product.getRole().equals("0")) {
-                        pros.add(product);
-                    }
-                } else {
-                    Organization org1 = organizationDao.findExist(product.getProId(), organization, 1);
-                    if (org1 != null) {
-                        pros.add(product);
-                    }
-                }
-            }
+    /*public Object findAppProducts(String role, String organization, Integer page, Integer count) {
+        if (page == null || page < 1) {
+            page = 1;
         }
-        return null;
+        if (count == null || count < 1) {
+            count = 5;
+        }
+        //开始分页
+        PageHelper.startPage(page, count);
+        List<Product> productList = new ArrayList<Product>();
+        Map<String, Object> reqMap = new HashMap<String, Object>();
+        reqMap.put("role", role);
+        reqMap.put("organization", organization);
+        productList = productDao.findAppProducts(reqMap);
+        PageInfo<Product> pageInfo = new PageInfo<Product>(productList);
+        return pageInfo;
     }*/
 }

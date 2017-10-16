@@ -151,4 +151,8 @@
             AND CREATE_TIME &lt; #{endTime}
         </if>
     </select>
+
+    <select id="selectAppPro" resultMap="BaseResultMap" parameterType="java.util.Map">
+       
+    </select>
 </mapper>

@@ -59,5 +59,5 @@ public interface IProductService {
      * @param organization 机构号
      * @return 产品集合
      */
-    /*List<Product> findAppProducts(String role, String organization);*/
+    /*Object findAppProducts(String role, String organization, Integer page, Integer count);*/
 }

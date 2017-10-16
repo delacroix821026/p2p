@@ -78,4 +78,8 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
     public List<Product> findAll(Map<String,Object> map){
         return  super.select("findList",map);
     }
+
+    public List<Product> findAppProducts(Map<String, Object> map) {
+        return super.select("selectAppPro", map);
+    }
 }
