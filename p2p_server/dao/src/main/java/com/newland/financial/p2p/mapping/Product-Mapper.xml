@@ -153,6 +153,10 @@
     </select>
 
     <select id="selectAppPro" resultMap="BaseResultMap" parameterType="java.util.Map">
-       
+       SELECT <include refid="Base_Column_List"/> FROM T_PRODUCT WHERE ROLE IN ('0', #{role}) AND PRO_ID IN
+        (SELECT DISTINCT(PROID) FROM (SELECT * FROM p2p_org WHERE type='2') org
+        WHERE PROID NOT IN
+        (SELECT PROID FROM (SELECT * FROM p2p_org WHERE type='2') a WHERE ORGANIZATION = #{organization})
+        UNION SELECT PROID FROM (SELECT * FROM p2p_org WHERE type='1') org1 WHERE ORGANIZATION = #{organization})
     </select>
 </mapper>
