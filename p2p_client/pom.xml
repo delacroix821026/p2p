@@ -136,6 +136,13 @@
             <version>3.1.0</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- sso -->
+        <dependency>
+            <groupId>org.ohuyo.libra</groupId>
+            <artifactId>libra-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 
