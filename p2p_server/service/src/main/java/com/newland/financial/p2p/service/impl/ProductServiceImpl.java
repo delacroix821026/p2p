@@ -109,6 +109,7 @@ public class ProductServiceImpl implements IProductService {
         product.setIsLatefee(isLatefee);
         product.setRepayMhd(repayMhd);
         product.setCutMhd(cutMhd);
+        product.setPositiveOrNegative(positiveOrNegative);
 
         List<Interest> list = new ArrayList<Interest>();
         String[] interestList = paramJSON.getObject("interestList", String[].class);
@@ -138,7 +139,7 @@ public class ProductServiceImpl implements IProductService {
         b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入机构表中
         Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
         Boolean b3 = productDao.insertProduct(product); //将产品信息插入产品表中
-        logger.info("机构插入："+b2+",分期插入："+b1+",产品插入："+b3);
+        logger.info("机构插入b2---：" + b2 + ",分期插入b1---：" + b1 + ",产品插入b3----：" + b3);
         if (b1 && b2 && b3) {
             return true;
         } else {
@@ -358,4 +359,40 @@ public class ProductServiceImpl implements IProductService {
 
         return pageInfo;
     }
+
+    /**
+     * App根据角色和机构号查询产品列表.
+     *
+     * @param role         角色
+     * @param organization 机构号
+     * @return 产品集合
+     */
+    /*public List<Product> findAppProducts(String role, String organization) {
+        List<Organization> orgs = organizationDao.findProIdByOrgId(organization, 2); //查询该机构号反选外的产品集合
+        List<Product> pros = new ArrayList<Product>();
+        //遍历orgs，如果为空则表明
+        if (orgs != null && orgs.size() != 0) {
+            List proIds = new ArrayList();
+            for (int i = 0; i < orgs.size(); i++) {
+                Organization org = orgs.get(i);
+                String proId = org.getProId();
+                proIds.add(proId);
+            }
+            List<Product> products = productDao.findProNotIn(proIds);
+            for (int i = 0; i < products.size(); i++) {
+                Product product = products.get(i);
+                if (product.getPositiveOrNegative().equals("2")) {
+                    if (product.getRole().equals(role) || product.getRole().equals("0")) {
+                        pros.add(product);
+                    }
+                } else {
+                    Organization org1 = organizationDao.findExist(product.getProId(), organization, 1);
+                    if (org1 != null) {
+                        pros.add(product);
+                    }
+                }
+            }
+        }
+        return null;
+    }*/
 }

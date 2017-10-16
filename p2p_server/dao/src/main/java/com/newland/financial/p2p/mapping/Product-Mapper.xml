@@ -26,10 +26,11 @@
         <result column="IS_LATEFEE" property="isLatefee" jdbcType="VARCHAR"/>
         <result column="REPAY_MHD" property="repayMhd" jdbcType="VARCHAR"/>
         <result column="CUTMHD" property="cutMhd" jdbcType="VARCHAR"/>
+        <result column="POSITIVE_OR_NEGATIVE" property="positiveOrNegative" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        PRO_ID,PRO_NAME,PRO_LMT,PAY_DATE,PRO_INTEREST,PRO_NAME_OPERATOR,SPONSOR,SPR_PRO_NAME,CREATE_TIME,LAST_MODI_TIME,MAX_LMT,ROLE,PUTANDDOWN,ADVANCE_REPAY,FORMULA,LATEFEE,INTEREST_MHD,POUNDAGE,IS_LATEFEE,REPAY_MHD,CUTMHD
+        PRO_ID,PRO_NAME,PRO_LMT,PAY_DATE,PRO_INTEREST,PRO_NAME_OPERATOR,SPONSOR,SPR_PRO_NAME,CREATE_TIME,LAST_MODI_TIME,MAX_LMT,ROLE,PUTANDDOWN,ADVANCE_REPAY,FORMULA,LATEFEE,INTEREST_MHD,POUNDAGE,IS_LATEFEE,REPAY_MHD,CUTMHD,POSITIVE_OR_NEGATIVE
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -53,7 +54,7 @@
         #{sponsor,jdbcType=VARCHAR},#{sprProName,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{lastModiTime,jdbcType=TIMESTAMP},
         #{maxLmt,jdbcType=NUMERIC},#{role,jdbcType=VARCHAR},#{putAndDown,jdbcType=VARCHAR},#{advanceRepay,jdbcType=VARCHAR},
         #{formula,jdbcType=VARCHAR},#{latefee,jdbcType=NUMERIC},#{interestMhd,jdbcType=VARCHAR},#{poundage,jdbcType=VARCHAR},#{isLatefee,jdbcType=VARCHAR},
-        #{repayMhd,jdbcType=VARCHAR},#{cutMhd,jdbcType=VARCHAR})
+        #{repayMhd,jdbcType=VARCHAR},#{cutMhd,jdbcType=VARCHAR},#{positiveOrNegative,jdbcType=VARCHAR})
     </insert>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.newland.financial.p2p.domain.entity.Product">
@@ -115,6 +116,9 @@
             </if>
             <if test="cutMhd != null">
                 CUTMHD = #{cutMhd,jdbcType=VARCHAR},
+            </if>
+            <if test="positiveOrNegative != null">
+                POSITIVE_OR_NEGATIVE = #{positiveOrNegative,jdbcType=VARCHAR},
             </if>
         </set>
         WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
