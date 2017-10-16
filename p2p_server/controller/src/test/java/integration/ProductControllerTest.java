@@ -74,4 +74,101 @@ public class    ProductControllerTest {
         String result = mr.getResponse().getContentAsString();
         logger.info("result:" + result);
     }
+
+    @Test
+    public void testUpdateProd01() throws Exception {
+        String reqJson = "{\n" +
+                "    \"advanceRepay\":\"\",\n" +
+                "    \"cutMhd\":\"\",\n" +
+                "    \"formula\":\"\",\n" +
+                "    \"interestMhd\":\"\",\n" +
+                "    \"isLatefee\":\"\",\n" +
+                "    \"latefee\":0.35,\n" +
+                "    \"maxLmt\":456789,\n" +
+                "    \"positiveOrNegative\":\"1\",\n" +
+                "    \"poundage\":\"\",\n" +
+                "    \"proId\":\"7\",\n" +
+                "    \"proLmt\":\"1000\",\n" +
+                "    \"proName\":\"test7\",\n" +
+                "    \"proNameOperator\":\"\",\n" +
+                "    \"putAndDown\":\"1\",\n" +
+                "    \"repayMhd\":\"\",\n" +
+                "    \"role\":\"2\",\n" +
+                "    \"sponsor\":\"\",\n" +
+                "    \"sprProName\":\"\",\n" +
+                "    \"interestList\":[\n" +
+                "        {\"times\":6},\n" +
+                "        {\"times\":7}\n" +
+                "    ],\n" +
+                "    \"orgs\":[\n" +
+                "        {\"id\":0,\"organization\":\"2\"},\n" +
+                "        {\"id\":0,\"organization\":\"6\"}\n" +
+                "    ]\n" +
+                "}";
+        ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/UpdateProd")
+                .contentType(MediaType.APPLICATION_JSON).content(reqJson));
+        MvcResult mr = ra.andReturn();
+        String result = mr.getResponse().getContentAsString();
+        logger.info("---------------------------------------------------------result01:" + result);
+    }
+
+    @Test
+    public void testUpdateProd02() throws Exception {
+        String reqJson = "{\n" +
+                "    \"advanceRepay\":\"\",\n" +
+                "    \"cutMhd\":\"\",\n" +
+                "    \"formula\":\"\",\n" +
+                "    \"interestMhd\":\"\",\n" +
+                "    \"isLatefee\":\"\",\n" +
+                "    \"latefee\":0.35,\n" +
+                "    \"maxLmt\":456789,\n" +
+                "    \"positiveOrNegative\":\"1\",\n" +
+                "    \"poundage\":\"\",\n" +
+                "    \"proId\":\"\",\n" +
+                "    \"proLmt\":\"1000\",\n" +
+                "    \"proName\":\"test7\",\n" +
+                "    \"proNameOperator\":\"\",\n" +
+                "    \"putAndDown\":\"1\",\n" +
+                "    \"repayMhd\":\"\",\n" +
+                "    \"role\":\"2\",\n" +
+                "    \"sponsor\":\"\",\n" +
+                "    \"sprProName\":\"\",\n" +
+                "    \"interestList\":[\n" +
+                "        {\"times\":6},\n" +
+                "        {\"times\":7}\n" +
+                "    ],\n" +
+                "    \"orgs\":[\n" +
+                "        {\"id\":0,\"organization\":\"2\"},\n" +
+                "        {\"id\":0,\"organization\":\"6\"}\n" +
+                "    ]\n" +
+                "}";
+        ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/UpdateProd")
+                .contentType(MediaType.APPLICATION_JSON).content(reqJson));
+        MvcResult mr = ra.andReturn();
+        String result = mr.getResponse().getContentAsString();
+        logger.info("---------------------------------------------------------result02:" + result);
+    }
+
+    @Test
+    public void testGetProdList() throws Exception {
+        String reqJson = "{\n" +
+                "    \"sponsor\":null,\n" +
+                "    \"role\":\"\",\n" +
+                "    \"proId\":null,\n" +
+                "    \"createTimeEnd\":\"\",\n" +
+                "    \"count\":3,\n" +
+                "    \"page\":1,\n" +
+                "    \"proName\":null,\n" +
+                "    \"createTimeBeg\":\"123\"}\t";
+        ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/GetProdList")
+                .contentType(MediaType.APPLICATION_JSON).content(reqJson));
+        MvcResult mr = ra.andReturn();
+        String result = mr.getResponse().getContentAsString();
+        logger.info("---------------------------------------------------------GetProdList:" + result);
+    }
+
+
 }

@@ -16,4 +16,10 @@ public interface IProductService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/ProductController/PutOrDown")
     Object putOrDown(@RequestBody String jsonStr);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/ProductController/UpdateProd")
+    Object updateProd(@RequestBody String jsonStr);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/ProductController/GetProdList")
+    Object getProdList(@RequestBody String jsonStr);
 }

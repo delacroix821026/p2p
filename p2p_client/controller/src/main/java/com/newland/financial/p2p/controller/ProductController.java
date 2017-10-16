@@ -33,4 +33,17 @@ public class ProductController {
         log.info("controller add Enter: A:" +proId);
         return productService.putOrDown(jsonStr);
     }
+
+    @RequestMapping(value = "/UpdateProd/{proId}", method = RequestMethod.POST)
+    public Object updateProd(@PathVariable(name="proId") String proId, @RequestBody String jsonStr){
+        log.info("controller add Enter: proId:" +proId);
+        return productService.updateProd(jsonStr);
+    }
+
+    @RequestMapping(value = "/GetProdList/{count}/{page}", method = RequestMethod.POST)
+    public Object updateProd(@PathVariable(name="count") String count,@PathVariable(name="page") String page,
+                             @RequestBody String jsonStr){
+        log.info("controller add Enter: count:" +count+"controller add Enter: page:" +page);
+        return productService.getProdList(jsonStr);
+    }
 }
