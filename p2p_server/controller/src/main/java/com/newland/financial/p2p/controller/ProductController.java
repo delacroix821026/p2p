@@ -167,6 +167,7 @@ public class ProductController {
         logger.info("jsonStr：" + jsonStr);
         String proId = paramJSON.getString("proId");
         if (productService.findProduct(proId) != null) {
+            logger.info("--------------已存在该产品编号");
             return "已存在该产品编号";
         }
         return productService.insertProduct(jsonStr);
