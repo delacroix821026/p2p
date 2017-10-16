@@ -214,11 +214,7 @@ public class ProductController {
     @ResponseBody
     @RequestMapping(value = "/UpdateProd",method = {RequestMethod.POST, RequestMethod.GET})
     public Object updateProd(@RequestBody String jsonStr){
-        if(productService.updateProdInfo(jsonStr)){
-            return "Update Success";
-        }else {
-            return "Update Faile";
-        }
+        return productService.updateProdInfo(jsonStr);
     }
 
 

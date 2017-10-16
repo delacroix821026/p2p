@@ -338,18 +338,10 @@ public class ProductServiceImpl implements IProductService {
         if(!"".equals(sponsor)){
             reqMap.put("sponsor", sponsor);
         }
-        if(!"".equals(begTime)){
-            reqMap.put("begTime", begTime);
-        }
         reqMap.put("begTime", begTime);
         reqMap.put("endTime", endTime);
 
         List<Product> productList = new ArrayList<Product>();
-//        if(proId != null){
-//
-//        }else {
-//            productList = productDao.findAll(reqMap);
-//        }
         productList = productDao.findAll(reqMap);
         PageInfo<Product> pageInfo = new PageInfo<Product>(productList);
 
