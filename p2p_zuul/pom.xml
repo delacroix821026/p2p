@@ -121,6 +121,13 @@
             <version>2.7.0</version>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- 跨域访问 -->
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>1.7</version>
+        </dependency>
     </dependencies>
 
 

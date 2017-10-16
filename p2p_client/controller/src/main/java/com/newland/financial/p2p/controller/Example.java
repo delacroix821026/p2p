@@ -4,6 +4,10 @@ package com.newland.financial.p2p.controller;
 import com.newland.financial.p2p.service.ExampleService;
 import com.newland.financial.p2p.service.FeignService;
 import lombok.extern.java.Log;
+import org.ohuyo.libra.client.exception.LibraClientException;
+import org.ohuyo.libra.client.session.LibraSession;
+import org.ohuyo.libra.client.session.LibraSessionUtils;
+import org.ohuyo.libra.client.util.LibraUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -49,6 +53,26 @@ public class Example {
         //HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         log.info("ws controller add Enter:::::::::::::" + session.getAttribute("abc"));
+
+        /*
+        HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+        log.info("--------LibraSession-----------------");
+        LibraSession s = LibraSessionUtils.getSession(request);
+        log.info("--------s-----------------" + s);
+        String permissions = null;
+        try {
+            permissions = s.getSharedAttribute("libraMasterClient", "permissions");
+            log.info("--------LibraSession--------permissions---------" + permissions);
+            String organization = s.getSharedAttribute("libraMasterClient", "organization");
+            log.info("--------LibraSession--------organization---------" + organization);
+            String loginName = s.getSharedAttribute("libraMasterClient", "loginName");
+            log.info("--------LibraSession--------loginName---------" + loginName);
+            String userName = s.getSharedAttribute("libraMasterClient", "userName");
+            log.info("--------LibraSession--------userName---------" + userName);
+        } catch (LibraClientException e) {
+            e.printStackTrace();
+        }*/
+
         return feignService.add(5, 18);
     }
 
