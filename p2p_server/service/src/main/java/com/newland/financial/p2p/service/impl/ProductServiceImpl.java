@@ -233,7 +233,7 @@ public class ProductServiceImpl implements IProductService {
         //获取机构信息
         List<Organization> orgList = new ArrayList<Organization>();
         String[] orgJson = paramJSON.getObject("orgs",String[].class);
-        for(String s : interestJson){
+        for(String s : orgJson){
             JSONObject ob = JSON.parseObject(s);
             Organization organization = ob.toJavaObject(Organization.class);
             organization.setProId(proId);
@@ -250,10 +250,7 @@ public class ProductServiceImpl implements IProductService {
         List<Interest> interestTempList = interestDao.findByProId(proId);
         logger.info("--------判断表中是否存在指定产品的利率信息-------"+interestDao.findByProId(proId).size());
         if( interestTempList != null && interestTempList.size()>0){ //判断表中是否存在指定产品的利率信息
-            if(!interestDao.deleteInterestByProId(proId)){
-                logger.info("----------------------------------------删除利率失败");
-                return false;
-            }
+            interestDao.deleteInterestByProId(proId);
         }
         if(!interestDao.insertInterest(interestList)){
             logger.info("----------------------------------------插入利率失败");
@@ -264,10 +261,7 @@ public class ProductServiceImpl implements IProductService {
         //删除原有产品-机构信息
         List<Organization> orgTempList = organizationDao.selectOrganizationList(proId);
         if( orgTempList != null && orgTempList.size()>0){
-            if(!organizationDao.deleteOrganization(proId)){
-                logger.info("-------------------------------删除原有产品-机构信息（正选表）失败");
-                return false;
-            }
+            organizationDao.deleteOrganization(proId);
         }
         //插入新的产品-机构信息
         if(!organizationDao.insertOrganizationList(orgList)){

@@ -174,7 +174,35 @@ public class ProductServiceTest {
                 "    \"maxLmt\":456789,\n" +
                 "    \"positiveOrNegative\":\"1\",\n" +
                 "    \"poundage\":\"\",\n" +
-                "    \"proId\":\"7777\",\n" +
+                "    \"proId\":\"7\",\n" +
+                "    \"proLmt\":\"1000\",\n" +
+                "    \"proName\":\"\",\n" +
+                "    \"proNameOperator\":\"\",\n" +
+                "    \"putAndDown\":\"1\",\n" +
+                "    \"repayMhd\":\"\",\n" +
+                "    \"role\":\"2\",\n" +
+                "    \"sponsor\":\"\",\n" +
+                "    \"sprProName\":\"\",\n" +
+                "    \"interestList\":[\n" +
+                "        {\"times\":6},\n" +
+                "        {\"times\":7}\n" +
+                "    ],\n" +
+                "    \"orgs\":[\n" +
+                "        {\"id\":0,\"organization\":\"2\"},\n" +
+                "        {\"id\":0,\"organization\":\"6\"}\n" +
+                "    ]\n" +
+                "}";
+        String reqJson04 = "{\n" +
+                "    \"advanceRepay\":\"\",\n" +
+                "    \"cutMhd\":\"\",\n" +
+                "    \"formula\":\"\",\n" +
+                "    \"interestMhd\":\"\",\n" +
+                "    \"isLatefee\":\"\",\n" +
+                "    \"latefee\":0.35,\n" +
+                "    \"maxLmt\":456789,\n" +
+                "    \"positiveOrNegative\":\"1\",\n" +
+                "    \"poundage\":\"\",\n" +
+                "    \"proId\":\"7\",\n" +
                 "    \"proLmt\":\"1000\",\n" +
                 "    \"proName\":\"\",\n" +
                 "    \"proNameOperator\":\"\",\n" +
@@ -195,5 +223,6 @@ public class ProductServiceTest {
         productService.updateProdInfo(reqJson01);
         productService.updateProdInfo(reqJson02);
         productService.updateProdInfo(reqJson03);
+        productService.updateProdInfo(reqJson04);
     }
 }
