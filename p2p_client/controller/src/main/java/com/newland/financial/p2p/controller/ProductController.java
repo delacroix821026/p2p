@@ -16,21 +16,21 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
-    @RequestMapping(value = "/GetProduct/{paramA}", method = RequestMethod.POST)
-    public Object getProduct(@PathVariable(name="paramA") String paramA, @RequestBody String jsonStr){
-        log.info("controller add Enter: A:" +paramA);
+    @RequestMapping(value = "/GetProduct/{proId}", method = RequestMethod.POST)
+    public Object getProduct(@PathVariable(name="proId") String proId, @RequestBody String jsonStr){
+        log.info("controller add Enter: A:" +proId);
         return productService.getProduct(jsonStr);
     }
 
-    @RequestMapping(value = "/InsertProduct/{paramA}", method = RequestMethod.POST)
-    public Object insertProduct(@PathVariable(name="paramA") String paramA, @RequestBody String jsonStr){
-        log.info("controller add Enter: A:" +paramA);
+    @RequestMapping(value = "/InsertProduct/{proId}", method = RequestMethod.POST)
+    public Object insertProduct(@PathVariable(name="proId") String proId, @RequestBody String jsonStr){
+        log.info("controller add Enter: A:" +proId);
         return productService.insertProduct(jsonStr);
     }
 
-    @RequestMapping(value = "/PutOrDown/{paramA}", method = RequestMethod.POST)
-    public Object putOrDown(@PathVariable(name="paramA") String paramA, @RequestBody String jsonStr){
-        log.info("controller add Enter: A:" +paramA);
+    @RequestMapping(value = "/PutOrDown/{proId}", method = RequestMethod.POST)
+    public Object putOrDown(@PathVariable(name="proId") String proId, @RequestBody String jsonStr){
+        log.info("controller add Enter: A:" +proId);
         return productService.putOrDown(jsonStr);
     }
 }
