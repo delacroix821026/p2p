@@ -212,19 +212,6 @@ public class LenderController {
         return repayALoanService.getDebitAndRepaySummary(userId);
     }
 
-    /**
-     * 测试时用于清楚数据，不传lenderId默认清楚全部
-     * */
-    /*@ResponseBody
-    @RequestMapping(value = "/Clear",
-    method = {RequestMethod.POST, RequestMethod.GET})
-    public void clearData(@RequestBody String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
-        JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String lenderId = paramJSON.getString("lenderId");
-        logger.info("LenderController Clear:lenderId--" + lenderId);
-        lenderService.clear(lenderId);
-    }*/
 
     /**
      * 测试用于改变还款单status数值.
