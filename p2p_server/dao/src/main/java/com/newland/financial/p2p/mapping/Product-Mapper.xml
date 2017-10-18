@@ -164,7 +164,7 @@
 
     <select id="selectsProductStatus" resultMap="BaseResultMap" parameterType="java.lang.String">
         SELECT * FROM t_product LEFT JOIN
-        (SELECT a.STUS,b.D_PRO_ID FROM customer_flow_debit a INNER JOIN t_debitandcredit b ON b.DT_ID = a.DT_ID AND b.D_LNR_ID = #{id} AND a.EFFECTIVE ='1') c
+        (SELECT STUS,D_PRO_ID,max(D_DATE) FROM t_debitandcredit WHERE D_LNR_ID = #{id} GROUP BY D_PRO_ID) c
         ON t_product.PRO_ID = c.D_PRO_ID;
     </select>
 </mapper>
