@@ -233,4 +233,19 @@ public class LenderController {
         }
         return "Status changed";
     }
+
+    /**
+     * 申请面签产品.
+     * @param jsonStr String包含userId用户编号
+     * @return Object
+     * */
+    @ResponseBody
+    @RequestMapping(value = "/ApplyFacePro",
+            method = {RequestMethod.POST, RequestMethod.GET})
+    public Object applyFacePro(@RequestBody final String jsonStr) {
+        logger.info("jsonStr：" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String userId = paramJSON.getString("userId");
+        return "Status changed";
+    }
 }
