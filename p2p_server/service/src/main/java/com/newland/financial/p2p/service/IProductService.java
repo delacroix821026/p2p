@@ -1,8 +1,11 @@
 package com.newland.financial.p2p.service;
 
+import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import com.newland.financial.p2p.domain.entity.IProduct;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 定义对产品进行操作的service接口.
  * @author cendaijuan
@@ -61,4 +64,10 @@ public interface IProductService {
      * @return Object 产品集合
      */
     Object findAppProducts(String role, String organization, Integer page, Integer count);
+    /**
+     *查看用户各产品的贷款状态.
+     * @param id 用户编号
+     * @return
+     */
+    Object findCustomerFlowDebitStus(String id);
 }

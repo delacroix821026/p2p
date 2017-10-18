@@ -73,4 +73,10 @@ public interface IProductDao {
      * @return 分页信息
      */
     List<Product> findAppProducts(Map<String, Object> map);
+    /**
+     *查看用户各产品的贷款状态.
+     * @param id 用户编号
+     * @return 包含产品status的集合
+     */
+    Object findCustomerFlowDebitStus(String id);
 }

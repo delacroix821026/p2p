@@ -86,4 +86,12 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
     public List<Product> findAppProducts(Map<String, Object> map) {
         return super.select("selectAppPro", map);
     }
+    /**
+     *查看用户各产品的贷款状态.
+     * @param id 用户编号
+     * @return 包含产品status的集合
+     */
+    public Object findCustomerFlowDebitStus(String id) {
+        return super.selects("selectsProductStatus",id);
+    }
 }

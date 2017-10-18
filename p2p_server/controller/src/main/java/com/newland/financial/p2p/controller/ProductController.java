@@ -331,4 +331,20 @@ public class ProductController {
         String organization = paramJSON.getString("organization");
         return productService.findAppProducts(role, organization, page, count);
     }
+
+
+    /**
+     * App端展示贷款状态接口.
+     * @param jsonStr String包含userId用户编号
+     * @return Object
+     * */
+    @ResponseBody
+    @RequestMapping(value = "/CheckStatus",
+            method = {RequestMethod.POST, RequestMethod.GET})
+    public Object checkStatus(@RequestBody String jsonStr) {
+        logger.info("jsonStr：" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String dLnrId = paramJSON.getString("userId");
+        return productService.findCustomerFlowDebitStus(dLnrId);
+    }
 }

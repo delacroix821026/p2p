@@ -40,5 +40,5 @@ public class CustomerFlowDebit extends DebitAndCredit {
     /**放款金额.*/
     private BigDecimal loanMoney;
     /**第三方合同号.*/
-    private BigDecimal contractNumber;
+    private String contractNumber;
 }

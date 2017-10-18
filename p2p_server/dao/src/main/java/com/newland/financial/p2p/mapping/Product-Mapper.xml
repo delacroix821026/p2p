@@ -27,6 +27,8 @@
         <result column="REPAY_MHD" property="repayMhd" jdbcType="VARCHAR"/>
         <result column="CUTMHD" property="cutMhd" jdbcType="VARCHAR"/>
         <result column="POSITIVE_OR_NEGATIVE" property="positiveOrNegative" jdbcType="VARCHAR"/>
+        <result column="STUS" property="stus" jdbcType="VARCHAR"/>
+        <result column="D_PRO_ID" property="dProId" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -158,5 +160,11 @@
         WHERE PROID NOT IN
         (SELECT PROID FROM (SELECT * FROM p2p_org WHERE POSITIVEORNEGATIVE = '2') a WHERE ORGANIZATION = #{organization})
         UNION SELECT PROID FROM (SELECT * FROM p2p_org WHERE POSITIVEORNEGATIVE = '1') org1 WHERE ORGANIZATION = #{organization})
+    </select>
+
+    <select id="selectsProductStatus" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT * FROM t_product LEFT JOIN
+        (SELECT a.STUS,b.D_PRO_ID FROM customer_flow_debit a INNER JOIN t_debitandcredit b ON b.DT_ID = a.DT_ID AND b.D_LNR_ID = #{id} AND a.EFFECTIVE ='1') c
+        ON t_product.PRO_ID = c.D_PRO_ID;
     </select>
 </mapper>

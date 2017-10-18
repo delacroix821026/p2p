@@ -115,4 +115,8 @@ public abstract class AbstractProduct extends BaseEntity implements IProduct {
     private List<Interest> interestList;
     /**维护的机构权限数据.*/
     private List organizationsList;
+    /**mapper映射字段.*/
+    private String stus;
+    /**mapper映射字段.*/
+    private String dProId;
 }
