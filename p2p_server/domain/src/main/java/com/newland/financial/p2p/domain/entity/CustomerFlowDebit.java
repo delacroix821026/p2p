@@ -27,8 +27,6 @@ public class CustomerFlowDebit extends DebitAndCredit {
     private String region;
     /**详细地址.*/
     private String detailAdd;
-    /**0已结清显示我的贷款，1申请中，2还款计划，3拒绝显示我的贷款.*/
-    private String stus;
     /**记录是否有效：0无效，1有效.*/
     private String effective;
     /**是否发送：0未发送，1已发送.*/
