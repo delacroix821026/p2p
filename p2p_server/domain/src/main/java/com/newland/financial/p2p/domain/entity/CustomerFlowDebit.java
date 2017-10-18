@@ -32,7 +32,7 @@ public class CustomerFlowDebit extends DebitAndCredit {
     /**记录是否有效：0无效，1有效.*/
     private String effective;
     /**是否发送：0未发送，1已发送.*/
-    private String isSend;
+    private String isSend = "0";
     /**申请单号.*/
     private String oddNumbers;
     /**星管家账号.*/
