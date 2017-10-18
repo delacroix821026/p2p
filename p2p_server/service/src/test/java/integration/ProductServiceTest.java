@@ -67,14 +67,14 @@ public class ProductServiceTest {
         Assert.assertEquals("latefee not same",new BigDecimal("20.00"),product.getLatefee());
     }
 
-    @Test
-    public void B_testUpdatePutAndDown() {
-        String proId = "cs001";
-        String putAndDown = "1";
-        productService.updatePutAndDown(proId,putAndDown);
-        Product product = (Product) productService.getProduct("cs001");
-        Assert.assertEquals("putAndDown not same","1",product.getPutAndDown());
-    }
+//    @Test
+//    public void B_testUpdatePutAndDown() {
+//        String proId = "cs001";
+//        String putAndDown = "1";
+//        productService.updatePutAndDown(proId,putAndDown);
+//        Product product = (Product) productService.getProduct("cs001");
+//        Assert.assertEquals("putAndDown not same","1",product.getPutAndDown());
+//    }
     @Test
     public void deleteData(){
         productDao.deleteProduct("cs001");
@@ -224,5 +224,14 @@ public class ProductServiceTest {
         productService.updateProdInfo(reqJson02);
         productService.updateProdInfo(reqJson03);
         productService.updateProdInfo(reqJson04);
+    }
+
+    @Test
+    public void getAppProducts() throws Exception {
+        String role = "2";
+        String organization = "100";
+        Integer page = null;
+        Integer count = 3;
+        productService.findAppProducts(role,organization,page,count);
     }
 }
