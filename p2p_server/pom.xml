@@ -15,6 +15,7 @@
         <module>service</module>
         <module>dao</module>
         <module>domain</module>
+        <module>schedule</module>
     </modules>
 
     <properties>
