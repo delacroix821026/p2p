@@ -67,3 +67,11 @@ p2p_eureka/target/classes/application.yml
 p2p_config/target/classes/application.yml
 p2p_eureka/target/classes/bootstrap.yml
 >>>>>>> 20e0102eb30c2c00784615fbc3c862890e05c166
+p2p_server/controller/src/test/java/integration/ProductControllerTest.java
+p2p_server/controller/src/test/java/integration/ProductControllerTest.java
+p2p_server/service/src/test/java/integration/ProductServiceTest.java
+*.xml
+*.java
+p2p_server/controller/src/test/java/integration/ProductControllerTest.java
+p2p_server/controller/src/test/java/integration/ProductControllerTest.java
+p2p_server/pom.xml

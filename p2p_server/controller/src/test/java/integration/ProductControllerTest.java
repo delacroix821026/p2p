@@ -171,4 +171,19 @@ public class    ProductControllerTest {
     }
 
 
+    @Test
+    public void getAppProducts() throws Exception {
+        String reqJson = "{\n" +
+                "\t\"role\":\"2\",\n" +
+                "\t\"organization\":\"100\",\n" +
+                "\t\"count\":3,\n" +
+                "\t\"page\":null\n" +
+                "}";
+        ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/getAppProducts")
+                .contentType(MediaType.APPLICATION_JSON).content(reqJson));
+        MvcResult mr = ra.andReturn();
+        String result = mr.getResponse().getContentAsString();
+        logger.info("---------------------------------------------------------getAppProducts:" + result);
+    }
 }
