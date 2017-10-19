@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.CustomerFlowDebitMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.CustomerFlowDebit">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="DT_ID" property="dtId" jdbcType="VARCHAR"/>
+        <result column="D_LNR_ID" property="dLnrId" jdbcType="VARCHAR"/>
+        <result column="APPLY_NAME" property="applyName" jdbcType="VARCHAR"/>
+        <result column="IDENTITY_CARD" property="identityCard" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="PROVINCE" property="province" jdbcType="VARCHAR"/>
+        <result column="CITY" property="city" jdbcType="VARCHAR"/>
+        <result column="REGION" property="region" jdbcType="VARCHAR"/>
+        <result column="DETAIL_ADD" property="detailAdd" jdbcType="VARCHAR"/>
+        <result column="EFFECTIVE" property="effective" jdbcType="VARCHAR"/>
+        <result column="IS_SEND" property="isSend" jdbcType="VARCHAR"/>
+        <result column="ODD_NUMBERS" property="oddNumbers" jdbcType="VARCHAR"/>
+        <result column="STAR_ACCOUNT" property="starAccount" jdbcType="VARCHAR"/>
+        <result column="LOAN_MONEY" property="loanMoney" jdbcType="NUMERIC"/>
+        <result column="CONTRACT_NUMBER" property="contractNumber" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,LOAN_MONEY,CONTRACT_NUMBER
+    </sql>
+
+
+    <!--插入流水表中-->
+    <insert id="insertIntoFlow" parameterType="com.newland.financial.p2p.domain.entity.CustomerFlowDebit">
+        INSERT INTO customer_flow_debit
+        (<include refid="Base_Column_List"/>) VALUES
+        (#{id,jdbcType=VARCHAR},#{dtId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{applyName,jdbcType=VARCHAR},#{identityCard,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},
+        #{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{region,jdbcType=VARCHAR},#{detailAdd,jdbcType=VARCHAR},#{effective,jdbcType=VARCHAR},#{isSend,jdbcType=VARCHAR},
+        #{oddNumbers,jdbcType=VARCHAR},#{starAccount,jdbcType=VARCHAR},#{loanMoney,jdbcType=NUMERIC},#{contractNumber,jdbcType=VARCHAR})
+    </insert>
+    <!--插入贷款表中-->
+    <insert id="insertIntoDebit" parameterType="com.newland.financial.p2p.domain.entity.CustomerFlowDebit">
+        INSERT INTO t_debitandcredit
+        (DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE,LAST_REPAY_DATE,STUS) VALUES
+        (#{dtId,jdbcType=VARCHAR},#{dIttId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{dProId,jdbcType=VARCHAR},#{dProName,jdbcType=VARCHAR},#{dProLmt,jdbcType=NUMERIC},#{dTimes,jdbcType=NUMERIC},#{dIttRa,jdbcType=NUMERIC},#{dMoney,jdbcType=NUMERIC},#{dBef,jdbcType=NUMERIC},#{dAft,jdbcType=NUMERIC},#{dDate,jdbcType=TIMESTAMP},#{lastRePayDate,jdbcType=DATE},#{stus,jdbcType=VARCHAR})
+    </insert>
+
+</mapper>
