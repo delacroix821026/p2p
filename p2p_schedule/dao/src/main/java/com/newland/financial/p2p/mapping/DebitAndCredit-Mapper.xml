@@ -32,5 +32,11 @@
         SELECT * FROM T_DEBITANDCREDIT
     </select>
 
+    <select id="selectByStus" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT * FROM customer_flow_debit WHERE IS_SEND=#{isSend,jdbcType=VARCHAR}
+    </select>
 
+    <update id="updateStus" parameterType="java.lang.String">
+        UPDATE customer_flow_debit SET IS_SEND = '1' WHERE IS_SEND=#{isSend,jdbcType=VARCHAR}
+    </update>
 </mapper>

@@ -12,7 +12,21 @@ public interface IDebitAndCreditDao {
 
     /**
      * 查看该人所有的贷款单.
-     * @return List返回该用户所有的贷款信息
+     * @return List返回该用户所有的订单信息
      */
     List<DebitAndCredit> findAll();
+
+    /**
+     * 查询指定状态的所有订单.
+     * @param stus 订单状态
+     * @return  返回该用户所有的订单信息
+     */
+    List<DebitAndCredit> findAllByStus(String stus);
+
+    /**
+     * 修改订单状态.
+     * @param isSend 订单状态
+     * @return  true   false
+     */
+    boolean updateStus(String isSend);
 }
