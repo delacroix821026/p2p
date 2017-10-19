@@ -1,5 +1,6 @@
 package com.newland.financial.p2p.service;
 
+import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import com.newland.financial.p2p.domain.entity.Lender;
 /**
  *定义对Lender进行操作的service接口.
@@ -17,4 +18,10 @@ public interface ILenderService {
      *@param userId String用户编号
      * */
     void clear(String userId);
+    /**
+     *申请面签产品，将信息插入贷款表中.
+     * @param customerFlowDebit 贷款实体
+     * @return true or false
+     */
+    boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit);
 }

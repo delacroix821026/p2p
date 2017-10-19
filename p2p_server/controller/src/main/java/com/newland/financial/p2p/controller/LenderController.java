@@ -3,6 +3,7 @@ package com.newland.financial.p2p.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.newland.financial.p2p.common.exception.AlreadyRepayException;
+import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import com.newland.financial.p2p.domain.entity.Lender;
 import com.newland.financial.p2p.service.IDebitAndCreditService;
 import com.newland.financial.p2p.service.ILenderService;
@@ -236,16 +237,42 @@ public class LenderController {
 
     /**
      * 申请面签产品.
-     * @param jsonStr String包含userId用户编号
+     * @param jsonStr 申请产品包含的信息
      * @return Object
      * */
     @ResponseBody
-    @RequestMapping(value = "/ApplyFacePro",
+    @RequestMapping(value = "/ApplyInterviewPro",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object applyFacePro(@RequestBody final String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String userId = paramJSON.getString("userId");
-        return "Status changed";
+        String dLnrId = paramJSON.getString("userId");
+        String dProId = paramJSON.getString("proId");
+        String dProName = paramJSON.getString("proName");
+        String applyName = paramJSON.getString("applyName");
+        String identityCard = paramJSON.getString("identityCard");
+        String phone = paramJSON.getString("phone");
+        String province = paramJSON.getString("province");
+        String city = paramJSON.getString("city");
+        String region = paramJSON.getString("region");
+        String detailAdd = paramJSON.getString("detailAdd");
+        String starAccount = paramJSON.getString("starAccount");
+        StringBuffer money = new StringBuffer(paramJSON.getString("dMoney"));
+        money.append(0000);
+        String dMoney = new String(money);
+        CustomerFlowDebit customerFlowDebit = new CustomerFlowDebit();
+        customerFlowDebit.setDLnrId(dLnrId);
+        customerFlowDebit.setApplyName(applyName);
+        customerFlowDebit.setIdentityCard(identityCard);
+        customerFlowDebit.setPhone(phone);
+        customerFlowDebit.setProvince(province);
+        customerFlowDebit.setCity(city);
+        customerFlowDebit.setRegion(region);
+        customerFlowDebit.setDetailAdd(detailAdd);
+        customerFlowDebit.setStarAccount(starAccount);
+        customerFlowDebit.setDMoney(new BigDecimal(dMoney));
+        customerFlowDebit.setDProId(dProId);
+        customerFlowDebit.setDProName(dProName);
+        return lenderService.insertDebitInfo(customerFlowDebit);
     }
 }

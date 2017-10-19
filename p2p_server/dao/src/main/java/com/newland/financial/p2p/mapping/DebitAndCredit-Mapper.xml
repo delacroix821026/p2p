@@ -16,7 +16,7 @@
         <result column="D_MONEY" property="dMoney" jdbcType="NUMERIC"/>
         <result column="D_BEF" property="dBef" jdbcType="NUMERIC"/>
         <result column="D_AFT" property="dAft" jdbcType="NUMERIC"/>
-        <result column="D_DATE" property="dDate" jdbcType="DATE"/>
+        <result column="D_DATE" property="dDate" jdbcType="TIMESTAMP"/>
         <result column="UN_PAY" property="unPay" jdbcType="NUMERIC"/>
         <result column="YET_PAY" property="yetPay" jdbcType="NUMERIC"/>
         <result column="LAST_REPAY_DATE" property="lastRePayDate" jdbcType="DATE"/>
@@ -78,7 +78,7 @@
         </selectKey>-->
         INSERT INTO T_DEBITANDCREDIT
         (<include refid="Base_Column_List"/>) VALUES
-        (#{dtId,jdbcType=VARCHAR},#{dIttId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{dProId,jdbcType=VARCHAR},#{dProName,jdbcType=VARCHAR},#{dProLmt,jdbcType=NUMERIC},#{dTimes,jdbcType=NUMERIC},#{dIttRa,jdbcType=NUMERIC},#{dMoney,jdbcType=NUMERIC},#{dBef,jdbcType=NUMERIC},#{dAft,jdbcType=NUMERIC},#{dDate,jdbcType=DATE},#{lastRePayDate,jdbcType=DATE},#{stus,jdbcType=VARCHAR})
+        (#{dtId,jdbcType=VARCHAR},#{dIttId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{dProId,jdbcType=VARCHAR},#{dProName,jdbcType=VARCHAR},#{dProLmt,jdbcType=NUMERIC},#{dTimes,jdbcType=NUMERIC},#{dIttRa,jdbcType=NUMERIC},#{dMoney,jdbcType=NUMERIC},#{dBef,jdbcType=NUMERIC},#{dAft,jdbcType=NUMERIC},#{dDate,jdbcType=TIMESTAMP},#{lastRePayDate,jdbcType=DATE},#{stus,jdbcType=VARCHAR})
     </insert>
 
     <delete id="deleteByProperties" parameterType="Map">
