@@ -25,4 +25,22 @@ public class DebitAndCreditDao extends
         return super.selectAll();
     }
 
+    /**
+     * 查询指定状态的所有订单.
+     * @param stus 订单状态
+     * @return  返回该用户所有的订单信息
+     */
+    public List<DebitAndCredit> findAllByStus(String stus){
+        return super.select("selectByStus",stus);
+    }
+
+    /**
+     * 修改订单状态.
+     * @param dtId 订单编号
+     * @return  true   false
+     */
+    public boolean updateStus(String dtId){
+        return super.update("updateStus",dtId);
+    }
+
 }

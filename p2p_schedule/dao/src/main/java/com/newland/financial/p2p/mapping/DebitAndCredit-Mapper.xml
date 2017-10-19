@@ -29,8 +29,14 @@
 
 
     <select id="selectAll" resultMap="BaseResultMap">
-        SELECT * FROM T_DEBITANDCREDIT
+        SELECT <include refid="Base_Column_List"/> FROM T_DEBITANDCREDIT
     </select>
 
+    <select id="selectByStus" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT * FROM customer_flow_debit WHERE IS_SEND=#{isSend,jdbcType=VARCHAR}
+    </select>
 
+    <update id="updateStus" parameterType="java.lang.String">
+        UPDATE customer_flow_debit SET IS_SEND = '1' WHERE DT_ID=#{dtId,jdbcType=VARCHAR}
+    </update>
 </mapper>
