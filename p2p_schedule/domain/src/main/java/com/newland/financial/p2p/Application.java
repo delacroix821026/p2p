@@ -1,6 +1,7 @@
 package com.newland.financial.p2p;
 
 import lombok.extern.java.Log;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.ImportResource;
 /**
  * @author cendaijuan
  */
+@EnableBatchProcessing
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
