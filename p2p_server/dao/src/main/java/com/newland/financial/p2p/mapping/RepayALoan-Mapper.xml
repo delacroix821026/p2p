@@ -59,7 +59,7 @@
             <if test="proId != null">
                 and RE_PRO_ID = #{proId}
             </if>
-            <if test="proId != null">
+            <if test="debitId != null">
                 and DEBIT_ID = #{debitId}
             </if>
             <if test="payDate != null">
