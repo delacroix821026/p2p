@@ -25,8 +25,8 @@ public interface IDebitAndCreditDao {
 
     /**
      * 修改订单状态.
-     * @param isSend 订单状态
+     * @param dtId 订单编号
      * @return  true   false
      */
-    boolean updateStus(String isSend);
+    boolean updateStus(String dtId);
 }

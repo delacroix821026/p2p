@@ -37,6 +37,6 @@
     </select>
 
     <update id="updateStus" parameterType="java.lang.String">
-        UPDATE customer_flow_debit SET IS_SEND = '1' WHERE IS_SEND=#{isSend,jdbcType=VARCHAR}
+        UPDATE customer_flow_debit SET IS_SEND = '1' WHERE DT_ID=#{dtId,jdbcType=VARCHAR}
     </update>
 </mapper>

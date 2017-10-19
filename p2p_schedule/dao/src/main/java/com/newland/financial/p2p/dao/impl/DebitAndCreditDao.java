@@ -36,11 +36,11 @@ public class DebitAndCreditDao extends
 
     /**
      * 修改订单状态.
-     * @param isSend 订单状态
+     * @param dtId 订单编号
      * @return  true   false
      */
-    public boolean updateStus(String isSend){
-        return super.update("updateStus",isSend);
+    public boolean updateStus(String dtId){
+        return super.update("updateStus",dtId);
     }
 
 }
