@@ -75,4 +75,6 @@ public class RepayALoan extends BaseEntity {
     private BigDecimal totleMoney;
     /**贷款单编号.*/
     private String debitId;
+    /**已还金额.*/
+    private BigDecimal alreadyRepay = new BigDecimal("0");
 }

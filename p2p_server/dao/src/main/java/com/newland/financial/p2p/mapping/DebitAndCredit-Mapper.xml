@@ -35,22 +35,6 @@
     </select>-->
 
     <select id="selectByProperties" resultMap="BaseResultMap" parameterType="Map">
-        <!--select
-        <include refid="Base_Column_List"/>
-        ,decode(SUM(repay0.TOTLE_MONEY),null,0, SUM(repay0.TOTLE_MONEY)) AS UN_PAY
-        ,decode(SUM(repay1.TOTLE_MONEY),null,0, SUM(repay1.TOTLE_MONEY)) AS YET_PAY
-        from T_DEBITANDCREDIT debit left join T_REPAYALOAN repay0
-          on debit.DT_ID = repay0.DEBIT_ID AND  repay0.STATUS = 0
-        left join T_REPAYALOAN repay1
-          on debit.DT_ID = repay1.DEBIT_ID AND  repay1.STATUS = 1
-        <where>
-            <if test="userId != null and userId != ''">
-                and D_LNR_ID = #{userId}
-            </if>
-        </where>
-        GROUP BY
-            DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE-->
-
         select<include refid="Base_Column_List"/>,UN_PAY,CASE WHEN SUM(repay1.TOTLE_MONEY) is null THEN 0 ELSE
         SUM(repay1.TOTLE_MONEY) END
         AS YET_PAY from (select<include refid="Base_Column_List"/>,CASE WHEN SUM(repay0.TOTLE_MONEY) IS null THEN 0 ELSE
@@ -89,5 +73,12 @@
             </if>
         </where>
     </delete>
+
+    <select id="selectDebitId" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_debitandcredit
+        where D_PRO_ID = #{proId} AND D_LNR_ID = #{userId} AND STUS = #{stus}
+    </select>
 
 </mapper>

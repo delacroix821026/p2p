@@ -1,5 +1,6 @@
 package com.newland.financial.p2p.service;
 
+import com.newland.financial.p2p.common.exception.AgeDiscrepancyException;
 import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import com.newland.financial.p2p.domain.entity.Lender;
 /**
@@ -23,5 +24,5 @@ public interface ILenderService {
      * @param customerFlowDebit 贷款实体
      * @return true or false
      */
-    boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit);
+    boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit) throws AgeDiscrepancyException;
 }

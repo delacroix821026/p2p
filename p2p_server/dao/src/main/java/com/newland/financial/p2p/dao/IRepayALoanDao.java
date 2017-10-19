@@ -63,4 +63,32 @@ public interface IRepayALoanDao {
      * @return boolean更新成功返回true,失败false
      * */
     boolean updateStatus(String userId);
+
+    /**
+     * 查询用户某一个产品的分期计划.
+     * @param debitId 贷款单编号
+     * @return 分期计划信息
+     */
+    List<RepayALoan> findRepayAloanInfo(String debitId);
+
+    /*查询某一款产品对应某人的信息*/
+
+    /**
+     * 某人某产品本月应还金额.
+     * @param debitId 贷款单编号
+     * @return 应还金额
+     */
+    BigDecimal findUnPayByDebitId(String debitId);
+    /**
+     * 某人某产品已还金额.
+     * @param debitId 贷款单编号
+     * @return 应还金额
+     */
+    BigDecimal findYetPayByDebitId(String debitId);
+    /**
+     * 某人某产品待还金额.
+     * @param debitId 贷款单编号
+     * @return 应还金额
+     */
+    BigDecimal findNeedPayByDebitId(String debitId);
 }

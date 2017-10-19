@@ -1,5 +1,6 @@
 package com.newland.financial.p2p.service.impl;
 
+import com.newland.financial.p2p.common.exception.AgeDiscrepancyException;
 import com.newland.financial.p2p.dao.ICustomerFlowDebitDao;
 import com.newland.financial.p2p.dao.IDebitAndCreditDao;
 import com.newland.financial.p2p.dao.ILenderDao;
@@ -79,7 +80,7 @@ public class LenderServiceImpl implements ILenderService {
      * @param customerFlowDebit 贷款实体
      * @return true or false
      */
-    public boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit) {
+    public boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit) throws AgeDiscrepancyException{
         //校验年龄是否符合
         String identityCard = customerFlowDebit.getIdentityCard();
         Calendar ca = Calendar.getInstance();
@@ -89,11 +90,11 @@ public class LenderServiceImpl implements ILenderService {
         int IDMonth = Integer.parseInt(identityCard.substring(10, 12));
         if ((IDMonth - nowMonth) >= 0) {
             if (nowYear - IDYear - 1 < 18 || nowYear - IDYear - 1 > 60) {
-                return false;
+                throw new AgeDiscrepancyException("年龄需要在18到60岁之间");
             }
         } else {
             if (nowYear - IDYear < 18 || nowYear - IDYear > 60) {
-                return false;
+                throw new AgeDiscrepancyException("年龄需要在18到60岁之间");
             }
         }
         customerFlowDebit.setStus("1");

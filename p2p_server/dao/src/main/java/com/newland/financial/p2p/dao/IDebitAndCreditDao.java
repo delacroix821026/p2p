@@ -32,4 +32,12 @@ public interface IDebitAndCreditDao {
      * @return boolean删除成功返回true,失败false
      */
     boolean deleteDebitAndCredit(String userId);
+
+    /**
+     * 查找某产品stus=2的贷款单编号.
+     * @param userId 用户编号
+     * @param proId 产品编号
+     * @return 贷款单编号
+     */
+    String selectDebitId(String userId, String proId);
 }

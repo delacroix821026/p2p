@@ -16,16 +16,17 @@
         <result column="EXPIRE_DATE" property="expireDate" jdbcType="DATE"/>
         <result column="RE_BEF" property="reBef" jdbcType="NUMERIC"/>
         <result column="RE_AFT" property="reAft" jdbcType="NUMERIC"/>
-        <result column="STATUS" property="status" jdbcType="NUMERIC"/>
+        <result column="STATUS" property="status" jdbcType="INTEGER"/>
         <result column="CRT_INTEREST" property="crtInterest" jdbcType="NUMERIC"/>
         <result column="SER_MONEY" property="serMoney" jdbcType="NUMERIC"/>
         <result column="OTHER_MONEY" property="otherMoney" jdbcType="NUMERIC"/>
         <result column="TOTLE_MONEY" property="totleMoney" jdbcType="NUMERIC"/>
         <result column="DEBIT_ID" property="debitId" jdbcType="VARCHAR"/>
+        <result column="ALREADY_REPAY" property="alreadyRepay" jdbcType="NUMERIC"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        RE_ID,RE_LND_ID,RE_MTD,RE_PRO_ID,RE_PRO_NAME,RE_PRO_LMT,CRT_RE,CREATE_DATE,EXPIRE_DATE,RE_BEF,RE_AFT,STATUS,CRT_INTEREST,SER_MONEY,OTHER_MONEY,TOTLE_MONEY,DEBIT_ID
+        RE_ID,RE_LND_ID,RE_MTD,RE_PRO_ID,RE_PRO_NAME,RE_PRO_LMT,CRT_RE,CREATE_DATE,EXPIRE_DATE,RE_BEF,RE_AFT,STATUS,CRT_INTEREST,SER_MONEY,OTHER_MONEY,TOTLE_MONEY,DEBIT_ID,ALREADY_REPAY
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -55,6 +56,12 @@
             <if test="status != null">
                 and STATUS = #{status}
             </if>
+            <if test="proId != null">
+                and RE_PRO_ID = #{proId}
+            </if>
+            <if test="proId != null">
+                and DEBIT_ID = #{debitId}
+            </if>
             <if test="payDate != null">
                 and CREATE_DATE &lt;= #{payDate}
             </if>
@@ -79,17 +86,14 @@
     </delete>-->
 
     <insert id="insertSelective" parameterType="com.newland.financial.p2p.domain.entity.RepayALoan">
-        <!--<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="reId">
-            SELECT RE_ID_SEQ.Nextval as reId from dual
-        </selectKey>-->
         INSERT INTO T_REPAYALOAN
-        (RE_ID,RE_LND_ID,RE_MTD,RE_PRO_ID,RE_PRO_NAME,RE_PRO_LMT,CRT_RE,CREATE_DATE,EXPIRE_DATE,RE_BEF,RE_AFT,STATUS,CRT_INTEREST,SER_MONEY,OTHER_MONEY,TOTLE_MONEY,DEBIT_ID)
+        (RE_ID,RE_LND_ID,RE_MTD,RE_PRO_ID,RE_PRO_NAME,RE_PRO_LMT,CRT_RE,CREATE_DATE,EXPIRE_DATE,RE_BEF,RE_AFT,STATUS,CRT_INTEREST,SER_MONEY,OTHER_MONEY,TOTLE_MONEY,DEBIT_ID,ALREADY_REPAY)
         VALUES
-        (#{reId,jdbcType=VARCHAR},#{reLndId,jdbcType=VARCHAR},#{reMtd,jdbcType=VARCHAR},#{reProId,jdbcType=VARCHAR},#{reProNmae,jdbcType=VARCHAR},#{reProLmt,jdbcType=NUMERIC},#{crtRe,jdbcType=NUMERIC},#{createDate,jdbcType=DATE},#{expireDate,jdbcType=DATE},#{reBef,jdbcType=NUMERIC},#{reAft,jdbcType=NUMERIC},#{status,jdbcType=NUMERIC},#{crtInterest,jdbcType=NUMERIC},#{serMoney,jdbcType=NUMERIC},#{otherMoney,jdbcType=NUMERIC},#{totleMoney,jdbcType=NUMERIC},#{debitId,jdbcType=VARCHAR})
+        (#{reId,jdbcType=VARCHAR},#{reLndId,jdbcType=VARCHAR},#{reMtd,jdbcType=VARCHAR},#{reProId,jdbcType=VARCHAR},#{reProNmae,jdbcType=VARCHAR},#{reProLmt,jdbcType=NUMERIC},#{crtRe,jdbcType=NUMERIC},#{createDate,jdbcType=DATE},#{expireDate,jdbcType=DATE},#{reBef,jdbcType=NUMERIC},#{reAft,jdbcType=NUMERIC},#{status,jdbcType=INTEGER},#{crtInterest,jdbcType=NUMERIC},#{serMoney,jdbcType=NUMERIC},#{otherMoney,jdbcType=NUMERIC},#{totleMoney,jdbcType=NUMERIC},#{debitId,jdbcType=VARCHAR},#{alreadyRepay,jdbcType=NUMERIC})
     </insert>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.newland.financial.p2p.domain.entity.RepayALoan">
-        UPDATE T_REPAYALOAN SET RE_LND_ID = #{reLndId,jdbcType=VARCHAR},RE_MTD = #{reMtd,jdbcType=VARCHAR},RE_PRO_ID = #{reProId,jdbcType=VARCHAR},RE_PRO_NAME = #{reProNmae,jdbcType=VARCHAR},RE_PRO_LMT = #{reProLmt,jdbcType=NUMERIC},CRT_RE = #{crtRe,jdbcType=NUMERIC},CREATE_DATE = #{createDate,jdbcType=DATE},EXPIRE_DATE = #{expireDate,jdbcType=DATE},RE_BEF = #{reBef,jdbcType=NUMERIC},RE_AFT = #{reAft,jdbcType=NUMERIC},STATUS = #{status,jdbcType=NUMERIC},CRT_INTEREST = #{crtInterest,jdbcType=NUMERIC},SER_MONEY = #{serMoney,jdbcType=NUMERIC},OTHER_MONEY = #{otherMoney,jdbcType=NUMERIC},TOTLE_MONEY = #{totleMoney,jdbcType=NUMERIC},DEBIT_ID = #{debitId,jdbcType=VARCHAR} WHERE RE_ID = #{reId,jdbcType=VARCHAR}
+        UPDATE T_REPAYALOAN SET RE_LND_ID = #{reLndId,jdbcType=VARCHAR},RE_MTD = #{reMtd,jdbcType=VARCHAR},RE_PRO_ID = #{reProId,jdbcType=VARCHAR},RE_PRO_NAME = #{reProNmae,jdbcType=VARCHAR},RE_PRO_LMT = #{reProLmt,jdbcType=NUMERIC},CRT_RE = #{crtRe,jdbcType=NUMERIC},CREATE_DATE = #{createDate,jdbcType=DATE},EXPIRE_DATE = #{expireDate,jdbcType=DATE},RE_BEF = #{reBef,jdbcType=NUMERIC},RE_AFT = #{reAft,jdbcType=NUMERIC},STATUS = #{status,jdbcType=INTEGER},CRT_INTEREST = #{crtInterest,jdbcType=NUMERIC},SER_MONEY = #{serMoney,jdbcType=NUMERIC},OTHER_MONEY = #{otherMoney,jdbcType=NUMERIC},TOTLE_MONEY = #{totleMoney,jdbcType=NUMERIC},DEBIT_ID = #{debitId,jdbcType=VARCHAR},ALREADY_REPAY = #{alreadyRepay,jdbcType=NUMERIC} WHERE RE_ID = #{reId,jdbcType=VARCHAR}
     </update>
     
     <delete id="deleteByPropertie" parameterType="Map">
@@ -109,5 +113,15 @@
             </if>
         </where>
     </update>
+
+    <select id="selectRepayAloanInfo" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        from T_REPAYALOAN
+        where
+        DEBIT_ID = #{debitId}
+        ORDER BY CREATE_DATE
+    </select>
+
 
 </mapper>
