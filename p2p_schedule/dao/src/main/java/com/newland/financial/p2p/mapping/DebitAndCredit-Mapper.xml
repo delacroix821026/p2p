@@ -29,7 +29,7 @@
 
 
     <select id="selectAll" resultMap="BaseResultMap">
-        SELECT * FROM T_DEBITANDCREDIT
+        SELECT <include refid="Base_Column_List"/> FROM T_DEBITANDCREDIT
     </select>
 
     <select id="selectByStus" resultMap="BaseResultMap" parameterType="java.lang.String">
