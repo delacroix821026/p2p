@@ -27,67 +27,10 @@
         DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE,LAST_REPAY_DATE,STUS
     </sql>
 
-    <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select
-        <include refid="Base_Column_List"/>
-        from T_PRODUCT
-        where PRO_ID = #{proId,jdbcType=VARCHAR}
-    </select>-->
 
-    <select id="selectByProperties" resultMap="BaseResultMap" parameterType="Map">
-        <!--select
-        <include refid="Base_Column_List"/>
-        ,decode(SUM(repay0.TOTLE_MONEY),null,0, SUM(repay0.TOTLE_MONEY)) AS UN_PAY
-        ,decode(SUM(repay1.TOTLE_MONEY),null,0, SUM(repay1.TOTLE_MONEY)) AS YET_PAY
-        from T_DEBITANDCREDIT debit left join T_REPAYALOAN repay0
-          on debit.DT_ID = repay0.DEBIT_ID AND  repay0.STATUS = 0
-        left join T_REPAYALOAN repay1
-          on debit.DT_ID = repay1.DEBIT_ID AND  repay1.STATUS = 1
-        <where>
-            <if test="userId != null and userId != ''">
-                and D_LNR_ID = #{userId}
-            </if>
-        </where>
-        GROUP BY
-            DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE-->
-
-        select<include refid="Base_Column_List"/>,UN_PAY,CASE WHEN SUM(repay1.TOTLE_MONEY) is null THEN 0 ELSE
-        SUM(repay1.TOTLE_MONEY) END
-        AS YET_PAY from (select<include refid="Base_Column_List"/>,CASE WHEN SUM(repay0.TOTLE_MONEY) IS null THEN 0 ELSE
-        SUM(repay0.TOTLE_MONEY) END AS UN_PAY from T_DEBITANDCREDIT debit left join T_REPAYALOAN repay0 on debit.DT_ID
-        = repay0.DEBIT_ID AND repay0.STATUS = 0
-        <where>
-            <if test="userId != null and userId != ''">
-                and D_LNR_ID = #{userId}
-            </if>
-        </where>
-        GROUP BY
-        DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE,LAST_REPAY_DATE) a
-        left
-        join T_REPAYALOAN repay1 on DT_ID = repay1.DEBIT_ID AND repay1.STATUS = 1 GROUP BY
-        DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE,UN_PAY,LAST_REPAY_DATE,STUS
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM T_DEBITANDCREDIT
     </select>
 
-    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        DELETE FROM T_PRODUCT WHERE PRO_ID = #{proId,jdbcType=VARCHAR}
-    </delete>-->
-
-    <insert id="insertSelective" parameterType="com.newland.financial.p2p.domain.entity.Interest">
-        <!--<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="dtId">
-            SELECT DT_ID_SEQ.Nextval as dtId from dual
-        </selectKey>-->
-        INSERT INTO T_DEBITANDCREDIT
-        (<include refid="Base_Column_List"/>) VALUES
-        (#{dtId,jdbcType=VARCHAR},#{dIttId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{dProId,jdbcType=VARCHAR},#{dProName,jdbcType=VARCHAR},#{dProLmt,jdbcType=NUMERIC},#{dTimes,jdbcType=NUMERIC},#{dIttRa,jdbcType=NUMERIC},#{dMoney,jdbcType=NUMERIC},#{dBef,jdbcType=NUMERIC},#{dAft,jdbcType=NUMERIC},#{dDate,jdbcType=DATE},#{lastRePayDate,jdbcType=DATE},#{stus,jdbcType=VARCHAR})
-    </insert>
-
-    <delete id="deleteByProperties" parameterType="Map">
-        DELETE FROM T_DEBITANDCREDIT
-        <where>
-            <if test="userId != null and userId != ''">
-                and D_LNR_ID = #{userId}
-            </if>
-        </where>
-    </delete>
 
 </mapper>
