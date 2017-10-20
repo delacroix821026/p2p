@@ -2,6 +2,7 @@ package com.newland.financial.p2p.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.newland.financial.p2p.common.exception.AgeDiscrepancyException;
 import com.newland.financial.p2p.common.exception.AlreadyRepayException;
 import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import com.newland.financial.p2p.domain.entity.Lender;
@@ -22,36 +23,45 @@ import java.math.BigDecimal;
 
 /**
  * @author cendaijuan
- * */
+ */
 @Controller
 @RequestMapping("/LenderController")
 public class LenderController {
-    /**日志对象.*/
+    /**
+     * 日志对象.
+     */
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    /**lenderService对象.*/
+    /**
+     * lenderService对象.
+     */
     @Autowired
     private ILenderService lenderService;
-    /**debitAndCreditService对象.*/
+    /**
+     * debitAndCreditService对象.
+     */
     @Autowired
     private IDebitAndCreditService debitAndCreditService;
-    /**repayALoanService对象.*/
+    /**
+     * repayALoanService对象.
+     */
     @Autowired
     private IRepayALoanService repayALoanService;
 
     /**
      * 根据传入的用户id查询用户信息.
+     *
+     * @param jsonStr 接受的json字符串,{"lenderId":"xxxx"}
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： com.newland.financial.p2p.common.entity.Lender<BR>
      * {<BR>
-     *  &nbsp;msgcode：x, <BR>
-     *  &nbsp;result:<BR>
-     *  &nbsp;&nbsp;{ userId:xx,loId:xx,lenderName:xx,phone:xx,
-     *  identityCard:xx,totleLmt:xx,currentLmt:xx,
-     *  repay:xx,inAct:xx,inBank:xx,outAct:xx,outBank:xx,userName:xx,
-     *  industry:xx,companyAddress:xx,registTime:xx}<BR>
-     *  }
-     * @param jsonStr 接受的json字符串,{"lenderId":"xxxx"}
-     * */
+     * &nbsp;msgcode：x, <BR>
+     * &nbsp;result:<BR>
+     * &nbsp;&nbsp;{ userId:xx,loId:xx,lenderName:xx,phone:xx,
+     * identityCard:xx,totleLmt:xx,currentLmt:xx,
+     * repay:xx,inAct:xx,inBank:xx,outAct:xx,outBank:xx,userName:xx,
+     * industry:xx,companyAddress:xx,registTime:xx}<BR>
+     * }
+     */
     @ResponseBody
     @RequestMapping(value = "/GetLender",
             method = {RequestMethod.POST, RequestMethod.GET})
@@ -67,11 +77,12 @@ public class LenderController {
 
     /**
      * 进行贷款.
+     *
+     * @param jsonStr 接受的json字符串中包含{"userId":"xx","productId":xx,"money":xx,"interestId":xx}
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： null;
-     * @param jsonStr 接受的json字符串中包含{"userId":"xx","productId":xx,"money":xx,"interestId":xx}
-     * @throws  OverloadException 超过额度.
-     * */
+     * @throws OverloadException 超过额度.
+     */
     @ResponseBody
     @RequestMapping(value = "/Debit",
             method = {RequestMethod.POST, RequestMethod.GET})
@@ -96,11 +107,12 @@ public class LenderController {
 
     /**
      * 进行还款.
+     *
      * @param jsonStr 接受的json字符串,包含{"repayId":"xxxx"}
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： null;
-     * @throws  AlreadyRepayException 重复还款异常
-     * */
+     * @throws AlreadyRepayException 重复还款异常
+     */
     @ResponseBody
     @RequestMapping(value = "/Repay",
             method = {RequestMethod.POST, RequestMethod.GET})
@@ -119,20 +131,21 @@ public class LenderController {
 
     /**
      * 查询用户的贷款信息.
+     *
      * @param jsonStr 接受的json字符串,{"userId":"xxxx"}
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： List<BR>
      * {<BR>
-     *  &nbsp;msgcode：x, <BR>
-     *  &nbsp;result:<BR>
-     *  &nbsp;&nbsp;{ positionExchange:xx,dtId:xx,unPay:xx,yetPay:xx,
-     *  lastRePayDate:xx,dittId:xx,dittRa:xx,dproId:xx,dtimes:xx,daft:xx,
-     *  dlnrId:xx,dbef:xx,dproName:xx,dmoney:xx,dproLmt:xx,ddate:xx},<BR>
-     *  &nbsp;&nbsp;{ positionExchange:xx,dtId:xx,unPay:xx,yetPay:xx,lastRePayDate:xx,
-     *  dittId:xx,dittRa:xx,dproId:xx,dtimes:xx,daft:xx,dlnrId:xx,
-     *  dbef:xx,dproName:xx,dmoney:xx,dproLmt:xx,ddate:xx}...<BR>
-     *  }
-     * */
+     * &nbsp;msgcode：x, <BR>
+     * &nbsp;result:<BR>
+     * &nbsp;&nbsp;{ positionExchange:xx,dtId:xx,unPay:xx,yetPay:xx,
+     * lastRePayDate:xx,dittId:xx,dittRa:xx,dproId:xx,dtimes:xx,daft:xx,
+     * dlnrId:xx,dbef:xx,dproName:xx,dmoney:xx,dproLmt:xx,ddate:xx},<BR>
+     * &nbsp;&nbsp;{ positionExchange:xx,dtId:xx,unPay:xx,yetPay:xx,lastRePayDate:xx,
+     * dittId:xx,dittRa:xx,dproId:xx,dtimes:xx,daft:xx,dlnrId:xx,
+     * dbef:xx,dproName:xx,dmoney:xx,dproLmt:xx,ddate:xx}...<BR>
+     * }
+     */
     @ResponseBody
     @RequestMapping(value = "/FindAllDebit",
             method = {RequestMethod.POST, RequestMethod.GET})
@@ -146,20 +159,21 @@ public class LenderController {
 
     /**
      * 查询用户的还款信息.
+     *
      * @param jsonStr 接受的json字符串,{"userId":"xxxx"}
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： List<BR>
      * {<BR>
-     *  &nbsp;msgcode：x, <BR>
-     *  &nbsp;result:<BR>
-     *  &nbsp;&nbsp;{ positionExchange:xx,reId:xx,reLndId:xx,reMtd:xx,reProId:xx,
-     *  reProNmae:xx,reProLmt:xx,crtRe:xx,createDate:xx,expireDate:xx,reBef:xx,
-     *  reAft:xx,status:xx,crtInterest:xx,serMoney:xx,otherMoney:xx,totleMoney:xx,debitId:xx}<BR>
-     *  &nbsp;&nbsp;{ positionExchange:xx,reId:xx,reLndId:xx,reMtd:xx,reProId:xx,reProNmae:xx,
-     *  reProLmt:xx,crtRe:xx,createDate:xx,expireDate:xx,reBef:xx,reAft:xx,status:xx,
-     *  crtInterest:xx,serMoney:xx,otherMoney:xx,totleMoney:xx,debitId:xx}...<BR>
+     * &nbsp;msgcode：x, <BR>
+     * &nbsp;result:<BR>
+     * &nbsp;&nbsp;{ positionExchange:xx,reId:xx,reLndId:xx,reMtd:xx,reProId:xx,
+     * reProNmae:xx,reProLmt:xx,crtRe:xx,createDate:xx,expireDate:xx,reBef:xx,
+     * reAft:xx,status:xx,crtInterest:xx,serMoney:xx,otherMoney:xx,totleMoney:xx,debitId:xx}<BR>
+     * &nbsp;&nbsp;{ positionExchange:xx,reId:xx,reLndId:xx,reMtd:xx,reProId:xx,reProNmae:xx,
+     * reProLmt:xx,crtRe:xx,createDate:xx,expireDate:xx,reBef:xx,reAft:xx,status:xx,
+     * crtInterest:xx,serMoney:xx,otherMoney:xx,totleMoney:xx,debitId:xx}...<BR>
      * }
-     * */
+     */
     @ResponseBody
     @RequestMapping(value = "/FindAllRepay",
             method = {RequestMethod.POST, RequestMethod.GET})
@@ -174,10 +188,11 @@ public class LenderController {
 
     /**
      * 当月所需还款金额.
+     *
      * @param jsonStr 接受的json字符串,{"userId":"xxxx"}
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： Integer;
-     * */
+     */
     @ResponseBody
     @RequestMapping(value = "/FindTotalMoney",
             method = {RequestMethod.POST, RequestMethod.GET})
@@ -192,15 +207,16 @@ public class LenderController {
 
     /**
      * 查询已还金额，未还金额，本月应还金额.
+     *
      * @param jsonStr 接受的json字符串,{"userId":"xxxx"}
      * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
      * result： com.newland.financial.p2p.domain.entity.DebitAndRepaySummary;<BR>
      * {<BR>
-     *  &nbsp;msgcode：x, <BR>
-     *  &nbsp;result:<BR>
-     *  &nbsp;&nbsp;{ needRepay:xx,repayed:xx,repayInMonth:xx}<BR>
-     *  }
-     * */
+     * &nbsp;msgcode：x, <BR>
+     * &nbsp;result:<BR>
+     * &nbsp;&nbsp;{ needRepay:xx,repayed:xx,repayInMonth:xx}<BR>
+     * }
+     */
     @ResponseBody
     @RequestMapping(value = "/getDebitAndRepaySummary",
             method = {RequestMethod.POST, RequestMethod.GET})
@@ -216,9 +232,10 @@ public class LenderController {
 
     /**
      * 测试用于改变还款单status数值.
+     *
      * @param jsonStr String包含userId用户编号
      * @return Object
-     * */
+     */
     @ResponseBody
     @RequestMapping(value = "/UpdateStatus",
             method = {RequestMethod.POST, RequestMethod.GET})
@@ -234,16 +251,18 @@ public class LenderController {
         }
         return "Status changed";
     }
+    /*面签接口*/
 
     /**
      * 申请面签产品.
+     *
      * @param jsonStr 申请产品包含的信息
      * @return Object
-     * */
+     */
     @ResponseBody
     @RequestMapping(value = "/ApplyInterviewPro",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object applyFacePro(@RequestBody final String jsonStr) {
+    public Object applyFacePro(@RequestBody final String jsonStr) throws AgeDiscrepancyException {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String dLnrId = paramJSON.getString("userId");
@@ -258,7 +277,7 @@ public class LenderController {
         String detailAdd = paramJSON.getString("detailAdd");
         String starAccount = paramJSON.getString("starAccount");
         StringBuffer money = new StringBuffer(paramJSON.getString("dMoney"));
-        money.append(0000);
+        money.append("0000");
         String dMoney = new String(money);
         CustomerFlowDebit customerFlowDebit = new CustomerFlowDebit();
         customerFlowDebit.setDLnrId(dLnrId);
@@ -274,5 +293,39 @@ public class LenderController {
         customerFlowDebit.setDProId(dProId);
         customerFlowDebit.setDProName(dProName);
         return lenderService.insertDebitInfo(customerFlowDebit);
+    }
+
+    /**
+     *用户对应某一产品的还款分期计划.
+     * @param jsonStr 包含userId,proId
+     * @return 分期计划
+     */
+    @ResponseBody
+    @RequestMapping(value = "/StagingPlan",
+            method = {RequestMethod.POST, RequestMethod.GET})
+    public Object findStagingPlan(@RequestBody final String jsonStr) {
+        logger.info("jsonStr：" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String userId = paramJSON.getString("userId");
+        String proId = paramJSON.getString("proId");
+        return repayALoanService.findRepayAloanInfo(userId,proId);
+    }
+
+    /**
+     *用户对应所有产品的贷款状态.
+     * @param jsonStr 包含userId
+     * @return 返回所有产品贷款状态
+     */
+    @ResponseBody
+    @RequestMapping(value = "/AllProStatus",
+            method = {RequestMethod.POST, RequestMethod.GET})
+    public Object findAllProStatus(@RequestBody String jsonStr) {
+        logger.info("jsonStr：" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String userId = paramJSON.getString("userId");
+        if (userId == null && userId.length() == 0){
+            return false;
+        }
+        return debitAndCreditService.findAllProStatus(userId);
     }
 }

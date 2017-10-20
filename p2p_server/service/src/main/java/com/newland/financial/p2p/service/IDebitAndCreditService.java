@@ -79,4 +79,10 @@ public interface IDebitAndCreditService {
      * @return  boolean成功返回true,失败false
      * */
     boolean deleteDebitAndCredit(String userId);
+    /**
+     *用户对应所有产品的贷款状态.
+     * @param userId 用户编号
+     * @return 返回所有产品贷款状态
+     */
+    Object findAllProStatus(String userId);
 }

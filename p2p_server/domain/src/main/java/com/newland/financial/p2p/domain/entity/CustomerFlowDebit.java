@@ -35,8 +35,6 @@ public class CustomerFlowDebit extends DebitAndCredit {
     private String oddNumbers;
     /**星管家账号.*/
     private String starAccount;
-    /**放款金额.*/
-    private BigDecimal loanMoney;
     /**第三方合同号.*/
     private String contractNumber;
 }

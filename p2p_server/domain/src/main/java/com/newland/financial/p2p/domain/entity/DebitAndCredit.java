@@ -71,4 +71,12 @@ public class DebitAndCredit extends BaseEntity {
     private Date lastRePayDate;
     /**0已结清显示我的贷款，1申请中，2还款计划，3拒绝显示我的贷款.*/
     private String stus;
+     /**放款日期.*/
+     private Date loanDate;
+    /**放款金额.*/
+    private BigDecimal loanMoney;
+    /**利息总额.*/
+    private BigDecimal totleInterest;
+    /**手续费总额.*/
+    private BigDecimal serviceCharge;
 }

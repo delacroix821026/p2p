@@ -2,6 +2,8 @@ package com.newland.financial.p2p.dao;
 
 import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 
+import java.util.List;
+
 /**
  * @author Mxia
  */
@@ -12,4 +14,5 @@ public interface ICustomerFlowDebitDao {
      * @return true or false
      */
     boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit);
+
 }

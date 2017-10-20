@@ -60,4 +60,11 @@ public interface IRepayALoanService {
      * @throws  Exception  has an erroe
      * */
     boolean updateSta(String userId) throws Exception;
+    /**
+     *查询某用户对应产品的分期计划.
+     * @param userId 用户Id
+     * @param proId 产品id
+     * @return 分期计划信息集合
+     */
+    Object findRepayAloanInfo(String userId, String proId);
 }

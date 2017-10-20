@@ -10,8 +10,8 @@ import java.util.Map;
 
 /**
  * 贷款单持久层.
- * @author Mxia
  *
+ * @author Mxia
  */
 @Repository
 public class DebitAndCreditDao extends
@@ -21,7 +21,7 @@ public class DebitAndCreditDao extends
      * 增加贷款单.
      *
      * @param debitAndCredit DebitAndCredit对象
-     * @return boolean插入成功返回true,失败false
+     * @return boolean插入成功返回true, 失败false
      */
     public boolean insertDebitAndCredit(
             final DebitAndCredit debitAndCredit) {
@@ -44,11 +44,41 @@ public class DebitAndCreditDao extends
      * 删除贷款单.
      *
      * @param userId String用户编号
-     * @return boolean删除成功返回true,失败false
+     * @return boolean删除成功返回true, 失败false
      */
     public boolean deleteDebitAndCredit(final String userId) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
         return super.deletes("deleteByProperties", map);
+    }
+
+    /**
+     * 查找某产品stus=2的贷款单编号.
+     *
+     * @param userId 用户编号
+     * @param proId  产品编号
+     * @return 贷款单编号
+     */
+    public String selectDebitId(String userId, String proId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (userId != null && userId.length() != 0 && proId != null && proId.length() != 0){
+            map.put("userId",userId);
+            map.put("proId",proId);
+            map.put("stus","2");
+            DebitAndCredit debitAndCredit =  super.selectEntity("selectDebitId",map);
+            if (debitAndCredit != null){
+                return debitAndCredit.getDtId();
+            }
+        }
+        return null;
+    }
+
+    /**
+     *用户对应所有产品的贷款状态.
+     * @param userId 用户编号
+     * @return 返回该用户所有贷款产品
+     */
+    public List<DebitAndCredit> findAllProStatus(String userId) {
+        return super.select("selectAllProStatus",userId);
     }
 }

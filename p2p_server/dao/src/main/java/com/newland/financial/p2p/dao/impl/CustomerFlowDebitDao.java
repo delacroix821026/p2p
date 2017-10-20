@@ -4,6 +4,8 @@ import com.newland.financial.p2p.dao.ICustomerFlowDebitDao;
 import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Mxia
  */
