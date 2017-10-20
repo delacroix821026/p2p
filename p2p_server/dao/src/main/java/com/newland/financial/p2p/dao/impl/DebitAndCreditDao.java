@@ -79,6 +79,6 @@ public class DebitAndCreditDao extends
      * @return 返回该用户所有贷款产品
      */
     public List<DebitAndCredit> findAllProStatus(String userId) {
-        return null;
+        return super.select("selectAllProStatus",userId);
     }
 }

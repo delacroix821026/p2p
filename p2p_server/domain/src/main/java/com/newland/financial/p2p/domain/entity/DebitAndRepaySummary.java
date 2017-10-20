@@ -19,6 +19,8 @@ public class DebitAndRepaySummary {
     private String proName;
     /**借款金额.*/
     private BigDecimal loanMoney;
+    /**应还总金额.*/
+    private BigDecimal totleRepay;
     /**
      * 未还.
      * */
@@ -35,4 +37,6 @@ public class DebitAndRepaySummary {
     private Date loanDate;
     /**到期时间.*/
     private Date lastRePayDate;
+    /**状态,1审核中，2还款计划.*/
+    private String status;
 }
