@@ -24,7 +24,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,LOAN_MONEY,CONTRACT_NUMBER
+        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,CONTRACT_NUMBER
     </sql>
 
 
@@ -34,13 +34,17 @@
         (<include refid="Base_Column_List"/>) VALUES
         (#{id,jdbcType=VARCHAR},#{dtId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{applyName,jdbcType=VARCHAR},#{identityCard,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},
         #{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{region,jdbcType=VARCHAR},#{detailAdd,jdbcType=VARCHAR},#{effective,jdbcType=VARCHAR},#{isSend,jdbcType=VARCHAR},
-        #{oddNumbers,jdbcType=VARCHAR},#{starAccount,jdbcType=VARCHAR},#{loanMoney,jdbcType=NUMERIC},#{contractNumber,jdbcType=VARCHAR})
+        #{oddNumbers,jdbcType=VARCHAR},#{starAccount,jdbcType=VARCHAR},#{contractNumber,jdbcType=VARCHAR})
     </insert>
     <!--插入贷款表中-->
     <insert id="insertIntoDebit" parameterType="com.newland.financial.p2p.domain.entity.CustomerFlowDebit">
         INSERT INTO t_debitandcredit
-        (DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE,LAST_REPAY_DATE,STUS) VALUES
-        (#{dtId,jdbcType=VARCHAR},#{dIttId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{dProId,jdbcType=VARCHAR},#{dProName,jdbcType=VARCHAR},#{dProLmt,jdbcType=NUMERIC},#{dTimes,jdbcType=NUMERIC},#{dIttRa,jdbcType=NUMERIC},#{dMoney,jdbcType=NUMERIC},#{dBef,jdbcType=NUMERIC},#{dAft,jdbcType=NUMERIC},#{dDate,jdbcType=TIMESTAMP},#{lastRePayDate,jdbcType=DATE},#{stus,jdbcType=VARCHAR})
+        (DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE,LAST_REPAY_DATE,STUS,LOAN_DATE,LOAN_MONEY,TOTLE_INTREST,SERVICE_CHARGE) VALUES
+        (#{dtId,jdbcType=VARCHAR},#{dIttId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{dProId,jdbcType=VARCHAR},
+        #{dProName,jdbcType=VARCHAR},#{dProLmt,jdbcType=NUMERIC},#{dTimes,jdbcType=NUMERIC},
+        #{dIttRa,jdbcType=NUMERIC},#{dMoney,jdbcType=NUMERIC},#{dBef,jdbcType=NUMERIC},#{dAft,jdbcType=NUMERIC},
+        #{dDate,jdbcType=TIMESTAMP},#{lastRePayDate,jdbcType=DATE},#{stus,jdbcType=VARCHAR},
+        #{loanDate,jdbcType=DATE},#{loanMoney,jdbcType=NUMERIC},#{totleInterest,jdbcType=NUMERIC},#{serviceCharge,jdbcType=NUMERIC})
     </insert>
 
 </mapper>

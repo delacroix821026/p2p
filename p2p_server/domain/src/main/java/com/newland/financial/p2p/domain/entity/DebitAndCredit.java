@@ -73,4 +73,10 @@ public class DebitAndCredit extends BaseEntity {
     private String stus;
      /**放款日期.*/
      private Date loanDate;
+    /**放款金额.*/
+    private BigDecimal loanMoney;
+    /**利息总额.*/
+    private BigDecimal totleInterest;
+    /**手续费总额.*/
+    private BigDecimal serviceCharge;
 }
