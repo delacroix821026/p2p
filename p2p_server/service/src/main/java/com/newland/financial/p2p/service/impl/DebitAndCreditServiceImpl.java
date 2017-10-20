@@ -1,10 +1,6 @@
 package com.newland.financial.p2p.service.impl;
 
-import com.newland.financial.p2p.dao.IDebitAndCreditDao;
-import com.newland.financial.p2p.dao.IInterestDao;
-import com.newland.financial.p2p.dao.ILenderDao;
-import com.newland.financial.p2p.dao.IProductDao;
-import com.newland.financial.p2p.dao.IRepayALoanDao;
+import com.newland.financial.p2p.dao.*;
 import com.newland.financial.p2p.domain.entity.AbstractProduct;
 import com.newland.financial.p2p.domain.entity.DebitAndCreditFactory;
 import com.newland.financial.p2p.domain.entity.Lender;
@@ -45,6 +41,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
     /**Dao层对象.*/
     @Autowired
     private IRepayALoanDao repayALoanDao;
+
 
     /**
      * 进行贷款.
@@ -155,5 +152,13 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * */
     public boolean deleteDebitAndCredit(final String userId) {
         return debitAndCreditDao.deleteDebitAndCredit(userId);
+    }
+    /**
+     *用户对应所有产品的贷款状态.
+     * @param userId 用户编号
+     * @return 返回所有产品贷款状态
+     */
+    public Object findAllProStatus(String userId) {
+        return debitAndCreditDao.findAllProStatus(userId);
     }
 }

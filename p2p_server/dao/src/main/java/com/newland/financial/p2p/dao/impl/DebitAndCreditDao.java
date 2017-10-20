@@ -72,4 +72,13 @@ public class DebitAndCreditDao extends
         }
         return null;
     }
+
+    /**
+     *用户对应所有产品的贷款状态.
+     * @param userId 用户编号
+     * @return 返回该用户所有贷款产品
+     */
+    public List<DebitAndCredit> findAllProStatus(String userId) {
+        return null;
+    }
 }

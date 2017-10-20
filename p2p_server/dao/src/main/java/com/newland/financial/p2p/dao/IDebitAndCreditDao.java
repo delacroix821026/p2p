@@ -40,4 +40,10 @@ public interface IDebitAndCreditDao {
      * @return 贷款单编号
      */
     String selectDebitId(String userId, String proId);
+    /**
+     *用户对应所有产品的贷款状态.
+     * @param userId 用户编号
+     * @return 返回该用户所有贷款产品（stus=1 or 2 的贷款单）
+     */
+    List<DebitAndCredit> findAllProStatus(String userId);
 }

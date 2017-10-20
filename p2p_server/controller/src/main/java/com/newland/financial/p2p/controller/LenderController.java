@@ -296,7 +296,7 @@ public class LenderController {
     }
 
     /**
-     *用户对应产品的还款分期计划.
+     *用户对应某一产品的还款分期计划.
      * @param jsonStr 包含userId,proId
      * @return 分期计划
      */
@@ -309,5 +309,20 @@ public class LenderController {
         String userId = paramJSON.getString("userId");
         String proId = paramJSON.getString("proId");
         return repayALoanService.findRepayAloanInfo(userId,proId);
+    }
+
+    /**
+     *用户对应所有产品的贷款状态.
+     * @param jsonStr 包含userId
+     * @return 返回所有产品贷款状态
+     */
+    @ResponseBody
+    @RequestMapping(value = "/AllProStatus",
+            method = {RequestMethod.POST, RequestMethod.GET})
+    public Object findAllProStatus(@RequestBody String jsonStr) {
+        logger.info("jsonStr：" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String userId = paramJSON.getString("userId");
+        return debitAndCreditService.findAllProStatus(userId);
     }
 }
