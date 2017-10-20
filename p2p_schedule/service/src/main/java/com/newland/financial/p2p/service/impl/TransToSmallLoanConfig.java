@@ -66,7 +66,7 @@ public class TransToSmallLoanConfig {
     @Scope("prototype")
     public ItemWriter getFlatFileItemWriter() throws URISyntaxException, MalformedURLException {
         FlatFileItemWriter flatFileItemWriter = new FlatFileItemWriter();
-        flatFileItemWriter.setResource(new PathResource("/Users/daijuancen/Desktop/outputfile.csv"));
+        flatFileItemWriter.setResource(new PathResource("/Users/daijuancen/Desktop/outputfile-#{jobParameters['runDay']}.csv"));
         DelimitedLineAggregator delimitedLineAggregator = new DelimitedLineAggregator();
         delimitedLineAggregator.setDelimiter(",");
         BeanWrapperFieldExtractor beanWrapperFieldExtractor = new BeanWrapperFieldExtractor();
