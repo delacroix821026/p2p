@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * 定义未还,已还,本月应还的实体类.
  * @author cendaijuan
@@ -11,6 +13,12 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 public class DebitAndRepaySummary {
+    /**产品编号.*/
+    private String proId;
+    /**产品名称.*/
+    private String proName;
+    /**借款金额.*/
+    private BigDecimal loanMoney;
     /**
      * 未还.
      * */
@@ -23,5 +31,8 @@ public class DebitAndRepaySummary {
      *本月应还.
      * */
     private BigDecimal repayInMonth;
-
+    /**放款日期.*/
+    private Date loanDate;
+    /**到期时间.*/
+    private Date lastRePayDate;
 }
