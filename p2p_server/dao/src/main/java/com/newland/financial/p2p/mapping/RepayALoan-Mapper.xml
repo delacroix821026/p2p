@@ -40,8 +40,8 @@
         select
         <include refid="Base_Column_List"/>
         from T_REPAYALOAN
-        where
-        RE_LND_ID = #{userId}
+        where DEBIT_ID = (SELECT DT_ID FROM customer_flow_debit
+        WHERE ODD_NUMBERS = #{oddNumbers})
         ORDER BY CREATE_DATE
     </select>
 

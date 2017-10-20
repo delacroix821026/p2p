@@ -48,13 +48,11 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
 
     /**
      * 获取某用户的所有还款单.
-     *
-     * @param userId String用户编号
-     * @return List返回该用户所有的还款单
-     */
-    public List<RepayALoan> getRepayALoanList(final String userId) {
-
-        return repayALoanDao.findByUserId(userId);
+     *@param oddNumbers 申请单号
+     * @return List返回该申请单号所有的还款单
+     * */
+    public List<RepayALoan> getRepayALoanList(String oddNumbers) {
+        return repayALoanDao.findByOddNumbers(oddNumbers);
     }
 
     /**

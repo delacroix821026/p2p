@@ -22,11 +22,11 @@ public interface IRepayALoanDao {
      * */
     boolean updateRepayAloan(RepayALoan repayALoan);
     /**
-     * 查找还款单.
-     * @param userId String用户Id
-     * @return List返回该用户所有的还款单
+     * 获取某用户的所有还款单.
+     *@param oddNumbers 申请单号
+     * @return List返回该申请单号所有的还款单
      * */
-    List<RepayALoan> findByUserId(String userId);
+    List<RepayALoan> findByOddNumbers(String oddNumbers);
     /**
      * 根据还款单编号查询相应的还款单.
      * @param reId String还款单编号

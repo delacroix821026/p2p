@@ -180,10 +180,10 @@ public class LenderController {
     public Object findAllRepay(@RequestBody final String jsonStr) {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String userId = paramJSON.getString("userId");
-        logger.info("LenderController FindAllRepay:userId--" + userId);
+        String oddNumbers = paramJSON.getString("oddNumbers");
+        logger.info("LenderController FindAllRepay:oddNumbers--" + oddNumbers);
 
-        return repayALoanService.getRepayALoanList(userId);
+        return repayALoanService.getRepayALoanList(oddNumbers);
     }
 
     /**

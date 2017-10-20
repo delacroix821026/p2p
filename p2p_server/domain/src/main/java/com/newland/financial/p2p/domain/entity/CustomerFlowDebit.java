@@ -37,4 +37,10 @@ public class CustomerFlowDebit extends DebitAndCredit {
     private String starAccount;
     /**第三方合同号.*/
     private String contractNumber;
+    /**应还总金额.*/
+    private BigDecimal totleNeedRepay;
+    /**已还总金额.*/
+    private BigDecimal yetRepay;
+    /**待还总金额.*/
+    private BigDecimal needRepay;
 }
