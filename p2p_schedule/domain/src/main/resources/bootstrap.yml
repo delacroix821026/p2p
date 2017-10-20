@@ -43,7 +43,7 @@ eureka:
 
 ---
 server:
-    port: ${SERVER_PORT:3001}
+    port: ${SERVER_PORT:7101}
 ...
 
 ---

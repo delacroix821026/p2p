@@ -47,3 +47,18 @@ pagehelper:
 
 ...
 
+---
+spring.batch.job.enabled: false
+...
+
+---
+mybatis.config-location: classpath:mybatis-config.xml
+...
+
+---
+logging:
+    level:
+        root: INFO
+        com.newland.financial.p2p: TRACE
+...
+

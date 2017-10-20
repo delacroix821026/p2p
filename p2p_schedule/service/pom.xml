@@ -11,6 +11,18 @@
 
     <artifactId>p2p_schedule_service</artifactId>
     <name>p2p_schedule_service</name>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <packaging>jar</packaging>
     <version>1.0.0-SNAPSHOT</version>
 

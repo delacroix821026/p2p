@@ -75,6 +75,21 @@
         <appender-ref ref="file" />
         <appender-ref ref="console" />
     </logger>
+    <logger name="com.newland.financial.p2p.mapping" additivity="false">
+        <level value="info" />
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
+    <logger name="com.newland.financial.p2p.dao" additivity="false">
+        <level value="info" />
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
+    <logger name="com.newland.financial.p2p.dao.impl" additivity="false">
+        <level value="info" />
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
 
     <!--<logger name="com.newland.financial.p2p.domain.mapping" additivity="false">-->
         <!--<level value="debug" />-->

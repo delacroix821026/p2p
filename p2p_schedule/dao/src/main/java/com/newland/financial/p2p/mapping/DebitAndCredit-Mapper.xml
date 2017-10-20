@@ -33,7 +33,7 @@
     </select>
 
     <select id="selectByStus" resultMap="BaseResultMap" parameterType="java.lang.String">
-        SELECT * FROM customer_flow_debit WHERE IS_SEND=#{isSend,jdbcType=VARCHAR}
+        SELECT * FROM customer_flow_debit WHERE IS_SEND != 1
     </select>
 
     <update id="updateStus" parameterType="java.lang.String">
