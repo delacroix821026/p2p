@@ -323,7 +323,7 @@ public class LenderController {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
-        if (userId == null && userId.length() == 0){
+        if (userId == null || userId.length() == 0){
             return false;
         }
         return debitAndCreditService.findAllProStatus(userId);
