@@ -276,6 +276,8 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
         if (!"".equals(oddNumbers)) {
             reqMap.put("contractNumber", contractNumber);
         }
+        reqMap.put("begTime", begTime);
+        reqMap.put("endTime", endTime);
         List<CustomerFlowDebit> customerFlowDebitList = new ArrayList<CustomerFlowDebit>();
         customerFlowDebitList = customerFlowDebitDao.findAll(reqMap);
         PageInfo<CustomerFlowDebit> pageInfo = new PageInfo<CustomerFlowDebit>(customerFlowDebitList);

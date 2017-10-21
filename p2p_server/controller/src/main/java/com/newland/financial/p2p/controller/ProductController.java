@@ -263,6 +263,7 @@ public class ProductController {
 
     /**
      * 操作上下架.
+     *
      * @param jsonStr 接受的json字符串:<BR>
      *                {<BR>
      *                &nbsp;&nbsp;"proId":"产品编号",<BR>
@@ -334,10 +335,11 @@ public class ProductController {
 
 
     /**
-     * App端展示贷款状态接口.
+     * App端展示贷款状态接口(包含分页功能).
+     *
      * @param jsonStr String包含userId用户编号
      * @return Object
-     * */
+     */
     @ResponseBody
     @RequestMapping(value = "/CheckStatus",
             method = {RequestMethod.POST, RequestMethod.GET})
@@ -345,6 +347,8 @@ public class ProductController {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String dLnrId = paramJSON.getString("userId");
-        return productService.findCustomerFlowDebitStus(dLnrId);
+        Integer page = paramJSON.getInteger("page");
+        Integer count = paramJSON.getInteger("count");
+        return productService.findCustomerFlowDebitStus(dLnrId, page, count);
     }
 }

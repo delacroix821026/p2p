@@ -1,6 +1,7 @@
 package com.newland.financial.p2p.controller;
 
-import lombok.extern.java.Log;
+
+import lombok.extern.log4j.Log4j;
 import org.ohuyo.libra.client.exception.LibraClientException;
 import org.ohuyo.libra.client.session.LibraSession;
 import org.ohuyo.libra.client.session.LibraSessionUtils;
@@ -13,7 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@Log
+@Log4j
 @RestController
 public class SessionController {
     @RequestMapping("/getUserSession")

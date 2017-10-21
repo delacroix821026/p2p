@@ -53,8 +53,11 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * */
     public List<RepayALoan> findByOddNumbers(String oddNumbers) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("oddNumbers", oddNumbers);
-        return super.select("selectByPropertie", map);
+        if (oddNumbers != null && oddNumbers.length() != 0) {
+            map.put("oddNumbers", oddNumbers);
+            return super.select("selectByPropertie", map);
+        }
+        return null;
     }
 
     /**

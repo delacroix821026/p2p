@@ -1,14 +1,12 @@
 package com.newland.financial.p2p.service.Impl;
 
 import com.newland.financial.p2p.service.IProductService;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Component
-@Log
+@Log4j
 public class ProductServiceHystrix implements IProductService {
     public Object getProduct(@RequestBody String jsonStr) {
         log.info("ProductServiceHystrix:getProduct");
@@ -37,6 +35,11 @@ public class ProductServiceHystrix implements IProductService {
 
     public Object getAppPro(@RequestBody String jsonStr){
         log.info("ProductServiceHystrix:getAppPro");
+        return 1026;
+    }
+
+    public Object getAllProStus(String jsonStr) {
+        log.info("ProductServiceHystrix:getAllProStus");
         return 1026;
     }
 }

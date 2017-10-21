@@ -25,4 +25,8 @@ public interface IProductService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/ProductController/getAppProducts")
     Object getAppPro(@RequestBody String jsonStr);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/ProductController/CheckStatus")
+    Object getAllProStus(@RequestBody String jsonStr);
+
 }

@@ -47,15 +47,6 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
     private IDebitAndCreditDao debitAndCreditDao;
 
     /**
-     * 获取某用户的所有还款单.
-     *@param oddNumbers 申请单号
-     * @return List返回该申请单号所有的还款单
-     * */
-    public List<RepayALoan> getRepayALoanList(String oddNumbers) {
-        return repayALoanDao.findByOddNumbers(oddNumbers);
-    }
-
-    /**
      * 还款.
      *
      * @param repayId String还款单编号
@@ -140,7 +131,7 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
      * @return 分期计划信息集合
      */
     public Object findRepayAloanInfo(String userId, String proId) {
-        //先去贷款表中查出相应有分期计划的贷款单编号，该记录只会有一条
+        //先去贷款表中查出相应有分期计划的对应某一产品的贷款单编号，该记录只会有一条
         String debitId = debitAndCreditDao.selectDebitId(userId, proId);
         if (debitId != null && debitId.length() != 0){
             if (userId != null && userId.length() != 0 && proId != null && proId.length() != 0) {
@@ -159,6 +150,16 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
         }
         logger.info("RepayALoanServiceImpl++++++");
         return false;
+    }
+
+
+    /**
+     * 获取某用户某贷款单的所有还款单信息.
+     *@param oddNumbers 申请单号
+     * @return List返回该申请单号所有的还款单
+     * */
+    public List<RepayALoan> getRepayALoanList(String oddNumbers) {
+        return repayALoanDao.findByOddNumbers(oddNumbers);
     }
 
 

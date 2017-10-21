@@ -52,4 +52,13 @@ public class ProductController {
         log.info("controller add Enter: jsonStr:" + jsonStr);
         return productService.getAppPro(jsonStr);
     }
+
+    /**
+     * 用以获取某用户所有产品的状态（可贷款，申请中，还款计划）.
+     */
+    @RequestMapping(value = "/GetAllProStus", method = RequestMethod.POST)
+    public Object getAllProStus(@RequestBody String jsonStr) {
+        log.info("controller add Enter: jsonStr:" + jsonStr);
+        return productService.getAllProStus(jsonStr);
+    }
 }
