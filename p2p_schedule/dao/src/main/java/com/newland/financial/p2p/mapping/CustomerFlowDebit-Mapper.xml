@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.CustomerFlowDebitMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.CustomerFlowDebit">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="DT_ID" property="dtId" jdbcType="VARCHAR"/>
+        <result column="D_LNR_ID" property="dLnrId" jdbcType="VARCHAR"/>
+        <result column="APPLY_NAME" property="applyName" jdbcType="VARCHAR"/>
+        <result column="IDENTITY_CARD" property="identityCard" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="PROVINCE" property="province" jdbcType="VARCHAR"/>
+        <result column="CITY" property="city" jdbcType="VARCHAR"/>
+        <result column="REGION" property="region" jdbcType="VARCHAR"/>
+        <result column="DETAIL_ADD" property="detailAdd" jdbcType="VARCHAR"/>
+        <result column="EFFECTIVE" property="effective" jdbcType="VARCHAR"/>
+        <result column="IS_SEND" property="isSend" jdbcType="VARCHAR"/>
+        <result column="ODD_NUMBERS" property="oddNumbers" jdbcType="VARCHAR"/>
+        <result column="STAR_ACCOUNT" property="starAccount" jdbcType="VARCHAR"/>
+        <result column="LOAN_MONEY" property="loanMoney" jdbcType="NUMERIC"/>
+        <result column="CONTRACT_NUMBER" property="contractNumber" jdbcType="VARCHAR"/>
+        <result column="D_DATE" property="dDate" jdbcType="TIMESTAMP"/>
+        <result column="D_MONEY" property="dMoney" jdbcType="NUMERIC"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,LOAN_MONEY,CONTRACT_NUMBER
+    </sql>
+
+    <select id="selectSendOrderList" resultMap="BaseResultMap">
+        SELECT b.D_DATE,a.ODD_NUMBERS,a.APPLY_NAME,a.PHONE,b.D_MONEY,a.DETAIL_ADD,a.IDENTITY_CARD
+        FROM customer_flow_debit a
+        LEFT JOIN t_debitandcredit b ON a.DT_ID=b.DT_ID
+        WHERE a.IS_SEND='0'AND b.STUS='1' AND a.EFFECTIVE='1'
+    </select>
+
+
+</mapper>
