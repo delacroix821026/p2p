@@ -1,7 +1,9 @@
 package integration;
 
 import com.newland.financial.p2p.Application;
+import com.newland.financial.p2p.domain.entity.DebitAndRepaySummary;
 import com.newland.financial.p2p.service.IDebitAndCreditService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -10,6 +12,8 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -36,5 +40,13 @@ public class DebitAndCreditServiceTest {
                 "\t\"page\":null\n" +
                 "}";
         debitAndCreditService.getDebitList(jsonStr);
+    }
+
+    @Test
+    public void testFindAllProStatus() {
+        String userId = "123";
+        debitAndCreditService.findAllProStatus(userId);
+        String userId1 = "zhu123";
+        debitAndCreditService.findAllProStatus(userId1);
     }
 }

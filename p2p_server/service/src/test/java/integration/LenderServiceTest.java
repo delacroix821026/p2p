@@ -62,6 +62,7 @@ public class LenderServiceTest {
             Assert.assertEquals("identitycard not same","340521198902104612",cs.getIdentityCard());
             Assert.assertEquals("dmoney not same",new BigDecimal("200000.00"),cs.getDMoney());
         }
+        lenderService.insertDebitInfo(customerFlowDebit);
     }
 
     @After
