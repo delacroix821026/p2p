@@ -92,4 +92,8 @@
         </if>
     </select>
 
+    <delete id="deleteTestData" parameterType="String">
+        DELETE FROM customer_flow_debit WHERE D_LNR_ID = #{userId}
+    </delete>
+
 </mapper>

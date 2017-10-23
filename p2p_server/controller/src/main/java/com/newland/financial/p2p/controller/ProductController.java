@@ -282,7 +282,7 @@ public class ProductController {
         logger.info("jsonStr：" + jsonStr);
         String proId = paramJSON.getString("proId");
         String putAndDown = paramJSON.getString("putAndDown");
-        if (proId != null && proId != "" && putAndDown != null && putAndDown != "") {
+        if (proId != null && proId.length() != 0 && putAndDown != null && putAndDown.length() != 0) {
             return productService.updatePutAndDown(proId, putAndDown);
         } else {
             return false;

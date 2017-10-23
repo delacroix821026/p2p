@@ -45,9 +45,12 @@ public class DebitAndCreditDao extends
      * @return boolean删除成功返回true, 失败false
      */
     public boolean deleteDebitAndCredit(final String userId) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userId", userId);
-        return super.deletes("deleteByProperties", map);
+        if (userId != null && userId.length() != 0) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("userId", userId);
+            return super.deletes("deleteByProperties", map);
+        }
+        return false;
     }
 
     /**

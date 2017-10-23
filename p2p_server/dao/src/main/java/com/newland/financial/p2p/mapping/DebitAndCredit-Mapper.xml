@@ -58,7 +58,7 @@
         #{lastRePayDate,jdbcType=DATE},#{stus,jdbcType=VARCHAR},#{loanDate,jdbcType=DATE},#{loanMoney,jdbcType=NUMERIC},
         #{totleInterest,jdbcType=NUMERIC},#{serviceCharge,jdbcType=NUMERIC})
     </insert>
-
+    <!--根据用户编号删除贷款单-->
     <delete id="deleteByProperties" parameterType="Map">
         DELETE FROM T_DEBITANDCREDIT
         <where>

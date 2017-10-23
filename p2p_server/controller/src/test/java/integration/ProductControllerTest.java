@@ -72,7 +72,13 @@ public class    ProductControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"putAndDown\":\"1\"}"));
         MvcResult mr = ra.andReturn();
         String result = mr.getResponse().getContentAsString();
-        logger.info("result:" + result);
+
+        ResultActions ra1 = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/PutOrDown")
+                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"\",\"putAndDown\":\"1\"}"));
+        MvcResult mr1 = ra1.andReturn();
+        String result1 = mr1.getResponse().getContentAsString();
+        logger.info("result:" + result1);
     }
 
     @Test
@@ -181,6 +187,21 @@ public class    ProductControllerTest {
                 "}";
         ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/ProductController/getAppProducts")
+                .contentType(MediaType.APPLICATION_JSON).content(reqJson));
+        MvcResult mr = ra.andReturn();
+        String result = mr.getResponse().getContentAsString();
+        logger.info("---------------------------------------------------------getAppProducts:" + result);
+    }
+
+    @Test
+    public void testCheckStatus() throws Exception {
+        String reqJson = "{\n" +
+                "\t\"userId\":\"123123\",\n" +
+                "\t\"page\":1,\n" +
+                "\t\"count\":1\n" +
+                "}\n";
+        ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/CheckStatus")
                 .contentType(MediaType.APPLICATION_JSON).content(reqJson));
         MvcResult mr = ra.andReturn();
         String result = mr.getResponse().getContentAsString();

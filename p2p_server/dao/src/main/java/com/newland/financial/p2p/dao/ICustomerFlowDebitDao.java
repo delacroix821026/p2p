@@ -21,5 +21,10 @@ public interface ICustomerFlowDebitDao {
      * @return 分页结果集
      */
     List<CustomerFlowDebit> findAll(Map<String, Object> reqMap);
-
+    /**
+     * 根据用户ID删除数据，测试类专用.
+     * @param userId 用户编号
+     * @return true or false
+     */
+    boolean deleteByUserId(String userId);
 }
