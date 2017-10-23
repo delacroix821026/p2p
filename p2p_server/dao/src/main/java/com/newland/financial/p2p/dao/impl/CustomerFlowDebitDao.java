@@ -32,4 +32,15 @@ public class CustomerFlowDebitDao extends
     public List<CustomerFlowDebit> findAll(Map<String, Object> reqMap) {
         return super.select("selectList",reqMap);
     }
+    /**
+     * 根据用户ID删除数据，测试专用.
+     * @param userId 用户编号
+     * @return true or false
+     */
+    public boolean deleteByUserId(String userId) {
+        if (userId != null && userId.length() != 0) {
+            return super.deletes("deleteTestData",userId);
+        }
+        return false;
+    }
 }
