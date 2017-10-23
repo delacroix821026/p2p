@@ -13,10 +13,10 @@ import java.util.List;
 public interface IRepayALoanService {
     /**
      * 获取某用户的所有还款单.
-     *@param userId String用户编号
-     * @return List返回该用户所有的还款单
+     *@param oddNumbers 申请单号
+     * @return List返回该申请单号所有的还款单
      * */
-    List<RepayALoan> getRepayALoanList(String userId);
+    List<RepayALoan> getRepayALoanList(String oddNumbers);
 
     /**
      * 还款.

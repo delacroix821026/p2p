@@ -157,34 +157,6 @@ public class LenderController {
         return debitAndCreditService.findDebitAndCreditHistory(userId);
     }
 
-    /**
-     * 查询用户的还款信息.
-     *
-     * @param jsonStr 接受的json字符串,{"userId":"xxxx"}
-     * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
-     * result： List<BR>
-     * {<BR>
-     * &nbsp;msgcode：x, <BR>
-     * &nbsp;result:<BR>
-     * &nbsp;&nbsp;{ positionExchange:xx,reId:xx,reLndId:xx,reMtd:xx,reProId:xx,
-     * reProNmae:xx,reProLmt:xx,crtRe:xx,createDate:xx,expireDate:xx,reBef:xx,
-     * reAft:xx,status:xx,crtInterest:xx,serMoney:xx,otherMoney:xx,totleMoney:xx,debitId:xx}<BR>
-     * &nbsp;&nbsp;{ positionExchange:xx,reId:xx,reLndId:xx,reMtd:xx,reProId:xx,reProNmae:xx,
-     * reProLmt:xx,crtRe:xx,createDate:xx,expireDate:xx,reBef:xx,reAft:xx,status:xx,
-     * crtInterest:xx,serMoney:xx,otherMoney:xx,totleMoney:xx,debitId:xx}...<BR>
-     * }
-     */
-    @ResponseBody
-    @RequestMapping(value = "/FindAllRepay",
-            method = {RequestMethod.POST, RequestMethod.GET})
-    public Object findAllRepay(@RequestBody final String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
-        JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String userId = paramJSON.getString("userId");
-        logger.info("LenderController FindAllRepay:userId--" + userId);
-
-        return repayALoanService.getRepayALoanList(userId);
-    }
 
     /**
      * 当月所需还款金额.
@@ -255,7 +227,6 @@ public class LenderController {
 
     /**
      * 申请面签产品.
-     *
      * @param jsonStr 申请产品包含的信息
      * @return Object
      */
@@ -328,4 +299,24 @@ public class LenderController {
         }
         return debitAndCreditService.findAllProStatus(userId);
     }
+
+    /**
+     * 根据申请单号查询用户该单的还款信息.
+     *
+     * @param jsonStr 申请单号
+     * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
+     * result： List<BR>
+     */
+    @ResponseBody
+    @RequestMapping(value = "/FindAllRepay",
+            method = {RequestMethod.POST, RequestMethod.GET})
+    public Object findAllRepay(@RequestBody final String jsonStr) {
+        logger.info("jsonStr：" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String oddNumbers = paramJSON.getString("oddNumbers");
+        logger.info("LenderController FindAllRepay:oddNumbers--" + oddNumbers);
+
+        return repayALoanService.getRepayALoanList(oddNumbers);
+    }
+
 }

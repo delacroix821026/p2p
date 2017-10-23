@@ -78,5 +78,5 @@ public interface IProductDao {
      * @param id 用户编号
      * @return 包含产品status的集合
      */
-    Object findCustomerFlowDebitStus(String id);
+    List<Product> findCustomerFlowDebitStus(String id);
 }

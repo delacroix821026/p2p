@@ -1,10 +1,7 @@
 package com.newland.financial.p2p.service;
 
 import com.newland.financial.p2p.common.exception.OverloadException;
-import com.newland.financial.p2p.domain.entity.DebitAndCredit;
-import com.newland.financial.p2p.domain.entity.Interest;
-import com.newland.financial.p2p.domain.entity.Lender;
-import com.newland.financial.p2p.domain.entity.Product;
+import com.newland.financial.p2p.domain.entity.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -85,4 +82,10 @@ public interface IDebitAndCreditService {
      * @return 返回所有产品贷款状态
      */
     Object findAllProStatus(String userId);
+    /**
+     *分页查询贷款单信息.
+     * @param jsonStr 分页信息
+     * @return 结果集
+     */
+    Object getDebitList(String jsonStr);
 }

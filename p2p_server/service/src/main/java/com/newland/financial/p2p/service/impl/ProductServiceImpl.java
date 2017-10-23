@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.newland.financial.p2p.dao.ICustomerFlowDebitDao;
-import com.newland.financial.p2p.dao.IInterestDao;
-import com.newland.financial.p2p.dao.IOrganizationDao;
-import com.newland.financial.p2p.dao.IProductDao;
+import com.newland.financial.p2p.dao.*;
 import com.newland.financial.p2p.domain.entity.Product;
 import com.newland.financial.p2p.domain.entity.Organization;
 import com.newland.financial.p2p.domain.entity.Interest;
@@ -57,7 +54,7 @@ public class ProductServiceImpl implements IProductService {
      * Dao层对象.
      */
     @Autowired
-    private ICustomerFlowDebitDao customerFlowDebitDao;
+    private IDebitAndCreditDao debitAndCreditDao;
 
     /**
      * 查询所有产品.
@@ -395,7 +392,19 @@ public class ProductServiceImpl implements IProductService {
      * @param id 用户编号
      * @return 包含产品status的集合
      */
-    public Object findCustomerFlowDebitStus(String id) {
-        return productDao.findCustomerFlowDebitStus(id);
+    public Object findCustomerFlowDebitStus(String id, Integer page, Integer count) {
+        debitAndCreditDao.updateStusToThree(); //将数据库内申请时间超过15天的贷款单状态改为拒绝
+        if (page == null || page < 1) {
+            page = 1;
+        }
+        if (count == null || count < 1) {
+            count = 5;
+        }
+        //开始分页
+        PageHelper.startPage(page, count);
+        List<Product> list = new ArrayList<Product>();
+        list = productDao.findCustomerFlowDebitStus(id);
+        PageInfo<Product> pageInfo = new PageInfo<Product>(list);
+        return pageInfo;
     }
 }

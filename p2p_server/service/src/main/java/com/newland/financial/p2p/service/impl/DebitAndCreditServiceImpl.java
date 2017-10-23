@@ -1,5 +1,9 @@
 package com.newland.financial.p2p.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.newland.financial.p2p.dao.*;
 import com.newland.financial.p2p.domain.entity.*;
 import com.newland.financial.p2p.service.IDebitAndCreditService;
@@ -10,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 贷款单的service数据处理层.
@@ -49,7 +53,11 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      */
     @Autowired
     private IRepayALoanDao repayALoanDao;
-
+    /**
+     * Dao层对象.
+     */
+    @Autowired
+    private ICustomerFlowDebitDao customerFlowDebitDao;
 
     /**
      * 进行贷款.
@@ -216,5 +224,64 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
             return list1;
         }
         return false;
+    }
+    /**
+     *分页查询贷款单信息.
+     * @param jsonStr 分页信息
+     * @return 结果集
+     */
+    public Object getDebitList(String jsonStr) {
+        debitAndCreditDao.updateStusToThree(); //将数据库内申请时间超过15天的贷款贷状态改为拒绝
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        //获取分页信息
+        Integer page = paramJSON.getInteger("page");
+        Integer count = paramJSON.getInteger("count");
+        if (page == null || page < 1) {
+            page = 1;
+        }
+        if (count == null || count < 1) {
+            count = 5;
+        }
+        //开始分页
+        PageHelper.startPage(page, count);
+        String proId = paramJSON.getString("proId");
+        String proName = paramJSON.getString("proName");
+        String oddNumbers = paramJSON.getString("oddNumbers");
+        String contractNumber = paramJSON.getString("contractNumber");
+        //转换日期格式
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Long createTimeBeg = paramJSON.getLong("createTimeBeg");
+        Long createTimeEnd = paramJSON.getLong("createTimeEnd");
+        String begTime = null;
+        String endTime = null;
+        if (createTimeBeg != null) {
+            Date begTimeDate = new Date(createTimeBeg);
+            begTime = sdf.format(begTimeDate);
+            logger.info("---------------------------------" + begTime);
+        }
+        if (createTimeEnd != null) {
+            Date endTimeDate = new Date(createTimeEnd);
+            endTime = sdf.format(endTimeDate);
+            logger.info("---------------------------------" + endTime);
+        }
+        Map<String, Object> reqMap = new HashMap<String, Object>();
+        if (!"".equals(proId)) {
+            reqMap.put("proId", proId);
+        }
+        if (!"".equals(proName)) {
+            reqMap.put("proName", proName);
+        }
+        if (!"".equals(oddNumbers)) {
+            reqMap.put("oddNumbers", oddNumbers);
+        }
+        if (!"".equals(oddNumbers)) {
+            reqMap.put("contractNumber", contractNumber);
+        }
+        reqMap.put("begTime", begTime);
+        reqMap.put("endTime", endTime);
+        List<CustomerFlowDebit> customerFlowDebitList = new ArrayList<CustomerFlowDebit>();
+        customerFlowDebitList = customerFlowDebitDao.findAll(reqMap);
+        PageInfo<CustomerFlowDebit> pageInfo = new PageInfo<CustomerFlowDebit>(customerFlowDebitList);
+        return pageInfo;
     }
 }

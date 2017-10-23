@@ -21,10 +21,31 @@
         <result column="STAR_ACCOUNT" property="starAccount" jdbcType="VARCHAR"/>
         <result column="LOAN_MONEY" property="loanMoney" jdbcType="NUMERIC"/>
         <result column="CONTRACT_NUMBER" property="contractNumber" jdbcType="VARCHAR"/>
+        <result column="TOTLE_NEED_REPAY" property="totleNeedRepay" jdbcType="NUMERIC"/>
+        <result column="YET_REPAY" property="yetRepay" jdbcType="NUMERIC"/>
+        <result column="NEED_REPAY" property="needRepay" jdbcType="NUMERIC"/>
+
+        <result column="D_ITT_ID" property="dIttId" jdbcType="VARCHAR"/>
+        <result column="D_LNR_ID" property="dLnrId" jdbcType="VARCHAR"/>
+        <result column="D_PRO_ID" property="dProId" jdbcType="VARCHAR"/>
+        <result column="D_PRO_NAME" property="dProName" jdbcType="VARCHAR"/>
+        <result column="D_PRO_LMT" property="dProLmt" jdbcType="NUMERIC"/>
+        <result column="D_TIMES" property="dTimes" jdbcType="NUMERIC"/>
+        <result column="D_ITT_RA" property="dIttRa" jdbcType="NUMERIC"/>
+        <result column="D_MONEY" property="dMoney" jdbcType="NUMERIC"/>
+        <result column="D_BEF" property="dBef" jdbcType="NUMERIC"/>
+        <result column="D_AFT" property="dAft" jdbcType="NUMERIC"/>
+        <result column="D_DATE" property="dDate" jdbcType="TIMESTAMP"/>
+        <result column="LAST_REPAY_DATE" property="lastRePayDate" jdbcType="DATE"/>
+        <result column="STUS" property="stus" jdbcType="VARCHAR"/>
+        <result column="LOAN_DATE" property="loanDate" jdbcType="DATE"/>
+        <result column="LOAN_MONEY" property="loanMoney" jdbcType="NUMERIC"/>
+        <result column="TOTLE_INTREST" property="totleInterest" jdbcType="NUMERIC"/>
+        <result column="SERVICE_CHARGE" property="serviceCharge" jdbcType="NUMERIC"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,CONTRACT_NUMBER
+        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,CONTRACT_NUMBER,TOTLE_NEED_REPAY,YET_REPAY,NEED_REPAY
     </sql>
 
 
@@ -34,7 +55,8 @@
         (<include refid="Base_Column_List"/>) VALUES
         (#{id,jdbcType=VARCHAR},#{dtId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{applyName,jdbcType=VARCHAR},#{identityCard,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},
         #{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{region,jdbcType=VARCHAR},#{detailAdd,jdbcType=VARCHAR},#{effective,jdbcType=VARCHAR},#{isSend,jdbcType=VARCHAR},
-        #{oddNumbers,jdbcType=VARCHAR},#{starAccount,jdbcType=VARCHAR},#{contractNumber,jdbcType=VARCHAR})
+        #{oddNumbers,jdbcType=VARCHAR},#{starAccount,jdbcType=VARCHAR},#{contractNumber,jdbcType=VARCHAR},#{totleNeedRepay,jdbcType=NUMERIC}
+        ,#{yetRepay,jdbcType=NUMERIC},#{needRepay,jdbcType=NUMERIC})
     </insert>
     <!--插入贷款表中-->
     <insert id="insertIntoDebit" parameterType="com.newland.financial.p2p.domain.entity.CustomerFlowDebit">
@@ -46,5 +68,28 @@
         #{dDate,jdbcType=TIMESTAMP},#{lastRePayDate,jdbcType=DATE},#{stus,jdbcType=VARCHAR},
         #{loanDate,jdbcType=DATE},#{loanMoney,jdbcType=NUMERIC},#{totleInterest,jdbcType=NUMERIC},#{serviceCharge,jdbcType=NUMERIC})
     </insert>
+    <!--查询所有面签贷款单-->
+    <select id="selectList" resultMap="BaseResultMap" parameterType="Map">
+        SELECT a.*,b.D_ITT_ID,b.D_PRO_ID,b.D_PRO_NAME,b.D_ITT_RA,b.D_MONEY,b.TOTLE_INTREST,b.SERVICE_CHARGE,b.D_DATE,b.LAST_REPAY_DATE,b.STUS,b.LOAN_DATE,b.LOAN_MONEY
+        FROM customer_flow_debit a,t_debitandcredit b WHERE a.DT_ID = b.DT_ID
+        <if test="proId != null">
+            AND b.D_PRO_ID = #{proId}
+        </if>
+        <if test="proName != null">
+            AND b.D_PRO_NAME = #{proName}
+        </if>
+        <if test="oddNumbers != null">
+            AND a.ODD_NUMBERS = #{oddNumbers}
+        </if>
+        <if test="contractNumber != null">
+            AND a.CONTRACT_NUMBER = #{contractNumber}
+        </if>
+        <if test="begTime != null">
+            AND b.D_DATE &gt; #{begTime}
+        </if>
+        <if test="endTime != null">
+            AND b.D_DATE &lt; #{endTime}
+        </if>
+    </select>
 
 </mapper>

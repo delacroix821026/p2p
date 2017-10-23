@@ -74,6 +74,7 @@
         from t_debitandcredit
         where D_PRO_ID = #{proId} AND D_LNR_ID = #{userId} AND STUS = #{stus}
     </select>
+
     <!--查找某一用户对应所有在审核中和分期计划中产品的信息-->
     <select id="selectAllProStatus" resultMap="BaseResultMap" parameterType="String">
         select<include refid="Base_Column_List"/>,UN_PAY,CASE WHEN SUM(repay1.TOTLE_MONEY) is null THEN 0 ELSE
@@ -89,4 +90,20 @@
         DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE,UN_PAY,LAST_REPAY_DATE,STUS,LOAN_DATE,LOAN_MONEY,TOTLE_INTREST,SERVICE_CHARGE
     </select>
 
+    <!--查询stus=1且离申请时间超过15天的贷款单数据-->
+    <select id="selectStus" resultMap="BaseResultMap" parameterType="java.util.Date">
+        SELECT DT_ID FROM t_debitandcredit WHERE datediff(#{nowDate},D_DATE) &gt; 15 AND STUS = '1'
+    </select>
+    <!--将申请时间超过15天贷款单状态改为拒绝-->
+    <update id="updateStusToThree" parameterType="List">
+        UPDATE t_debitandcredit SET STUS = '3' WHERE DT_ID IN
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!--用户申请某产品贷款时先查询是否已经存在该产品申请或还款的记录，有的话将不能继续申请-->
+    <select id="selectRecord" resultMap="BaseResultMap" parameterType="Map">
+        SELECT <include refid="Base_Column_List"/> FROM t_debitandcredit WHERE D_LNR_ID = #{userId} AND D_PRO_ID = #{proId} AND STUS IN ('1','2')
+    </select>
 </mapper>

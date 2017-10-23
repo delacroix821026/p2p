@@ -46,4 +46,16 @@ public interface IDebitAndCreditDao {
      * @return 返回该用户所有贷款产品（stus=1 or 2 的贷款单）
      */
     List<DebitAndCredit> findAllProStatus(String userId);
+    /**
+     * 如果贷款单申请时间超过15天，自动将stus变为3.
+     */
+    void updateStusToThree();
+
+    /**
+     * 用户申请某产品贷款时，先查找是都已经存在该产品申请中或者分期计划的贷款单，如有则不能继续申请.
+     * @param userId 用户编号
+     * @param proId 产品编号
+     * @return 贷款单集合
+     */
+    List<DebitAndCredit> findRecord(String userId, String proId);
 }

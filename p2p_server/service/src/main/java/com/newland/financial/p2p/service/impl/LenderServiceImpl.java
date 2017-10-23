@@ -6,6 +6,7 @@ import com.newland.financial.p2p.dao.IDebitAndCreditDao;
 import com.newland.financial.p2p.dao.ILenderDao;
 import com.newland.financial.p2p.dao.IRepayALoanDao;
 import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
+import com.newland.financial.p2p.domain.entity.DebitAndCredit;
 import com.newland.financial.p2p.domain.entity.Lender;
 import com.newland.financial.p2p.service.ILenderService;
 import org.slf4j.Logger;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 对用户进行操作的service类.
@@ -81,6 +79,12 @@ public class LenderServiceImpl implements ILenderService {
      * @return true or false
      */
     public boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit) throws AgeDiscrepancyException{
+        //先校验该用户这一款产品是否有正在申请中或者还款中的记录，有的话，则不能再申请
+        List<DebitAndCredit> list = new ArrayList<DebitAndCredit>();
+        list = debitAndCreditDao.findRecord(customerFlowDebit.getDLnrId(),customerFlowDebit.getDProId());
+        if (list.size() != 0) {
+            return false;
+        }
         //校验年龄是否符合
         String identityCard = customerFlowDebit.getIdentityCard();
         Calendar ca = Calendar.getInstance();

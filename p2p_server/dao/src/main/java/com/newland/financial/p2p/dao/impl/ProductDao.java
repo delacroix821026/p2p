@@ -91,7 +91,7 @@ public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
      * @param id 用户编号
      * @return 包含产品status的集合
      */
-    public Object findCustomerFlowDebitStus(String id) {
+    public List<Product> findCustomerFlowDebitStus(String id) {
         return super.selects("selectsProductStatus",id);
     }
 }
