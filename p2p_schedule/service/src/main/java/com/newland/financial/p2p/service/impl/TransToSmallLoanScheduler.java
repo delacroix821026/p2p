@@ -2,6 +2,7 @@ package com.newland.financial.p2p.service.impl;
 
 import lombok.extern.java.Log;
 import org.springframework.batch.core.*;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
@@ -33,6 +34,8 @@ public class TransToSmallLoanScheduler {
         String runDay = new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(new Date());
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("runDay", runDay)
+                .addString("queryId", "selectSendOrderList")
+                .addString("statementId", "updateOrderSendStus")
                 .toJobParameters();
         //jobExecution.getJobParameters().getParameters().putAll(jobParameters.getParameters());
 
