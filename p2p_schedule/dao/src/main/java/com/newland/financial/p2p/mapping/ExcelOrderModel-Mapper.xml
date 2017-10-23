@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.ExcelOrderModelMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.ExcelOrderModel">
+        <id column="ODD_NUMBERS" property="oddNumbers" jdbcType="VARCHAR"/>
+        <result column="D_DATE" property="dDate" jdbcType="TIMESTAMP"/>
+        <result column="APPLY_NAME" property="applyName" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="D_MONEY" property="dMoney" jdbcType="NUMERIC"/>
+        <result column="DETAIL_ADD" property="detailAdd" jdbcType="VARCHAR"/>
+        <result column="IDENTITY_CARD" property="identityCard" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,LOAN_MONEY,CONTRACT_NUMBER
+    </sql>
+
+    <update id="updateOrderSendStus" parameterType="java.lang.String">
+        UPDATE customer_flow_debit SET IS_SEND = '1' WHERE ODD_NUMBERS=#{oddNumbers,jdbcType=VARCHAR}
+    </update>
+</mapper>
