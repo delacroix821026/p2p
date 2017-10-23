@@ -5,6 +5,7 @@ import com.newland.financial.p2p.service.ExampleService;
 import com.newland.financial.p2p.service.FeignService;
 import lombok.extern.java.Log;
 import org.ohuyo.libra.client.exception.LibraClientException;
+import org.ohuyo.libra.client.filter.UserContainer;
 import org.ohuyo.libra.client.session.LibraSession;
 import org.ohuyo.libra.client.session.LibraSessionUtils;
 import org.ohuyo.libra.client.util.LibraUtils;
@@ -54,24 +55,23 @@ public class Example {
         HttpSession session = request.getSession();
         log.info("ws controller add Enter:::::::::::::" + session.getAttribute("abc"));
 
-        /*
+
         HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-        log.info("--------LibraSession-----------------");
-        LibraSession s = LibraSessionUtils.getSession(request);
-        log.info("--------s-----------------" + s);
+        UserContainer libraSession = (UserContainer) req.getSession().getAttribute("USERINFO");
+
         String permissions = null;
         try {
-            permissions = s.getSharedAttribute("libraMasterClient", "permissions");
+            permissions = libraSession.getOrgList();
             log.info("--------LibraSession--------permissions---------" + permissions);
-            String organization = s.getSharedAttribute("libraMasterClient", "organization");
+            String organization = libraSession.getSharedAttribute("libraMasterClient", "organization");
             log.info("--------LibraSession--------organization---------" + organization);
-            String loginName = s.getSharedAttribute("libraMasterClient", "loginName");
+            String loginName = libraSession.getSharedAttribute("libraMasterClient", "loginName");
             log.info("--------LibraSession--------loginName---------" + loginName);
-            String userName = s.getSharedAttribute("libraMasterClient", "userName");
+            String userName = libraSession.getSharedAttribute("libraMasterClient", "userName");
             log.info("--------LibraSession--------userName---------" + userName);
         } catch (LibraClientException e) {
             e.printStackTrace();
-        }*/
+        }
 
         return feignService.add(5, 18);
     }

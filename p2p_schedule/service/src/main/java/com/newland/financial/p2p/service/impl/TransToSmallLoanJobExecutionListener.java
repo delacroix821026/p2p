@@ -12,15 +12,12 @@ import java.util.Date;
 public class TransToSmallLoanJobExecutionListener implements JobExecutionListener {
     public void beforeJob(JobExecution jobExecution) {
         log.info("Enter into TransToSmallLoanJobExecutionListener-beforeJob to creat Excel document");
-        String runDay = new SimpleDateFormat("yyyy-MM-dd HH-mm").format(new Date());
-        JobParameters jobParameters = new JobParametersBuilder()
-                .addString("runDay", runDay)
-                .toJobParameters();
-        jobExecution.getJobParameters().getParameters().putAll(jobParameters.getParameters());
 
+        String runDay = jobExecution.getJobParameters().getString("runDay");
         File file = null;
         try {
-            file = new File("/Users/daijuancen/Desktop/outputfile.csv");
+            log.info("runDay: " + runDay);
+            file = new File("/Users/daijuancen/Desktop/outputfile-" + runDay + ".csv");
             if(!file.exists())
                 file.createNewFile();
         } catch (IOException e) {

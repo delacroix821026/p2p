@@ -5,12 +5,17 @@ import com.thetransactioncompany.cors.CORSFilter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.ohuyo.libra.client.filter.SlaveClientFilter;
+import org.springframework.web.context.request.RequestContextListener;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
@@ -71,7 +76,7 @@ public class Application {
         return corsFilter;
     }
 
-    /*
+
     @Bean(name = "sessionFilter")
     public SlaveClientFilter addSlaveClientFilter() {
         SlaveClientFilter slaveClientFilter = new SlaveClientFilter();
@@ -86,5 +91,24 @@ public class Application {
         registration.addInitParameter("paramName", "paramValue");
         registration.setName("sessionFilter");
         return registration;
-    }*/
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean servletListenerRegistrationBean(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new RequestContextListener());
+        return servletListenerRegistrationBean;
+    }
+
+    @Bean
+    public RedisTemplate addRedisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate redisTemplate = new RedisTemplate();
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setValueSerializer(stringRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashValueSerializer(stringRedisSerializer);
+        redisTemplate.setConnectionFactory(connectionFactory);
+        return redisTemplate;
+    }
 }

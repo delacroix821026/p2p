@@ -9,6 +9,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextListener;
@@ -37,4 +40,15 @@ public class Application {
         return servletListenerRegistrationBean;
     }
 
+    @Bean
+    public RedisTemplate addRedisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate redisTemplate = new RedisTemplate();
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setValueSerializer(stringRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashValueSerializer(stringRedisSerializer);
+        redisTemplate.setConnectionFactory(connectionFactory);
+        return redisTemplate;
+    }
 }
