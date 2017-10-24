@@ -21,6 +21,10 @@ eureka:
             #defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
             defaultZone: #${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
 SMALLLOAN_FILE_ADDRESS: /Users/daijuancen/Desktop/outputfile-
+SMALLLOAN_HOST: 192.168.37.130
+SMALLLOAN_PORT: 21
+SMALLLOAN_USERNAME: ftptest
+SMALLLOAN_PASSWORD: ftptest
 
 ...
 
@@ -41,6 +45,10 @@ eureka:
         serviceUrl:
             defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
 SMALLLOAN_FILE_ADDRESS: /home/smallloan/outputfile-
+SMALLLOAN_HOST: 192.168.37.130
+SMALLLOAN_PORT: 21
+SMALLLOAN_USERNAME: ftptest
+SMALLLOAN_PASSWORD: ftptest
 ...
 
 ---

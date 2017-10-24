@@ -18,7 +18,7 @@
         ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,LOAN_MONEY,CONTRACT_NUMBER
     </sql>
 
-    <update id="updateOrderSendStus" parameterType="java.lang.String">
-        UPDATE customer_flow_debit SET IS_SEND = '1' WHERE ODD_NUMBERS=#{oddNumbers,jdbcType=VARCHAR}
+    <update id="updateOrderSendStus" parameterType="com.newland.financial.p2p.domain.entity.ExcelOrderModel">
+        UPDATE customer_flow_debit SET IS_SEND = #{isSend,jdbcType=VARCHAR} WHERE ODD_NUMBERS=#{oddNumbers,jdbcType=VARCHAR}
     </update>
 </mapper>
