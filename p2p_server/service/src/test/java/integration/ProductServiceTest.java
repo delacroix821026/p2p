@@ -238,6 +238,6 @@ public class ProductServiceTest {
         String userId = "123";
         Integer page = null;
         Integer count = null;
-        productService.findCustomerFlowDebitStus(userId, page, count);
+        productService.checkCustomerFlowDebitStus(userId, page, count);
     }
 }

@@ -69,5 +69,5 @@ public interface IProductService {
      * @param id 用户编号
      * @return
      */
-    Object findCustomerFlowDebitStus(String id, Integer page, Integer count);
+    Object checkCustomerFlowDebitStus(String id, Integer page, Integer count);
 }

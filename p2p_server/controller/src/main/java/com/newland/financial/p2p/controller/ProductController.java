@@ -349,6 +349,6 @@ public class ProductController {
         String dLnrId = paramJSON.getString("userId");
         Integer page = paramJSON.getInteger("page");
         Integer count = paramJSON.getInteger("count");
-        return productService.findCustomerFlowDebitStus(dLnrId, page, count);
+        return productService.checkCustomerFlowDebitStus(dLnrId, page, count);
     }
 }
