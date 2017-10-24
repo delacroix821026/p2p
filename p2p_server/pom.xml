@@ -258,6 +258,8 @@
                         </goals>
                         <configuration>
                             <skip>${junit.skipTests}</skip>
+                            <testFailureIgnore>${junit.testFailureIgnore}</testFailureIgnore>
+                            <argLine>${surefireArgLine}</argLine>
                             <includes>
                                 <include>**/integration/**/*.java</include>
                             </includes>
@@ -271,6 +273,8 @@
                         </goals>
                         <configuration>
                             <skip>${junit.skipTests}</skip>
+                            <testFailureIgnore>${junit.testFailureIgnore}</testFailureIgnore>
+                            <argLine>${surefireArgLine}</argLine>
                             <includes>
                                 <include>**/unit/**/*.java</include>
                             </includes>
@@ -311,7 +315,7 @@
                     -->
                     <execution>
                         <id>post-unit-test</id>
-                        <phase>test</phase>
+                        <phase>post-integration-test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
