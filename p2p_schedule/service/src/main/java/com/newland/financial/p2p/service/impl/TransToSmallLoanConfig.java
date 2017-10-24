@@ -1,7 +1,7 @@
 package com.newland.financial.p2p.service.impl;
 
 import com.google.common.collect.Lists;
-import com.newland.financial.p2p.common.batch.BaseCompositeItemWriter;
+import com.newland.financial.p2p.batch.BaseCompositeItemWriter;
 import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import com.newland.financial.p2p.domain.entity.ExcelOrderModel;
 import lombok.extern.log4j.Log4j;
