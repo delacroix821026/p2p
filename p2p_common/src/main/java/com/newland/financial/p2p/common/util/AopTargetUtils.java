@@ -1,4 +1,4 @@
-package com.newland.financial.p2p.common;
+package com.newland.financial.p2p.common.util;
 
 import org.springframework.aop.framework.AdvisedSupport;
 import org.springframework.aop.framework.AopProxy;

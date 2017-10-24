@@ -1,4 +1,4 @@
-package com.newland.financial.p2p.common.batch;
+package com.newland.financial.p2p.batch;
 
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;

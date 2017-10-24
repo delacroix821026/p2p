@@ -1,6 +1,6 @@
-package com.newland.financial.p2p.common.batch;
+package com.newland.financial.p2p.batch;
 
-import com.newland.financial.p2p.common.AopTargetUtils;
+import com.newland.financial.p2p.common.util.AopTargetUtils;
 import lombok.extern.log4j.Log4j;
 import org.springframework.batch.item.*;
 import org.springframework.beans.factory.InitializingBean;
