@@ -1,5 +1,4 @@
 
-*.xml
 *.iml
 *.class
 *.yml
@@ -22,3 +21,5 @@ p2p_server/domain/target/site/jacoco-ut/jacoco.csv
 p2p_server/domain/target/checkstyle-cachefile
 p2p_server/dao/target/checkstyle-cachefile
 .idea/workspace.xml___jb_tmp___
+*.xml
+*.iml___jb_tmp___
