@@ -60,18 +60,15 @@ public class Example {
         UserContainer libraSession = (UserContainer) req.getSession().getAttribute("USERINFO");
 
         String permissions = null;
-        try {
-            permissions = libraSession.getOrgList();
-            log.info("--------LibraSession--------permissions---------" + permissions);
-            String organization = libraSession.getSharedAttribute("libraMasterClient", "organization");
-            log.info("--------LibraSession--------organization---------" + organization);
-            String loginName = libraSession.getSharedAttribute("libraMasterClient", "loginName");
-            log.info("--------LibraSession--------loginName---------" + loginName);
-            String userName = libraSession.getSharedAttribute("libraMasterClient", "userName");
-            log.info("--------LibraSession--------userName---------" + userName);
-        } catch (LibraClientException e) {
-            e.printStackTrace();
-        }
+        permissions = libraSession.getOrgList();
+        log.info("--------LibraSession--------permissions---------" + permissions);
+        String organization = libraSession.getOrgList();
+        log.info("--------LibraSession--------organization---------" + organization);
+        String loginName = libraSession.getLoginName();
+        log.info("--------LibraSession--------loginName---------" + loginName);
+        String userName = libraSession.getUserName();
+        log.info("--------LibraSession--------userName---------" + userName);
+
 
         return feignService.add(5, 18);
     }
