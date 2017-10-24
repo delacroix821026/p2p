@@ -31,6 +31,8 @@ public class ExcelOrderModel extends BaseEntity {
     private String corpPhone;
     /**所拥有商户.*/
     private String merchantName;
+    /**是否已发送.*/
+    private String isSend;
 
     @Override
     public String toString() {
