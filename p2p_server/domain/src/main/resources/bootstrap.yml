@@ -1,5 +1,6 @@
 #spring-boot:run -Drun.arguments=--SPRING_PROFILES_ACTIVE=local,--DEVLOPER_NAME=Delacroix
 # java -jar target/xxx.jar --server.port=9090 --server.context-path=/Test
+#-javaagent:/Users/daijuancen/Desktop/maven_resp/org/springframework/springloaded/1.2.7.RELEASE/springloaded-1.2.7.RELEASE.jar -noverify
 
 ---
 spring:

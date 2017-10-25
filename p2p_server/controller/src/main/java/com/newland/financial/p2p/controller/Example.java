@@ -39,12 +39,14 @@ public class Example {
      * @param b Integer
      * @return Integer
      */
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add1", method = RequestMethod.GET)
     public Integer add(@RequestParam final Integer a, @RequestParam final Integer b) {
         ServiceInstance instance = client.getLocalServiceInstance();
         Integer r = a + b;
         log.info("/add, host:" + instance.getHost()
                 + ", service_id:" + instance.getServiceId() + ", result:" + r);
-        return r;
+        return testInteger;
     }
+
+    private Integer testInteger = new Integer(10);
 }
