@@ -48,9 +48,10 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
 
     /**
      * 获取某用户的所有还款单.
-     *@param oddNumbers 申请单号
+     *
+     * @param oddNumbers 申请单号
      * @return List返回该申请单号所有的还款单
-     * */
+     */
     public List<RepayALoan> findByOddNumbers(String oddNumbers) {
         Map<String, Object> map = new HashMap<String, Object>();
         if (oddNumbers != null && oddNumbers.length() != 0) {
@@ -81,7 +82,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
         calendar.set(Calendar.DATE,
                 calendar.getActualMaximum(Calendar.DATE)); // 设置日期为本月最大日期
         Date date = calendar.getTime(); //本月最后一天
-        return findUnPay(userId, 0, date,null); //月末
+        return findUnPay(userId, 0, date, null); //月末
     }
 
     /**
@@ -91,7 +92,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @return BigDecimal返回用户已还款总额
      */
     public BigDecimal findYetPay(final String userId) {
-        return findUnPay(userId, 1, null,null);
+        return findUnPay(userId, 1, null, null);
     }
 
     /**
@@ -101,7 +102,7 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @return BigDecimal返回未还款总额
      */
     public BigDecimal findNeedPay(final String userId) {
-        return findUnPay(userId, 0, null,null);
+        return findUnPay(userId, 0, null, null);
     }
 
     /**
@@ -144,10 +145,11 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
      * @param userId String
      * @param status Integer
      * @param date   Date
+     * @param debitId 贷款单编号
      * @return BigDecimal
      */
     private BigDecimal findUnPay(final String userId, final Integer status,
-                                 final Date date,String debitId) {
+                                 final Date date, String debitId) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);
         map.put("payDate", date);
@@ -164,30 +166,35 @@ public class RepayALoanDao extends MybatisBaseDao<RepayALoan>
 
     /**
      * 某人某产品本月应还金额.
+     *
      * @param debitId 贷款单编号
      * @return 应还金额
      */
-    public BigDecimal findUnPayByDebitId(String debitId){
+    public BigDecimal findUnPayByDebitId(String debitId) {
         Calendar calendar = Calendar.getInstance(); // 获取Calendar
         calendar.set(Calendar.DATE,
                 calendar.getActualMaximum(Calendar.DATE)); // 设置日期为本月最大日期
         Date date = calendar.getTime(); //本月最后一天
-        return findUnPay(null,0,date,debitId);
+        return findUnPay(null, 0, date, debitId);
     }
+
     /**
      * 某人某产品已还金额.
+     *
      * @param debitId 贷款单编号
      * @return 应还金额
      */
-    public BigDecimal findYetPayByDebitId(String debitId){
-        return findUnPay(null,1,null,debitId);
+    public BigDecimal findYetPayByDebitId(String debitId) {
+        return findUnPay(null, 1, null, debitId);
     }
+
     /**
      * 某人某产品待还金额.
+     *
      * @param debitId 贷款单编号
      * @return 应还金额
      */
-    public BigDecimal findNeedPayByDebitId(String debitId){
-        return findUnPay(null,0,null,debitId);
+    public BigDecimal findNeedPayByDebitId(String debitId) {
+        return findUnPay(null, 0, null, debitId);
     }
 }

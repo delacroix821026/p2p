@@ -24,22 +24,26 @@ public class CustomerFlowDebitDao extends
         boolean b2 = super.insert("insertIntoDebit", customerFlowDebit);
         return b1 && b2;
     }
+
     /**
      * 贷款单分页查询.
+     *
      * @param reqMap 分页查询条件
      * @return 分页结果集
      */
     public List<CustomerFlowDebit> findAll(Map<String, Object> reqMap) {
-        return super.select("selectList",reqMap);
+        return super.select("selectList", reqMap);
     }
+
     /**
      * 根据用户ID删除数据，测试专用.
+     *
      * @param userId 用户编号
      * @return true or false
      */
     public boolean deleteByUserId(String userId) {
         if (userId != null && userId.length() != 0) {
-            return super.deletes("deleteTestData",userId);
+            return super.deletes("deleteTestData", userId);
         }
         return false;
     }

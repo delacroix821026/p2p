@@ -229,6 +229,7 @@ public class LenderController {
      * 申请面签产品.
      * @param jsonStr 申请产品包含的信息
      * @return Object
+     * @throws AgeDiscrepancyException 年龄不符合
      */
     @ResponseBody
     @RequestMapping(value = "/ApplyInterviewPro",
@@ -279,7 +280,7 @@ public class LenderController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
         String proId = paramJSON.getString("proId");
-        return repayALoanService.findRepayAloanInfo(userId,proId);
+        return repayALoanService.findRepayAloanInfo(userId, proId);
     }
 
     /**
@@ -294,7 +295,7 @@ public class LenderController {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
-        if (userId == null || userId.length() == 0){
+        if (userId == null || userId.length() == 0) {
             return false;
         }
         return debitAndCreditService.findAllProStatus(userId);

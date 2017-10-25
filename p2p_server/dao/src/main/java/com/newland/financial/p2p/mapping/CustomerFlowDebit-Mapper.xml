@@ -24,6 +24,13 @@
         <result column="TOTLE_NEED_REPAY" property="totleNeedRepay" jdbcType="NUMERIC"/>
         <result column="YET_REPAY" property="yetRepay" jdbcType="NUMERIC"/>
         <result column="NEED_REPAY" property="needRepay" jdbcType="NUMERIC"/>
+        <result column="REPAYED_CORPUS" property="repayedCorpus" jdbcType="NUMERIC"/>
+        <result column="REPAYED_INTEREST" property="repayedInterest" jdbcType="NUMERIC"/>
+        <result column="UNPAY_CORPUS" property="unpayCorpus" jdbcType="NUMERIC"/>
+        <result column="UNPAY_INTEREST" property="unpayInterest" jdbcType="NUMERIC"/>
+        <result column="REPAYED_OVERDUE" property="repayedOverdue" jdbcType="NUMERIC"/>
+        <result column="REPAYED_SER_FEE" property="repayedSerFee" jdbcType="NUMERIC"/>
+        <result column="FEE_OVERDUE" property="feeOverdue" jdbcType="NUMERIC"/>
 
         <result column="D_ITT_ID" property="dIttId" jdbcType="VARCHAR"/>
         <result column="D_LNR_ID" property="dLnrId" jdbcType="VARCHAR"/>
@@ -42,10 +49,13 @@
         <result column="LOAN_MONEY" property="loanMoney" jdbcType="NUMERIC"/>
         <result column="TOTLE_INTREST" property="totleInterest" jdbcType="NUMERIC"/>
         <result column="SERVICE_CHARGE" property="serviceCharge" jdbcType="NUMERIC"/>
+        <result column="LINE_OF_CREDIT" property="lineOfCredit" jdbcType="NUMERIC"/>
+        <result column="MERCHANT_NUM" property="merchantNum" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,CONTRACT_NUMBER,TOTLE_NEED_REPAY,YET_REPAY,NEED_REPAY
+        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,CONTRACT_NUMBER,TOTLE_NEED_REPAY,YET_REPAY,NEED_REPAY,
+        REPAYED_CORPUS,REPAYED_INTEREST,UNPAY_CORPUS,UNPAY_INTEREST,REPAYED_OVERDUE,REPAYED_SER_FEE,FEE_OVERDUE
     </sql>
 
 
@@ -56,33 +66,35 @@
         (#{id,jdbcType=VARCHAR},#{dtId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{applyName,jdbcType=VARCHAR},#{identityCard,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},
         #{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{region,jdbcType=VARCHAR},#{detailAdd,jdbcType=VARCHAR},#{effective,jdbcType=VARCHAR},#{isSend,jdbcType=VARCHAR},
         #{oddNumbers,jdbcType=VARCHAR},#{starAccount,jdbcType=VARCHAR},#{contractNumber,jdbcType=VARCHAR},#{totleNeedRepay,jdbcType=NUMERIC}
-        ,#{yetRepay,jdbcType=NUMERIC},#{needRepay,jdbcType=NUMERIC})
+        ,#{yetRepay,jdbcType=NUMERIC},#{needRepay,jdbcType=NUMERIC},#{repayedCorpus,jdbcType=NUMERIC},#{repayedInterest,jdbcType=NUMERIC},#{unpayCorpus,jdbcType=NUMERIC},
+        #{unpayInterest,jdbcType=NUMERIC},#{repayedOverdue,jdbcType=NUMERIC},#{repayedSerFee,jdbcType=NUMERIC},#{feeOverdue,jdbcType=NUMERIC})
     </insert>
     <!--插入贷款表中-->
     <insert id="insertIntoDebit" parameterType="com.newland.financial.p2p.domain.entity.CustomerFlowDebit">
         INSERT INTO t_debitandcredit
-        (DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE,LAST_REPAY_DATE,STUS,LOAN_DATE,LOAN_MONEY,TOTLE_INTREST,SERVICE_CHARGE) VALUES
+        (DT_ID,D_ITT_ID,D_LNR_ID,D_PRO_ID,D_PRO_NAME,D_PRO_LMT,D_TIMES,D_ITT_RA,D_MONEY,D_BEF,D_AFT,D_DATE,LAST_REPAY_DATE,STUS,LOAN_DATE,LOAN_MONEY,TOTLE_INTREST,SERVICE_CHARGE,LINE_OF_CREDIT,MERCHANT_NUM) VALUES
         (#{dtId,jdbcType=VARCHAR},#{dIttId,jdbcType=VARCHAR},#{dLnrId,jdbcType=VARCHAR},#{dProId,jdbcType=VARCHAR},
         #{dProName,jdbcType=VARCHAR},#{dProLmt,jdbcType=NUMERIC},#{dTimes,jdbcType=NUMERIC},
         #{dIttRa,jdbcType=NUMERIC},#{dMoney,jdbcType=NUMERIC},#{dBef,jdbcType=NUMERIC},#{dAft,jdbcType=NUMERIC},
         #{dDate,jdbcType=TIMESTAMP},#{lastRePayDate,jdbcType=DATE},#{stus,jdbcType=VARCHAR},
-        #{loanDate,jdbcType=DATE},#{loanMoney,jdbcType=NUMERIC},#{totleInterest,jdbcType=NUMERIC},#{serviceCharge,jdbcType=NUMERIC})
+        #{loanDate,jdbcType=DATE},#{loanMoney,jdbcType=NUMERIC},#{totleInterest,jdbcType=NUMERIC},#{serviceCharge,jdbcType=NUMERIC},#{lineOfCredit,jdbcType=NUMERIC},
+        #{merchantNum,jdbcType=VARCHAR})
     </insert>
     <!--查询所有面签贷款单-->
     <select id="selectList" resultMap="BaseResultMap" parameterType="Map">
-        SELECT a.*,b.D_ITT_ID,b.D_PRO_ID,b.D_PRO_NAME,b.D_ITT_RA,b.D_MONEY,b.TOTLE_INTREST,b.SERVICE_CHARGE,b.D_DATE,b.LAST_REPAY_DATE,b.STUS,b.LOAN_DATE,b.LOAN_MONEY
+        SELECT a.*,b.D_ITT_ID,b.D_PRO_ID,b.D_PRO_NAME,b.D_ITT_RA,b.D_MONEY,b.TOTLE_INTREST,b.SERVICE_CHARGE,b.D_DATE,b.LAST_REPAY_DATE,b.STUS,b.LOAN_DATE,b.LOAN_MONEY,b.LINE_OF_CREDIT,b.MERCHANT_NUM
         FROM customer_flow_debit a,t_debitandcredit b WHERE a.DT_ID = b.DT_ID
         <if test="proId != null">
-            AND b.D_PRO_ID = #{proId}
+            AND b.D_PRO_ID like CONCAT('%','${proId}','%')
         </if>
         <if test="proName != null">
-            AND b.D_PRO_NAME = #{proName}
+            AND b.D_PRO_NAME like CONCAT('%','${proName}','%')
         </if>
         <if test="oddNumbers != null">
-            AND a.ODD_NUMBERS = #{oddNumbers}
+            AND a.ODD_NUMBERS like CONCAT('%','${oddNumbers}','%')
         </if>
         <if test="contractNumber != null">
-            AND a.CONTRACT_NUMBER = #{contractNumber}
+            AND a.CONTRACT_NUMBER like CONCAT('%','${contractNumber}','%')
         </if>
         <if test="begTime != null">
             AND b.D_DATE &gt; #{begTime}

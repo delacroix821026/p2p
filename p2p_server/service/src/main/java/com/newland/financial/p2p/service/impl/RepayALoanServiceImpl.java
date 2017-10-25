@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 对还款单进行操作的service类.
@@ -133,7 +131,7 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
     public Object findRepayAloanInfo(String userId, String proId) {
         //先去贷款表中查出相应有分期计划的对应某一产品的贷款单编号，该记录只会有一条
         String debitId = debitAndCreditDao.selectDebitId(userId, proId);
-        if (debitId != null && debitId.length() != 0){
+        if (debitId != null && debitId.length() != 0) {
             if (userId != null && userId.length() != 0 && proId != null && proId.length() != 0) {
                 logger.info("RepayALoanServiceImpl------");
                 DebitAndRepaySummary debitAndRepaySummary = new DebitAndRepaySummary();

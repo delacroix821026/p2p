@@ -1,8 +1,5 @@
 package com.newland.financial.p2p.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.newland.financial.p2p.domain.entity.Lender;
 import com.newland.financial.p2p.service.IDebitAndCreditService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 处理贷款单的Controller.
+ * @author Mxia
+ */
 @Controller
 @RequestMapping("/DebitAndCreditController")
 public class DebitAndCreditController {

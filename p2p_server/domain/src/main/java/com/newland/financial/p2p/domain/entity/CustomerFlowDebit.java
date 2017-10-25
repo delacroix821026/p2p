@@ -43,4 +43,18 @@ public class CustomerFlowDebit extends DebitAndCredit {
     private BigDecimal yetRepay;
     /**待还总金额.*/
     private BigDecimal needRepay;
+    /**已还本金.*/
+    private BigDecimal repayedCorpus;
+    /**已还利息.*/
+    private BigDecimal repayedInterest;
+    /**待还本金.*/
+    private BigDecimal unpayCorpus;
+    /**待还利息.*/
+    private BigDecimal unpayInterest;
+    /**应还滞纳金.*/
+    private BigDecimal feeOverdue;
+    /**已还滞纳金.*/
+    private BigDecimal repayedOverdue;
+    /**已还手续费.*/
+    private BigDecimal repayedSerFee;
 }

@@ -65,14 +65,19 @@ public class ProductServiceTest {
         Assert.assertEquals("latefee not same", new BigDecimal("20.00"), product.getLatefee());
     }
 
-    //    @Test
-//    public void B_testUpdatePutAndDown() {
-//        String proId = "cs001";
-//        String putAndDown = "1";
-//        productService.updatePutAndDown(proId,putAndDown);
-//        Product product = (Product) productService.getProduct("cs001");
-//        Assert.assertEquals("putAndDown not same","1",product.getPutAndDown());
-//    }
+    @Test
+    public void B_testUpdatePutAndDown() {
+        String proId = "cs001";
+        String putAndDown = "3";
+        productService.updatePutAndDown(proId, putAndDown);
+        Product product = (Product) productService.getProduct("cs001");
+        Assert.assertEquals("putAndDown not same", "3", product.getPutAndDown());
+
+        String proId1 = "cs001";
+        String putAndDown1 = "1";
+        productService.updatePutAndDown(proId1, putAndDown1);
+    }
+
     @Test
     public void deleteData() {
         productDao.deleteProduct("cs001");
@@ -229,8 +234,20 @@ public class ProductServiceTest {
         String role = "2";
         String organization = "100";
         Integer page = null;
-        Integer count = 3;
+        Integer count = null;
         productService.findAppProducts(role, organization, page, count);
+
+        String role1 = "2";
+        String organization1 = "100";
+        Integer page1 = 0;
+        Integer count1 = 0;
+        productService.findAppProducts(role1, organization1, page1, count1);
+
+        String role2 = "2";
+        String organization2 = "100";
+        Integer page2 = 1;
+        Integer count2 = 5;
+        productService.findAppProducts(role2, organization2, page2, count2);
     }
 
     @Test
@@ -239,5 +256,15 @@ public class ProductServiceTest {
         Integer page = null;
         Integer count = null;
         productService.checkCustomerFlowDebitStus(userId, page, count);
+
+        String userId1 = "123";
+        Integer page1 = 0;
+        Integer count1 = 0;
+        productService.checkCustomerFlowDebitStus(userId1, page1, count1);
+
+        String userId2 = "123";
+        Integer page2 = 1;
+        Integer count2 = 5;
+        productService.checkCustomerFlowDebitStus(userId2, page2, count2);
     }
 }

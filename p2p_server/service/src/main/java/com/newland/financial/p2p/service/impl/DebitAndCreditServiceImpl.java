@@ -4,8 +4,22 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.newland.financial.p2p.dao.*;
-import com.newland.financial.p2p.domain.entity.*;
+import com.newland.financial.p2p.dao.IDebitAndCreditDao;
+import com.newland.financial.p2p.dao.ILenderDao;
+import com.newland.financial.p2p.dao.IProductDao;
+import com.newland.financial.p2p.dao.IRepayALoanDao;
+import com.newland.financial.p2p.dao.IInterestDao;
+import com.newland.financial.p2p.dao.ICustomerFlowDebitDao;
+import com.newland.financial.p2p.domain.entity.AbstractProduct;
+import com.newland.financial.p2p.domain.entity.DebitAndCredit;
+import com.newland.financial.p2p.domain.entity.DebitAndCreditFactory;
+import com.newland.financial.p2p.domain.entity.Lender;
+import com.newland.financial.p2p.domain.entity.RepayALoan;
+import com.newland.financial.p2p.domain.entity.RepayALoanFactory;
+import com.newland.financial.p2p.domain.entity.Interest;
+import com.newland.financial.p2p.domain.entity.Product;
+import com.newland.financial.p2p.domain.entity.DebitAndRepaySummary;
+import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import com.newland.financial.p2p.service.IDebitAndCreditService;
 import com.newland.financial.p2p.common.exception.OverloadException;
 import org.slf4j.Logger;
@@ -15,7 +29,11 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * 贷款单的service数据处理层.
@@ -225,8 +243,10 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
         }
         return false;
     }
+
     /**
-     *分页查询贷款单信息.
+     * 分页查询贷款单信息.
+     *
      * @param jsonStr 分页信息
      * @return 结果集
      */
@@ -265,16 +285,25 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
             logger.info("---------------------------------" + endTime);
         }
         Map<String, Object> reqMap = new HashMap<String, Object>();
-        if (!"".equals(proId)) {
+        if ("".equals(proId)) {
+            reqMap.put("proId", null);
+        } else {
             reqMap.put("proId", proId);
         }
-        if (!"".equals(proName)) {
+        if ("".equals(proName)) {
+            reqMap.put("proName", null);
+        } else {
             reqMap.put("proName", proName);
         }
-        if (!"".equals(oddNumbers)) {
+        if ("".equals(oddNumbers)) {
+            reqMap.put("oddNumbers", null);
+            logger.info("=====oddNumbers=====" + oddNumbers);
+        } else {
             reqMap.put("oddNumbers", oddNumbers);
         }
-        if (!"".equals(oddNumbers)) {
+        if ("".equals(contractNumber)) {
+            reqMap.put("contractNumber", null);
+        } else {
             reqMap.put("contractNumber", contractNumber);
         }
         reqMap.put("begTime", begTime);

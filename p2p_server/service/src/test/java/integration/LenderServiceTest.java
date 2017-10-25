@@ -49,8 +49,9 @@ public class LenderServiceTest {
         customerFlowDebit.setDMoney(new BigDecimal("200000"));
     }
 
-    @Test
+    @Test(expected = AgeDiscrepancyException.class)
     public void testInsertDebitInfo() throws AgeDiscrepancyException {
+        //正常情况
         lenderService.insertDebitInfo(customerFlowDebit);
         Map<String, Object> map = new HashMap<String, Object>();
         String proId = "shls002";
@@ -62,6 +63,19 @@ public class LenderServiceTest {
             Assert.assertEquals("identitycard not same","340521198902104612",cs.getIdentityCard());
             Assert.assertEquals("dmoney not same",new BigDecimal("200000.00"),cs.getDMoney());
         }
+        //已经存在申请中或还计划的情况
+        lenderService.insertDebitInfo(customerFlowDebit);
+        //年龄不符合的情况
+        customerFlowDebit.setDProId("shls003");
+        customerFlowDebit.setIdentityCard("340521201612314612");
+        lenderService.insertDebitInfo(customerFlowDebit);
+        customerFlowDebit.setIdentityCard("340521190012314612");
+        lenderService.insertDebitInfo(customerFlowDebit);
+
+        customerFlowDebit.setDProId("shls003");
+        customerFlowDebit.setIdentityCard("340521201601014612");
+        lenderService.insertDebitInfo(customerFlowDebit);
+        customerFlowDebit.setIdentityCard("340521190001014612");
         lenderService.insertDebitInfo(customerFlowDebit);
     }
 

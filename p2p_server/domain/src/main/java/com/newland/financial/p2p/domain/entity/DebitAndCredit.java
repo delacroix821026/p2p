@@ -79,4 +79,8 @@ public class DebitAndCredit extends BaseEntity {
     private BigDecimal totleInterest;
     /**手续费总额.*/
     private BigDecimal serviceCharge;
+    /**授信额度.*/
+    private BigDecimal lineOfCredit;
+    /**绑定的商户号.*/
+    private String merchantNum;
 }

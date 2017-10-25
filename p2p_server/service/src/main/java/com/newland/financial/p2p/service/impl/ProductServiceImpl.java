@@ -4,7 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.newland.financial.p2p.dao.*;
+import com.newland.financial.p2p.dao.IInterestDao;
+import com.newland.financial.p2p.dao.IOrganizationDao;
+import com.newland.financial.p2p.dao.IProductDao;
+import com.newland.financial.p2p.dao.IDebitAndCreditDao;
 import com.newland.financial.p2p.domain.entity.Product;
 import com.newland.financial.p2p.domain.entity.Organization;
 import com.newland.financial.p2p.domain.entity.Interest;
@@ -321,20 +324,17 @@ public class ProductServiceImpl implements IProductService {
         if (createTimeBeg != null) {
             Date begTimeDate = new Date(createTimeBeg);
             begTime = sdf.format(begTimeDate);
-            System.out.println("---------------------------------" + begTime);
+            logger.info("---------------------------------" + begTime);
         }
         if (createTimeEnd != null) {
             Date endTimeDate = new Date(createTimeEnd);
             endTime = sdf.format(endTimeDate);
-            System.out.println("---------------------------------" + endTime);
+            logger.info("---------------------------------" + endTime);
         }
-//        String begTime = "1043078400000";
-//        String endTime = "1167494400000";
-
         Map<String, Object> reqMap = new HashMap<String, Object>();
-        System.out.println("*****************************role:" + role);
-        System.out.println("*****************************proId:" + proId);
-        System.out.println("*****************************proName:" + proName);
+        logger.info("*****************************role:" + role);
+        logger.info("*****************************proId:" + proId);
+        logger.info("*****************************proName:" + proName);
         if (!"".equals(role)) {
             reqMap.put("role", role);
         }
@@ -366,8 +366,8 @@ public class ProductServiceImpl implements IProductService {
      *
      * @param role         角色
      * @param organization 机构号
-     * @param page 当前页
-     * @param count 每页显示的条数
+     * @param page         当前页
+     * @param count        每页显示的条数
      * @return 产品集合
      */
     public Object findAppProducts(String role, String organization, Integer page, Integer count) {
@@ -387,9 +387,13 @@ public class ProductServiceImpl implements IProductService {
         PageInfo<Product> pageInfo = new PageInfo<Product>(productList);
         return pageInfo;
     }
+
     /**
-     *查看用户各产品的贷款状态.
+     * 查看用户各产品的贷款状态.
+     *
      * @param id 用户编号
+     * @param page 当前页
+     * @param count 每页显示条数
      * @return 包含产品status的集合
      */
     public Object checkCustomerFlowDebitStus(String id, Integer page, Integer count) {

@@ -23,6 +23,7 @@ public interface ILenderService {
      *申请面签产品，将信息插入贷款表中.
      * @param customerFlowDebit 贷款实体
      * @return true or false
+     * @throws AgeDiscrepancyException has an error 年龄不符合
      */
     boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit) throws AgeDiscrepancyException;
 }

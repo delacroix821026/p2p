@@ -15,7 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.UUID;
+import java.util.Random;
 
 /**
  * 对用户进行操作的service类.
@@ -24,28 +29,18 @@ import java.util.*;
  */
 @Service
 public class LenderServiceImpl implements ILenderService {
-    /**
-     * 日志对象.
-     */
+    /**日志对象.*/
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    /**
-     * Dao层对象.
-     */
+    /**Dao层对象.*/
     @Autowired
     private ILenderDao lenderDao;
-    /**
-     * Dao层对象.
-     */
+    /**Dao层对象.*/
     @Autowired
     private IDebitAndCreditDao debitAndCreditDao;
-    /**
-     * Dao层对象.
-     */
+    /**Dao层对象.*/
     @Autowired
     private IRepayALoanDao repayALoanDao;
-    /**
-     * Dao层对象.
-     */
+    /** Dao层对象.*/
     @Autowired
     private ICustomerFlowDebitDao customerFlowDebitDao;
 
@@ -77,11 +72,12 @@ public class LenderServiceImpl implements ILenderService {
      *
      * @param customerFlowDebit 贷款实体
      * @return true or false
+     * @throws AgeDiscrepancyException throw an error 年龄不符合
      */
-    public boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit) throws AgeDiscrepancyException{
+    public boolean insertDebitInfo(CustomerFlowDebit customerFlowDebit) throws AgeDiscrepancyException {
         //先校验该用户这一款产品是否有正在申请中或者还款中的记录，有的话，则不能再申请
         List<DebitAndCredit> list = new ArrayList<DebitAndCredit>();
-        list = debitAndCreditDao.findRecord(customerFlowDebit.getDLnrId(),customerFlowDebit.getDProId());
+        list = debitAndCreditDao.findRecord(customerFlowDebit.getDLnrId(), customerFlowDebit.getDProId());
         if (list.size() != 0) {
             return false;
         }
@@ -90,14 +86,14 @@ public class LenderServiceImpl implements ILenderService {
         Calendar ca = Calendar.getInstance();
         int nowYear = ca.get(Calendar.YEAR);
         int nowMonth = ca.get(Calendar.MONTH) + 1;
-        int IDYear = Integer.parseInt(identityCard.substring(6, 10));
-        int IDMonth = Integer.parseInt(identityCard.substring(10, 12));
-        if ((IDMonth - nowMonth) >= 0) {
-            if (nowYear - IDYear - 1 < 18 || nowYear - IDYear - 1 > 60) {
+        int idYear = Integer.parseInt(identityCard.substring(6, 10));
+        int idMonth = Integer.parseInt(identityCard.substring(10, 12));
+        if ((idMonth - nowMonth) >= 0) {
+            if (nowYear - idYear - 1 < 18 || nowYear - idYear - 1 > 60) {
                 throw new AgeDiscrepancyException("年龄需要在18到60岁之间");
             }
         } else {
-            if (nowYear - IDYear < 18 || nowYear - IDYear > 60) {
+            if (nowYear - idYear < 18 || nowYear - idYear > 60) {
                 throw new AgeDiscrepancyException("年龄需要在18到60岁之间");
             }
         }
@@ -112,10 +108,10 @@ public class LenderServiceImpl implements ILenderService {
         Date date = new Date();
         StringBuffer s = new StringBuffer(sdf.format(date));
         Random r = new Random();
-        s.append(r.nextInt(10000)+"");
+        s.append(r.nextInt(10000) + "");
         customerFlowDebit.setOddNumbers(new String(s));
         customerFlowDebit.setDDate(date);
-        logger.info("lenderService--insertDebitInfo--customerFlowDebit:"+customerFlowDebit.toString());
+        logger.info("lenderService--insertDebitInfo--customerFlowDebit:" + customerFlowDebit.toString());
         return customerFlowDebitDao.insertDebitInfo(customerFlowDebit);
     }
 }
