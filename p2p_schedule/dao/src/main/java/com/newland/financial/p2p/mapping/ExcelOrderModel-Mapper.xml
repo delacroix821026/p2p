@@ -12,13 +12,11 @@
         <result column="D_MONEY" property="dMoney" jdbcType="NUMERIC"/>
         <result column="DETAIL_ADD" property="detailAdd" jdbcType="VARCHAR"/>
         <result column="IDENTITY_CARD" property="identityCard" jdbcType="VARCHAR"/>
+        <result column="TRANSFORM_TIME" property="transformTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        ID,DT_ID,D_LNR_ID,APPLY_NAME,IDENTITY_CARD,PHONE,PROVINCE,CITY,REGION,DETAIL_ADD,EFFECTIVE,IS_SEND,ODD_NUMBERS,STAR_ACCOUNT,LOAN_MONEY,CONTRACT_NUMBER
-    </sql>
-
-    <update id="updateOrderSendStus" parameterType="java.lang.String">
-        UPDATE customer_flow_debit SET IS_SEND = '1' WHERE ODD_NUMBERS=#{oddNumbers,jdbcType=VARCHAR}
+    <update id="updateOrderSendStus" parameterType="com.newland.financial.p2p.domain.entity.ExcelOrderModel">
+        UPDATE customer_flow_debit SET IS_SEND = #{isSend,jdbcType=VARCHAR},TRANSFORM_TIME = #{transformTime,jdbcType=TIMESTAMP}
+        WHERE ODD_NUMBERS=#{oddNumbers,jdbcType=VARCHAR}
     </update>
 </mapper>

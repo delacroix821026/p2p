@@ -29,7 +29,7 @@ public class SessionFilter extends ZuulFilter {
     public Object run() {
 
         RequestContext ctx = RequestContext.getCurrentContext();
-        HttpSession httpSession = ctx.getRequest().getSession(false);
+        HttpSession httpSession = ctx.getRequest().getSession();//false
         if(httpSession.getAttribute("USERINFO") == null) {
             log.info("USER_INFO in session is null");
             /*httpSession.setAttribute("abc", "123");

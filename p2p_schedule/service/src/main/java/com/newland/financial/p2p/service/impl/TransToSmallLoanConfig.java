@@ -46,9 +46,9 @@ public class TransToSmallLoanConfig {
     @StepScope
     public ItemWriter getFlatFileItemWriter(@Value("#{jobParameters['runDay']}") String runDay) throws URISyntaxException, MalformedURLException {
         //String runDay = "";
-        log.info("runDay:" + address + runDay + ".csv");
+        log.info("runDay:" + address +"outputfile-"+ runDay + ".csv");
         FlatFileItemWriter flatFileItemWriter = new FlatFileItemWriter();
-        flatFileItemWriter.setResource(new PathResource(address + runDay + ".csv"));
+        flatFileItemWriter.setResource(new PathResource(address +"outputfile-"+ runDay + ".csv"));
         DelimitedLineAggregator delimitedLineAggregator = new DelimitedLineAggregator();
         delimitedLineAggregator.setDelimiter(",");
         BeanWrapperFieldExtractor beanWrapperFieldExtractor = new BeanWrapperFieldExtractor();
