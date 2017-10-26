@@ -1,5 +1,7 @@
 #spring-boot:run -Drun.arguments=--SPRING_PROFILES_ACTIVE=local,--DEVLOPER_NAME=Delacroix
 # java -jar target/xxx.jar --server.port=9090 --server.context-path=/Test
+#-javaagent:/Users/daijuancen/Desktop/maven_resp/org/springframework/springloaded/1.2.7.RELEASE/springloaded-1.2.7.RELEASE.jar -noverify
+
 
 ---
 spring:
@@ -20,6 +22,12 @@ eureka:
         serviceUrl:
             #defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
             defaultZone: #${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
+SMALLLOAN_FILE_ADDRESS: /Users/daijuancen/Desktop/
+SMALLLOAN_HOST: 192.168.37.130
+SMALLLOAN_PORT: 21
+SMALLLOAN_USERNAME: ftptest
+SMALLLOAN_PASSWORD: ftptest
+SMALLLOAN_DESTPATH: D:\scheduel\temp\
 
 ...
 
@@ -39,11 +47,17 @@ eureka:
     client:
         serviceUrl:
             defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
+SMALLLOAN_FILE_ADDRESS: /home/smallloan/
+SMALLLOAN_HOST: 192.168.37.130
+SMALLLOAN_PORT: 21
+SMALLLOAN_USERNAME: ftptest
+SMALLLOAN_PASSWORD: ftptest
+SMALLLOAN_DESTPATH: /home/smallloan/temp/
 ...
 
 ---
 server:
-    port: ${SERVER_PORT:3001}
+    port: ${SERVER_PORT:7101}
 ...
 
 ---

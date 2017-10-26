@@ -18,51 +18,80 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * ftp上传.
+ * @author gregory
+ */
 @Log4j
 public class TransforToFtpTasklet implements Tasklet {
-
+    /**csv文件地址.*/
     @Value("${SMALLLOAN_FILE_ADDRESS}")
     private String address;
-
+    /**FTP HOST.*/
     @Value("${SMALLLOAN_HOST}")
     private String host;
-
+    /**FTP PORT.*/
     @Value("${SMALLLOAN_PORT}")
     private int port;
-
+    /**用户名.*/
     @Value("${SMALLLOAN_USERNAME}")
     private String username;
-
+    /**密码.*/
     @Value("${SMALLLOAN_PASSWORD}")
     private String password;
+    /**历史文件保存目录.*/
+    @Value("${SMALLLOAN_DESTPATH}")
+    private String destPath;
+
+    /**
+     * 上传每日申请中的订单信息
+     * @param stepContribution  stepContribution
+     * @param chunkContext  stepContribution
+     * @return  RepeatStatus
+     * @throws Exception
+     */
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
         log.info("TransforToFtpProcessor:process ftp");
-        String[] strs = null;
         List<String> filePathList = new ArrayList<>();
         File file = new File(address);
         if (file.isDirectory()){
             File[] fileArray = file.listFiles();
             for(int i=0;i<fileArray.length;i++){
-                String temp = fileArray[i].getPath();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                if(temp.endsWith(".csv")){
-                    String fileDate = temp.substring(temp.length()-20,temp.length()-10);
-                    if(sdf.format(new Date()).equals(fileDate)){
-                        filePathList.add(temp);
-                    }
+                String filePath = fileArray[i].getPath();
+                String fileName = fileArray[i].getName();
+                if(fileName.endsWith(".csv")){
+                    filePathList.add(filePath);
                 }
             }
         }
-        Object[] obj = filePathList.toArray();
-        strs = new String[obj.length];
-        for(int i = 0;i<obj.length;i++){
-            strs[i] = (String) obj[i];
-            log.debug("--------------------------------------csvFilePath:"+strs[i]);
+        //上传文件
+        for(int i = 0;i<filePathList.size();i++){
+            File srcFile = new File(filePathList.get(i));
+            FileInputStream fis = new FileInputStream(srcFile);
+            uploadFile(host,port,username,password,srcFile.getName(),fis);
         }
-        String zipName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        writeZip(strs,zipName,address);
-        FileInputStream fio = new FileInputStream(new File(address+zipName+".zip"));
-        uploadFile(host,port,username,password,zipName+".zip",fio);
+//        String zipName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+//        writeZip(strs,zipName,address);
+//        FileInputStream fio = new FileInputStream(new File(address+zipName+".zip"));
+//        uploadFile(host,port,username,password,zipName+".zip",fio);
+        //移动上传后的文件到temp目录下
+        File[] sorcFiles = new File(address).listFiles();
+        for(int i=0;i<sorcFiles.length;i++){
+            //判断文件夹是否创建，没有创建则创建新文件夹
+            File destPathFile = new File(destPath);
+            if(!destPathFile.exists()){
+                destPathFile.mkdirs();
+            }
+            File sorcFile = sorcFiles[i];
+            File destFile = new File(destPath+File.separator+sorcFile.getName());
+            if(!sorcFile.isDirectory()){
+                if (sorcFile.renameTo(destFile)) {
+                    log.debug("------------------------------File is moved successful!"+destFile.getName());
+                } else {
+                    log.debug("------------------------------File is failed to move!"+destFile.getName());
+                }
+            }
+        }
         return RepeatStatus.FINISHED;
     }
     /**
@@ -91,6 +120,7 @@ public class TransforToFtpTasklet implements Tasklet {
                 return result;
             }
             //切换到上传目录
+//            ftp.changeWorkingDirectory("/home/ftp/testftp");
             log.debug("------------------------------------------WorkingDirectory:"+ftp.printWorkingDirectory());
             //设置上传文件的类型为二进制类型
             ftp.setFileType(FTP.BINARY_FILE_TYPE);
@@ -100,7 +130,7 @@ public class TransforToFtpTasklet implements Tasklet {
             if (!storeFile) {
                 return result;
             }
-            log.debug("------------------------------------------storeFile:"+storeFile);
+            log.debug("------------------------------------------storeFile "+filename+":"+storeFile);
             input.close();
             ftp.logout();
             result = true;
@@ -146,9 +176,12 @@ public class TransforToFtpTasklet implements Tasklet {
         zos.close();
 
 //        for (int i = 0; i < files.length; i++) {
-//            System.out.println("---------------------delete:" + files);
 //            File file = new File(files[i]);
-//            file.delete();
+//            if(file.delete()){
+//                log.debug("------------------delete sucess:"+file.getPath());
+//            }else {
+//                log.debug("------------------delete failed:"+file.getPath());
+//            }
 //        }
     }
 }

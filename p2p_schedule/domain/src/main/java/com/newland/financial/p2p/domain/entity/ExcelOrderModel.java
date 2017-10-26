@@ -33,6 +33,8 @@ public class ExcelOrderModel extends BaseEntity {
     private String merchantName;
     /**是否已发送.*/
     private String isSend;
+    /**发送时间.*/
+    private Date transformTime;
 
     @Override
     public String toString() {
