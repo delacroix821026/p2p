@@ -45,7 +45,6 @@ public class Example {
         Integer r = a + b;
         log.info("/add, host:" + instance.getHost()
                 + ", service_id:" + instance.getServiceId() + ", result:" + r);
-<<<<<<< HEAD
         return testInteger6;
     }
     @RequestMapping(value = "/add2", method = RequestMethod.GET)
@@ -65,8 +64,4 @@ public class Example {
     private Integer testInteger5 = new Integer(70);
     private Integer testInteger6 = new Integer(80);
     private Integer testInteger7 = new Integer(90);
-=======
-        return r;
-    }
->>>>>>> e8cc584d9646fd06be1fa3d78144e86a2380e061
 }
