@@ -39,9 +39,6 @@ public class TransforToFtpTasklet implements Tasklet {
     /**密码.*/
     @Value("${SMALLLOAN_PASSWORD}")
     private String password;
-    /**历史文件保存目录.*/
-    @Value("${SMALLLOAN_DESTPATH}")
-    private String destPath;
 
     /**
      * 上传每日申请中的订单信息
@@ -74,24 +71,6 @@ public class TransforToFtpTasklet implements Tasklet {
 //        writeZip(strs,zipName,address);
 //        FileInputStream fio = new FileInputStream(new File(address+zipName+".zip"));
 //        uploadFile(host,port,username,password,zipName+".zip",fio);
-        //移动上传后的文件到temp目录下
-        File[] sorcFiles = new File(address).listFiles();
-        for(int i=0;i<sorcFiles.length;i++){
-            //判断文件夹是否创建，没有创建则创建新文件夹
-            File destPathFile = new File(destPath);
-            if(!destPathFile.exists()){
-                destPathFile.mkdirs();
-            }
-            File sorcFile = sorcFiles[i];
-            File destFile = new File(destPath+File.separator+sorcFile.getName());
-            if(!sorcFile.isDirectory()){
-                if (sorcFile.renameTo(destFile)) {
-                    log.debug("------------------------------File is moved successful!"+destFile.getName());
-                } else {
-                    log.debug("------------------------------File is failed to move!"+destFile.getName());
-                }
-            }
-        }
         return RepeatStatus.FINISHED;
     }
     /**
@@ -112,7 +91,7 @@ public class TransforToFtpTasklet implements Tasklet {
             ftp.connect(host, port);// 连接FTP服务器
             // 如果采用默认端口，可以使用ftp.connect(host)的方式直接连接FTP服务器
 //			ftp.connect(host);
-            ftp.login(username, password);// 登录
+            ftp.login(username, password);
             reply = ftp.getReplyCode();
             log.debug("------------------------------------------loginReply:"+reply);
             if (!FTPReply.isPositiveCompletion(reply)) {
@@ -122,6 +101,10 @@ public class TransforToFtpTasklet implements Tasklet {
             //切换到上传目录
 //            ftp.changeWorkingDirectory("/home/ftp/testftp");
             log.debug("------------------------------------------WorkingDirectory:"+ftp.printWorkingDirectory());
+            //主动模式
+//            ftp.enterLocalActiveMode();
+            //被动模式
+//			ftp.enterLocalPassiveMode();
             //设置上传文件的类型为二进制类型
             ftp.setFileType(FTP.BINARY_FILE_TYPE);
             ftp.setBufferSize(1024);

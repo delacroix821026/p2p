@@ -28,6 +28,7 @@ public class TransToSmallLoanScheduler {
     Job job;
 
     @Scheduled(fixedRate=20000)
+//    @Scheduled(cron = "0 0 17 * * ?")
     public void testTasks() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.info("每20秒执行一次。开始……");
 

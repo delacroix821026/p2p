@@ -70,11 +70,22 @@ public class TransToSmallLoanConfig {
         return new TransforToFtpTasklet();
     }
 
+    @Bean
+    public MoveToTempTasklet getMoveToTempTasklet() {
+        return new MoveToTempTasklet();
+    }
+
+    @Bean
+    public DelOverTimeFileTasklet getDelOverTimeFileTasklet() {
+        return new DelOverTimeFileTasklet();
+    }
+
     @Bean(name= "createTransToSmallLoanCompanyJob")
-    public Job createTransforToSmallLoanCompanyJob(@Qualifier("step1") Step step1, @Qualifier("step2") Step step2) {
+    public Job createTransforToSmallLoanCompanyJob(@Qualifier("step1") Step step1, @Qualifier("step2") Step step2,
+                                                   @Qualifier("step3") Step step3,@Qualifier("step4") Step step4) {
         Job job = jobs.get("transforToSmallLoanCompany")
                 .incrementer(new RunIdIncrementer())
-                .start(step1).next(step2)
+                .start(step1).next(step2).next(step3).next(step4)
                 .listener(new TransToSmallLoanJobExecutionListener())
                 .build();
         return job;
@@ -104,6 +115,17 @@ public class TransToSmallLoanConfig {
     protected Step step2(TransforToFtpTasklet transforToFtpProcessor) {
         return steps.get("step2").tasklet(transforToFtpProcessor).allowStartIfComplete(true).build();
 
+    }
+
+    @Bean
+    protected Step step3(MoveToTempTasklet moveToTempTasklet) {
+        return steps.get("step3").tasklet(moveToTempTasklet).allowStartIfComplete(true).build();
+
+    }
+
+    @Bean
+    protected Step step4(DelOverTimeFileTasklet delOverTimeFileTasklet) {
+        return steps.get("step4").tasklet(delOverTimeFileTasklet).allowStartIfComplete(true).build();
     }
 
 }
