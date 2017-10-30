@@ -1,13 +1,35 @@
 #--server.port=9090 --spring.profiles.active=dev,--eureka.instance.hostname=configserver2
-
+HOSTNAME: ${spring.cloud.client.ipAddress}
 ---
 spring:
     profiles: dev
-security:
-    basic:
-        enabled: true
-        path: ${management.context-path}
+    rabbitmq:
+        host: 192.168.10.38
+        port: 5672
+        username: user_admin
+        password: admin123%
 ...
+
+---
+spring:
+    profiles: test
+    rabbitmq:
+        host: 118.31.22.18
+        port: 5672
+        username: user_admin
+        password: admin123%
+...
+
+---
+spring:
+    profiles: prod
+    rabbitmq:
+        host: 118.31.22.18
+        port: 5672
+        username: user_admin
+        password: admin123%
+...
+
 
 ---
 server:
@@ -16,11 +38,6 @@ server:
 
 ---
 spring:
-    rabbitmq:
-        host: 192.168.10.38
-        port: 5672
-        username: user_admin
-        password: admin123%
     cloud:
         bus:
             trace:
@@ -53,7 +70,7 @@ spring:
 eureka:
     client:
         serviceUrl:
-            defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
+            defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver:1111/eureka/}
         healthcheck:
             enabled: true
     instance:
@@ -85,7 +102,7 @@ security:
     user:
         name: admin
         password: 123456
-    #basic:
-        #enabled: true
-        #path: ${management.context-path}
+    basic:
+        enabled: true
+        path: ${management.context-path}
 ...

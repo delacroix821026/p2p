@@ -1,16 +1,41 @@
 ---
-server:
-    port: ${SERVER_PORT:6001}
-...
-
----
-
 spring:
+    profiles: dev
     rabbitmq:
         host: 192.168.10.38
         port: 5672
         username: user_admin
         password: admin123%
+...
+
+---
+spring:
+    profiles: test
+    rabbitmq:
+        host: 118.31.22.18
+        port: 5672
+        username: user_admin
+        password: admin123%
+...
+
+---
+spring:
+    profiles: prod
+    rabbitmq:
+        host: 118.31.22.18
+        port: 5672
+        username: user_admin
+        password: admin123%
+...
+
+
+---
+server:
+    port: ${SERVER_PORT:6001}
+...
+
+---
+spring:
     cloud:
         bus:
             trace:
@@ -58,7 +83,7 @@ eureka:
     client:
         registryFetchIntervalSeconds: 5
         serviceUrl:
-            defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
+            defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver:1111/eureka/}
 ...
 
 ---

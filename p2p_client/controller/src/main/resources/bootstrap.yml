@@ -10,11 +10,7 @@ spring:
         config:
             uri: http://192.168.10.38:2001/
 HOSTNAME: ${spring.cloud.client.ipAddress}
-eureka:
-    client:
-        serviceUrl:
-            #defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
-            defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
+
 ...
 
 ---
@@ -26,13 +22,19 @@ spring:
         config:
             discovery:
                 enabled: true
-                #profile: {profile.active}
-                #label: master
                 serviceId: P2P-CONFIG-SERVER
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
+...
+
+---
+spring:
+    profiles: prod
+    application:
+              name: @project.parent.name@
+    cloud:
+        config:
+            discovery:
+                enabled: true
+                serviceId: P2P-CONFIG-SERVER
 ...
 
 ---
@@ -59,6 +61,9 @@ eureka:
         statusPageUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/info
         healthCheckUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/health
         secure-health-check-url: http://${HOSTNAME}:${server.port}/${management.context-path}/health
+    client:
+        serviceUrl:
+            defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver:1111/eureka/}
 ...
 
 ---

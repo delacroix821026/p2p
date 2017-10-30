@@ -200,7 +200,7 @@
                 </executions>-->
                 <configuration>
                     <!--<imageName>delacroix821026/firstdemo:${project.build.finalName}</imageName>-->
-                    <imageName>192.168.10.38:8082/${project.build.finalName}</imageName>
+                    <imageName>118.31.22.18:8082/${project.build.finalName}</imageName>
                     <baseImage>daocloud.io/library/java:latest</baseImage>
 
                     <!--<cmd>docker login 192.168.10.38:8082 -u admin -p admin123%</cmd>-->
@@ -221,7 +221,7 @@
                          <imageTag>latest</imageTag>
                      </imageTags>-->
                     <serverId>p2p-docker-hub</serverId>
-                    <registryUrl>http://192.168.10.38:8082/v1/</registryUrl>
+                    <registryUrl>http://118.31.22.18:8082/v1/</registryUrl>
                     <!--<registryUrl>https://index.docker.io/v1/</registryUrl>-->
                 </configuration>
             </plugin>
@@ -407,12 +407,12 @@
         <repository>
             <id>nexus</id>
             <name>Releases</name>
-            <url>http://192.168.10.38:8081/repository/p2p_maven_release</url>
+            <url>http://118.31.22.18:8081/repository/p2p_maven_release</url>
         </repository>
         <snapshotRepository>
             <id>nexus</id>
             <name>Snapshot</name>
-            <url>http://192.168.10.38:8081/repository/p2p_maven_snapshot</url>
+            <url>http://118.31.22.18:8081/repository/p2p_maven_snapshot</url>
         </snapshotRepository>
     </distributionManagement>
 </project>

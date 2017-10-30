@@ -1,7 +1,7 @@
 version: '3'
 services:
     p2peureka1:
-        image: 192.168.10.38:8082/p2p-eureka-server:latest
+        image: nexusserver:8082/p2p-eureka-server:latest
         networks:
             docker-net:
                 aliases:
@@ -14,7 +14,7 @@ services:
             - ADDITIONAL_EUREKA_SERVER_LIST=http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
 
     p2peureka2:
-        image: 192.168.10.38:8082/p2p-eureka-server:latest
+        image: nexusserver:8082/p2p-eureka-server:latest
         networks:
             docker-net:
                 aliases:
@@ -27,7 +27,7 @@ services:
             - ADDITIONAL_EUREKA_SERVER_LIST=http://eurekaserver1:1111/eureka/,http://eurekaserver3:1113/eureka/
 
     p2peureka3:
-        image: 192.168.10.38:8082/p2p-eureka-server:latest
+        image: nexusserver:8082/p2p-eureka-server:latest
         networks:
             docker-net:
                 aliases:
