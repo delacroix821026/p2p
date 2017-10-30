@@ -97,10 +97,10 @@
             AND a.CONTRACT_NUMBER like CONCAT('%','${contractNumber}','%')
         </if>
         <if test="begTime != null">
-            AND b.D_DATE &gt; #{begTime}
+            AND b.D_DATE &gt;= #{begTime}
         </if>
         <if test="endTime != null">
-            AND b.D_DATE &lt; #{endTime}
+            AND b.D_DATE &lt;= #{endTime}
         </if>
     </select>
 

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
@@ -108,7 +109,8 @@ public class LenderServiceImpl implements ILenderService {
         Date date = new Date();
         StringBuffer s = new StringBuffer(sdf.format(date));
         Random r = new Random();
-        s.append(r.nextInt(10000) + "");
+        String str = new DecimalFormat("0000").format(r.nextInt(10000));
+        s.append(str);
         customerFlowDebit.setOddNumbers(new String(s));
         customerFlowDebit.setDDate(date);
         logger.info("lenderService--insertDebitInfo--customerFlowDebit:" + customerFlowDebit.toString());
