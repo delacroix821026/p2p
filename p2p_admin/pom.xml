@@ -141,7 +141,7 @@
                          <imageTag>latest</imageTag>
                      </imageTags>-->
                     <serverId>p2p-docker-hub</serverId>
-                    <registryUrl>http://nexusserver:8082/v1/</registryUrl>
+                    <registryUrl>http://nexusserver:8082w/</registryUrl>
                     <!--<registryUrl>https://index.docker.io/v1/</registryUrl>-->
                 </configuration>
             </plugin>

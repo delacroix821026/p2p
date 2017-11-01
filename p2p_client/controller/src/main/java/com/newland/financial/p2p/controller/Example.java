@@ -5,7 +5,6 @@ import com.newland.financial.p2p.service.ExampleService;
 import com.newland.financial.p2p.service.FeignService;
 import lombok.extern.java.Log;
 import org.ohuyo.libra.client.exception.LibraClientException;
-import org.ohuyo.libra.client.filter.UserContainer;
 import org.ohuyo.libra.client.session.LibraSession;
 import org.ohuyo.libra.client.session.LibraSessionUtils;
 import org.ohuyo.libra.client.util.LibraUtils;
@@ -54,21 +53,6 @@ public class Example {
         //HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         log.info("ws controller add Enter:::::::::::::" + session.getAttribute("abc"));
-
-
-        HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-        UserContainer libraSession = (UserContainer) req.getSession().getAttribute("USERINFO");
-
-        String permissions = null;
-        permissions = libraSession.getOrgList();
-        log.info("--------LibraSession--------permissions---------" + permissions);
-        String organization = libraSession.getOrgList();
-        log.info("--------LibraSession--------organization---------" + organization);
-        String loginName = libraSession.getLoginName();
-        log.info("--------LibraSession--------loginName---------" + loginName);
-        String userName = libraSession.getUserName();
-        log.info("--------LibraSession--------userName---------" + userName);
-
 
         return feignService.add(5, 18);
     }

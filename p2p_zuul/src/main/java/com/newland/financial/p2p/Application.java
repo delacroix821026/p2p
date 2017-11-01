@@ -76,7 +76,7 @@ public class Application {
         return corsFilter;
     }
 
-    /*
+
     @Bean(name = "sessionFilter")
     public SlaveClientFilter addSlaveClientFilter() {
         SlaveClientFilter slaveClientFilter = new SlaveClientFilter();
@@ -91,7 +91,7 @@ public class Application {
         registration.addInitParameter("paramName", "paramValue");
         registration.setName("sessionFilter");
         return registration;
-    }*/
+    }
 
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean(){

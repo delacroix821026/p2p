@@ -24,36 +24,27 @@ public class SessionController {
         HttpSession session = req.getSession();
         System.out.println("是否生成："+session.getAttribute("abc"));
 
-        LibraSession s = null;
-        if (req instanceof HttpServletRequest) {
+        LibraSession libraSession = LibraSessionUtils.getSession(session);
+        /*if (req instanceof HttpServletRequest) {
 
             session = req.getSession(false);
             if (session != null) {
                 log.info("--------LibraSession--------isHttpServletRequest---------");
                 String userName = (String) session.getAttribute("userName");
                 if (userName == null) {
-                    s = LibraSessionUtils.getSession(session);
+                    libraSession = LibraSessionUtils.getSession(session);
                 }
             }
-        }
+        }*/
 
 
 
 
-        log.info("--------s-----------------" + s);
-        String permissions = null;
-        try {
-            permissions = s.getSharedAttribute("libraMasterClient", "permissions");
-            log.info("--------LibraSession--------permissions---------" + permissions);
-            String organization = s.getSharedAttribute("libraMasterClient", "organization");
-            log.info("--------LibraSession--------organization---------" + organization);
-            String loginName = s.getSharedAttribute("libraMasterClient", "loginName");
-            log.info("--------LibraSession--------loginName---------" + loginName);
-            String userName = s.getSharedAttribute("libraMasterClient", "userName");
-            log.info("--------LibraSession--------userName---------" + userName);
-        } catch (LibraClientException e) {
-            e.printStackTrace();
-        }
+        log.info("libraSess================================" + libraSession);
+        log.info("1--------LibraSession--------permissions---------" + libraSession.getMenuList());
+        log.info("1--------LibraSession--------organization---------" + libraSession.getOrgList());
+        log.info("1--------LibraSession--------loginName---------" + libraSession.getLoginName());
+        log.info("1--------LibraSession--------userName---------" + libraSession.getUserName());
 
         return "PING OK";
     }
