@@ -249,6 +249,7 @@ public class LenderController {
         String detailAdd = paramJSON.getString("detailAdd");
         String starAccount = paramJSON.getString("starAccount");
         StringBuffer money = new StringBuffer(paramJSON.getString("dMoney"));
+        String merchantNum = paramJSON.getString("merchantNum");
         money.append("0000");
         String dMoney = new String(money);
         CustomerFlowDebit customerFlowDebit = new CustomerFlowDebit();
@@ -264,6 +265,7 @@ public class LenderController {
         customerFlowDebit.setDMoney(new BigDecimal(dMoney));
         customerFlowDebit.setDProId(dProId);
         customerFlowDebit.setDProName(dProName);
+        customerFlowDebit.setMerchantNum(merchantNum);
         return lenderService.insertDebitInfo(customerFlowDebit);
     }
 
