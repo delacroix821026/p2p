@@ -77,7 +77,7 @@ public class Application {
     }
 
 
-    @Bean(name = "sessionFilter")
+    /*@Bean(name = "sessionFilter")
     public SlaveClientFilter addSlaveClientFilter() {
         SlaveClientFilter slaveClientFilter = new SlaveClientFilter();
         return slaveClientFilter;
@@ -91,7 +91,7 @@ public class Application {
         registration.addInitParameter("paramName", "paramValue");
         registration.setName("sessionFilter");
         return registration;
-    }
+    }*/
 
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean(){
