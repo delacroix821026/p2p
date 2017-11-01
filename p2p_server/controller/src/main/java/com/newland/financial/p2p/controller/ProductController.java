@@ -347,6 +347,9 @@ public class ProductController {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String dLnrId = paramJSON.getString("userId");
+        if(dLnrId == null || dLnrId.length() == 0){
+            return "no userId come in";
+        }
         Integer page = paramJSON.getInteger("page");
         Integer count = paramJSON.getInteger("count");
         return productService.checkCustomerFlowDebitStus(dLnrId, page, count);
