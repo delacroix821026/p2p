@@ -11,18 +11,6 @@
 
     <artifactId>p2p_schedule_service</artifactId>
     <name>p2p_schedule_service</name>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <packaging>jar</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -53,7 +41,27 @@
             <artifactId>commons-net</artifactId>
             <version>3.6</version>
         </dependency>
-
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <skipDockerBuild>true</skipDockerBuild>
+                    <skipDockerPush>true</skipDockerPush>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

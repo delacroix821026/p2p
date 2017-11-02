@@ -3,7 +3,7 @@ services:
     p2pschedule:
         image: nexusserver:8082/p2p-schedule:latest
         volumes:
-              - ftp-data:/home/smallloan/
+              - /home/smallloan/:/home/smallloan/
         deploy:
             restart_policy:
                 condition: on-failure

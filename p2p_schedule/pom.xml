@@ -226,7 +226,7 @@
                     <baseImage>daocloud.io/library/java:latest</baseImage>
 
                     <!--<cmd>docker login 192.168.10.38:8082 -u admin -p admin123%</cmd>-->
-                    <volumes><volume>/tmp</volume></volumes>
+                    <volumes><volume>/home</volume></volumes>
 
                     <entryPoint>[ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /${project.build.finalName}.jar" ]</entryPoint>
                     <!--<dockerDirectory>docker</dockerDirectory>-->

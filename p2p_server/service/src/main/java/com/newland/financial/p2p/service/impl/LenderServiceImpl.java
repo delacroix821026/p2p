@@ -101,9 +101,13 @@ public class LenderServiceImpl implements ILenderService {
         customerFlowDebit.setDDate(new Date()); //申请日期
         //生成申请单号，年月日时分秒+4位随机数
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        //sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        logger.info("catalindaTimeZone:" + sdf.getTimeZone().getID());
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         Date date = new Date();
         StringBuffer s = new StringBuffer(sdf.format(date));
+        logger.info("SystemTimeZone:" + System.getProperty("user.timezone"));
+        logger.info("SystemUserCountry:" + System.getProperty("user.country"));
+        logger.info("SystemJavaHome:" + System.getProperty("java.home"));
         logger.info("==============时间：" + s);
         Random r = new Random();
         String str = new DecimalFormat("0000").format(r.nextInt(10000));

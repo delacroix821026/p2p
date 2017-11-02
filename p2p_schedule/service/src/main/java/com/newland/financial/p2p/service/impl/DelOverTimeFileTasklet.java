@@ -22,20 +22,23 @@ public class DelOverTimeFileTasklet implements Tasklet {
 
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        log.debug("DelOverTimeFileTasklet:begin--------------------");
+        log.debug("DelOverTimeFileTasklet:begin==============================");
         File[] files = new File(destPath).listFiles();
-        for(int i=0;i<files.length;i++){
-            long lastModifyTime = files[i].lastModified();
-            int betDays = (int)(new Date().getTime() - lastModifyTime) / (1000*3600*24);
-            if(betDays>=3){
-                boolean b= files[i].delete();
-                if(b){
-                    log.debug("---------------------------------delete successful:"+files[i].getPath());
-                }else{
-                    log.debug("---------------------------------delete failed:"+files[i].getPath());
+        if(files != null || files.length>0){
+            for(int i=0;i<files.length;i++){
+                long lastModifyTime = files[i].lastModified();
+                int betDays = (int)(new Date().getTime() - lastModifyTime) / (1000*3600*24);
+                if(betDays>=3){
+                    boolean b= files[i].delete();
+                    if(b){
+                        log.debug("---------------------------------delete successful:"+files[i].getPath());
+                    }else{
+                        log.debug("---------------------------------delete failed:"+files[i].getPath());
+                    }
                 }
             }
         }
+
         return RepeatStatus.FINISHED;
     }
 }

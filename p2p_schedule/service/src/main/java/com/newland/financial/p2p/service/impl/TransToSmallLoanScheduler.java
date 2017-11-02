@@ -27,10 +27,10 @@ public class TransToSmallLoanScheduler {
     @Resource(name = "createTransToSmallLoanCompanyJob")
     Job job;
 
-    @Scheduled(fixedRate=20000)
-//    @Scheduled(cron = "0 0 17 * * ?")
+    @Scheduled(fixedRate=120000)
+//    @Scheduled(cron = "0 0/2 9-21 * * ?")
     public void testTasks() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
-        log.info("每20秒执行一次。开始……");
+        log.info("每120秒执行一次。开始……");
 
         String runDay = new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(new Date());
         JobParameters jobParameters = new JobParametersBuilder()
@@ -41,6 +41,6 @@ public class TransToSmallLoanScheduler {
         //jobExecution.getJobParameters().getParameters().putAll(jobParameters.getParameters());
 
         JobExecution execution = jobLauncher.run(job, jobParameters);
-        log.info("每20秒执行一次。结束。" + execution.getStatus());
+        log.info("每120秒执行一次。结束。" + execution.getStatus());
     }
 }

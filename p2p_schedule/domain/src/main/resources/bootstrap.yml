@@ -20,12 +20,12 @@ eureka:
         serviceUrl:
             #defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
             defaultZone: #${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
-SMALLLOAN_FILE_ADDRESS: /Users/daijuancen/Desktop/
-SMALLLOAN_HOST: 192.168.37.130
+SMALLLOAN_FILE_ADDRESS: /home/smallloan/
+SMALLLOAN_HOST: 192.168.10.47
 SMALLLOAN_PORT: 21
-SMALLLOAN_USERNAME: ftptest
-SMALLLOAN_PASSWORD: ftptest
-SMALLLOAN_DESTPATH: D:\scheduel\temp\
+SMALLLOAN_USERNAME: ftpuser
+SMALLLOAN_PASSWORD: ftpuser
+SMALLLOAN_DESTPATH: /home/smallloan/temp/
 
 ...
 
@@ -44,12 +44,12 @@ spring:
 eureka:
     client:
         serviceUrl:
-            defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
+            defaultZone: ${EUREKA_SERVER_ADDRESS:http://192.168.10.38:1111/eureka/}
 SMALLLOAN_FILE_ADDRESS: /home/smallloan/
-SMALLLOAN_HOST: 192.168.37.130
+SMALLLOAN_HOST: 192.168.10.47
 SMALLLOAN_PORT: 21
-SMALLLOAN_USERNAME: ftptest
-SMALLLOAN_PASSWORD: ftptest
+SMALLLOAN_USERNAME: ftpuser
+SMALLLOAN_PASSWORD: ftpuser
 SMALLLOAN_DESTPATH: /home/smallloan/temp/
 ...
 

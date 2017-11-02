@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -48,8 +46,8 @@ public class TransforToFtpTasklet implements Tasklet {
      * @throws Exception
      */
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        log.info("TransforToFtpProcessor:process ftp");
-        List<String> filePathList = new ArrayList<>();
+        log.debug("TransforToFtpProcessor:process ftp==================================");
+        Map<String,String> map = new HashMap<>();
         File file = new File(address);
         if (file.isDirectory()){
             File[] fileArray = file.listFiles();
@@ -57,20 +55,12 @@ public class TransforToFtpTasklet implements Tasklet {
                 String filePath = fileArray[i].getPath();
                 String fileName = fileArray[i].getName();
                 if(fileName.endsWith(".csv")){
-                    filePathList.add(filePath);
+                    map.put(fileName,filePath);
                 }
             }
         }
         //上传文件
-        for(int i = 0;i<filePathList.size();i++){
-            File srcFile = new File(filePathList.get(i));
-            FileInputStream fis = new FileInputStream(srcFile);
-            uploadFile(host,port,username,password,srcFile.getName(),fis);
-        }
-//        String zipName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-//        writeZip(strs,zipName,address);
-//        FileInputStream fio = new FileInputStream(new File(address+zipName+".zip"));
-//        uploadFile(host,port,username,password,zipName+".zip",fio);
+        uploadFile(host,port,username,password,map);
         return RepeatStatus.FINISHED;
     }
     /**
@@ -79,11 +69,10 @@ public class TransforToFtpTasklet implements Tasklet {
      * @param port  端口
      * @param username  用户名
      * @param password  密码
-     * @param filename  目标文件名
-     * @param input     源文件输入流
+     * @param map  源文件流
      * @return  true:成功,false:失败
      */
-    public static boolean uploadFile(String host, int port, String username, String password,String filename, InputStream input) {
+    public static boolean uploadFile(String host, int port, String username, String password,Map<String,String> map) {
         boolean result = false;
         FTPClient ftp = new FTPClient();
         try {
@@ -104,17 +93,23 @@ public class TransforToFtpTasklet implements Tasklet {
             //主动模式
 //            ftp.enterLocalActiveMode();
             //被动模式
-//			ftp.enterLocalPassiveMode();
+			ftp.enterLocalPassiveMode();
+            ftp.setRemoteVerificationEnabled(false);
             //设置上传文件的类型为二进制类型
             ftp.setFileType(FTP.BINARY_FILE_TYPE);
             ftp.setBufferSize(1024);
             //上传文件
-            boolean storeFile = ftp.storeFile(filename, input);
-            if (!storeFile) {
-                return result;
+            for(Map.Entry<String,String> entry : map.entrySet()){
+                String filename = entry.getKey();
+                FileInputStream input = new FileInputStream(new File(entry.getValue()));
+                boolean storeFile = ftp.storeFile(filename, input);
+                if (!storeFile) {
+                    log.debug("------------------------------------------storeFile filed!!："+ftp.getReplyString()+", "+filename);
+                    return result;
+                }
+                log.debug("------------------------------------------storeFile success!!："+filename);
+                input.close();
             }
-            log.debug("------------------------------------------storeFile "+filename+":"+storeFile);
-            input.close();
             ftp.logout();
             result = true;
         } catch (IOException e) {
