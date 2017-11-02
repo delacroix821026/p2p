@@ -97,10 +97,10 @@
             AND a.CONTRACT_NUMBER like CONCAT('%','${contractNumber}','%')
         </if>
         <if test="begTime != null">
-            AND b.D_DATE &gt;= #{begTime}
+            AND DATE_FORMAT(b.D_DATE,'%Y-%m-%d') &gt;= #{begTime}
         </if>
         <if test="endTime != null">
-            AND b.D_DATE &lt;= #{endTime}
+            AND DATE_FORMAT(b.D_DATE,'%Y-%m-%d') &lt;= #{endTime}
         </if>
     </select>
 
