@@ -26,7 +26,6 @@ public class Application {
      * @param args 参数
      */
     public static void main(final String[] args) {
-        log.info(args.toString());
         SpringApplication.run(Application.class, args);
     }
 
