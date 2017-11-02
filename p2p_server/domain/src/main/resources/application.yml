@@ -64,6 +64,10 @@ spring:
 ...
 
 ---
+mybatis.config-location: classpath:mybatis-config.xml
+...
+
+---
 pagehelper:
     helperDialect: mysql
     reasonable: true

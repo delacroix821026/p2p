@@ -15,11 +15,6 @@ spring:
         config:
             uri: http://192.168.10.38:2001/
 HOSTNAME: ${spring.cloud.client.ipAddress}
-eureka:
-    client:
-        serviceUrl:
-            #defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/}
-            defaultZone: #${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
 SMALLLOAN_FILE_ADDRESS: /home/smallloan/
 SMALLLOAN_HOST: 192.168.10.47
 SMALLLOAN_PORT: 21
@@ -41,21 +36,17 @@ spring:
                 #profile: {profile.active}
                 #label: master
                 serviceId: P2P-CONFIG-SERVER
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: ${EUREKA_SERVER_ADDRESS:http://192.168.10.38:1111/eureka/}
 SMALLLOAN_FILE_ADDRESS: /home/smallloan/
-SMALLLOAN_HOST: 192.168.10.47
+SMALLLOAN_HOST: 118.31.16.135
 SMALLLOAN_PORT: 21
 SMALLLOAN_USERNAME: ftpuser
-SMALLLOAN_PASSWORD: ftpuser
+SMALLLOAN_PASSWORD: ftpusertest123%
 SMALLLOAN_DESTPATH: /home/smallloan/temp/
 ...
 
 ---
 server:
-    port: ${SERVER_PORT:7101}
+    port: ${SERVER_PORT:4002}
 ...
 
 ---
@@ -78,6 +69,9 @@ eureka:
         statusPageUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/info
         healthCheckUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/health
         secure-health-check-url: http://${HOSTNAME}:${server.port}/${management.context-path}/health
+    client:
+        serviceUrl:
+            defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver:1111/eureka/}
 ...
 
 ---
