@@ -2,9 +2,13 @@ version: '3'
 services:
     p2pschedule:
         image: nexusserver:8082/p2p-schedule:latest
+        volumes:
+              - ftp-data:/home/smallloan/
         deploy:
             restart_policy:
                 condition: on-failure
+            placement:
+                constraints: [node.role == manager]
         networks:
             docker-net:
                 aliases:
