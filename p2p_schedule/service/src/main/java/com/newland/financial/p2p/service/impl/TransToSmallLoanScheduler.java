@@ -1,5 +1,6 @@
 package com.newland.financial.p2p.service.impl;
 
+import javafx.scene.input.DataFormat;
 import lombok.extern.java.Log;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -12,8 +13,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Component
 @Log
@@ -31,8 +34,9 @@ public class TransToSmallLoanScheduler {
 //    @Scheduled(cron = "0 0/2 9-21 * * ?")
     public void testTasks() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.info("每120秒执行一次。开始……");
-
-        String runDay = new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(new Date());
+        DateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+        dataFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        String runDay = dataFormat.format(new Date());
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("runDay", runDay)
                 .addString("queryId", "selectSendOrderList")
