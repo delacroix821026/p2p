@@ -16,12 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Calendar;
-import java.util.UUID;
-import java.util.Random;
+import java.util.*;
 
 /**
  * 对用户进行操作的service类.
@@ -106,11 +101,14 @@ public class LenderServiceImpl implements ILenderService {
         customerFlowDebit.setDDate(new Date()); //申请日期
         //生成申请单号，年月日时分秒+4位随机数
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        //sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         Date date = new Date();
         StringBuffer s = new StringBuffer(sdf.format(date));
+        logger.info("==============时间：" + s);
         Random r = new Random();
         String str = new DecimalFormat("0000").format(r.nextInt(10000));
         s.append(str);
+        logger.info("==============申请单号：" + s);
         customerFlowDebit.setOddNumbers(new String(s));
         customerFlowDebit.setDDate(date);
         logger.info("lenderService--insertDebitInfo--customerFlowDebit:" + customerFlowDebit.toString());
