@@ -35,6 +35,7 @@
                 <version>1.0.0</version>
                 <configuration>
                     <skipDockerBuild>true</skipDockerBuild>
+                    <skipDockerPush>true</skipDockerPush>
                 </configuration>
             </plugin>
         </plugins>
