@@ -1,0 +1,45 @@
+version: '3'
+services:
+    p2pconfig:
+        image: nexusserver:8082/p2p-config:latest
+        depends_on:
+            - p2peureka1
+            - p2peureka2
+            - p2peureka3
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+        networks:
+            docker-net:
+                aliases:
+                    - p2pconfig
+        ports:
+            - "2001:2001"
+        environment:
+            - SPRING_PROFILES_ACTIVE=dev
+            - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
+            - SERVER_PORT = 2001
+
+    p2padmin:
+        image: nexusserver:8082/p2p-admin:latest
+        depends_on:
+            - p2pconfig
+        deploy:
+            restart_policy:
+                condition: on-failure
+        networks:
+            docker-net:
+                aliases:
+                    - p2padmin
+        ports:
+            - "6001:6001"
+        environment:
+            - SPRING_PROFILES_ACTIVE=dev
+            - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
+            - EUREKA_INSTANCE_HOSTNAME=p2padmin
+            - SERVER_PORT = 6001
+networks:
+    docker-net:
+        external:
+            name: docker-net

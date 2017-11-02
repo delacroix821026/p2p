@@ -1,0 +1,23 @@
+version: '3'
+services:
+    p2pschedule:
+        image: nexusserver:8082/p2p-schedule:latest
+        deploy:
+            restart_policy:
+                condition: on-failure
+        networks:
+            docker-net:
+                aliases:
+                    - p2pschedule
+        ports:
+            - "4002:4002"
+        environment:
+            - SPRING_PROFILES_ACTIVE=dev
+            - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
+            - SERVER_PORT = 2001
+
+
+networks:
+    docker-net:
+        external:
+            name: docker-net
