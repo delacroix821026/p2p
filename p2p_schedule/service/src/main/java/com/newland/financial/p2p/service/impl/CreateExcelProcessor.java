@@ -11,6 +11,7 @@ import java.util.Date;
 public class CreateExcelProcessor implements ItemProcessor<CustomerFlowDebit, ExcelOrderModel> {
     @Override
     public ExcelOrderModel process(CustomerFlowDebit customerFlowDebit) throws Exception {
+        log.debug("CreateExcelProcessor==================================");
         ExcelOrderModel excelOrderModel = new ExcelOrderModel();
         excelOrderModel.setDDate(customerFlowDebit.getDDate());
         excelOrderModel.setOddNumbers(customerFlowDebit.getOddNumbers());
@@ -21,7 +22,7 @@ public class CreateExcelProcessor implements ItemProcessor<CustomerFlowDebit, Ex
         excelOrderModel.setIdentityCard(customerFlowDebit.getIdentityCard());
         excelOrderModel.setIsSend("1");
         excelOrderModel.setTransformTime(new Date());
-        log.debug("CreateExcelProcessor:customerFlowDebit=====" +excelOrderModel.toString());
+        log.debug("CreateExcelProcessor:customerFlowDebit-----------------------" +excelOrderModel.toString());
         return excelOrderModel;
     }
 }
