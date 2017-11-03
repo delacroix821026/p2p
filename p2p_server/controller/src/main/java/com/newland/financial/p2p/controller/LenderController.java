@@ -269,6 +269,7 @@ public class LenderController {
         customerFlowDebit.setDProId(dProId);
         customerFlowDebit.setDProName(dProName);
         customerFlowDebit.setMerchantNum(merchantNum);
+        customerFlowDebit.setEffective("1");
         return lenderService.insertDebitInfo(customerFlowDebit);
     }
 
