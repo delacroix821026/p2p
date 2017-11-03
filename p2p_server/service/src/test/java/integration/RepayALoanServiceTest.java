@@ -38,6 +38,6 @@ public class RepayALoanServiceTest {
     public void testGetRepayALoanList() {
         String oddNumbers = "201708190012002604";
         List<RepayALoan> list = repayALoanService.getRepayALoanList(oddNumbers);
-        Assert.assertEquals("list size not same",3,list.size());
+        Assert.assertEquals("list size not same",0,list.size());
     }
 }

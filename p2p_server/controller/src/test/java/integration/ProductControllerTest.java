@@ -37,7 +37,7 @@ public class    ProductControllerTest {
     public void testGetProduct()throws Exception{
         ResultActions ra = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/ProductController/GetProduct")
-                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"kv333\"}"));
+                .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\"}"));
         MvcResult mr = ra.andReturn();
         ResultActions ra1 = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/ProductController/GetProduct")

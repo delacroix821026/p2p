@@ -161,7 +161,7 @@
         (SELECT PROID FROM (SELECT * FROM p2p_org WHERE POSITIVEORNEGATIVE = '2') a WHERE ORGANIZATION = #{organization})
         UNION SELECT PROID FROM (SELECT * FROM p2p_org WHERE POSITIVEORNEGATIVE = '1') org1 WHERE ORGANIZATION = #{organization})
     </select>
-
+<!--用于查询某一用户所有产品对应的状态（取对应产品的最新一条记录进行判断）-->
     <select id="selectsProductStatus" resultMap="BaseResultMap" parameterType="java.lang.String">
         SELECT * FROM t_product LEFT JOIN
         (SELECT STUS,D_PRO_ID,max(D_DATE) FROM t_debitandcredit WHERE D_LNR_ID = #{id} GROUP BY D_PRO_ID) c
