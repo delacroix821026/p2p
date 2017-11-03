@@ -238,6 +238,9 @@ public class LenderController {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String dLnrId = paramJSON.getString("userId");
+        if(dLnrId == null || dLnrId.length() == 0) {
+            return false;
+        }
         String dProId = paramJSON.getString("proId");
         String dProName = paramJSON.getString("proName");
         String applyName = paramJSON.getString("applyName");
