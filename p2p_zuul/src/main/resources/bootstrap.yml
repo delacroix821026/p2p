@@ -32,6 +32,8 @@ spring:
 ---
 server:
     port: ${SERVER_PORT:5001}
+    tomcat:
+        max-connections: 200
 ...
 
 ---
