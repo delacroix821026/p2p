@@ -348,7 +348,8 @@ public class ProductController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String dLnrId = paramJSON.getString("userId");
         if(dLnrId == null || dLnrId.length() == 0){
-            return "no userId come in";
+            logger.info("==================未接收到userid=====================");
+            return false;
         }
         Integer page = paramJSON.getInteger("page");
         Integer count = paramJSON.getInteger("count");

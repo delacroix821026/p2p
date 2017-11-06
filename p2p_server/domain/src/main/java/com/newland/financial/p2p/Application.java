@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author cendaijuan
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.ImportResource;
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableScheduling
 @EnableConfigurationProperties
 @ImportResource(value = "classpath*:datasource-spring.xml")
 @Log

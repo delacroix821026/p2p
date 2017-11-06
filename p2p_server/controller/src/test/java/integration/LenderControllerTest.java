@@ -2,6 +2,9 @@ package integration;
 
 import com.newland.financial.p2p.Application;
 import com.newland.financial.p2p.controller.LenderController;
+import com.newland.financial.p2p.dao.ICustomerFlowDebitDao;
+import com.newland.financial.p2p.dao.IDebitAndCreditDao;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +29,10 @@ public class LenderControllerTest {
     @Autowired
     private LenderController lenderController;
     private MockMvc mockMvc;
+    @Autowired
+    private IDebitAndCreditDao debitAndCreditDao;
+    @Autowired
+    private ICustomerFlowDebitDao customerFlowDebitDao;
 
     @Before
     public void setup() {
@@ -54,6 +61,8 @@ public class LenderControllerTest {
         MvcResult mr = ra.andReturn();
         String result = mr.getResponse().getContentAsString();
         logger.info("---------------------------------------------------------result01:" + result);
+        debitAndCreditDao.deleteDebitAndCredit("zhu123");
+        customerFlowDebitDao.deleteByUserId("zhu123");
     }
 
     @Test
@@ -105,4 +114,5 @@ public class LenderControllerTest {
         String result = mr.getResponse().getContentAsString();
         logger.info("---------------------------------------------------------result01:" + result);
     }
+
 }

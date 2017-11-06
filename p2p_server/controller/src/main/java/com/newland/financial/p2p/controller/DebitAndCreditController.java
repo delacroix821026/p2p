@@ -25,6 +25,17 @@ public class DebitAndCreditController {
     /**
      *分页查询贷款单信息.
      * @param jsonStr 分页信息
+     * 请求参数：
+     * {<BR>
+     * &nbsp;&nbsp;"proId":"shls001",产品编号<BR>
+     * &nbsp;&nbsp;"proName":"商户流水贷",产品名称<BR>
+     * &nbsp;&nbsp;"oddNumbers":"201710211613069120",申请单号<BR>
+     * &nbsp;&nbsp;"contractNumber":"1111111111",合同号<BR>
+     * &nbsp;&nbsp;"createTimeBeg":"2017-11-02",开始时间<BR>
+     * &nbsp;&nbsp;"createTimeEnd":"2017-11-02",结束时间<BR>
+     * &nbsp;&nbsp;"count":3,<BR>
+     * &nbsp;&nbsp;"page":1<BR>
+     * }
      * @return 结果集
      */
     @ResponseBody
