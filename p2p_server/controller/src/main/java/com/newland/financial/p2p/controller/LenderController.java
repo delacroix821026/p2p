@@ -227,8 +227,23 @@ public class LenderController {
 
     /**
      * 申请面签产品.
-     * @param jsonStr 申请产品包含的信息
-     * @return Object
+     * @param jsonStr 请求参数：<BR>
+     *{<BR>
+     *&nbsp;"userId":"123123",用户编号<BR>
+     *&nbsp;"proId":"shls001",产品编号<BR>
+     *&nbsp;"proName":"商户流水贷",产品名称<BR>
+     *&nbsp;"applyName":"Mxia",申请人姓名<BR>
+     *&nbsp;"identityCard":"340521198902104612",申请人身份证号<BR>
+     *&nbsp;"phone":"15021327865",手机号码<BR>
+     *&nbsp;"province":"上海",省<BR>
+     *&nbsp;"city":"上海",市<BR>
+     *&nbsp;"region":"浦东",区或县<BR>
+     *&nbsp;"detailAdd":"世博大道",详细地址<BR>
+     *&nbsp;"starAccount":"15021327865",绑定的星官家账号<BR>
+     *&nbsp;"dMoney":"20",贷款额度<BR>
+     *&nbsp;"merchantNum":"121212123"绑定的商户号<BR>
+     *}
+     * @return Object 返回参数：true or false
      * @throws AgeDiscrepancyException 年龄不符合
      */
     @ResponseBody
@@ -275,8 +290,37 @@ public class LenderController {
 
     /**
      *用户对应某一产品的还款分期计划.
-     * @param jsonStr 包含userId,proId
-     * @return 分期计划
+     * @param jsonStr 请求参数：<BR>
+     * {<BR>
+     * &nbsp;"userId":"123",用户编号<BR>
+     * &nbsp;"proId":"shls001"产品编号<BR>
+     * }
+     * @return 返回还款单<BR>
+     * [<BR>
+     *&nbsp;{<BR>
+     *&nbsp;&nbsp;"needRepay": 2040,累计待还<BR>
+     *&nbsp;&nbsp;"repayed": 1020,累计已还<BR>
+     *&nbsp;&nbsp;"repayInMonth": 2040,本期应还<BR>
+     *&nbsp;},<BR>
+     *&nbsp;[<BR>
+     *&nbsp;&nbsp;{<BR>
+     *&nbsp;&nbsp;&nbsp;"reId": "1",还款单编号<BR>
+     *&nbsp;&nbsp;&nbsp;"reLndId": "123",用户编号<BR>
+     *&nbsp;&nbsp;&nbsp;"reProId": "shls001",产品编号<BR>
+     *&nbsp;&nbsp;&nbsp;"reProNmae": "商户流水贷",产品名称<BR>
+     *&nbsp;&nbsp;&nbsp;"crtRe": 1000,<BR>
+     *&nbsp;&nbsp;&nbsp;"createDate": 1503072000000,指定还款日期<BR>
+     *&nbsp;&nbsp;&nbsp;"expireDate": null,<BR>
+     *&nbsp;&nbsp;&nbsp;"status": 1,还款记录状态，1已还，0未还<BR>
+     *&nbsp;&nbsp;&nbsp;"crtInterest": 10,<BR>
+     *&nbsp;&nbsp;&nbsp;"serMoney": 10,<BR>
+     *&nbsp;&nbsp;&nbsp;"totleMoney": 1020,该期需要还款金额（包含其他费用）<BR>
+     *&nbsp;&nbsp;&nbsp;"debitId": "1"对应贷款单编号<BR>
+     *&nbsp;&nbsp;},<BR>
+     *&nbsp;&nbsp;{...},<BR>
+     *&nbsp;&nbsp;{...}<BR>
+     *&nbsp;]<BR>
+     *]
      */
     @ResponseBody
     @RequestMapping(value = "/StagingPlan",
@@ -291,8 +335,25 @@ public class LenderController {
 
     /**
      *用户对应所有产品的贷款状态.
-     * @param jsonStr 包含userId
-     * @return 返回所有产品贷款状态
+     * @param jsonStr 请求参数：<BR>
+     *{<BR>
+     *&nbsp;"userId":"123"用户编号<BR>
+     *}
+     * @return 返回参数：<BR>
+     *[<BR>
+     *&nbsp;{<BR>
+     *&nbsp;&nbsp;"proId": "shls001",产品编号<BR>
+     *&nbsp;&nbsp;"proName": "商户流水贷",产品名称<BR>
+     *&nbsp;&nbsp;"loanMoney": 3000,借款金额<BR>
+     *&nbsp;&nbsp;"totleRepay": 0,应还总额<BR>
+     *&nbsp;&nbsp;"needRepay": null,<BR>
+     *&nbsp;&nbsp;"repayed": 0,已还总额<BR>
+     *&nbsp;&nbsp;"repayInMonth": null,<BR>
+     *&nbsp;&nbsp;"loanDate": null,放款日期<BR>
+     *&nbsp;&nbsp;"lastRePayDate": null,最后还款日期<BR>
+     *&nbsp;&nbsp;"status": "1"申请状态：1申请中，2还款计划<BR>
+     *&nbsp;}<BR>
+     *]
      */
     @ResponseBody
     @RequestMapping(value = "/AllProStatus",
@@ -310,9 +371,30 @@ public class LenderController {
     /**
      * 根据申请单号查询用户该单的还款信息.
      *
-     * @param jsonStr 申请单号
-     * @return 返回参数ReturnResult包含:msgCode:0失败,1成功;
-     * result： List<BR>
+     * @param jsonStr 申请单号：
+     *{<BR>
+     *&nbsp;"oddNumbers":"201708190012002604"申请单号<BR>
+     * }
+     * @return 返回参数:<BR>
+     *[<BR>
+     *&nbsp;{<BR>
+     *&nbsp;&nbsp;"reId": "1",还款单编号<BR>
+     *&nbsp;&nbsp;"reLndId": "123",用户编号<BR>
+     *&nbsp;&nbsp;"reProId": "shls001",产品编号<BR>
+     *&nbsp;&nbsp;"reProNmae": "商户流水贷",产品名称<BR>
+     *&nbsp;&nbsp;"crtRe": 1000,应还本金<BR>
+     *&nbsp;&nbsp;"createDate": 1503072000000,指定还款日期<BR>
+     *&nbsp;&nbsp;"expireDate": null,实际还款日期<BR>
+     *&nbsp;&nbsp;"status": 1,还款单状态 0未还，1已还<BR>
+     *&nbsp;&nbsp;"crtInterest": 10,利息<BR>
+     *&nbsp;&nbsp;"serMoney": 10,手续费<BR>
+     *&nbsp;&nbsp;"otherMoney": 0,其他费用<BR>
+     *&nbsp;&nbsp;"totleMoney": 1020,总应还金额<BR>
+     *&nbsp;&nbsp;"debitId": "1",对应贷款单编号<BR>
+     *&nbsp;},<BR>
+     * &nbsp;{...},<BR>
+     * &nbsp;{...}<BR>
+     *]
      */
     @ResponseBody
     @RequestMapping(value = "/FindAllRepay",
