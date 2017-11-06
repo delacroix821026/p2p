@@ -2,10 +2,19 @@ version: '3'
 services:
     p2pserver:
         image: nexusserver:8082/p2p-server:latest
+        volumes:
+            - /home/DockerCommand/:/home/DockerCommand/
         deploy:
-            replicas: 3
+            replicas: 2
             restart_policy:
                 condition: on-failure
+            resources:
+                limits:
+                    #cpus: '0.001'
+                    memory: 2046M
+                reservations:
+                    #cpus: '0.0001'
+                    memory: 64M
         networks:
             docker-net:
                 aliases:
@@ -16,14 +25,24 @@ services:
             - SPRING_PROFILES_ACTIVE=test
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - SERVER_PORT = 3001
+
     p2pclient:
         image: nexusserver:8082/p2p-client:latest
+        volumes:
+            - /home/DockerCommand/:/home/DockerCommand/
         depends_on:
             - p2pserver
         deploy:
-            replicas: 3
+            replicas: 2
             restart_policy:
                 condition: on-failure
+            resources:
+                limits:
+                    #cpus: '0.001'
+                    memory: 2046M
+                reservations:
+                    #cpus: '0.0001'
+                    memory: 64M
         networks:
             docker-net:
                 aliases:
@@ -36,12 +55,21 @@ services:
             - SERVER_PORT = 4001
     p2pzuul:
         image: nexusserver:8082/p2p-zuul:latest
+        volumes:
+            - /home/DockerCommand/:/home/DockerCommand/
         depends_on:
             - p2pclient
         deploy:
-            replicas: 2
+            replicas: 1
             restart_policy:
                 condition: on-failure
+            resources:
+                limits:
+                    #cpus: '0.001'
+                    memory: 2046M
+                reservations:
+                    #cpus: '0.0001'
+                    memory: 64M
         networks:
             docker-net:
                 aliases:

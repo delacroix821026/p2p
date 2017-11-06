@@ -121,12 +121,15 @@
                 <configuration>
                     <!--<imageName>delacroix821026/firstdemo:${project.build.finalName}</imageName>-->
                     <imageName>nexusserver:8082/${project.build.finalName}</imageName>
+                    <!--<baseImage>frolvlad/alpine-oraclejdk8</baseImage>-->
                     <baseImage>daocloud.io/library/java:latest</baseImage>
 
-                    <!--<cmd>docker login 192.168.10.38:8082 -u admin -p admin123%</cmd>-->
+                    <!--<cmd>["/home/DockerCommand/SetJVM.sh"]</cmd>-->
                     <volumes><volume>/tmp</volume></volumes>
 
-                    <entryPoint>[ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /${project.build.finalName}.jar" ]</entryPoint>
+                    <!--<entryPoint>[ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /${project.build.finalName}.jar" ]</entryPoint>-->
+                    <entryPoint>[ "sh", "-c", "/home/DockerCommand/SetJVM.sh \"${project.build.finalName}\"" ]</entryPoint>
+
                     <!--<dockerDirectory>docker</dockerDirectory>-->
                     <resources>
                         <resource>
@@ -141,7 +144,7 @@
                          <imageTag>latest</imageTag>
                      </imageTags>-->
                     <serverId>p2p-docker-hub</serverId>
-                    <registryUrl>http://nexusserver:8082w/</registryUrl>
+                    <registryUrl>http://nexusserver:8082/</registryUrl>
                     <!--<registryUrl>https://index.docker.io/v1/</registryUrl>-->
                 </configuration>
             </plugin>
