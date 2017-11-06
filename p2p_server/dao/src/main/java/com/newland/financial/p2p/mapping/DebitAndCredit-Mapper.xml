@@ -94,7 +94,7 @@
 
     <!--查询stus=1且离申请时间超过15天的贷款单数据-->
     <select id="selectStus" resultMap="BaseResultMap" parameterType="java.util.Date">
-        SELECT DT_ID FROM t_debitandcredit WHERE datediff(#{nowDate},D_DATE) &gt; 15 AND STUS = '1'
+        SELECT DT_ID FROM t_debitandcredit WHERE TimeStampDiff(day,D_DATE,#{nowDate}) &gt; 15 AND STUS = '1'
     </select>
     <!--将申请时间超过15天贷款单状态改为拒绝-->
     <update id="updateStusToThree" parameterType="List">

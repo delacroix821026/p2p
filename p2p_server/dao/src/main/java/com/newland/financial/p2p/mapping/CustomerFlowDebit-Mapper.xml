@@ -101,7 +101,7 @@
         </if>
         <if test="endTime != null">
             AND DATE_FORMAT(b.D_DATE,'%Y-%m-%d') &lt;= #{endTime}
-        </if>
+        </if> ORDER BY b.D_DATE desc
     </select>
 
     <delete id="deleteTestData" parameterType="String">
