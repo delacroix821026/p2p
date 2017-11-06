@@ -337,8 +337,49 @@ public class ProductController {
     /**
      * App端展示贷款状态接口(包含分页功能).
      *
-     * @param jsonStr String包含userId用户编号
-     * @return Object
+     * @param jsonStr String包含userId用户编号<BR>
+     *{<BR>
+     *&nbsp;"userId":"123123",用户编号<BR>
+     *&nbsp;"page":1,当前页<BR>
+     *&nbsp;"count":5 显示条数<BR>
+     *}
+     * @return 返回参数：<BR>
+     *{<BR>
+     *&nbsp;"pageNum": 1,当前页<BR>
+     *&nbsp;"pageSize": 1,每页条数<BR>
+     *&nbsp;"total": 23,总记录数<BR>
+     *&nbsp;"pages": 23,总页数<BR>
+     *&nbsp;"list": [<BR>
+     *&nbsp;&nbsp;{<BR>
+     *&nbsp;&nbsp;"proId": "shls001",产品编号<BR>
+     *&nbsp;&nbsp;"proName": "商户流水贷",产品名称<BR>
+     *&nbsp;&nbsp;"proLmt": null,<BR>
+     *&nbsp;&nbsp;"payDate": null,<BR>
+     *&nbsp;&nbsp;"proInterest": null,<BR>
+     *&nbsp;&nbsp;"proNameOperator": "商户流水贷",<BR>
+     *&nbsp;&nbsp;"sponsor": null,<BR>
+     *&nbsp;&nbsp;"sprProName": null,<BR>
+     *&nbsp;&nbsp;"createTime": 1508225755000,产品创建时间<BR>
+     *&nbsp;&nbsp;"lastModiTime": null,<BR>
+     *&nbsp;&nbsp;"maxLmt": null,<BR>
+     *&nbsp;&nbsp;"role": "0",<BR>
+     *&nbsp;&nbsp;"putAndDown": " ",<BR>
+     *&nbsp;&nbsp;"advanceRepay": null,<BR>
+     *&nbsp;&nbsp;"poundage": null,<BR>
+     *&nbsp;&nbsp;"formula": null,<BR>
+     *&nbsp;&nbsp;"isLatefee": null,<BR>
+     *&nbsp;&nbsp;"latefee": null,<BR>
+     *&nbsp;&nbsp;"interestMhd": null,<BR>
+     *&nbsp;&nbsp;"repayMhd": null,<BR>
+     *&nbsp;&nbsp;"cutMhd": null,<BR>
+     *&nbsp;&nbsp;"positiveOrNegative": null,<BR>
+     *&nbsp;&nbsp;"interestList": null,<BR>
+     *&nbsp;&nbsp;"organizationsList": null,<BR>
+     *&nbsp;&nbsp;"stus": "1",产品状态：0或者3或者null显示我要贷款，1显示申请中，2显示分期计划<BR>
+     *&nbsp;&nbsp;"dproId": "shls001"<BR>
+     *&nbsp;}<BR>
+     *&nbsp;],<BR>
+     *}
      */
     @ResponseBody
     @RequestMapping(value = "/CheckStatus",
