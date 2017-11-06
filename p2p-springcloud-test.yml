@@ -2,10 +2,19 @@ version: '3'
 services:
     p2pconfig:
         image: nexusserver:8082/p2p-config:latest
+        volumes:
+            - /home/DockerCommand/:/home/DockerCommand/
         deploy:
-            replicas: 3
+            replicas: 1
             restart_policy:
                 condition: on-failure
+            resources:
+                limits:
+                    #cpus: '0.001'
+                    memory: 2046M
+                reservations:
+                    #cpus: '0.0001'
+                    memory: 64M
         networks:
             docker-net:
                 aliases:
@@ -19,11 +28,20 @@ services:
 
     p2padmin:
         image: nexusserver:8082/p2p-admin:latest
+        volumes:
+            - /home/DockerCommand/:/home/DockerCommand/
         depends_on:
             - p2pconfig
         deploy:
             restart_policy:
                 condition: on-failure
+            resources:
+                limits:
+                    #cpus: '0.001'
+                    memory: 2046M
+                reservations:
+                    #cpus: '0.0001'
+                    memory: 64M
         networks:
             docker-net:
                 aliases:

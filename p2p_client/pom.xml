@@ -203,7 +203,7 @@
                     <!--<cmd>docker login 192.168.10.38:8082 -u admin -p admin123%</cmd>-->
                     <volumes><volume>/tmp</volume></volumes>
 
-                    <entryPoint>[ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /${project.build.finalName}.jar" ]</entryPoint>
+                    <entryPoint>[ "sh", "-c", "/home/DockerCommand/SetJVM.sh \"${project.build.finalName}\"" ]</entryPoint>
                     <!--<dockerDirectory>docker</dockerDirectory>-->
                     <resources>
                         <resource>
