@@ -22,8 +22,7 @@ import com.newland.financial.p2p.domain.entity.DebitAndRepaySummary;
 import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import com.newland.financial.p2p.service.IDebitAndCreditService;
 import com.newland.financial.p2p.common.exception.OverloadException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,12 +39,9 @@ import java.util.HashMap;
  *
  * @author cendaijuan
  */
+@Log4j
 @Service
 public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
-    /**
-     * 日志对象.
-     */
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * Dao层对象.
      */
@@ -93,8 +89,8 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
         AbstractProduct product = productDao.findById(productId);
         product.setInterestList(interestDao.findByProId((productId)));
 
-        logger.info("DebitAndCreditServiceImpl====:" + lender.toString());
-        logger.info("DebitAndCreditServiceImpl====:" + product.toString());
+        log.debug("DebitAndCreditServiceImpl====:" + lender.toString());
+        log.debug("DebitAndCreditServiceImpl====:" + product.toString());
         //创建贷款单
         DebitAndCredit debitAndCredit =
                 DebitAndCreditFactory.createDebitAndCredit(
@@ -103,13 +99,13 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
         List<RepayALoan> repayALoanList = RepayALoanFactory.createRepayAloan(
                 product, lender, money, interestId, debitAndCredit.getDtId());
 
-        logger.info(debitAndCredit.toString());
+        log.debug(debitAndCredit.toString());
 
         lenderDao.updateLender(lender); //更新用户信息
         //插入信息到相应数据库
         debitAndCreditDao.insertDebitAndCredit(debitAndCredit);
         for (int count = 0; count < repayALoanList.size(); count++) {
-            logger.info(repayALoanList.get(count).toString());
+            log.debug(repayALoanList.get(count).toString());
             repayALoanDao.insertRepayAloan(repayALoanList.get(count));
         }
     }
@@ -277,12 +273,12 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
         if (createTimeBeg != null) {
             Date begTimeDate = new Date(createTimeBeg);
             begTime = sdf.format(begTimeDate);
-            logger.info("---------------------------------" + begTime);
+            log.debug("---------------------------------" + begTime);
         }
         if (createTimeEnd != null) {
             Date endTimeDate = new Date(createTimeEnd);
             endTime = sdf.format(endTimeDate);
-            logger.info("---------------------------------" + endTime);
+            log.debug("---------------------------------" + endTime);
         }
         Map<String, Object> reqMap = new HashMap<String, Object>();
         if ("".equals(proId)) {
@@ -297,7 +293,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
         }
         if ("".equals(oddNumbers)) {
             reqMap.put("oddNumbers", null);
-            logger.info("=====oddNumbers=====" + oddNumbers);
+            log.debug("=====oddNumbers=====" + oddNumbers);
         } else {
             reqMap.put("oddNumbers", oddNumbers);
         }

@@ -43,7 +43,7 @@ public class Example {
     public Integer add(@RequestParam final Integer a, @RequestParam final Integer b) {
         ServiceInstance instance = client.getLocalServiceInstance();
         Integer r = a + b;
-        log.info("/add, host:" + instance.getHost()
+        log.debug("/add, host:" + instance.getHost()
                 + ", service_id:" + instance.getServiceId() + ", result:" + r);
         return r;
     }

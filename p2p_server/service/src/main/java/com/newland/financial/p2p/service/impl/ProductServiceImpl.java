@@ -14,8 +14,7 @@ import com.newland.financial.p2p.domain.entity.Interest;
 import com.newland.financial.p2p.domain.entity.IProduct;
 import com.newland.financial.p2p.domain.entity.AbstractProduct;
 import com.newland.financial.p2p.service.IProductService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +31,9 @@ import java.util.Date;
  *
  * @author cendaijuan
  */
+@Log4j
 @Service
 public class ProductServiceImpl implements IProductService {
-    /**
-     * 日志对象.
-     */
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * Dao层对象.
      */
@@ -77,7 +73,7 @@ public class ProductServiceImpl implements IProductService {
     public IProduct getProduct(String id) {
         AbstractProduct product = productDao.findById(id);
         product.setOrganizationsList(organizationDao.selectOrganizationList(id));
-        logger.info("service--product-------:" + product);
+        log.debug("service--product-------:" + product);
         product.setInterestList(interestDao.findByProId((id)));
         return product;
     }
@@ -155,7 +151,7 @@ public class ProductServiceImpl implements IProductService {
         b2 = organizationDao.insertOrganizationList(list1); //将该产品对应可查看到的机构插入机构表中
         Boolean b1 = interestDao.insertInterest(list); //将产品各分期利率插入利率表中
         Boolean b3 = productDao.insertProduct(product); //将产品信息插入产品表中
-        logger.info("机构插入b2---：" + b2 + ",分期插入b1---：" + b1 + ",产品插入b3----：" + b3);
+        log.debug("机构插入b2---：" + b2 + ",分期插入b1---：" + b1 + ",产品插入b3----：" + b3);
         return b1 && b2 && b3;
     }
 
@@ -261,17 +257,17 @@ public class ProductServiceImpl implements IProductService {
 
         //更新产品信息
         if (!productDao.updateProduct(product)) {
-            logger.info("----------------------------------------更新产品信息失败");
+            log.debug("----------------------------------------更新产品信息失败");
             return false;
         }
         //更新利率信息
         List<Interest> interestTempList = interestDao.findByProId(proId);
-        logger.info("--------判断表中是否存在指定产品的利率信息-------" + interestDao.findByProId(proId).size());
+        log.debug("--------判断表中是否存在指定产品的利率信息-------" + interestDao.findByProId(proId).size());
         if (interestTempList != null && interestTempList.size() > 0) { //判断表中是否存在指定产品的利率信息
             interestDao.deleteInterestByProId(proId);
         }
         if (!interestDao.insertInterest(interestList)) {
-            logger.info("----------------------------------------插入利率失败");
+            log.debug("----------------------------------------插入利率失败");
             return false;
         }
 
@@ -283,7 +279,7 @@ public class ProductServiceImpl implements IProductService {
         }
         //插入新的产品-机构信息
         if (!organizationDao.insertOrganizationList(orgList)) {
-            logger.info("------------------------------插入新的产品-机构信息失败");
+            log.debug("------------------------------插入新的产品-机构信息失败");
             return false;
         }
         return true;
@@ -324,17 +320,17 @@ public class ProductServiceImpl implements IProductService {
         if (createTimeBeg != null) {
             Date begTimeDate = new Date(createTimeBeg);
             begTime = sdf.format(begTimeDate);
-            logger.info("---------------------------------" + begTime);
+            log.debug("---------------------------------" + begTime);
         }
         if (createTimeEnd != null) {
             Date endTimeDate = new Date(createTimeEnd);
             endTime = sdf.format(endTimeDate);
-            logger.info("---------------------------------" + endTime);
+            log.debug("---------------------------------" + endTime);
         }
         Map<String, Object> reqMap = new HashMap<String, Object>();
-        logger.info("*****************************role:" + role);
-        logger.info("*****************************proId:" + proId);
-        logger.info("*****************************proName:" + proName);
+        log.debug("*****************************role:" + role);
+        log.debug("*****************************proId:" + proId);
+        log.debug("*****************************proName:" + proName);
         if (!"".equals(role)) {
             reqMap.put("role", role);
         }

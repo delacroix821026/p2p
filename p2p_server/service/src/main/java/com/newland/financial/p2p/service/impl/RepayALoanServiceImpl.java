@@ -8,6 +8,7 @@ import com.newland.financial.p2p.domain.entity.DebitAndRepaySummary;
 import com.newland.financial.p2p.domain.entity.Lender;
 import com.newland.financial.p2p.domain.entity.RepayALoan;
 import com.newland.financial.p2p.service.IRepayALoanService;
+import lombok.extern.log4j.Log4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
  *
  * @author cengdaijuan
  */
+@Log4j
 @Service
 public class RepayALoanServiceImpl implements IRepayALoanService {
     /**
@@ -53,11 +55,11 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
     public void repay(final String repayId) throws AlreadyRepayException {
         RepayALoan repayALoan = repayALoanDao.findByReId(repayId);
         Lender lender = lenderDao.findById(repayALoan.getReLndId());
-        logger.info("service--lender----------:" + lender.toString());
+        log.debug("service--lender----------:" + lender.toString());
         repayALoan.setPositionExchange(lender);
         repayALoan.repay();
 
-        logger.info(repayALoan.toString());
+        log.debug(repayALoan.toString());
 
         repayALoanDao.updateRepayAloan(repayALoan);
         lenderDao.updateLender(lender);
@@ -133,20 +135,20 @@ public class RepayALoanServiceImpl implements IRepayALoanService {
         String debitId = debitAndCreditDao.selectDebitId(userId, proId);
         if (debitId != null && debitId.length() != 0) {
             if (userId != null && userId.length() != 0 && proId != null && proId.length() != 0) {
-                logger.info("RepayALoanServiceImpl------");
+                log.debug("RepayALoanServiceImpl------");
                 DebitAndRepaySummary debitAndRepaySummary = new DebitAndRepaySummary();
                 debitAndRepaySummary.setRepayInMonth(repayALoanDao.findUnPayByDebitId(debitId)); //本月应还金额
                 debitAndRepaySummary.setRepayed(repayALoanDao.findYetPayByDebitId(debitId)); //已还金额
                 debitAndRepaySummary.setNeedRepay(repayALoanDao.findNeedPayByDebitId(debitId)); //未还金额（待还金额）
                 List<RepayALoan> list = repayALoanDao.findRepayAloanInfo(debitId);
                 List result = new ArrayList();
-                logger.info("debitAndRepaySummary=======" + debitAndRepaySummary.toString());
+                log.debug("debitAndRepaySummary=======" + debitAndRepaySummary.toString());
                 result.add(debitAndRepaySummary);
                 result.add(list);
                 return result;
             }
         }
-        logger.info("RepayALoanServiceImpl++++++");
+        log.debug("RepayALoanServiceImpl++++++");
         return false;
     }
 

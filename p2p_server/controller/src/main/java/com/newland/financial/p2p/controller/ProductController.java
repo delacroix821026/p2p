@@ -4,8 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.newland.financial.p2p.domain.entity.IProduct;
 import com.newland.financial.p2p.service.IProductService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author cendaijuan
  */
 @Controller
+@Log4j
 @RequestMapping("/ProductController")
 public class ProductController {
-    /**
-     * 日志对象.
-     */
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * productService对象.
      */
@@ -44,7 +40,7 @@ public class ProductController {
     @RequestMapping(value = "/GetProductList",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object getProductList() {
-        logger.info("ProductController GetProductList");
+        log.debug("ProductController GetProductList");
         return productService.getProductList();
     }*/
 
@@ -102,15 +98,15 @@ public class ProductController {
     @RequestMapping(value = "/GetProduct",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object getProduct(@RequestBody String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String proId = paramJSON.getString("proId");
-        logger.info("ProductController GetProductList:proId--" + proId);
+        log.debug("ProductController GetProductList:proId--" + proId);
         if (proId == null || proId.equals("")) {
             return "proId不可为空";
         } else {
             IProduct product = productService.getProduct(proId);
-            logger.info(product.toString());
+            log.debug(product.toString());
             return product;
         }
     }
@@ -164,10 +160,10 @@ public class ProductController {
     @RequestMapping(value = "/InsertProduct", method = {RequestMethod.POST, RequestMethod.GET})
     public Object insertProduct(@RequestBody String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         String proId = paramJSON.getString("proId");
         if (productService.findProduct(proId) != null) {
-            logger.info("--------------已存在该产品编号");
+            log.debug("--------------已存在该产品编号");
             return "已存在该产品编号";
         }
         return productService.insertProduct(jsonStr);
@@ -279,7 +275,7 @@ public class ProductController {
     @RequestMapping(value = "/PutOrDown", method = {RequestMethod.POST, RequestMethod.GET})
     public Object putOrDown(@RequestBody String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         String proId = paramJSON.getString("proId");
         String putAndDown = paramJSON.getString("putAndDown");
         if (proId != null && proId.length() != 0 && putAndDown != null && putAndDown.length() != 0) {
@@ -324,7 +320,7 @@ public class ProductController {
     @RequestMapping(value = "/getAppProducts", method = {RequestMethod.POST, RequestMethod.GET})
     public Object getAppProducts(@RequestBody String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         String role = paramJSON.getString("role");
         //获取分页信息
         Integer page = paramJSON.getInteger("page");
@@ -385,11 +381,11 @@ public class ProductController {
     @RequestMapping(value = "/CheckStatus",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object checkStatus(@RequestBody String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String dLnrId = paramJSON.getString("userId");
         if (dLnrId == null || dLnrId.length() == 0) {
-            logger.info("==================未接收到userid=====================");
+            log.debug("==================未接收到userid=====================");
             return false;
         }
         Integer page = paramJSON.getInteger("page");

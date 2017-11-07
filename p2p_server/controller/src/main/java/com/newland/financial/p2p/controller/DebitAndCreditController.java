@@ -1,8 +1,7 @@
 package com.newland.financial.p2p.controller;
 
 import com.newland.financial.p2p.service.IDebitAndCreditService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Mxia
  */
 @Controller
+@Log4j
 @RequestMapping("/DebitAndCreditController")
 public class DebitAndCreditController {
-    /**日志对象.*/
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**service层对象.*/
     @Autowired
     private IDebitAndCreditService debitAndCreditService;
@@ -88,7 +86,7 @@ public class DebitAndCreditController {
     @RequestMapping(value = "/getDebitList",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object getDebitList(@RequestBody String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         return debitAndCreditService.getDebitList(jsonStr);
     }
 }

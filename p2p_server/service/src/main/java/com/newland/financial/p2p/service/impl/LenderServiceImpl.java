@@ -9,8 +9,7 @@ import com.newland.financial.p2p.domain.entity.CustomerFlowDebit;
 import com.newland.financial.p2p.domain.entity.DebitAndCredit;
 import com.newland.financial.p2p.domain.entity.Lender;
 import com.newland.financial.p2p.service.ILenderService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +28,9 @@ import java.util.Random;
  *
  * @author cendaijuan
  */
+@Log4j
 @Service
 public class LenderServiceImpl implements ILenderService {
-    /**日志对象.*/
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**Dao层对象.*/
     @Autowired
     private ILenderDao lenderDao;
@@ -53,7 +51,7 @@ public class LenderServiceImpl implements ILenderService {
      * @return Lender返回用户信息.
      */
     public Lender getLender(final String userId) {
-        logger.info("LenderService:lenderId(userId)--:" + userId);
+        log.debug("LenderService:lenderId(userId)--:" + userId);
         return lenderDao.findById(userId);
     }
 
@@ -63,7 +61,7 @@ public class LenderServiceImpl implements ILenderService {
      * @param userId String用户编号
      */
     public void clear(final String userId) {
-        logger.info("LenderService:clear(userId)--:" + userId);
+        log.debug("LenderService:clear(userId)--:" + userId);
         debitAndCreditDao.deleteDebitAndCredit(userId);
         repayALoanDao.deleteRepayAloan(userId);
         lenderDao.getBack(userId);
@@ -107,21 +105,21 @@ public class LenderServiceImpl implements ILenderService {
         customerFlowDebit.setDDate(new Date()); //申请日期
         //生成申请单号，年月日时分秒+4位随机数
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        logger.info("catalindaTimeZone:" + sdf.getTimeZone().getID());
+        log.debug("catalindaTimeZone:" + sdf.getTimeZone().getID());
         //sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         Date date = new Date();
         StringBuffer s = new StringBuffer(sdf.format(date));
-        logger.info("SystemTimeZone:" + System.getProperty("user.timezone"));
-        logger.info("SystemUserCountry:" + System.getProperty("user.country"));
-        logger.info("SystemJavaHome:" + System.getProperty("java.home"));
-        logger.info("==============时间：" + s);
+        log.debug("SystemTimeZone:" + System.getProperty("user.timezone"));
+        log.debug("SystemUserCountry:" + System.getProperty("user.country"));
+        log.debug("SystemJavaHome:" + System.getProperty("java.home"));
+        log.debug("==============时间：" + s);
         Random r = new Random();
         String str = new DecimalFormat("0000").format(r.nextInt(10000));
         s.append(str);
-        logger.info("==============申请单号：" + s);
+        log.debug("==============申请单号：" + s);
         customerFlowDebit.setOddNumbers(new String(s));
         customerFlowDebit.setDDate(date);
-        logger.info("lenderService--insertDebitInfo--customerFlowDebit:" + customerFlowDebit.toString());
+        log.debug("lenderService--insertDebitInfo--customerFlowDebit:" + customerFlowDebit.toString());
         return customerFlowDebitDao.insertDebitInfo(customerFlowDebit);
     }
 }

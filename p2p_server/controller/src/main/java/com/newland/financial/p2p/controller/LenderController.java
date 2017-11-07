@@ -10,8 +10,7 @@ import com.newland.financial.p2p.service.IDebitAndCreditService;
 import com.newland.financial.p2p.service.ILenderService;
 import com.newland.financial.p2p.common.exception.OverloadException;
 import com.newland.financial.p2p.service.IRepayALoanService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,12 +24,9 @@ import java.math.BigDecimal;
  * @author cendaijuan
  */
 @Controller
+@Log4j
 @RequestMapping("/LenderController")
 public class LenderController {
-    /**
-     * 日志对象.
-     */
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * lenderService对象.
      */
@@ -66,12 +62,12 @@ public class LenderController {
     @RequestMapping(value = "/GetLender",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object getLender(@RequestBody final String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String lenderId = paramJSON.getString("lenderId");
-        logger.info("LenderController GetLender:lenderId--" + lenderId);
+        log.debug("LenderController GetLender:lenderId--" + lenderId);
         Lender lender = lenderService.getLender(lenderId);
-        logger.info(lender.toString());
+        log.debug(lender.toString());
         return lender;
     }
 
@@ -88,20 +84,18 @@ public class LenderController {
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object debit(@RequestBody final String jsonStr)
             throws OverloadException {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
         String productId = paramJSON.getString("productId");
         BigDecimal money = paramJSON.getBigDecimal("money");
         Integer interestId = Integer.parseInt(paramJSON.getString("interestId"));
-        logger.info("LenderController GetLender:userId--" + userId);
-        logger.info("LenderController GetLender:productId--" + productId);
-        logger.info("LenderController GetLender:productId--" + money);
-        logger.info("LenderController GetLender:productId--" + interestId);
-
+        log.debug("LenderController GetLender:userId--" + userId);
+        log.debug("LenderController GetLender:productId--" + productId);
+        log.debug("LenderController GetLender:productId--" + money);
+        log.debug("LenderController GetLender:productId--" + interestId);
         debitAndCreditService.createDebitAndCredit(
                 userId, productId, money, interestId);
-
         return null;
     }
 
@@ -118,14 +112,11 @@ public class LenderController {
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object repay(@RequestBody final String jsonStr)
             throws AlreadyRepayException {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String repayId = paramJSON.getString("repayId");
-
-        logger.info("LenderController Repay:repayId--" + repayId);
-
+        log.debug("LenderController Repay:repayId--" + repayId);
         repayALoanService.repay(repayId); //按照传入的还款单编号进行还款
-
         return null;
     }
 
@@ -150,10 +141,10 @@ public class LenderController {
     @RequestMapping(value = "/FindAllDebit",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object findAllDebit(@RequestBody final String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
-        logger.info("LenderController FindAllDebit:userId--" + userId);
+        log.debug("LenderController FindAllDebit:userId--" + userId);
         return debitAndCreditService.findDebitAndCreditHistory(userId);
     }
 
@@ -169,11 +160,10 @@ public class LenderController {
     @RequestMapping(value = "/FindTotalMoney",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object findTotalMoney(@RequestBody final String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
-        logger.info("LenderController FindTotalMoney:userId--" + userId);
-
+        log.debug("LenderController FindTotalMoney:userId--" + userId);
         return repayALoanService.getTotalMoney(userId);
     }
 
@@ -193,11 +183,10 @@ public class LenderController {
     @RequestMapping(value = "/getDebitAndRepaySummary",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object getDebitAndRepaySummary(@RequestBody final String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
-        logger.info("LenderController FindTotalMoney:userId--" + userId);
-
+        log.debug("LenderController FindTotalMoney:userId--" + userId);
         return repayALoanService.getDebitAndRepaySummary(userId);
     }
 
@@ -212,10 +201,10 @@ public class LenderController {
     @RequestMapping(value = "/UpdateStatus",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object clearData(@RequestBody final String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
-        logger.info("LenderController Clear:lenderId--" + userId);
+        log.debug("LenderController Clear:lenderId--" + userId);
         try {
             repayALoanService.updateSta(userId);
         } catch (Exception e) {
@@ -250,7 +239,7 @@ public class LenderController {
     @RequestMapping(value = "/ApplyInterviewPro",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object applyFacePro(@RequestBody final String jsonStr) throws AgeDiscrepancyException {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String dLnrId = paramJSON.getString("userId");
         if (dLnrId == null || dLnrId.length() == 0) {
@@ -326,7 +315,7 @@ public class LenderController {
     @RequestMapping(value = "/StagingPlan",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object findStagingPlan(@RequestBody final String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
         String proId = paramJSON.getString("proId");
@@ -359,7 +348,7 @@ public class LenderController {
     @RequestMapping(value = "/AllProStatus",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object findAllProStatus(@RequestBody String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String userId = paramJSON.getString("userId");
         if (userId == null || userId.length() == 0) {
@@ -400,11 +389,10 @@ public class LenderController {
     @RequestMapping(value = "/FindAllRepay",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object findAllRepay(@RequestBody final String jsonStr) {
-        logger.info("jsonStr：" + jsonStr);
+        log.debug("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String oddNumbers = paramJSON.getString("oddNumbers");
-        logger.info("LenderController FindAllRepay:oddNumbers--" + oddNumbers);
-
+        log.debug("LenderController FindAllRepay:oddNumbers--" + oddNumbers);
         return repayALoanService.getRepayALoanList(oddNumbers);
     }
 
