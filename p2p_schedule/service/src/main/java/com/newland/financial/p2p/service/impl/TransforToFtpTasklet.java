@@ -81,8 +81,8 @@ public class TransforToFtpTasklet implements Tasklet {
             // 如果采用默认端口，可以使用ftp.connect(host)的方式直接连接FTP服务器
 //			ftp.connect(host);
             ftp.login(username, password);
+            log.debug("------------------------------------------loginReply:"+ftp.printWorkingDirectory());
             reply = ftp.getReplyCode();
-            log.debug("------------------------------------------loginReply:"+reply);
             if (!FTPReply.isPositiveCompletion(reply)) {
                 ftp.disconnect();
                 return result;
@@ -152,14 +152,5 @@ public class TransforToFtpTasklet implements Tasklet {
         }
         zos.closeEntry();
         zos.close();
-
-//        for (int i = 0; i < files.length; i++) {
-//            File file = new File(files[i]);
-//            if(file.delete()){
-//                log.debug("------------------delete sucess:"+file.getPath());
-//            }else {
-//                log.debug("------------------delete failed:"+file.getPath());
-//            }
-//        }
     }
 }

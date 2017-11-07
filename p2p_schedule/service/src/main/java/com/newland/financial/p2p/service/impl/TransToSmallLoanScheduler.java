@@ -39,7 +39,7 @@ public class TransToSmallLoanScheduler {
     public void testTasks() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.info("每120秒执行一次。开始……");
         DateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
-        dataFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+//        dataFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         String runDay = dataFormat.format(new Date());
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("runDay", runDay)
