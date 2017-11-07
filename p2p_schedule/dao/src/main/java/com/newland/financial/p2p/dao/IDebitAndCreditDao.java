@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * 定义对贷款信息操作的接口.
+ *
  * @author Gregory
  */
 public interface IDebitAndCreditDao {
@@ -19,16 +20,17 @@ public interface IDebitAndCreditDao {
     /**
      * 查询指定状态的所有订单.
      * @param stus 订单状态
-     * @return  返回该用户所有的订单信息
+     * @return 返回该用户所有的订单信息
      */
     List<DebitAndCredit> findAllByStus(String stus);
 
     /**
      * 修改订单状态.
      * @param dtId 订单编号
-     * @return  true   false
+     * @return true   false
      */
     boolean updateStus(String dtId);
+
     /**
      * 如果贷款单申请时间超过15天，自动将stus变为3.
      */

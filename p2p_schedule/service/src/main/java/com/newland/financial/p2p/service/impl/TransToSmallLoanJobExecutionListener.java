@@ -1,14 +1,19 @@
 package com.newland.financial.p2p.service.impl;
 
-import com.newland.financial.p2p.Application;
 import lombok.extern.log4j.Log4j;
-import org.springframework.batch.core.*;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobExecutionListener;
 
-import java.io.*;
-import java.net.URISyntaxException;
-
+/**
+ * schedule监听类.
+ * @author gregory
+ */
 @Log4j
 public class TransToSmallLoanJobExecutionListener implements JobExecutionListener {
+    /**
+     * 前处理.
+     * @param jobExecution jobExecution
+     */
     public void beforeJob(JobExecution jobExecution) {
         log.info("Enter into TransToSmallLoanJobExecutionListener-beforeJob to creat Excel document");
 
@@ -55,6 +60,10 @@ public class TransToSmallLoanJobExecutionListener implements JobExecutionListene
 
     }
 
+    /**
+     * 后处理.
+     * @param jobExecution  jobExecution
+     */
     public void afterJob(JobExecution jobExecution) {
         log.info("Enter into TransToSmallLoanJobExecutionListener-afterJob to destroy Excel document");
         //try {

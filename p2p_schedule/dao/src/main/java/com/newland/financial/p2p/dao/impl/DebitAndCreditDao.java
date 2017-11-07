@@ -4,12 +4,14 @@ import com.newland.financial.p2p.dao.IDebitAndCreditDao;
 import com.newland.financial.p2p.domain.entity.DebitAndCredit;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 贷款单持久层.
- * @author Gregory
  *
+ * @author Gregory
  */
 @Repository
 public class DebitAndCreditDao extends
@@ -17,6 +19,7 @@ public class DebitAndCreditDao extends
 
     /**
      * 查看该人所有的贷款单.
+     *
      * @return List返回该用户所有的贷款信息
      */
     public List<DebitAndCredit> findAll() {
@@ -25,20 +28,22 @@ public class DebitAndCreditDao extends
 
     /**
      * 查询指定状态的所有订单.
+     *
      * @param stus 订单状态
-     * @return  返回该用户所有的订单信息
+     * @return 返回该用户所有的订单信息
      */
-    public List<DebitAndCredit> findAllByStus(String stus){
-        return super.select("selectByStus",stus);
+    public List<DebitAndCredit> findAllByStus(String stus) {
+        return super.select("selectByStus", stus);
     }
 
     /**
      * 修改订单状态.
+     *
      * @param dtId 订单编号
-     * @return  true   false
+     * @return true   false
      */
-    public boolean updateStus(String dtId){
-        return super.update("updateStus",dtId);
+    public boolean updateStus(String dtId) {
+        return super.update("updateStus", dtId);
     }
 
     /**

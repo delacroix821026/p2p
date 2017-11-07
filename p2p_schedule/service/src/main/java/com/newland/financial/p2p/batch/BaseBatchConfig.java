@@ -12,8 +12,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 结果集查询，更新发送状态.
+ *
+ * @author Gregory
+ */
 @Configuration
 public class BaseBatchConfig {
+    /**
+     * 查询订单流水.
+     *
+     * @param sqlSessionFactory sqlSessionFactory
+     * @param queryId           sql ID
+     * @return  ItemReader
+     */
     @Bean
     @StepScope
     public ItemReader getItemReader(SqlSessionFactory sqlSessionFactory, @Value("#{jobParameters['queryId']}") String queryId) {
@@ -24,6 +36,13 @@ public class BaseBatchConfig {
         return myBatisPagingItemReader;
     }
 
+    /**
+     * 更新发送状态.
+     *
+     * @param sqlSessionFactory sqlSessionFactory
+     * @param statementId       sql ID
+     * @return  ItemWriter
+     */
     @Bean
     @StepScope
     public ItemWriter getItemWriter(SqlSessionFactory sqlSessionFactory, @Value("#{jobParameters['statementId']}") String statementId) {

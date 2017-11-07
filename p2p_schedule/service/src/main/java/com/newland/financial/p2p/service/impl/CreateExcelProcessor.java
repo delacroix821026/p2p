@@ -7,8 +7,18 @@ import org.springframework.batch.item.ItemProcessor;
 
 import java.util.Date;
 
+/**
+ * 对象模型转换.
+ * @author Gregory
+ */
 @Log4j
 public class CreateExcelProcessor implements ItemProcessor<CustomerFlowDebit, ExcelOrderModel> {
+    /**
+     * 将CustomerFlowDebit转化为ExcelOrderModel.
+     * @param customerFlowDebit 订单流水对象
+     * @return 报表对象
+     * @throws Exception
+     */
     @Override
     public ExcelOrderModel process(CustomerFlowDebit customerFlowDebit) throws Exception {
         log.debug("CreateExcelProcessor==================================");
@@ -22,7 +32,7 @@ public class CreateExcelProcessor implements ItemProcessor<CustomerFlowDebit, Ex
         excelOrderModel.setIdentityCard(customerFlowDebit.getIdentityCard());
         excelOrderModel.setIsSend("1");
         excelOrderModel.setTransformTime(new Date());
-        log.debug("CreateExcelProcessor:customerFlowDebit-----------------------" +excelOrderModel.toString());
+        log.debug("CreateExcelProcessor:customerFlowDebit-----------------------" + excelOrderModel.toString());
         return excelOrderModel;
     }
 }
