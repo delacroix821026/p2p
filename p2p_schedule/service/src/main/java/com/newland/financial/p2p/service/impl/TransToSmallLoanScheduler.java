@@ -52,7 +52,7 @@ public class TransToSmallLoanScheduler {
         log.info("每120秒执行一次。结束。" + execution.getStatus());
     }
 
-    @Scheduled(cron = "* * 0/2 * * ?")
+    @Scheduled(cron = "0 0 0/2 * * ?")
     public void reportCurrentTime() {
         debitAndCreditDao.updateStusToThree(); //将数据库内申请时间超过15天的贷款贷状态改为拒绝
         log.info("The time is now：定时器执行更改超过15天申请中订单的状态为拒绝"+ dateFormat.format(new Date()));
