@@ -102,7 +102,7 @@ public class LenderServiceImpl implements ILenderService {
         //生成申请单号，年月日时分秒+4位随机数
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         logger.info("catalindaTimeZone:" + sdf.getTimeZone().getID());
-        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        //sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         Date date = new Date();
         StringBuffer s = new StringBuffer(sdf.format(date));
         logger.info("SystemTimeZone:" + System.getProperty("user.timezone"));

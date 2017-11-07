@@ -29,4 +29,8 @@ public interface IDebitAndCreditDao {
      * @return  true   false
      */
     boolean updateStus(String dtId);
+    /**
+     * 如果贷款单申请时间超过15天，自动将stus变为3.
+     */
+    void updateStusToThree();
 }

@@ -15,7 +15,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableScheduling
 @EnableConfigurationProperties
 @ImportResource(value = "classpath*:datasource-spring.xml")
 @Log
