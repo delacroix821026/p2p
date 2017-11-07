@@ -150,11 +150,6 @@
         <appender-ref ref="file" />
         <appender-ref ref="console" />
     </logger>
-
-    <logger name="com.netflix.discovery.shared.transport.jersey" additivity="false">
-        <level value="debug" />
-        <appender-ref ref="file" />
-        <appender-ref ref="console" />
-    </logger>
+    
 
 </configuration>
