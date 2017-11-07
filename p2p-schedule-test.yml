@@ -27,7 +27,6 @@ services:
             - SPRING_PROFILES_ACTIVE=test
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - SERVER_PORT = 4002
-            - TZ = Asia/Shanghai
 
 networks:
     docker-net:

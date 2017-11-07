@@ -22,15 +22,15 @@
         <junit.version>4.12</junit.version>
         <lo4j2.version>2.6.2</lo4j2.version>
         <!-- checkStyle控制台输出 -->
-        <checkstyle.consoleOutput>false</checkstyle.consoleOutput>
+        <checkstyle.consoleOutput>true</checkstyle.consoleOutput>
         <!-- checkStyle错误中断发布 -->
         <checkstyle.failOnViolation>true</checkstyle.failOnViolation>
         <!-- checkStyle跳过检验 -->
-        <checkstyle.skip>true</checkstyle.skip>
+        <checkstyle.skip>false</checkstyle.skip>
         <!-- junit跳过测试 -->
         <junit.skipTests>false</junit.skipTests>
         <!-- junit错误中断发布 -->
-        <junit.testFailureIgnore>false</junit.testFailureIgnore>
+        <junit.testFailureIgnore>true</junit.testFailureIgnore>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -193,15 +193,16 @@
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.0.0</version>
-                <!--<executions>
+                <executions>
                     <execution>
                         <id>push-image</id>
-                        <phase>deploy</phase>
+                        <phase>install</phase>
                         <goals>
+                            <goal>build</goal>
                             <goal>push</goal>
                         </goals>
                     </execution>
-                </executions>-->
+                </executions>
                 <configuration>
                     <!--<imageName>delacroix821026/firstdemo:${project.build.finalName}</imageName>-->
                     <imageName>nexusserver:8082/${project.build.finalName}</imageName>

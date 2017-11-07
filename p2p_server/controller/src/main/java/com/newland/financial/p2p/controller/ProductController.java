@@ -388,7 +388,7 @@ public class ProductController {
         logger.info("jsonStr：" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String dLnrId = paramJSON.getString("userId");
-        if(dLnrId == null || dLnrId.length() == 0){
+        if (dLnrId == null || dLnrId.length() == 0) {
             logger.info("==================未接收到userid=====================");
             return false;
         }

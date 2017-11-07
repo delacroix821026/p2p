@@ -27,7 +27,6 @@ services:
             - SPRING_PROFILES_ACTIVE=dev
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - SERVER_PORT = 4002
-            - user.timezone = Asia/Shanghai
 
 
 networks:
