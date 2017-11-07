@@ -25,7 +25,7 @@ services:
             - SPRING_PROFILES_ACTIVE=test
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - SERVER_PORT = 3001
-
+            - TZ = Asia/Shanghai
     p2pclient:
         image: nexusserver:8082/p2p-client:latest
         volumes:
@@ -53,6 +53,7 @@ services:
             - SPRING_PROFILES_ACTIVE=test
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - SERVER_PORT = 4001
+            - TZ = Asia/Shanghai
     p2pzuul:
         image: nexusserver:8082/p2p-zuul:latest
         volumes:
@@ -80,6 +81,7 @@ services:
             - SPRING_PROFILES_ACTIVE=test
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - SERVER_PORT = 5001
+            - TZ = Asia/Shanghai
 
 networks:
     docker-net:

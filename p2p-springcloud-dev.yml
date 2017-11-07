@@ -25,6 +25,7 @@ services:
             - SPRING_PROFILES_ACTIVE=dev
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - SERVER_PORT = 2001
+            - TZ = Asia/Shanghai
 
     p2padmin:
         image: nexusserver:8082/p2p-admin:latest
@@ -53,7 +54,7 @@ services:
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - EUREKA_INSTANCE_HOSTNAME=p2padmin
             - SERVER_PORT = 6001
-            - "JAVA_OPTS=-Xms1024m -XX:MaxMetaSpaceSize=256M -Xmx1982m "
+            - TZ = Asia/Shanghai
         entrypoint:
             - /home/DockerCommand/SetJVM.sh
 networks:
