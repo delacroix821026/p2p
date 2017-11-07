@@ -251,7 +251,7 @@ public class DebitAndCreditServiceImpl implements IDebitAndCreditService {
      * @return 结果集
      */
     public Object getDebitList(String jsonStr) {
-        debitAndCreditDao.updateStusToThree(); //将数据库内申请时间超过15天的贷款贷状态改为拒绝
+        //debitAndCreditDao.updateStusToThree(); //将数据库内申请时间超过15天的贷款贷状态改为拒绝
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         //获取分页信息
         Integer page = paramJSON.getInteger("page");

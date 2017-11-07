@@ -397,7 +397,7 @@ public class ProductServiceImpl implements IProductService {
      * @return 包含产品status的集合
      */
     public Object checkCustomerFlowDebitStus(String id, Integer page, Integer count) {
-        debitAndCreditDao.updateStusToThree(); //将数据库内申请时间超过15天的贷款单状态改为拒绝
+        //debitAndCreditDao.updateStusToThree(); //将数据库内申请时间超过15天的贷款单状态改为拒绝
         if (page == null || page < 1) {
             page = 1;
         }
