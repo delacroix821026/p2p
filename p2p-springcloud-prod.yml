@@ -5,7 +5,7 @@ services:
         volumes:
             - /home/DockerCommand/:/home/DockerCommand/
         deploy:
-            replicas: 1
+            replicas: 2
             restart_policy:
                 condition: on-failure
             resources:

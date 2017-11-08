@@ -45,6 +45,26 @@ SMALLLOAN_DESTPATH: /home/smallloan/temp/
 ...
 
 ---
+spring:
+    profiles: prod
+    application:
+              name: @project.parent.name@
+    cloud:
+        config:
+            discovery:
+                enabled: true
+                #profile: {profile.active}
+                #label: master
+                serviceId: P2P-CONFIG-SERVER
+SMALLLOAN_FILE_ADDRESS: /home/smallloan/
+SMALLLOAN_HOST: 10.0.1.45
+SMALLLOAN_PORT: 21
+SMALLLOAN_USERNAME: ftpuser
+SMALLLOAN_PASSWORD: ftpuserProd123%
+SMALLLOAN_DESTPATH: /home/smallloan/temp/
+...
+
+---
 server:
     port: ${SERVER_PORT:4002}
 ...

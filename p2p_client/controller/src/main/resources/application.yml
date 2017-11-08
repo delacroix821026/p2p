@@ -30,12 +30,12 @@ spring:
 spring:
     profiles: prod
     rabbitmq:
-        host: 118.31.22.18
+        host: 10.0.1.46
         port: 5672
         username: user_admin
-        password: admin123%
+        password: admin123%Prod
     redis:
-        host: 118.31.16.135
+        host: 10.0.1.47
         port: 6379
         database: 0
 ...

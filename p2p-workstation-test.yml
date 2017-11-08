@@ -32,7 +32,7 @@ services:
         depends_on:
             - p2pserver
         deploy:
-            replicas: 2
+            replicas: 6
             restart_policy:
                 condition: on-failure
             resources:

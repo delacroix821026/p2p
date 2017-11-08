@@ -24,10 +24,10 @@ spring:
 spring:
     profiles: prod
     rabbitmq:
-        host: 118.31.22.18
+        host: 10.0.1.46
         port: 5672
         username: user_admin
-        password: admin123%
+        password: admin123%Prod
 ...
 
 
@@ -54,11 +54,11 @@ spring:
                 health:
                     repositories:
                         p2p-config-server:
-                            profiles: dev
+                            profiles: ${SPRING_PROFILES_ACTIVE:dev}
                             label: master
                         p2p-config-server-branch:
                             name: p2p-config-server
-                            profiles: prod
+                            profiles: ${SPRING_PROFILES_ACTIVE:dev}
                             label: branch
     application:
         name: "@project.name@"

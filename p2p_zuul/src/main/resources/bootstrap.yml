@@ -30,6 +30,20 @@ spring:
 ...
 
 ---
+spring:
+    profiles: prod
+    application:
+        name: @project.name@
+    cloud:
+        config:
+            discovery:
+                enabled: true
+                #profile: {profile.active}
+                #label: master
+                serviceId: P2P-CONFIG-SERVER
+...
+
+---
 server:
     port: ${SERVER_PORT:5001}
     tomcat:
