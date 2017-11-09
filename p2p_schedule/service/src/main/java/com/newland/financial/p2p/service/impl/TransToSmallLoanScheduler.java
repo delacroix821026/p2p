@@ -55,7 +55,7 @@ public class TransToSmallLoanScheduler {
      * @throws JobRestartException  JobRestartException
      * @throws JobInstanceAlreadyCompleteException  JobInstanceAlreadyCompleteException
      */
-    @Scheduled(fixedRate = 120000)
+//    @Scheduled(fixedRate = 120000)
     @Scheduled(cron = "0 0 10 * * ?")
     public void testTasks() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.debug("每天10点执行一次。开始……");
