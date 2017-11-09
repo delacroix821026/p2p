@@ -55,10 +55,10 @@ public class TransToSmallLoanScheduler {
      * @throws JobRestartException  JobRestartException
      * @throws JobInstanceAlreadyCompleteException  JobInstanceAlreadyCompleteException
      */
-//    @Scheduled(fixedRate = 120000)
-    @Scheduled(cron = "0 0 10 * * ?")
+    @Scheduled(fixedRate = 120000)
+//    @Scheduled(cron = "0 0 10 * * ?")
     public void testTasks() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
-        log.debug("每天10:00执行一次。开始……");
+        log.debug("每2分钟执行一次。开始……");
         DateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
 //        dataFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         String runDay = dataFormat.format(new Date());
@@ -70,7 +70,7 @@ public class TransToSmallLoanScheduler {
         //jobExecution.getJobParameters().getParameters().putAll(jobParameters.getParameters());
 
         JobExecution execution = jobLauncher.run(job, jobParameters);
-        log.info("每天10:00执行一次。结束。" + execution.getStatus());
+        log.info("每2分钟执行一次。结束。" + execution.getStatus());
     }
 
     /**

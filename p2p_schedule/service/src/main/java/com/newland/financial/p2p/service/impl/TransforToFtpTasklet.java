@@ -91,7 +91,7 @@ public class TransforToFtpTasklet implements Tasklet {
             int reply;
             ftp.connect(host, port); // 连接FTP服务器
             ftp.login(username, password);
-            log.debug("------------------------------------------loginReply:" + ftp.printWorkingDirectory());
+            log.debug("------------------------------------------loginReply:" + ftp.getReplyString());
             reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
                 ftp.disconnect();
