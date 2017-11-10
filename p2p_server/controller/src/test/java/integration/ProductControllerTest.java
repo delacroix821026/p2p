@@ -2,6 +2,7 @@ package integration;
 
 import com.newland.financial.p2p.Application;
 import com.newland.financial.p2p.controller.ProductController;
+import com.newland.financial.p2p.dao.IProductDao;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,8 @@ public class    ProductControllerTest {
     @Autowired
     private ProductController productController;
     private MockMvc mockMvc;
+    @Autowired
+    private IProductDao productDao;
 
     @Before
     public void setup() {
@@ -55,13 +58,14 @@ public class    ProductControllerTest {
                 .post("/ProductController/InsertProduct")
                 .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"proName\":\"apple\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"apple\",\"sponsor\":\"apple\",\"sprProName\":\"apple\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"999\"},{\"organization\":\"1000\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20,\"positiveOrNegative\":\"1\"}"));
         MvcResult mr = ra.andReturn();
+        String result1 = mr.getResponse().getContentAsString();
+        logger.info("result1:" + result1);
+        productDao.deleteProduct("cs999");
         ResultActions ra1 = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/ProductController/InsertProduct")
                 .contentType(MediaType.APPLICATION_JSON).content("{\"proId\":\"cs999\",\"proName\":\"apple\",\"proLmt\":10000,\"interestList\":[{\"times\":3},{\"times\":6}],\"proNameOperator\":\"apple\",\"sponsor\":\"apple\",\"sprProName\":\"apple\",\"maxLmt\":100000,\"role\":\"1\",\"orgs\":[{\"organization\":\"999\"},{\"organization\":\"1000\"}],\"repayMhd\":\"1\",\"interestMhd\":\"1\",\"cutMhd\":\"1\",\"advanceRepay\":\"1\",\"poundage\":\"1\",\"formula\":\"5+1=6\",\"isLatefee\":\"1\",\"latefee\":20,\"positiveOrNegative\":\"1\"}"));
         MvcResult mr1 = ra1.andReturn();
-        String result1 = mr.getResponse().getContentAsString();
         String result12 = mr1.getResponse().getContentAsString();
-        logger.info("result1:" + result1);
         logger.info("result12:" + result12);
     }
 
@@ -205,6 +209,13 @@ public class    ProductControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(reqJson));
         MvcResult mr = ra.andReturn();
         String result = mr.getResponse().getContentAsString();
+
+        String reqJson1 = "{\n" + "\t\"userId\":\"\"\n" + "}";
+        ResultActions ra1 = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/ProductController/CheckStatus")
+                .contentType(MediaType.APPLICATION_JSON).content(reqJson1));
+        MvcResult mr1 = ra1.andReturn();
+        String result1 = mr1.getResponse().getContentAsString();
         logger.info("---------------------------------------------------------getAppProducts:" + result);
     }
 }

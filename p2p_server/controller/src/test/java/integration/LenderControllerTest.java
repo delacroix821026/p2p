@@ -61,6 +61,20 @@ public class LenderControllerTest {
         MvcResult mr = ra.andReturn();
         String result = mr.getResponse().getContentAsString();
         logger.info("---------------------------------------------------------result01:" + result);
+        //userId为null的情况
+        String reqJson1 = "{\n" + "\t\"userId\":null\n" + "}";
+        ResultActions ra1 = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/LenderController/ApplyInterviewPro")
+                .contentType(MediaType.APPLICATION_JSON).content(reqJson1));
+        MvcResult mr1 = ra1.andReturn();
+        String result1 = mr1.getResponse().getContentAsString();
+        //userId为空的情况
+        String reqJson2 = "{\n" + "\t\"userId\":\"\"\n" + "}";
+        ResultActions ra2 = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/LenderController/ApplyInterviewPro")
+                .contentType(MediaType.APPLICATION_JSON).content(reqJson2));
+        MvcResult mr2 = ra1.andReturn();
+        String result2 = mr2.getResponse().getContentAsString();
         debitAndCreditDao.deleteDebitAndCredit("zhu123");
         customerFlowDebitDao.deleteByUserId("zhu123");
     }

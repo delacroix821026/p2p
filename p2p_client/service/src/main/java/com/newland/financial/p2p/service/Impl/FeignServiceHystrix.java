@@ -13,5 +13,14 @@ public class FeignServiceHystrix implements FeignService {
         return 1026;
     }
 
+    public Integer add1(Integer a, Integer b) {
+        log.info("FeignServiceHystrix:add1");
+        return 3333;
+    }
+
+    public Integer add2(Integer a, Integer b) {
+        return 4444;
+    }
+
 
 }

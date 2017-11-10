@@ -45,6 +45,7 @@ public class Example {
         Integer r = a + b;
         log.debug("/add, host:" + instance.getHost()
                 + ", service_id:" + instance.getServiceId() + ", result:" + r);
+        log.info("p2p_server come in==========");
         return r;
     }
 

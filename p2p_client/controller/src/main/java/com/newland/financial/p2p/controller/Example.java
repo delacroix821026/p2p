@@ -42,8 +42,8 @@ public class Example {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public Object add() {
-        log.info("controller add Enter");
-        return exampleService.add("");
+        log.info("controller add Enter=====");
+        return feignService.add(6,9);
     }
 
 
@@ -62,5 +62,11 @@ public class Example {
         log.info("controller add Enter: A:" + paramA);
         log.info("controller add Enter: B:" + paramB);
         return feignService.add(5, 18);
+    }
+
+    @RequestMapping(value = "/add1", method = RequestMethod.GET)
+    public Object add1() {
+        log.info("controller add Enter=====");
+        return feignService.add(9,9);
     }
 }
