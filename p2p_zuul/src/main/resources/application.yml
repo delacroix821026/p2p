@@ -25,7 +25,7 @@ spring:
         username: user_admin
         password: admin123%
     redis:
-        host: 118.31.16.135
+        host: 10.0.1.41
         port: 6379
         database: 0
 appstore:
@@ -70,10 +70,6 @@ zuul:
             path: /p2p/**
             sensitiveHeaders:
             serviceId: p2p-client${DEVLOPER_NAME:}
-...
-
----
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ...
 
 ---

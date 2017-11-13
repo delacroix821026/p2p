@@ -18,4 +18,17 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <skipDockerBuild>true</skipDockerBuild>
+                    <skipDockerPush>true</skipDockerPush>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

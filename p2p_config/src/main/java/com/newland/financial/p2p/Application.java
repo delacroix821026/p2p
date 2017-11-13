@@ -1,7 +1,7 @@
 package com.newland.financial.p2p;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
@@ -9,7 +9,7 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 @EnableDiscoveryClient
 @EnableConfigServer
 public class Application {
-    public static void main(String[] args) {
-        new SpringApplicationBuilder(Application.class).web(true).run(args);
+    public static void main(final String[] args) {
+        SpringApplication.run(Application.class, args);
     }
 }

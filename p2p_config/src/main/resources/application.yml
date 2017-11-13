@@ -52,14 +52,15 @@ spring:
                     username: 66039496@qq.com
                     password: philips1234
                 health:
-                    repositories:
-                        p2p-config-server:
-                            profiles: ${SPRING_PROFILES_ACTIVE:dev}
-                            label: master
-                        p2p-config-server-branch:
-                            name: p2p-config-server
-                            profiles: ${SPRING_PROFILES_ACTIVE:dev}
-                            label: branch
+                    enabled: false
+                    #repositories:
+                        #p2p-config-server:
+                            #profiles: ${SPRING_PROFILES_ACTIVE:dev}
+                            #label: master
+                        #p2p-config-server-branch:
+                            #name: p2p-config-server
+                            #profiles: ${SPRING_PROFILES_ACTIVE:dev}
+                            #label: branch
     application:
         name: "@project.name@"
     profiles:
