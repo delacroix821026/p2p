@@ -28,6 +28,8 @@ public class OrderInfo extends BaseEntity {
     private String accName;
     /**信用卡账号.*/
     private String accNo;
+    /**信用卡有效期.*/
+    private String validity;
     /**持卡人身份证号.*/
     private String accIdcard;
     /**持卡人银行预留手机号码.*/
@@ -46,7 +48,7 @@ public class OrderInfo extends BaseEntity {
     private String queryId;
     /**持卡人分期手续费.*/
     private Long poundage;
-    /**合同状态0：未生效 1：已生效 2：已结束(正常还款) 3：已结束(断供) 4：已结束(提前还款) 5：已结束(退款).*/
+    /**合同状态0：未生效 1：已生效 2：已结束(正常还款) 3：已结束(断供) 4：已结束(提前还款) 5：已结束(退款) 6：退款中 7：退款失败.*/
     private String contractsState;
     /**已还款总期数.*/
     private Integer sumTerms;
