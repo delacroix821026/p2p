@@ -29,4 +29,18 @@ public class RepayController {
 
         return null;
     }
+
+    /**
+     *更新还款单信息
+     * @param jsonStr
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/updateRepayInfo",
+            method = {RequestMethod.POST, RequestMethod.GET})
+    public Object updateRepayInfo(@RequestBody String jsonStr){
+
+
+        return null;
+    }
 }

@@ -32,21 +32,21 @@ public class RefundController {
     }
 
     /**
-     *提交退款申请
+     *更新退款单信息
      * @param jsonStr
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/submitRefundOrder",
+    @RequestMapping(value = "/updateRefundOrder",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object submitRefundOrder(@RequestBody String jsonStr){
+    public Object updateRefundOrder(@RequestBody String jsonStr){
 
 
         return null;
     }
 
     /**
-     *接收退款推送信息
+     *接收乐百分推送的退款信息
      * @param jsonStr
      * @return
      */

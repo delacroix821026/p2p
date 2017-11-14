@@ -32,14 +32,14 @@ public class OrderController {
     }
 
     /**
-     *提交订单
+     *根据乐百分返回的数据更新订单信息
      * @param jsonStr
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/submitOrder",
+    @RequestMapping(value = "/updateOrderInfo",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object submitOrder(@RequestBody String jsonStr){
+    public Object updateOrderInfo(@RequestBody String jsonStr){
 
 
         return null;
