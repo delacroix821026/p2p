@@ -30,7 +30,7 @@ public class OrderController {
      * &nbsp;"accMobile":"1300000000",//持卡人银行预留手机号码<BR>
      * &nbsp;"CVN2":"567",//信用卡背面末三位数字<BR>
      * &nbsp;"validity":"0820",//信用卡有效期<BR>
-     * &nbsp;"verifyCode":"111111"//验证码<BR>
+     * &nbsp;"smsCode":"111111"//验证码<BR>
      * }
      * @return 返回参数：<BR>
      * {<BR>
@@ -81,20 +81,20 @@ public class OrderController {
      * &nbsp;"count":5//显示条数<BR>
      * }
      * @return 返回参数:<BR>
-     * {
-     *     "orderList":[
-     *          {
-     *              "orderId":"12345",//商户订单号
-     *              "txnTime":150000000000,//交易时间
-     *              "accName":"jack",//持卡人姓名
-     *              "txnAmt":20000,//原交易金额(应还款金额)(单位分)
-     *              "txnterms":6;,//分期数
-     *              "sumAmount":500000,//已还款总金额(单位分)
-     *              "sumTerms":2,//已还期数
-     *              "contractsState":"1",//状态
-     *          },
-     *          {}....
-     *     ]
+     * {<BR>
+     * &nbsp;"orderList":[<BR>
+     * &nbsp;&nbsp;{<BR>
+     * &nbsp;&nbsp;&nbsp;"orderId":"12345",//商户订单号<BR>
+     * &nbsp;&nbsp;&nbsp;"txnTime":150000000000,//交易时间<BR>
+     * &nbsp;&nbsp;&nbsp;"accName":"jack",//持卡人姓名<BR>
+     * &nbsp;&nbsp;&nbsp;"txnAmt":20000,//原交易金额(应还款金额)(单位分)<BR>
+     * &nbsp;&nbsp;&nbsp;"txnterms":6;,//分期数<BR>
+     * &nbsp;&nbsp;&nbsp;"sumAmount":500000,//已还款总金额(单位分)<BR>
+     * &nbsp;&nbsp;&nbsp;"sumTerms":2,//已还期数<BR>
+     * &nbsp;&nbsp;&nbsp;"contractsState":"1",//状态<BR>
+     *&nbsp;&nbsp; },<BR>
+     * &nbsp;&nbsp;{}....<BR>
+     * &nbsp;]<BR>
      * }
      */
     @ResponseBody
