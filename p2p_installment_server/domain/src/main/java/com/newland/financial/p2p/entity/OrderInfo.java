@@ -19,9 +19,9 @@ public class OrderInfo extends BaseEntity {
     /**商户代码.*/
     private String merId;
     /**订单总金额.*/
-    private long txnAmt;
+    private Long txnAmt;
     /**分期数.*/
-    private int txnterms;
+    private Integer txnterms;
     /**商户订单号.*/
     private String orderId;
     /**持卡人姓名.*/
@@ -37,27 +37,27 @@ public class OrderInfo extends BaseEntity {
     /**持卡人识别码.*/
     private String customerCode;
     /**手续费补贴金额.*/
-    private long discount;
+    private Long discount;
     /**合同编号.*/
     private String contractsCode;
     /**首期还款金额.*/
-    private long amount;
+    private Long amount;
     /**请求编号.*/
     private String queryId;
     /**持卡人分期手续费.*/
-    private long poundage;
+    private Long poundage;
     /**合同状态0：未生效 1：已生效 2：已结束(正常还款) 3：已结束(断供) 4：已结束(提前还款) 5：已结束(退款).*/
-    private int contractsState;
+    private String contractsState;
     /**已还款总期数.*/
-    private int sumTerms;
+    private Integer sumTerms;
     /**已还款总金额.*/
-    private long sumAmount;
+    private Long sumAmount;
     /**剩余还款金额.*/
-    private long remainAmount;
+    private Long remainAmount;
     /**商户退款金额.*/
-    private long cancelAmount;
+    private Long cancelAmount;
     /**商户退款利息.*/
-    private long cancelInterest;
+    private Long cancelInterest;
     /**增值服务费.*/
-    private long valueAdded;
+    private Long valueAdded;
 }
