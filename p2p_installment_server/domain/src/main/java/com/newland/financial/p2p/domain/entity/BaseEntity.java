@@ -1,4 +1,4 @@
-package com.newland.financial.p2p.entity;
+package com.newland.financial.p2p.domain.entity;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;

@@ -1,7 +1,7 @@
 package com.newland.financial.p2p.dao.impl;
 
 import com.newland.financial.p2p.dao.IRefundDao;
-import com.newland.financial.p2p.entity.Refund;
+import com.newland.financial.p2p.domain.entity.Refund;
 import org.springframework.stereotype.Repository;
 
 /**
