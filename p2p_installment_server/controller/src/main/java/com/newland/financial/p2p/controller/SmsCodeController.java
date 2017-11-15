@@ -1,12 +1,15 @@
 package com.newland.financial.p2p.controller;
 
 
+import com.newland.financial.p2p.entity.OrderInfo;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  *短信验证码Controller.
@@ -44,7 +47,9 @@ public class SmsCodeController {
     @RequestMapping(value = "/sendSms",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object sendSms(@RequestBody String jsonStr){
+        //1.查询商户信息
 
+        //2.封装成请求对象
 
         return null;
     }
@@ -84,4 +89,6 @@ public class SmsCodeController {
 
         return null;
     }
+
+
 }
