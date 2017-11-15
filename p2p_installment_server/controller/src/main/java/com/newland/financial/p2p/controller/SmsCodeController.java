@@ -1,8 +1,14 @@
 package com.newland.financial.p2p.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.newland.financial.p2p.domain.entity.CodeMsgReq;
+import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
+import com.newland.financial.p2p.service.IMerchantService;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Log4j
 @RequestMapping("/SmsCodeController")
 public class SmsCodeController {
+
+    @Autowired
+    private IMerchantService iMerchantService;
 
     /**
      *生成短信接口请求报文.
@@ -45,11 +54,21 @@ public class SmsCodeController {
     @RequestMapping(value = "/sendSms",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object sendSms(@RequestBody String jsonStr){
+        JSONObject jsonObject = JSON.parseObject(jsonStr);
+        String merId = jsonObject.getString("merId");
+        String mobile = jsonObject.getString("mobile");
         //1.查询商户信息
+        if(merId == null | "".equals(merId)){
+            return "false";
+        }
 
-        //2.封装成请求对象
-
-        return null;
+        CodeMsgReq codeMsgReq = iMerchantService.getMerInfo(merId);
+        if(codeMsgReq == null){
+            return "false";
+        }
+        codeMsgReq.setMobile(mobile);
+        //2.返回请求对象
+        return codeMsgReq;
     }
 
     /**
