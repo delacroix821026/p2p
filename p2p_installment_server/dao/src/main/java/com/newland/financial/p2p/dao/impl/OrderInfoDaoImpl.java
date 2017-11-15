@@ -10,5 +10,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrderInfoDao {
-
+    /**
+     * 插入订单信息.
+     * @param orderInfo 订单对象.
+     * @return true or false.
+     */
+    public boolean insertOrder(OrderInfo orderInfo) {
+        return false;
+    }
 }

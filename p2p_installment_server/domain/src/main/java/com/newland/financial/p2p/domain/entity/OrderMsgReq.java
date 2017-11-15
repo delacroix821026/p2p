@@ -11,9 +11,9 @@ import lombok.Setter;
 @Getter
 public class OrderMsgReq extends BaseEntityReq {
     /**订单总金额.*/
-    private Long txnAmt;
+    private String txnAmt;
     /**分期期数.*/
-    private Integer txnTerms;
+    private String txnTerms;
     /**商户摘要.*/
     private String merNote;
     /**前台通知地址.*/
@@ -43,17 +43,17 @@ public class OrderMsgReq extends BaseEntityReq {
     /**合同类型.*/
     private String merType;
     /**手续费补贴金额.*/
-    private Long discount;
+    private String discount;
     /**抵押期数.*/
-    private Integer pawnTerms;
+    private String pawnTerms;
     /**抵押金额.*/
-    private Long pawnAmount;
+    private String pawnAmount;
     /**租用总金额.*/
-    private Long rentAmount;
+    private String rentAmount;
     /**租用每期金额.*/
-    private Long monthAmount;
+    private String monthAmount;
     /**首期其他费用.*/
-    private Long firstPay;
+    private String firstPay;
     /**是否立即收货.*/
     private String receipt;
 }

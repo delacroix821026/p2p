@@ -15,23 +15,23 @@ public class OrderQueryResp extends BaseEntityResp {
     /**合同号.*/
     private String contractsCode;
     /**订单总金额.*/
-    private Long txnAmt;
+    private String txnAmt;
     /**合同状态.*/
     private String contractsState;
     /**已还款总期数.*/
     private Integer sumTerms;
     /**已还款总金额.*/
-    private Long sumAmount;
+    private String sumAmount;
     /**剩余还款金额.*/
-    private Long remainAmount;
+    private String remainAmount;
     /**商户退款金额.*/
-    private Long cancelAmount;
+    private String cancelAmount;
     /**商户退款利息.*/
-    private Long cancelInterest;
+    private String cancelInterest;
     /**增值服务费.*/
-    private Long valueAdded;
+    private String valueAdded;
     /**商户退还金额.*/
-    private Long returnAmount;
+    private String returnAmount;
     /**收货状态.*/
     private String receipt;
     /**原交易应答码.*/

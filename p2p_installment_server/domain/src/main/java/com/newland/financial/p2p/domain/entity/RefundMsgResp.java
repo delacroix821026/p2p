@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class RefundMsgResp extends BaseEntityResp {
     /**商户退款金额.*/
-    private Long cancelAmount;
+    private String cancelAmount;
     /**退款状态.*/
     private String state;
     /**商户订单号.*/

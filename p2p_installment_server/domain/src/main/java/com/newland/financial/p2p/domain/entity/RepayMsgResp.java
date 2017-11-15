@@ -11,13 +11,13 @@ import lombok.Setter;
 @Setter
 public class RepayMsgResp extends BaseEntityResp {
     /**订单总金额.*/
-    private Long txnAmt;
+    private String txnAmt;
     /**还款期数.*/
-    private Integer terms;
+    private String terms;
     /**还款金额.*/
-    private Long amount;
+    private String amount;
     /**已还款金额.*/
-    private Long sumAmount;
+    private String sumAmount;
     /**还款时间.*/
     private String instalmentDate;
     /**下期还款日期.*/
