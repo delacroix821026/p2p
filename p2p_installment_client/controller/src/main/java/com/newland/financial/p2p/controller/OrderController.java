@@ -36,7 +36,7 @@ public class OrderController {
         log.info("jsonStr：" + jsonStr);
         String jsonStr1 = (String) orderService.getValidateInfo(jsonStr);
         String jsonStr2 = (String) sendService.sendMsgToLbf(jsonStr1);
-        String jsonStr3 = (String) orderService.getRespInfo(jsonStr);
+        String jsonStr3 = (String) orderService.getRespInfo(jsonStr2);
         return jsonStr3;
     }
 
