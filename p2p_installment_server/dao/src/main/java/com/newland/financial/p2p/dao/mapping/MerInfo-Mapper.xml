@@ -50,10 +50,7 @@
         select
         <include refid="Base_Column_List" />
         from t_inst_merinfo
-        where 1=1
-        <if test="merId != null and merId != ''" >
-            and MER_ID = #{merId}
-        </if>
+        where MER_ID = #{merId}
     </select>
 
 </mapper>
