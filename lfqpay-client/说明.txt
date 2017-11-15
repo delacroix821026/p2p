@@ -1,0 +1,16 @@
+交易接口 lfqpay.client
+
+1.导入lib目录内的jar
+2.请修改src下mpi.properties文件，配置证书路径。证书文件放置于certs文件夹中。
+3.接口调用参考Demo.java文件，使用时请使用修改相关配置：请求地址、商户信息、手机号等等。
+
+注：证书路径修改：
+	MpiConfig.getConfig().loadProperties(pro); // properties对象
+	MpiConfig.getConfig().loadPropertiesFromSrc(fileName); // mpi.properties的src相对路径，示例：/com/lfqpay/config/mpi.properties
+	MpiConfig.getConfig().loadPropertiesFromPath(rootPath); // mpi.properties的绝对路径，示例：/home/www/config
+
+ ******************************非常重要********************************
+ * 务必填写自己的手机号码，接收验证码和扣款短信（不要随便填写其他未知手机号码）  *
+ ******************************非常重要********************************
+
+平台接口 lfqpay.platform
