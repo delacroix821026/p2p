@@ -17,4 +17,9 @@ public class OrderServiceHystrix implements IOrderService {
         log.info("*********getRespInfo:被熔断***********");
         return 1026;
     }
+
+    public Object createOrder(String jsonStr) {
+        log.info("*********createOrder:被熔断***********");
+        return 1026;
+    }
 }

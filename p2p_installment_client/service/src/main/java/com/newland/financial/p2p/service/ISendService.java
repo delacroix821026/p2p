@@ -10,4 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface ISendService {
     @RequestMapping(method = RequestMethod.POST, value = "/backSMSCodeRequest.do")
     Object sendMsgToLbf(@RequestBody String jsonStr);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/backTransRequest.do")
+    Object sendOrderinfoToLbf(@RequestBody String jsonStr);
 }

@@ -13,5 +13,8 @@ public interface IOrderService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/SmsCodeController/sendSmsResp")
     Object getRespInfo(@RequestBody String jsonStr);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/OrderController/createOrder")
+    Object createOrder(@RequestBody String jsonStr);
 }
 

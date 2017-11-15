@@ -40,4 +40,13 @@ public class OrderController {
         return jsonStr3;
     }
 
+    @RequestMapping(value = "/createOrder", method = RequestMethod.POST)
+    public Object createOrder(@RequestBody String jsonStr) {
+        log.info("========createOrder=======");
+        log.info("jsonStr：" + jsonStr);
+        String jsonStr1 = (String) orderService.createOrder(jsonStr);
+        String jsonStr2 = (String) sendService.sendOrderinfoToLbf(jsonStr1);
+        String jsonStr3 = (String) orderService.getRespInfo(jsonStr2);
+        return jsonStr3;
+    }
 }
