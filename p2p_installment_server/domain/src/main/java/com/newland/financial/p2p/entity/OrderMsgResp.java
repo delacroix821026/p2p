@@ -28,6 +28,8 @@ public class OrderMsgResp extends BaseEntityResp {
     private Long discount;
     /**抵押期数.*/
     private Integer pawnTerms;
+    /**抵押金额.*/
+    private Long pawnAmount;
     /**租用总金额.*/
     private Long rentAmount;
     /**租用每期金额.*/
