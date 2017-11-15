@@ -18,7 +18,6 @@ public class RepayController {
 
     /**
      * 接收还款推送信息.
-     *
      * @param jsonStr 接受的json字符串:<BR>
      *                {<BR>
      *                &nbsp;&nbsp;"version":"版本号",<BR>
