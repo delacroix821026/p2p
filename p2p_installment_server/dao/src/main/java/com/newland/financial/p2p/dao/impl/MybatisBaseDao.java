@@ -3,7 +3,7 @@ package com.newland.financial.p2p.dao.impl;
 import com.github.pagehelper.PageInfo;
 import com.newland.financial.p2p.common.util.Constants;
 import com.newland.financial.p2p.common.util.PageModel;
-import com.newland.financial.p2p.entity.BaseEntity;
+import com.newland.financial.p2p.domain.entity.BaseEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSessionFactory;

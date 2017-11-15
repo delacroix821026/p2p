@@ -1,15 +1,13 @@
 package com.newland.financial.p2p.controller;
 
 
-import com.newland.financial.p2p.entity.OrderInfo;
+import com.newland.financial.p2p.domain.entity.OrderInfo;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  *短信验证码Controller.
