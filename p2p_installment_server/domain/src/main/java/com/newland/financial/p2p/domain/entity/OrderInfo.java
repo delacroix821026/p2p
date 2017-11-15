@@ -36,8 +36,6 @@ public class OrderInfo extends BaseEntity {
     private String accMobile;
     /**信用卡背面末三位数字.*/
     private String CVN2;
-    /**持卡人识别码.*/
-    private String customerCode;
     /**手续费补贴金额.*/
     private Long discount;
     /**合同编号.*/
