@@ -34,13 +34,11 @@ public class OrderController {
     public Object sendMsg(@RequestBody String jsonStr) {
         log.info("========send msg=======");
         log.info("jsonStr：" + jsonStr);
-        String jsonStr1 = (String) orderService.getValidateInfo(jsonStr);
-        String jsonStr2 = (String) sendService.sendMsgToLbf(jsonStr1);
-        String jsonStr3 = (String) orderService.getRespInfo(jsonStr2);
-        return jsonStr3;
+
+        return sendService.sendMsgToLbf(jsonStr);
     }
 
-    @RequestMapping(value = "/createOrder", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/createOrder", method = RequestMethod.POST)
     public Object createOrder(@RequestBody String jsonStr) {
         log.info("========createOrder=======");
         log.info("jsonStr：" + jsonStr);
@@ -48,5 +46,5 @@ public class OrderController {
         String jsonStr2 = (String) sendService.sendOrderinfoToLbf(jsonStr1);
         String jsonStr3 = (String) orderService.getRespInfo(jsonStr2);
         return jsonStr3;
-    }
+    }*/
 }

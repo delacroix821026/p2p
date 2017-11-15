@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "p2p",url = "https://tt.lfqpay.com/lfq-pay/gateway/api", fallback = SendServiceHystrix.class)
+@FeignClient(name = "p2p",url = "localhost:3001", fallback = SendServiceHystrix.class)
 public interface ISendService {
-    @RequestMapping(method = RequestMethod.POST, value = "/backSMSCodeRequest.do")
+    @RequestMapping(method = RequestMethod.POST, value = "/SmsCodeController/sendSms")
     Object sendMsgToLbf(@RequestBody String jsonStr);
 
     @RequestMapping(method = RequestMethod.POST, value = "/backTransRequest.do")

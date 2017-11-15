@@ -11,4 +11,8 @@ public class SendServiceHystrix implements ISendService {
         log.info("********sendMsgToLbf:被熔断********");
         return 1026;
     }
+
+    public Object sendOrderinfoToLbf(String jsonStr) {
+        return 1026;
+    }
 }

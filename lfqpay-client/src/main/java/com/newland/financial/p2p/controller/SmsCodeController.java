@@ -1,6 +1,8 @@
 package com.newland.financial.p2p.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.lfq.pay.client.MpiUtil;
 import com.lfq.pay.client.SecureUtil;
 import junit.framework.TestCase;
@@ -70,7 +72,8 @@ public class SmsCodeController {
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object backSMSCodeRequest(@RequestBody String jsonStr){
         String requestUrl = ADDRESS_TEST + "/lfq-pay/gateway/api/backSMSCodeRequest.do";
-
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String mobile = paramJSON.getString("mobile");
         Map<String, String> data = new HashMap<String, String>();
         String merPwd = "12345678";
         String txnTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -85,7 +88,7 @@ public class SmsCodeController {
         data.put("merPwd", SecureUtil.encryptWithDES(txnTime, merPwd)); // 商户密码
 
         data.put("txnTime", txnTime); // 交易时间：yyyyMMddHHmmss
-        data.put("mobile", "15900543650"); // 手机号码
+        data.put("mobile", mobile); // 手机号码
 
         boolean b = MpiUtil.sign(data, "utf-8"); // 签名
 
