@@ -41,7 +41,7 @@ public class RepayController {
      *                &nbsp;&nbsp;"respCode":"还款状态码",<BR>
      *                &nbsp;&nbsp;"respMsg":"还款状态信息",<BR>
      *                &nbsp;&nbsp;"respTime":"响应时间",<BR>
-     *                &nbsp;&nbsp;"queryId":"请求编号",<BR>
+     *                &nbsp;&nbsp;"queryId":"请求编号"<BR>
      *                }<BR>
      *
      * @return 返回参数:success
@@ -50,7 +50,9 @@ public class RepayController {
     @RequestMapping(value = "/receiveRepayInfo",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object receiveRepayInfo(@RequestBody String jsonStr){
+        //1.验签
 
+        //2.更新还款单
 
         return "success";
     }

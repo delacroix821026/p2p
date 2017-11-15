@@ -12,8 +12,8 @@ import java.util.Map;
  * 对产品进行操作的Dao层类.
  *
  * @author Mxia
- */
-@Repository
+ */@Repository
+
 public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
 
     /**
