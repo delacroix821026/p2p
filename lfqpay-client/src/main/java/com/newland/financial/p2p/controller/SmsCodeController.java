@@ -5,11 +5,15 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lfq.pay.client.MpiUtil;
 import com.lfq.pay.client.SecureUtil;
+import com.netflix.discovery.converters.Auto;
+import com.newland.financial.p2p.domain.CodeMsgReq;
+import com.newland.financial.p2p.service.ISmsCodeServie;
 import junit.framework.TestCase;
 import lombok.extern.log4j.Log4j;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +34,13 @@ import java.util.Map;
 @Log4j
 @RequestMapping("/SmsCodeController")
 public class SmsCodeController {
-    public static final String ADDRESS_TEST = "https://tt.lfqpay.com:343";
+
+    @Autowired
+    private ISmsCodeServie iSmsCodeServie;
+
     /**
      *生成短信接口请求报文.
-     * @param jsonStr 请求参数：<BR>
+     * @param codeMsgReq 请求参数：<BR>
      * {<BR>
      * &nbsp;"version":"1.0.0",<BR>
      * &nbsp;"encoding":"编码方式",<BR>
@@ -47,7 +54,7 @@ public class SmsCodeController {
      * &nbsp;"merAbbr":"商户简称",<BR>
      * &nbsp;"mobile":"手机号码"<BR>
      * }
-     * @return 返回参数：<BR>
+     * @return CodeMsgResp 返回参数：<BR>
      * {<BR>
      * &nbsp;"version":"1.0.0",<BR>
      * &nbsp;"encoding":"编码方式",<BR>
@@ -70,53 +77,8 @@ public class SmsCodeController {
     @ResponseBody
     @RequestMapping(value = "/sendSms",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object backSMSCodeRequest(@RequestBody String jsonStr){
-        String requestUrl = ADDRESS_TEST + "/lfq-pay/gateway/api/backSMSCodeRequest.do";
-        JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String mobile = paramJSON.getString("mobile");
-        Map<String, String> data = new HashMap<String, String>();
-        String merPwd = "12345678";
-        String txnTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-
-        data.put("version", "1.0.0"); // 固定值：1.0.0
-        data.put("encoding", "utf-8"); // 编码
-        data.put("txnType", "13"); // 短信验证码：13
-
-        data.put("merId", "GZW-001"); // 商户编号
-        data.put("merName", "交易测试"); // 商户名称
-        data.put("merAbbr", "交易测试"); // 商户简称
-        data.put("merPwd", SecureUtil.encryptWithDES(txnTime, merPwd)); // 商户密码
-
-        data.put("txnTime", txnTime); // 交易时间：yyyyMMddHHmmss
-        data.put("mobile", mobile); // 手机号码
-
-        boolean b = MpiUtil.sign(data, "utf-8"); // 签名
-
-        for(Map.Entry<String, String> entry : data.entrySet()){
-            System.out.println(entry.getKey()+": "+entry.getValue());
-        }
-
-        String resp = MpiUtil.send(requestUrl, data, "utf-8", 60 * 1000, 60 * 1000);
-        System.out.println("发送报文：" + data);
-        System.out.println("返回报文：" + resp);
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, String> map = null;
-        try {
-            map = mapper.readValue(resp, Map.class);
-            System.out.println("验签结果：" + MpiUtil.validate(map, "utf-8"));
-            System.out.println("返回状态码：" + map.get("respCode"));
-            System.out.println("返回信息：" + map.get("respMsg"));
-            System.out.println("合同号：" + map.get("contractsCode"));
-            TestCase.assertEquals(map.get("respCode"), "0000");
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return resp;
+    public Object backSMSCodeRequest(@RequestBody CodeMsgReq codeMsgReq){
+        return iSmsCodeServie.backSMSCodeRequest(codeMsgReq);
     }
 
 
