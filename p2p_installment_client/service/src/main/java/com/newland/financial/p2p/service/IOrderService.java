@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "p2p-installment-server${DEVLOPER_NAME:}", fallback = OrderServiceHystrix.class)
 public interface IOrderService {
 
-    @RequestMapping(method = RequestMethod.POST, value = "/OrderController/createOrderInfo")
+    @RequestMapping(method = RequestMethod.POST, value = "/Order/createOrderInfo")
     String createOrderInfo(@RequestBody String jsonStr);
 
-    @RequestMapping(method = RequestMethod.POST, value = "/OrderController/findOrderInfo")
+    @RequestMapping(method = RequestMethod.POST, value = "/Order/findOrderInfo")
     Object findOrderInfo(@RequestBody String jsonStr);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/Order/tradeUpdateOrder")
+    Object tradeUpdateOrder(@RequestBody String jsonStr);
 }
 

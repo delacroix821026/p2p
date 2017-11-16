@@ -24,8 +24,16 @@ public class OrderMsgReq extends BaseEntityReq {
     private String orderId;
     /**帐号卡号.*/
     private String accNo;
-    /**持卡人身份信息.*/
-    private String customerInfo;
+    /**持卡人姓名.*/
+    private String accName;
+    /**信用卡有效期.*/
+    private String validity;
+    /**持卡人银行预留手机号码.*/
+    private String accMobile;
+    /**信用卡背面末三位数字.*/
+    private String cvn2;
+    /**持卡人身份证号.*/
+    private String accIdcard;
     /**短信验证码.*/
     private String smsCode;
     /**分期限制.*/

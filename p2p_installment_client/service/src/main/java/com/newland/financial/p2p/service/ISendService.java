@@ -6,11 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "p2p",url = "localhost:3001", fallback = SendServiceHystrix.class)
+@FeignClient(name = "p2p",url = "localhost:3003", fallback = SendServiceHystrix.class)
 public interface ISendService {
-    @RequestMapping(method = RequestMethod.POST, value = "/SmsCodeController/sendSms")
-    Object sendMsgToLbf(@RequestBody String jsonStr);
-
-    @RequestMapping(method = RequestMethod.POST, value = "/backTransRequest.do")
-    Object sendOrderinfoToLbf(@RequestBody String jsonStr);
+    @RequestMapping(method = RequestMethod.POST, value = "/ybforder/sendOrderMsg")
+    Object sendOrderMsgToLbf(@RequestBody Object object);
 }

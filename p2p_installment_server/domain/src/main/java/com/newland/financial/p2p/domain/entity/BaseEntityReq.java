@@ -27,9 +27,9 @@ public class BaseEntityReq implements Serializable {
     }
 
     /**版本号.*/
-    private String version;
+    private String version = "1.0.0";
     /**编码方式.*/
-    private String encoding;
+    private String encoding = "UTF-8";
     /**证书ID.*/
     private String certId;
     /**签名.*/

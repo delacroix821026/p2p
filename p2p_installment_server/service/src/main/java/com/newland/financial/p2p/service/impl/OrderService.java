@@ -2,7 +2,9 @@ package com.newland.financial.p2p.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.newland.financial.p2p.dao.IMerInfoDao;
 import com.newland.financial.p2p.dao.IOrderInfoDao;
+import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
@@ -25,6 +27,8 @@ import java.util.UUID;
 public class OrderService implements IOrderService {
     @Autowired
     private IOrderInfoDao orderInfoDao;
+    @Autowired
+    private IMerInfoDao merInfoDao;
 
     /**
      * 创建一个空白订单.
@@ -63,6 +67,42 @@ public class OrderService implements IOrderService {
             return null;
         }
         return orderInfoDao.selectOrderInfo(orderId);
+    }
+
+    /**
+     * 进行分期交易并更新订单.
+     *
+     * @param jsonStr
+     * @return 返回创建订单请求报文.
+     */
+    public Object tradeUpdateOrder(String jsonStr) {
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String orderId = paramJSON.getString("orderId");
+        if (orderId == null || orderId.length() == 0) {
+            return false;
+        }
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setOrderId(orderId);
+        orderInfo.setTxnterms(paramJSON.getInteger("txnterms"));
+        orderInfo.setAccName(paramJSON.getString("accName"));
+        orderInfo.setAccNo(paramJSON.getString("accNo"));
+        orderInfo.setAccIdcard(paramJSON.getString("accIdcard"));
+        orderInfo.setAccMobile(paramJSON.getString("accMobile"));
+        orderInfo.setCvn2(paramJSON.getString("cvn2"));
+        orderInfo.setValidity(paramJSON.getString("validity"));
+        orderInfoDao.updateOrder(orderInfo);
+        return orderInfoDao.selectOrderInfo(orderId);
+    }
+
+    /**
+     * 查询商户信息.
+     *
+     * @param orderInfo 包含商户id.
+     * @return 商户信息
+     */
+    public MerInfo findMerInfo(OrderInfo orderInfo) {
+        String merId = orderInfo.getMerId();
+        return merInfoDao.selectMerInfoByMerId(merId);
     }
 
 }

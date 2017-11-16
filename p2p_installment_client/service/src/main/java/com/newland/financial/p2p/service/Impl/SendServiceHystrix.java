@@ -7,12 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Log4j
 public class SendServiceHystrix implements ISendService {
-    public Object sendMsgToLbf(String jsonStr) {
-        log.info("********sendMsgToLbf:被熔断********");
-        return 1026;
-    }
-
-    public Object sendOrderinfoToLbf(String jsonStr) {
+    public Object sendOrderMsgToLbf(Object object) {
+        log.info("********sendOrderMsgToLbf:被熔断********");
         return 1026;
     }
 }
