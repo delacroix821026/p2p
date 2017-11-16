@@ -30,8 +30,9 @@ public class MerchantService implements IMerchantService {
             return null;
         }
         CodeMsgReq codeMsgReq = new CodeMsgReq();
-//        codeMsgReq.setEncoding("utf-8");
-//        codeMsgReq.setVersion("1.0.0");
+        codeMsgReq.setVersion("1.0.0");
+        codeMsgReq.setEncoding("utf-8");
+        codeMsgReq.setTxnType("13");
         codeMsgReq.setMerId(merInfo.getMerId());
         codeMsgReq.setMerPwd(merInfo.getMerPwd());
         codeMsgReq.setMerName(merInfo.getMerName());

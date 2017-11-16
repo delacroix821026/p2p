@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *短信验证码Controller.
  * @author Gregory
@@ -51,23 +54,24 @@ public class SmsCodeController {
      * }
      */
     @ResponseBody
-    @RequestMapping(value = "/sendSms",
+    @RequestMapping(value = "/getMsgCodeReqPram",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object sendSms(@RequestBody String jsonStr){
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String merId = jsonObject.getString("merId");
         String mobile = jsonObject.getString("mobile");
-        //1.查询商户信息
-        if(merId == null | "".equals(merId)){
-            return "false";
-        }
 
+        //校验商户号
+        if(merId == null | "".equals(merId)){
+            return null;
+        }
+        //没有对应商户信息直接返回
         CodeMsgReq codeMsgReq = iMerchantService.getMerInfo(merId);
         if(codeMsgReq == null){
-            return "false";
+            return null;
         }
+        //封装完整CodeMsgReq后返回
         codeMsgReq.setMobile(mobile);
-        //2.返回请求对象
         return codeMsgReq;
     }
 
