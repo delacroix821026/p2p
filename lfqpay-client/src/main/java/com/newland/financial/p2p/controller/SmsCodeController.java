@@ -75,9 +75,10 @@ public class SmsCodeController {
      * }
      */
     @ResponseBody
-    @RequestMapping(value = "/sendSms",
+    @RequestMapping(value = "/backSMSCodeRequest",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object backSMSCodeRequest(@RequestBody CodeMsgReq codeMsgReq){
+        log.info("-------------------------外发乐百分:"+ codeMsgReq.toString());
         return iSmsCodeServie.backSMSCodeRequest(codeMsgReq);
     }
 

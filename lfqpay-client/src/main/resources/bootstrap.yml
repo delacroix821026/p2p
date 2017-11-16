@@ -73,7 +73,7 @@ spring:
 
 ---
 server:
-    port: ${SERVER_PORT:3001}
+    port: ${SERVER_PORT:3003}
     tomcat:
         max-connections: 2000
         accept-count: 1000

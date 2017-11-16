@@ -28,7 +28,7 @@ import java.util.Map;
 public class SmsCodeController {
 
     @Autowired
-    private IMerchantService iMerchantService;
+    private IMerchantService merchantService;
 
     /**
      *生成短信接口请求报文.
@@ -54,24 +54,27 @@ public class SmsCodeController {
      * }
      */
     @ResponseBody
-    @RequestMapping(value = "/getMsgCodeReqPram",
+    @RequestMapping(value = "/sendSmsCode",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object sendSms(@RequestBody String jsonStr){
+    public Object sendSmsCode(@RequestBody String jsonStr){
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String merId = jsonObject.getString("merId");
         String mobile = jsonObject.getString("mobile");
-
+        log.info(jsonStr);
         //校验商户号
         if(merId == null | "".equals(merId)){
+            log.info("--------------------------商户号为空");
             return null;
         }
         //没有对应商户信息直接返回
-        CodeMsgReq codeMsgReq = iMerchantService.getMerInfo(merId);
+        CodeMsgReq codeMsgReq = merchantService.getMerInfo(merId);
         if(codeMsgReq == null){
+            log.info("--------------------------没有对应商户信息");
             return null;
         }
         //封装完整CodeMsgReq后返回
         codeMsgReq.setMobile(mobile);
+        log.info("--------------------------codeMsgReq："+ codeMsgReq.toString());
         return codeMsgReq;
     }
 

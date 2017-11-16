@@ -62,11 +62,12 @@ public class SmsCodeServieImpl implements ISmsCodeServie {
         // 签名
         boolean b = MpiUtil.sign(data, "utf-8");
         //发送请求
-        Map<String, String> resp = IfqUtil.execute(requestUrl,data);
+//        Map<String, String> resp = IfqUtil.execute(requestUrl,data);
 
         //返回CodeMsgResp对象到client
-        CodeMsgResp codeMsgResp = (CodeMsgResp) IfqUtil.convertMap(CodeMsgResp.class,resp);
+//        CodeMsgResp codeMsgResp = (CodeMsgResp) IfqUtil.convertMap(CodeMsgResp.class,resp);
 
-        return codeMsgResp;
+//        return codeMsgResp;
+        return new CodeMsgResp();
     }
 }
