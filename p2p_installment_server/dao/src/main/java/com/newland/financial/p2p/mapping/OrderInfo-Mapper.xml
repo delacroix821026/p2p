@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.OrderInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.OrderInfo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="txnTime" property="txnTime" jdbcType="TIMESTAMP"/>
+        <result column="merId" property="merId" jdbcType="VARCHAR"/>
+        <result column="txnAmt" property="txnAmt" jdbcType="BIGINT"/>
+        <result column="txnterms" property="txnterms" jdbcType="INTEGER"/>
+        <result column="orderId" property="orderId" jdbcType="VARCHAR"/>
+        <result column="accName" property="accName" jdbcType="VARCHAR"/>
+        <result column="accNo" property="accNo" jdbcType="VARCHAR"/>
+        <result column="validity" property="validity" jdbcType="VARCHAR"/>
+        <result column="accIdcard" property="accIdcard" jdbcType="VARCHAR"/>
+        <result column="accMobile" property="accMobile" jdbcType="VARCHAR"/>
+        <result column="CVN2" property="cvn2" jdbcType="VARCHAR"/>
+        <result column="discount" property="discount" jdbcType="BIGINT"/>
+        <result column="contractsCode" property="contractsCode" jdbcType="VARCHAR"/>
+        <result column="amount" property="amount" jdbcType="BIGINT"/>
+        <result column="queryId" property="queryId" jdbcType="VARCHAR"/>
+        <result column="poundage" property="poundage" jdbcType="BIGINT"/>
+        <result column="contractsState" property="contractsState" jdbcType="VARCHAR"/>
+        <result column="sumTerms" property="sumTerms" jdbcType="INTEGER"/>
+        <result column="sumAmount" property="sumAmount" jdbcType="BIGINT"/>
+        <result column="remainAmount" property="remainAmount" jdbcType="BIGINT"/>
+        <result column="cancelAmount" property="cancelAmount" jdbcType="BIGINT"/>
+        <result column="cancelInterest" property="cancelInterest" jdbcType="BIGINT"/>
+        <result column="valueAdded" property="valueAdded" jdbcType="BIGINT"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,txnTime,merId,txnAmt,txnterms,orderId,accName,accNo,validity,accIdcard,accMobile,CVN2,discount,contractsCode,amount,queryId,poundage,contractsState,sumTerms,sumAmount,remainAmount,cancelAmount,cancelInterest,valueAdded,createTime
+    </sql>
+    <!--插入订单-->
+    <insert id="insertOrder" parameterType="com.newland.financial.p2p.domain.entity.OrderInfo">
+        INSERT INTO t_inst_orderinfo (<include refid="Base_Column_List"/>) VALUES
+        (#{id,jdbcType=VARCHAR},#{txnTime,jdbcType=TIMESTAMP},#{merId,jdbcType=VARCHAR},#{txnAmt,jdbcType=BIGINT},#{txnterms,jdbcType=INTEGER},#{orderId,jdbcType=VARCHAR},
+        #{accName,jdbcType=VARCHAR},#{accNo,jdbcType=VARCHAR},#{validity,jdbcType=VARCHAR},#{accIdcard,jdbcType=VARCHAR},
+        #{accMobile,jdbcType=VARCHAR},#{cvn2,jdbcType=VARCHAR},#{discount,jdbcType=BIGINT},#{contractsCode,jdbcType=VARCHAR},
+        #{amount,jdbcType=BIGINT},#{queryId,jdbcType=VARCHAR},#{poundage,jdbcType=BIGINT},#{contractsState,jdbcType=VARCHAR},#{sumTerms,jdbcType=INTEGER},
+        #{sumAmount,jdbcType=BIGINT},#{remainAmount,jdbcType=BIGINT},#{cancelAmount,jdbcType=BIGINT},#{cancelInterest,jdbcType=BIGINT},
+        #{valueAdded,jdbcType=BIGINT},#{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <!--根据订单号更新订单-->
+    <update id="updateByOrderId" parameterType="com.newland.financial.p2p.domain.entity.OrderInfo">
+        UPDATE t_inst_orderinfo
+        <set>
+            <if test="id != null">
+                id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="txnTime != null">
+                txnTime = #{txnTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merId != null">
+                merId = #{merId,jdbcType=VARCHAR},
+            </if>
+            <if test="txnAmt != null">
+                txnAmt = #{txnAmt,jdbcType=BIGINT},
+            </if>
+            <if test="txnterms != null">
+                txnterms = #{txnterms,jdbcType=INTEGER},
+            </if>
+            <if test="accName != null">
+                accName = #{accName,jdbcType=VARCHAR},
+            </if>
+            <if test="accNo != null">
+                accNo = #{accNo,jdbcType=VARCHAR},
+            </if>
+            <if test="validity != null">
+                validity = #{validity,jdbcType=VARCHAR},
+            </if>
+            <if test="accIdcard != null">
+                accIdcard = #{accIdcard,jdbcType=VARCHAR},
+            </if>
+            <if test="accMobile != null">
+                accMobile = #{accMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="CVN2 != null">
+                CVN2 = #{cvn2,jdbcType=VARCHAR},
+            </if>
+            <if test="discount != null">
+                discount = #{discount,jdbcType=BIGINT},
+            </if>
+            <if test="contractsCode != null">
+                contractsCode = #{contractsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=BIGINT},
+            </if>
+            <if test="queryId != null">
+                queryId = #{queryId,jdbcType=VARCHAR},
+            </if>
+            <if test="poundage != null">
+                poundage = #{poundage,jdbcType=BIGINT},
+            </if>
+            <if test="contractsState != null">
+                contractsState = #{contractsState,jdbcType=VARCHAR},
+            </if>
+            <if test="sumTerms != null">
+                sumTerms = #{sumTerms,jdbcType=INTEGER},
+            </if>
+            <if test="sumAmount != null">
+                sumAmount = #{sumAmount,jdbcType=BIGINT},
+            </if>
+            <if test="remainAmount != null">
+                remainAmount = #{remainAmount,jdbcType=BIGINT},
+            </if>
+            <if test="cancelAmount != null">
+                cancelAmount = #{cancelAmount,jdbcType=BIGINT},
+            </if>
+            <if test="cancelInterest != null">
+                cancelInterest = #{cancelInterest,jdbcType=BIGINT},
+            </if>
+            <if test="valueAdded != null">
+                valueAdded = #{valueAdded,jdbcType=BIGINT},
+            </if>
+        </set>
+        WHERE orderId = #{orderId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectOrderInfo" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List" />
+        from t_inst_orderinfo
+        where orderId = #{orderId}
+    </select>
+
+</mapper>

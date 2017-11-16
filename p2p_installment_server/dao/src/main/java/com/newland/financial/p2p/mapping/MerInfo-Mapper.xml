@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.MerInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.MerInfo">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="MER_ID" property="merId" jdbcType="VARCHAR"/>
+        <result column="MER_NAME" property="merName" jdbcType="VARCHAR"/>
+        <result column="MER_PWD" property="merPwd" jdbcType="VARCHAR"/>
+        <result column="MER_ABBR" property="merAbbr" jdbcType="VARCHAR"/>
+        <result column="REGISTERED_ADDRESS" property="registeredAddress" jdbcType="VARCHAR"/>
+        <result column="PARENT_CHANNELS_CODE" property="parentChannelsCode" jdbcType="VARCHAR"/>
+        <result column="ADDR" property="addr" jdbcType="VARCHAR"/>
+        <result column="CORPORATE_REPRESENTATIVE" property="corporateRepresentative" jdbcType="VARCHAR"/>
+        <result column="LXR" property="lxr" jdbcType="VARCHAR"/>
+        <result column="TEL" property="tel" jdbcType="VARCHAR"/>
+        <result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
+        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <result column="FAX" property="fax" jdbcType="VARCHAR"/>
+        <result column="NATURE" property="nature" jdbcType="VARCHAR"/>
+        <result column="LEASE" property="lease" jdbcType="DATE"/>
+        <result column="SITEAREA" property="sitearea" jdbcType="INTEGER"/>
+        <result column="START_BUSINESS" property="startBusiness" jdbcType="DATE"/>
+        <result column="BUSINESS_HOURSE" property="businessHourse" jdbcType="INTEGER"/>
+        <result column="INDUSTRIES_ID" property="industriesId" jdbcType="VARCHAR"/>
+        <result column="INDUSTRIES_EXPLAI" property="industriesExplai" jdbcType="VARCHAR"/>
+        <result column="BANKCARD_TURNOVER" property="bankcardTurnover" jdbcType="INTEGER"/>
+        <result column="SALESSLIP_TURNOVER" property="salesslipTurnover" jdbcType="INTEGER"/>
+        <result column="LFQ_TURNOVER" property="lfqTurnover" jdbcType="INTEGER"/>
+        <result column="CHANNELS_ID" property="channelsId" jdbcType="VARCHAR"/>
+        <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR"/>
+        <result column="BANK_NUM" property="bankNum" jdbcType="VARCHAR"/>
+        <result column="HOLDER_NAME" property="holderName" jdbcType="VARCHAR"/>
+        <result column="CARD_NUM" property="cardNum" jdbcType="VARCHAR"/>
+        <result column="UNIONPAY_MERCHANT_NUM" property="unionpayMerchantNum" jdbcType="VARCHAR"/>
+        <result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR"/>
+        <result column="LEV" property="lev" jdbcType="VARCHAR"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        ID,MER_ID,MER_NAME,MER_PWD,MER_ABBR,REGISTERED_ADDRESS,PARENT_CHANNELS_CODE,ADDR,CORPORATE_REPRESENTATIVE,LXR,TEL,MOBILE,EMAIL,FAX,NATURE,LEASE,SITEAREA,START_BUSINESS,
+        BUSINESS_HOURSE,INDUSTRIES_ID,INDUSTRIES_EXPLAI,BANKCARD_TURNOVER,SALESSLIP_TURNOVER,LFQ_TURNOVER,CHANNELS_ID,BANK_NAME,BANK_NUM,HOLDER_NAME,CARD_NUM,UNIONPAY_MERCHANT_NUM,PARENT_NAME,
+        LEV,REMARK
+    </sql>
+
+    <select id="selectByMerId" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List" />
+        from t_inst_merinfo
+        where MER_ID = #{merId}
+    </select>
+
+</mapper>
