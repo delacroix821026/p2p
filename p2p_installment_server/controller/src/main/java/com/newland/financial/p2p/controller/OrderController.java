@@ -118,6 +118,7 @@ public class OrderController {
     @RequestMapping(value = "/createOrderInfo",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object createOrderInfo(@RequestBody String jsonStr){
+        log.info("======come to server=====");
         return orderService.createBlankOrder(jsonStr);
     }
 

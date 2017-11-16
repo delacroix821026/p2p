@@ -5,10 +5,11 @@ import com.newland.financial.p2p.domain.entity.Refund;
 import org.springframework.stereotype.Repository;
 
 /**
- *退款处理DaoImpl.
+ * 退款处理DaoImpl.
+ *
  * @author Gregory
  */
 @Repository
-public class RefundDaoImpl extends MybatisBaseDao<Refund> implements IRefundDao{
+public class RefundDaoImpl extends MybatisBaseDao<Refund> implements IRefundDao {
 
 }

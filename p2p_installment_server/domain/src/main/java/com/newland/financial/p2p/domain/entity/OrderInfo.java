@@ -35,7 +35,7 @@ public class OrderInfo extends BaseEntity {
     /**持卡人银行预留手机号码.*/
     private String accMobile;
     /**信用卡背面末三位数字.*/
-    private String CVN2;
+    private String cvn2;
     /**手续费补贴金额.*/
     private Long discount;
     /**合同编号.*/
