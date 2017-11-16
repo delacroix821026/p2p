@@ -8,18 +8,13 @@ import org.springframework.stereotype.Component;
 @Log4j
 public class OrderServiceHystrix implements IOrderService {
 
-    public Object getValidateInfo(String jsonStr) {
-        log.info("*********getValidateInfo:被熔断***********");
-        return 1026;
-    }
-
-    public Object getRespInfo(String jsonStr) {
-        log.info("*********getRespInfo:被熔断***********");
-        return 1026;
-    }
-
     public Object createOrderInfo(String jsonStr) {
         log.info("*********createOrderInfo:被熔断***********");
+        return 1026;
+    }
+
+    public Object findOrderInfo(String jsonStr) {
+        log.info("*********findOrderInfo:被熔断***********");
         return 1026;
     }
 }

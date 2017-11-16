@@ -11,5 +11,8 @@ public interface IOrderService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/OrderController/createOrderInfo")
     Object createOrderInfo(@RequestBody String jsonStr);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/OrderController/findOrderInfo")
+    Object findOrderInfo(@RequestBody String jsonStr);
 }
 

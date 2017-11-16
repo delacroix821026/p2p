@@ -41,12 +41,25 @@ public class OrderController {
     /**
      * 生成一张空白订单.
      * @param jsonStr
-     * @return
+     * @return 空白订单的订单编号
      */
     @RequestMapping(value = "/createBlankOrder", method = RequestMethod.POST)
     public Object createBlankOrder(@RequestBody String jsonStr) {
-        log.info("========createBlankOrder=======");
+        log.info("========client:createBlankOrder=======");
         log.info("jsonStr：" + jsonStr);
         return orderService.createOrderInfo(jsonStr);
     }
+
+    /**
+     * 获取指定订单.
+     * @param jsonStr orderId 订单编号
+     * @return 订单信息
+     */
+    @RequestMapping(value = "/findOrderInfo", method = RequestMethod.POST)
+    public Object findOrderInfo(@RequestBody String jsonStr) {
+        log.info("========client:findOrderInfo=======");
+        log.info("jsonStr：" + jsonStr);
+        return orderService.findOrderInfo(jsonStr);
+    }
+
 }

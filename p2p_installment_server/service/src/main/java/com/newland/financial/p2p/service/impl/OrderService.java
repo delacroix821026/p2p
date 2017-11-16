@@ -25,16 +25,17 @@ import java.util.UUID;
 public class OrderService implements IOrderService {
     @Autowired
     private IOrderInfoDao orderInfoDao;
+
     /**
      * 创建一个空白订单.
      *
      * @param jsonStr 订单信息.
-     * @return true or false
+     * @return 空白订单编号
      */
-    public boolean createBlankOrder(String jsonStr) {
+    public Object createBlankOrder(String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setId(UUID.randomUUID().toString().replaceAll("-","")); //主键
+        orderInfo.setId(UUID.randomUUID().toString().replaceAll("-", "")); //主键
         //生成订单号
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         Random r = new Random();
@@ -46,7 +47,22 @@ public class OrderService implements IOrderService {
         orderInfo.setCreateTime(date);
         orderInfo.setMerId(paramJSON.getString("merId"));
         orderInfo.setTxnAmt(paramJSON.getLong("txnAmt"));
-        return orderInfoDao.insertOrder(orderInfo);
+        boolean b = orderInfoDao.insertOrder(orderInfo);
+        return b == true ? new String(s) : false;
+    }
+
+    /**
+     * 获取相应订单信息.
+     *
+     * @param orderId 订单编号
+     * @return 订单信息
+     */
+    public OrderInfo findOrderInfo(String orderId) {
+        //判断orderId是否为空
+        if (orderId == null || orderId.length() == 0) {
+            return null;
+        }
+        return orderInfoDao.selectOrderInfo(orderId);
     }
 
 }

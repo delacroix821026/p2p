@@ -1,5 +1,7 @@
 package com.newland.financial.p2p.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 /**
- *订单处理Controller.
+ * 订单处理Controller.
+ *
  * @author Gregory
  */
 
@@ -20,8 +24,10 @@ public class OrderController {
 
     @Autowired
     private IOrderService orderService;
+
     /**
-     *创建订单.
+     * 创建订单.
+     *
      * @param jsonStr 请求参数：<BR>
      * {<BR>
      * &nbsp;"merId":"001",//商户代码<BR>
@@ -48,41 +54,41 @@ public class OrderController {
      * }
      */
     @ResponseBody
-    @RequestMapping(value = "/createOrder",
-            method = {RequestMethod.POST, RequestMethod.GET})
-    public Object createOrder(@RequestBody String jsonStr){
+    @RequestMapping(value = "/createOrder", method = {RequestMethod.POST, RequestMethod.GET})
+    public Object createOrder(@RequestBody String jsonStr) {
 
 
         return null;
     }
 
     /**
-     *根据乐百分返回的数据更新订单信息.
+     * 根据乐百分返回的数据更新订单信息.
+     *
      * @param jsonStr
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/updateOrderInfo",
-            method = {RequestMethod.POST, RequestMethod.GET})
-    public Object updateOrderInfo(@RequestBody String jsonStr){
+    @RequestMapping(value = "/updateOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
+    public Object updateOrderInfo(@RequestBody String jsonStr) {
 
 
         return null;
     }
 
     /**
-     *查询订单.
+     * 查询订单.
+     *
      * @param jsonStr <BR>
-     * {<BR>
-     * &nbsp;"merId":"001",//商户代码<BR>
-     * &nbsp;"state":"1",//状态0未结清，1已结清，2退款<BR>
-     * &nbsp;"orderId":"110";,//订单号<BR>
-     * &nbsp;"accName":"jack",//持卡人姓名<BR>
-     * &nbsp;"bigTime":"2017-01-02",//开始时间<BR>
-     * &nbsp;"endTime":"2017-01-03",//结束时间<BR>
-     * &nbsp;"page":1,//当前页<BR>
-     * &nbsp;"count":5//显示条数<BR>
-     * }
+     *                {<BR>
+     *                &nbsp;"merId":"001",//商户代码<BR>
+     *                &nbsp;"state":"1",//状态0未结清，1已结清，2退款<BR>
+     *                &nbsp;"orderId":"110";,//订单号<BR>
+     *                &nbsp;"accName":"jack",//持卡人姓名<BR>
+     *                &nbsp;"bigTime":"2017-01-02",//开始时间<BR>
+     *                &nbsp;"endTime":"2017-01-03",//结束时间<BR>
+     *                &nbsp;"page":1,//当前页<BR>
+     *                &nbsp;"count":5//显示条数<BR>
+     *                }
      * @return 返回参数:<BR>
      * {<BR>
      * &nbsp;"orderList":[<BR>
@@ -95,15 +101,14 @@ public class OrderController {
      * &nbsp;&nbsp;&nbsp;"sumAmount":500000,//已还款总金额(单位分)<BR>
      * &nbsp;&nbsp;&nbsp;"sumTerms":2,//已还期数<BR>
      * &nbsp;&nbsp;&nbsp;"contractsState":"1",//状态<BR>
-     *&nbsp;&nbsp; },<BR>
+     * &nbsp;&nbsp; },<BR>
      * &nbsp;&nbsp;{}....<BR>
      * &nbsp;]<BR>
      * }
      */
     @ResponseBody
-    @RequestMapping(value = "/queryOrderInfo",
-            method = {RequestMethod.POST, RequestMethod.GET})
-    public Object queryOrderInfo(@RequestBody String jsonStr){
+    @RequestMapping(value = "/queryOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
+    public Object queryOrderInfo(@RequestBody String jsonStr) {
 
 
         return null;
@@ -111,16 +116,29 @@ public class OrderController {
 
     /**
      * 生成一张空白订单.
+     *
      * @param jsonStr 订单信息.
-     * @return true or false
+     * @return 空白订单的订单编号
      */
     @ResponseBody
-    @RequestMapping(value = "/createOrderInfo",
-            method = {RequestMethod.POST, RequestMethod.GET})
-    public Object createOrderInfo(@RequestBody String jsonStr){
-        log.info("======come to server=====");
+    @RequestMapping(value = "/createOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
+    public Object createOrderInfo(@RequestBody String jsonStr) {
+        log.info("======come to server:createOrderInfo=====");
         return orderService.createBlankOrder(jsonStr);
     }
 
+    /**
+     * 获得相应订单信息.
+     * @param jsonStr orderId
+     * @return 订单信息.
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
+    public Object findOrderInfo(@RequestBody String jsonStr) {
+        log.info("======come to server:findOrderInfo=====");
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String orderId = paramJSON.getString("orderId");
+        return orderService.findOrderInfo(orderId);
+    }
 
 }
