@@ -44,7 +44,7 @@ public class OrderController {
      * @return 空白订单的订单编号
      */
     @RequestMapping(value = "/createBlankOrder", method = RequestMethod.POST)
-    public Object createBlankOrder(@RequestBody String jsonStr) {
+    public String createBlankOrder(@RequestBody String jsonStr) {
         log.info("========client:createBlankOrder=======");
         log.info("jsonStr：" + jsonStr);
         return orderService.createOrderInfo(jsonStr);

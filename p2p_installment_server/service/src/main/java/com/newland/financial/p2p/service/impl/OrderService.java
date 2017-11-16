@@ -32,7 +32,7 @@ public class OrderService implements IOrderService {
      * @param jsonStr 订单信息.
      * @return 空白订单编号
      */
-    public Object createBlankOrder(String jsonStr) {
+    public String createBlankOrder(String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setId(UUID.randomUUID().toString().replaceAll("-", "")); //主键
@@ -47,8 +47,8 @@ public class OrderService implements IOrderService {
         orderInfo.setCreateTime(date);
         orderInfo.setMerId(paramJSON.getString("merId"));
         orderInfo.setTxnAmt(paramJSON.getLong("txnAmt"));
-        boolean b = orderInfoDao.insertOrder(orderInfo);
-        return b == true ? new String(s) : false;
+        orderInfoDao.insertOrder(orderInfo);
+        return new String(s);
     }
 
     /**

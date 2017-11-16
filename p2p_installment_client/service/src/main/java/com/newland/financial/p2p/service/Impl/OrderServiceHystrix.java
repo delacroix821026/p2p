@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @Log4j
 public class OrderServiceHystrix implements IOrderService {
 
-    public Object createOrderInfo(String jsonStr) {
+    public String createOrderInfo(String jsonStr) {
         log.info("*********createOrderInfo:被熔断***********");
-        return 1026;
+        return "1026";
     }
 
     public Object findOrderInfo(String jsonStr) {

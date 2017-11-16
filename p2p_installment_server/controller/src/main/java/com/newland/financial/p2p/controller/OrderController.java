@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Log4j
-@RequestMapping("/OrderController")
+@RequestMapping("/Order")
 public class OrderController {
 
     @Autowired
@@ -121,9 +121,9 @@ public class OrderController {
      * @return 空白订单的订单编号
      */
     @ResponseBody
-    @RequestMapping(value = "/createOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
-    public Object createOrderInfo(@RequestBody String jsonStr) {
-        log.info("======come to server:createOrderInfo=====");
+    @RequestMapping(value = "/createBlankOrder", method = {RequestMethod.POST, RequestMethod.GET})
+    public String createOrderInfo(@RequestBody String jsonStr) {
+        log.info("======come to server:createBlankOrder=====");
         return orderService.createBlankOrder(jsonStr);
     }
 

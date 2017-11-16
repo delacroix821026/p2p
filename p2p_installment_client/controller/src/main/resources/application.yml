@@ -11,14 +11,7 @@ spring:
         port: 6379
         database: 0
 
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          #strategy: thread
-          thread:
-            timeoutInMilliseconds: 10000
+
 
 ...
 
@@ -83,5 +76,5 @@ feign:
     hystrix:
         enabled: true
 
-#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
 ...

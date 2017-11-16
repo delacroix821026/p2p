@@ -14,7 +14,7 @@ public interface IOrderService {
      * @param jsonStr 订单信息.
      * @return 空白订单的编号
      */
-    Object createBlankOrder(String jsonStr);
+    String createBlankOrder(String jsonStr);
 
     /**
      * 获取相应订单信息.
