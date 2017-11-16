@@ -1,6 +1,8 @@
 package com.newland.financial.p2p.controller;
 
+import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/OrderController")
 public class OrderController {
 
-
+    @Autowired
+    private IOrderService orderService;
     /**
      *创建订单.
      * @param jsonStr 请求参数：<BR>
@@ -105,4 +108,18 @@ public class OrderController {
 
         return null;
     }
+
+    /**
+     * 生成一张空白订单.
+     * @param jsonStr 订单信息.
+     * @return true or false
+     */
+    @ResponseBody
+    @RequestMapping(value = "/createOrderInfo",
+            method = {RequestMethod.POST, RequestMethod.GET})
+    public Object createOrderInfo(@RequestBody String jsonStr){
+        return orderService.createBlankOrder(jsonStr);
+    }
+
+
 }

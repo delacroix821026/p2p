@@ -60,4 +60,6 @@ public class OrderInfo extends BaseEntity {
     private Long cancelInterest;
     /**增值服务费.*/
     private Long valueAdded;
+    /**创建时间.*/
+    private Date createTime;
 }

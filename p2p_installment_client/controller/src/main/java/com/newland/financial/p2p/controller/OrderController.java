@@ -38,13 +38,15 @@ public class OrderController {
         return sendService.sendMsgToLbf(jsonStr);
     }
 
-    /*@RequestMapping(value = "/createOrder", method = RequestMethod.POST)
-    public Object createOrder(@RequestBody String jsonStr) {
-        log.info("========createOrder=======");
+    /**
+     * 生成一张空白订单.
+     * @param jsonStr
+     * @return
+     */
+    @RequestMapping(value = "/createBlankOrder", method = RequestMethod.POST)
+    public Object createBlankOrder(@RequestBody String jsonStr) {
+        log.info("========createBlankOrder=======");
         log.info("jsonStr：" + jsonStr);
-        String jsonStr1 = (String) orderService.createOrder(jsonStr);
-        String jsonStr2 = (String) sendService.sendOrderinfoToLbf(jsonStr1);
-        String jsonStr3 = (String) orderService.getRespInfo(jsonStr2);
-        return jsonStr3;
-    }*/
+        return orderService.createOrderInfo(jsonStr);
+    }
 }
