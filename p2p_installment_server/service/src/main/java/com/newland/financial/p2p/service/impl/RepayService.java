@@ -28,14 +28,15 @@ public class RepayService implements IRepayService {
     public String receiveRepayInfo(Repay repay){
         log.info("--------------------------------进入RepayService:");
         String id = UUID.randomUUID().toString().replace("-", "");
-        repay.setId(id);
         boolean bol = false;
         Repay existRepay = repayDao.findRepayInfo(repay);
         //首次推送则插入新纪录
         if(existRepay == null){
+            repay.setId(id);
             bol = repayDao.insertRepayInfo(repay);
         }else {
             //重复推送则更新还款单
+            repay.setId(existRepay.getId());
             bol = repayDao.updateRepayInfo(repay);
         }
 
