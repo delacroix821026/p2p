@@ -13,7 +13,6 @@ import java.util.Map;
  *
  * @author Mxia
  */@Repository
-
 public class ProductDao extends MybatisBaseDao<Product> implements IProductDao {
 
     /**
