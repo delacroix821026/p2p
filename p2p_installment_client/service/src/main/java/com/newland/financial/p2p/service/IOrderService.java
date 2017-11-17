@@ -20,5 +20,8 @@ public interface IOrderService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/Order/updateOrderInfo")
     Object updateOrderInfo(@RequestBody Object ob);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/Order/updateAndGetOrder")
+    Object updateAndGetOrder(@RequestBody Object ob);
 }
 

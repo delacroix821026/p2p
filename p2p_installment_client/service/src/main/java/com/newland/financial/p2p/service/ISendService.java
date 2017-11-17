@@ -10,4 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface ISendService {
     @RequestMapping(method = RequestMethod.POST, value = "/ybforder/sendOrderMsg")
     Object sendOrderMsgToLbf(@RequestBody Object object);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/ybforder/sendOrderQueryMsg")
+    Object sendOrderQueryMsg(@RequestBody Object object);
 }
