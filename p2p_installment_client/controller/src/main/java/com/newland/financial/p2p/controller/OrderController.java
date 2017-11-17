@@ -27,7 +27,6 @@ public class OrderController {
      * @param jsonStr 请求参数:<BR>
      * {<BR>
      *&nbsp;"merId":"111111111",//商户代码<BR>
-     *&nbsp;"merName":"新大陆",//商户名称<BR>
      *&nbsp;"txnAmt":10000//分期金额<BR>
      *}
      * @return 返回参数:<BR>
