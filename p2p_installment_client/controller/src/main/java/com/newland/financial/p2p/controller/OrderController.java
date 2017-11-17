@@ -86,7 +86,9 @@ public class OrderController {
     public Object findOrderInfo(@RequestBody String jsonStr) {
         log.info("========client:findOrderInfo=======");
         log.info("jsonStr：" + jsonStr);
-        return orderService.findOrderInfo(jsonStr);
+        Object ob = orderService.findOrderInfo(jsonStr);
+        Object ob1 = sendService.sendOrderQueryMsg(ob);
+        return orderService.updateAndGetOrder(ob1);
     }
 
     /**

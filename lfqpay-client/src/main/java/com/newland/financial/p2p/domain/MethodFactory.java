@@ -24,7 +24,7 @@ public class MethodFactory {
         String txnTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         map.put("txnTime", txnTime); // 交易时间：yyyyMMddHHmmss
         // 加密传送密码
-        map.put("merPwd", SecureUtil.encryptWithDES(txnTime, "12345678")); // 商户密码
+        map.put("merPwd", SecureUtil.encryptWithDES(txnTime, orm.getMerPwd())); // 商户密码
         map.put("merId", orm.getMerId()); // 商户编号
         map.put("merName", orm.getMerName()); // 商户名称
         map.put("merAbbr", orm.getMerAbbr()); // 商户简称
@@ -35,11 +35,12 @@ public class MethodFactory {
         map.put("orderId", orm.getOrderId()); // 订单号
         map.put("backUrl", "http://localhost:8080/lfq-pay/backurl.do"); // 异步通知地址
 
-        String cvn = "167"; // CVN
+        String cvn = orm.getCvn2(); // CVN
         String name = orm.getAccName(); // 姓名
-        String validDate = "0822"; // 有效期：MMYY
+        String validDate = orm.getValidity(); // 有效期：MMYY
         String phone = orm.getAccMobile(); // 手机号码（接收交易/扣款短信）
         String idCard = orm.getAccIdcard(); // 证件号（身份证号）
+        log.info("merPwd:" + orm.getMerPwd() + ",validDate:" + validDate + ",cvn:" + cvn);
         map.put("customerInfo", MethodFactory.generateCustomerInfo("01", idCard, name, phone, cvn, validDate, "utf-8")); // 身份信息
         return map;
     }
@@ -78,10 +79,21 @@ public class MethodFactory {
         map.put("merAbbr", m.get("merAbbr"));
         map.put("orderId", m.get("orderId"));
         map.put("contractsCode", m.get("contractsCode"));
+        for (String key : map.keySet()) {
+            log.info("key= " + key + " and value= " + map.get(key));
+        }
         return map;
 
     }
 
+    /**
+     * 创建订单时需要使用的返回封装对象方法.
+     *
+     * @param mapA
+     * @param mapB
+     * @param orm
+     * @return
+     */
     public static OrderInfo installOrderInfo(Map<String, String> mapA, Map<String, String> mapB, OrderMsgReq orm) {
         String respCodeA = mapA.get("respCode");
         log.info("====创建订单结果====" + respCodeA);
@@ -143,7 +155,32 @@ public class MethodFactory {
             orderInfo.setRespCode(respCodeA);
             orderInfo.setRespMsg(mapA.get("respMsg"));
         }
-        log.info("orderInfo"+ orderInfo.toString());
+        log.info("orderInfo" + orderInfo.toString());
         return orderInfo;
     }
+
+    /**
+     * 单个订单查询封装返回对象.
+     * @param map
+     * @return
+     */
+    public static OrderInfo installOrderInfoA(Map<String, String> map) {
+        OrderInfo orderInfo = new OrderInfo();
+        String respCode = map.get("respCode");
+        orderInfo.setOrderId(map.get("orderId"));
+        orderInfo.setRespCode(map.get("respCode"));
+        orderInfo.setRespMsg(map.get("respMsg"));
+        log.info("=========订单查询结果========：" + respCode);
+        if ("0000".equals(respCode)) {
+            log.info("=========查询成功========");
+            orderInfo.setContractsState(map.get("contractsState"));
+            orderInfo.setSumTerms(Integer.parseInt(map.get("sumTerms")));
+            orderInfo.setSumAmount(Long.parseLong(map.get("sumAmount")));
+            orderInfo.setRemainAmount(Long.parseLong(map.get("remainAmount")));
+            orderInfo.setCancelAmount(Long.parseLong(map.get("cancelAmount")));
+            orderInfo.setCancelInterest(Long.parseLong(map.get("cancelInterest")));
+        }
+        return orderInfo;
+    }
+
 }

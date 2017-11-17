@@ -27,4 +27,13 @@ public class OrderServiceHystrix implements IOrderService {
         log.info("*********updateOrderInfo:被熔断***********");
         return 1026;
     }
+<<<<<<< HEAD
+
+    public Object updateAndGetOrder(Object ob) {
+        log.info("*********updateAndGetOrder:被熔断***********");
+        return 1026;
+    }
+
+=======
+>>>>>>> c4a1bf8776ca74eacf786d2c2686a8819cd4d6bd
 }

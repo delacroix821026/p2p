@@ -2,26 +2,20 @@ package com.newland.financial.p2p.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.newland.financial.p2p.domain.entity.InstallObjectFactory;
-import com.newland.financial.p2p.domain.entity.MerInfo;
-import com.newland.financial.p2p.domain.entity.OrderInfo;
-import com.newland.financial.p2p.domain.entity.OrderMsgReq;
+import com.newland.financial.p2p.domain.entity.*;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 订单处理Controller.
  *
- * @author Gregory
+ * @author Mxia
  */
 
-@Controller
+@RestController
 @Log4j
 @RequestMapping("/Order")
 public class OrderController {
@@ -56,7 +50,6 @@ public class OrderController {
      * &nbsp;}<BR>
      * }
      */
-    @ResponseBody
     @RequestMapping(value = "/tradeUpdateOrder", method = {RequestMethod.POST, RequestMethod.GET})
     public Object tradeUpdateOrder(@RequestBody String jsonStr) {
         log.info("======come to server:tradeUpdateOrder=====");
@@ -74,7 +67,6 @@ public class OrderController {
      * @param ob
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "/updateOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
     public Object updateOrderInfo(@RequestBody OrderInfo ob) {
         OrderInfo or = ob;
@@ -87,7 +79,6 @@ public class OrderController {
      * @param jsonStr 订单信息.
      * @return 空白订单的订单编号
      */
-    @ResponseBody
     @RequestMapping(value = "/createBlankOrder", method = {RequestMethod.POST, RequestMethod.GET})
     public String createOrderInfo(@RequestBody String jsonStr) {
         log.info("======come to server:createBlankOrder=====");
@@ -100,13 +91,31 @@ public class OrderController {
      * @param jsonStr orderId
      * @return 订单信息.
      */
-    @ResponseBody
     @RequestMapping(value = "/findOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
     public Object findOrderInfo(@RequestBody String jsonStr) {
         log.info("======come to server:findOrderInfo=====");
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String orderId = paramJSON.getString("orderId");
-        return orderService.findOrderInfo(orderId);
+        OrderInfo orderInfo = orderService.findOrderInfo(orderId);
+        MerInfo merInfo = orderService.findMerInfo(orderInfo);
+        OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);
+        log.info("OrderQueryReq:" + oq.toString());
+        return oq;
+    }
+
+    /**
+     *
+     */
+    @RequestMapping(value = "/updateAndGetOrder", method = {RequestMethod.POST, RequestMethod.GET})
+    public Object updateAndGetOrder(@RequestBody OrderInfo or) {
+        log.info("======come to server:updateAndGetOrder=====");
+        log.info(or);
+        OrderInfo orderInfo = or;
+        orderService.updateOrderInfo(or);
+        OrderInfo orf = orderService.findOrderInfo(or.getOrderId());
+        orf.setRespCode(or.getRespCode());
+        orf.setRespMsg(or.getRespMsg());
+        return orf;
     }
 
 }
