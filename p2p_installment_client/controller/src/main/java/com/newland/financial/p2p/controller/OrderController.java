@@ -105,35 +105,35 @@ public class OrderController {
      * }
      * @return 返回参数：<BR>
      *{<BR>
-     *&nbsp;"id": "0a4e6a51c15a463fadb1f6daf5a3f74c",<BR>
-     *&nbsp;"txnTime": null,//交易时间<BR>
-     *&nbsp;"merId": "111111111",//商户代码<BR>
-     *&nbsp;"txnAmt": 10000,//交易总额<BR>
-     *&nbsp;"txnterms": null,//分期数<BR>
-     *&nbsp;"orderId": "2017111615064349906",//订单号<BR>
-     *&nbsp;"accName": "Mxia",//持卡人名称<BR>
-     *&nbsp;"accNo": "12345678",//持卡人信用卡账号<BR>
-     *&nbsp;"validity": "0822",//卡有效期<BR>
-     *&nbsp;"accIdcard": "12345678",//持卡人身份证<BR>
-     *&nbsp;"accMobile": "111111",//持卡人银行预留手机号<BR>
-     *&nbsp;"cvn2": "123",//银行卡背面3位数<BR>
-     *&nbsp;"discount": null,<BR>
-     *&nbsp;"contractsCode": "12121212",//合同号<BR>
-     *&nbsp;"amount": 1666,//首期还款金额<BR>
-     *&nbsp;"queryId": null,<BR>
-     *&nbsp;"poundage": null,//手续费<BR>
-     *&nbsp;"contractsState": "1",//合同状态0：未生效 1：已生效 2：已结束(正常还款) 3：已结束(断供) 4：已结束(提前还款) 5：已结束(退款)<BR>
-     *&nbsp;"sumTerms": "1",//已还款总期数<BR>
-     *&nbsp;"sumAmount": 1666,//已还款总金额<BR>
-     *&nbsp;"remainAmount": 7000,//剩余还款金额<BR>
-     *&nbsp;"cancelAmount": 7000,//商户退款金额<BR>
-     *&nbsp;"cancelInterest": null,//商户退款利息<BR>
-     *&nbsp;"valueAdded": null,<BR>
-     *&nbsp;"createTime": 1510816003000,//创建时间<BR>
-     *&nbsp;"stus": null,//退款状态：0退款失败，1退款成功，2人工审核，无值或者null时表示订单没有退款行为.<BR>
-     *&nbsp;"merName": "新大陆"//商户名称<BR>
-     *&nbsp;"respCode": "0000"//返回码，0000表示操作成功<BR>
-     *&nbsp;"respMsg": ""//返回信息<BR>
+     *&nbsp;"id":"0a4e6a51c15a463fadb1f6daf5a3f74c",<BR>
+     *&nbsp;"txnTime":null,//交易时间<BR>
+     *&nbsp;"merId":"111111111",//商户代码<BR>
+     *&nbsp;"txnAmt":10000,//交易总额<BR>
+     *&nbsp;"txnterms":null,//分期数<BR>
+     *&nbsp;"orderId":"2017111615064349906",//订单号<BR>
+     *&nbsp;"accName":"Mxia",//持卡人名称<BR>
+     *&nbsp;"accNo":"12345678",//持卡人信用卡账号<BR>
+     *&nbsp;"validity":"0822",//卡有效期<BR>
+     *&nbsp;"accIdcard":"12345678",//持卡人身份证<BR>
+     *&nbsp;"accMobile":"111111",//持卡人银行预留手机号<BR>
+     *&nbsp;"cvn2":"123",//银行卡背面3位数<BR>
+     *&nbsp;"discount":null,<BR>
+     *&nbsp;"contractsCode":"12121212",//合同号<BR>
+     *&nbsp;"amount":1666,//首期还款金额<BR>
+     *&nbsp;"queryId":null,<BR>
+     *&nbsp;"poundage":null,//手续费<BR>
+     *&nbsp;"contractsState":"1",//合同状态0：未生效 1：已生效 2：已结束(正常还款) 3：已结束(断供) 4：已结束(提前还款) 5：已结束(退款)<BR>
+     *&nbsp;"sumTerms":"1",//已还款总期数<BR>
+     *&nbsp;"sumAmount":1666,//已还款总金额<BR>
+     *&nbsp;"remainAmount":7000,//剩余还款金额<BR>
+     *&nbsp;"cancelAmount":7000,//商户退款金额<BR>
+     *&nbsp;"cancelInterest":null,//商户退款利息<BR>
+     *&nbsp;"valueAdded":null,<BR>
+     *&nbsp;"createTime":1510816003000,//创建时间<BR>
+     *&nbsp;"stus":null,//退款状态：0退款失败，1退款成功，2人工审核，无值或者null时表示订单没有退款行为.<BR>
+     *&nbsp;"merName":"新大陆"//商户名称<BR>
+     *&nbsp;"respCode":"0000"//返回码，0000表示操作成功<BR>
+     *&nbsp;"respMsg":""//返回信息<BR>
      *}
      */
     @RequestMapping(value = "/tradeUpdateOrder", method = RequestMethod.POST)
