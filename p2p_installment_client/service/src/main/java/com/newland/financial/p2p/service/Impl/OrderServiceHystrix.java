@@ -22,12 +22,9 @@ public class OrderServiceHystrix implements IOrderService {
         log.info("*********tradeUpdateOrder:被熔断***********");
         return 1026;
     }
-<<<<<<< HEAD
 
     public Object updateOrderInfo(Object ob) {
         log.info("*********updateOrderInfo:被熔断***********");
         return 1026;
     }
-=======
->>>>>>> 44e05640eebf667e6f460eb2ff8f2d227ece8b39
 }
