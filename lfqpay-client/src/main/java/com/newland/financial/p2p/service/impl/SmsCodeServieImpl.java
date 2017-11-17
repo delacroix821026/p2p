@@ -76,7 +76,13 @@ public class SmsCodeServieImpl implements ISmsCodeServie {
         //返回CodeMsgResp对象到client
         CodeMsgResp codeMsgResp = (CodeMsgResp) IfqUtil.convertMap(CodeMsgResp.class,resp);
 
-        return resp;
+        Map<String, String> respMap = new HashMap<String, String>();
+        respMap.put("merId",resp.get("merId"));
+        respMap.put("mobile",resp.get("mobile"));
+        respMap.put("respCode",resp.get("respCode"));
+        respMap.put("respMsg",resp.get("respMsg"));
+        respMap.put("respTime",resp.get("respTime"));
+        return respMap;
 //        return new CodeMsgResp();
     }
 }

@@ -58,8 +58,10 @@ public class RepayController {
             method = {RequestMethod.POST, RequestMethod.GET})
 //    public String updateRepayInfo(@RequestBody String jsonStr){
     public String updateRepayInfo(@RequestBody Repay repay){
+        log.info("--------------------------进入RepayController---->receiveRepaymentInfo");
         String resp = repayService.updateRepayInfo(repay);
         return resp;
+//        return repay.toString();
     }
 
 }

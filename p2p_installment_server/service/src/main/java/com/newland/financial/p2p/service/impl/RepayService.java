@@ -7,6 +7,8 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 /**
  *还款推送ServiceImpl
  * @author Gregory
@@ -24,6 +26,9 @@ public class RepayService implements IRepayService {
      * @return  成功：true，失败：false
      */
     public String updateRepayInfo(Repay repay){
+        log.info("--------------------------------进入RepayService:");
+        String id = UUID.randomUUID().toString().replace("-", "");
+        repay.setId(id);
         boolean bol = repayDao.updateRepayInfo(repay);
         if(bol){
             return "true";

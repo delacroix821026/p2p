@@ -31,10 +31,21 @@ public class SmsCodeController {
     private IEgwService egwService;
 
     /**
-     * 短信验证码接口.
-     *
-     * @param jsonStr
-     * @return
+     *生成短信接口请求报文.
+     * @param jsonStr 请求参数：<BR>
+     * {<BR>
+     * &nbsp;"merId":"商户代码",<BR>
+     * &nbsp;"mobile":"手机号码"<BR>
+     * }
+     * @return 返回参数：<BR>
+     * {<BR>
+     * &nbsp;"merId":"商户代码",<BR>
+     * &nbsp;"mobile":"手机号码"<BR>
+     * &nbsp;"respCode":"响应码"<BR>
+     * &nbsp;"respMsg":"响应信息"<BR>
+     * &nbsp;"respTime":"响应时间"<BR>
+     * &nbsp;}<BR>
+     * }
      */
     @RequestMapping(value = "/sendSmsCode", method = RequestMethod.POST)
     public Object sendSmsCode(@RequestBody String jsonStr) {
