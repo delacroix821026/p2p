@@ -17,4 +17,9 @@ public class OrderServiceHystrix implements IOrderService {
         log.info("*********findOrderInfo:被熔断***********");
         return 1026;
     }
+
+    public Object tradeUpdateOrder(String jsonStr) {
+        log.info("*********tradeUpdateOrder:被熔断***********");
+        return 1026;
+    }
 }

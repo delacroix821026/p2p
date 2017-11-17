@@ -22,9 +22,9 @@ public class Repay extends BaseEntity {
     private Long txnAmt;
     /**当期还款期数.*/
     private Integer terms;
-    /**还款金额.*/
+    /**当期还款金额，单位：分.*/
     private Long amount;
-    /**已还款金额.*/
+    /**已还款金额,单位：分.*/
     private Long sumAmount;
     /**还款时间：yyyyMMddHHmmss.*/
     private Date instalmentDate;
@@ -32,10 +32,10 @@ public class Repay extends BaseEntity {
     private Date nextDate;
     /**还款类型:0：正常还款,1：提前还款.*/
     private String payType;
-    /**还款状态码.*/
-    private String respCode;
-    /**还款状态信息.*/
-    private String respMsg;
-    /**响应时间.*/
-    private Date respTime;
+//    /**还款状态码.*/
+//    private String respCode;
+//    /**还款状态信息.*/
+//    private String respMsg;
+//    /**响应时间.*/
+//    private Date respTime;
 }

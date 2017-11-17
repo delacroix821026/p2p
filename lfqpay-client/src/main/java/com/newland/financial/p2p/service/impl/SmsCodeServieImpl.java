@@ -41,33 +41,42 @@ public class SmsCodeServieImpl implements ISmsCodeServie {
      * @param codeMsgReq
      * @return
      */
-    public CodeMsgResp backSMSCodeRequest(CodeMsgReq codeMsgReq) {
+    public Object backSMSCodeRequest(CodeMsgReq codeMsgReq) {
         String requestUrl = ADDRESS_TEST + "/lfq-pay/gateway/api/backSMSCodeRequest.do";
 
         String txnTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         Map<String, String> data = new HashMap<String, String>();
 
-        data.put("version", codeMsgReq.getVersion()); // 固定值：1.0.0
-        data.put("encoding", codeMsgReq.getEncoding()); // 编码
-        data.put("txnType", codeMsgReq.getTxnType()); // 短信验证码：13
+        data.put("version", "1.0.0"); // 固定值：1.0.0
+        data.put("encoding", "utf-8"); // 编码
+        data.put("txnType", "13"); // 短信验证码：13
         data.put("txnTime", txnTime); // 交易时间：yyyyMMddHHmmss
-        data.put("mobile", codeMsgReq.getMobile()); // 手机号码
+        data.put("mobile", "15900543650"); // 手机号码
+//        data.put("version", codeMsgReq.getVersion()); // 固定值：1.0.0
+//        data.put("encoding", codeMsgReq.getEncoding()); // 编码
+//        data.put("txnType", codeMsgReq.getTxnType()); // 短信验证码：13
+//        data.put("txnTime", txnTime); // 交易时间：yyyyMMddHHmmss
+//        data.put("mobile", codeMsgReq.getMobile()); // 手机号码
 
-        data.put("merId", codeMsgReq.getMerId()); // 商户编号
-        data.put("merName", codeMsgReq.getMerName()); // 商户名称
-        data.put("merAbbr", codeMsgReq.getMerAbbr()); // 商户简称
-        String merPwd = codeMsgReq.getMerPwd();
-        data.put("merPwd", SecureUtil.encryptWithDES(txnTime, merPwd)); // 商户密码
+        data.put("merId", "GZW-001"); // 商户编号
+        data.put("merName", "newlandTest"); // 商户名称
+        data.put("merAbbr", "newland"); // 商户简称
+        data.put("merPwd", SecureUtil.encryptWithDES(txnTime, "12345678")); // 商户密码
+//        data.put("merId", codeMsgReq.getMerId()); // 商户编号
+//        data.put("merName", codeMsgReq.getMerName()); // 商户名称
+//        data.put("merAbbr", codeMsgReq.getMerAbbr()); // 商户简称
+//        String merPwd = codeMsgReq.getMerPwd();
+//        data.put("merPwd", SecureUtil.encryptWithDES(txnTime, merPwd)); // 商户密码
 
         // 签名
         boolean b = MpiUtil.sign(data, "utf-8");
         //发送请求
-//        Map<String, String> resp = IfqUtil.execute(requestUrl,data);
+        Map<String, String> resp = IfqUtil.execute(requestUrl,data);
 
         //返回CodeMsgResp对象到client
-//        CodeMsgResp codeMsgResp = (CodeMsgResp) IfqUtil.convertMap(CodeMsgResp.class,resp);
+        CodeMsgResp codeMsgResp = (CodeMsgResp) IfqUtil.convertMap(CodeMsgResp.class,resp);
 
-//        return codeMsgResp;
-        return new CodeMsgResp();
+        return resp;
+//        return new CodeMsgResp();
     }
 }
