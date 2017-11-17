@@ -12,14 +12,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RepayDaoImpl extends MybatisBaseDao<Repay> implements IRepayDao {
 
-//    /**
-//     * 更新还款表.
-//     * @param repay     还款对象
-//     * @return  成功：true，失败：false
-//     */
-//    public boolean updateRepayInfo(Repay repay){
-//        return super.update("updateRepayInfo",repay);
-//    }
+    /**
+     * 更新还款表.
+     * @param repay     还款对象
+     * @return  成功：true，失败：false
+     */
+    public boolean updateRepayInfo(Repay repay){
+        return super.update("updateRepayInfo",repay);
+    }
 
     /**
      * 插入还款表.
@@ -30,4 +30,12 @@ public class RepayDaoImpl extends MybatisBaseDao<Repay> implements IRepayDao {
         return super.insert("insertRepayInfo",repay);
     }
 
+    /**
+     * 查询换款单.
+     * @param repay     还款对象
+     * @return  成功：repay，失败：null
+     */
+    public Repay findRepayInfo(Repay repay){
+        return super.selectEntity("findRepayInfo",repay);
+    }
 }

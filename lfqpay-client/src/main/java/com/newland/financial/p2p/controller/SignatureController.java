@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Log4j
-@RequestMapping("/SignatureController")
+@RequestMapping("/signatureController")
 public class SignatureController {
 
     @Autowired
     private ISignatureService signatureService;
 
-    @ResponseBody
     @RequestMapping(value = "/signature",
             method = {RequestMethod.POST, RequestMethod.GET})
     public String signature(@RequestBody String jsonStr){

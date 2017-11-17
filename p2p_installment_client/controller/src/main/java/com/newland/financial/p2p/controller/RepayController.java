@@ -1,7 +1,7 @@
 package com.newland.financial.p2p.controller;
 
 import com.newland.financial.p2p.service.IEgwService;
-import com.newland.financial.p2p.service.IRepayService;
+import com.newland.financial.p2p.service.IInnerService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @Log4j
-@RequestMapping("/RepayController")
+@RequestMapping("/repayController")
 public class RepayController {
-    /*** 还款.*/
+    /**内部服务.*/
     @Autowired
-    private IRepayService repayService;
+    private IInnerService innerService;
     /*** 外发接口.*/
     @Autowired
     private IEgwService egwService;
@@ -35,7 +35,7 @@ public class RepayController {
         //判断验签结果，成功则调用server更新还款表HttpServletRequest request
         if("true".equals(respStus)){
             log.info("------------------------验签成功，更新还款表信息表");
-           String repayResp =  repayService.updateRepayInfo(jsonStr);
+           String repayResp =  innerService.updateRepayInfo(jsonStr);
 
         }
         //更新完成后应答“success”

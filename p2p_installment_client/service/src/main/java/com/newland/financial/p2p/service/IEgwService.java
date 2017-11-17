@@ -16,7 +16,7 @@ public interface IEgwService {
      * @param jsonStr 请求参数 CodeMsgReq对象
      * @return  Ifqpay-client返回报文
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/SmsCodeController/backSMSCodeRequest")
+    @RequestMapping(method = RequestMethod.POST, value = "/smsCodeController/backSMSCodeRequest")
     Object backSMSCodeRequest(Object jsonStr);
 
     /**
@@ -24,6 +24,6 @@ public interface IEgwService {
      * @param jsonStr 请求参数 RepayMsgResp对象
      * @return  Ifqpay-client返回报文
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/SignatureController/signature")
+    @RequestMapping(method = RequestMethod.POST, value = "/signatureController/signature")
     String signature(String jsonStr);
 }

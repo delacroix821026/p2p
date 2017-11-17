@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @Log4j
-@RequestMapping("/RefundController")
+@RequestMapping("/refundController")
 public class RefundController {
 
     /**
