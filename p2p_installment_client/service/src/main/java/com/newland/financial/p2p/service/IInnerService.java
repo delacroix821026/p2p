@@ -14,7 +14,7 @@ public interface IInnerService {
      * @param jsonStr 前端请求参数
      * @return CodeMsgReq 对象
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/SmsCodeController/sendSmsCode")
+    @RequestMapping(method = RequestMethod.POST, value = "/smsCodeController/sendSmsCode")
     Object getMsgCodeReqPram(@RequestBody String jsonStr);
 
     /**
@@ -22,6 +22,6 @@ public interface IInnerService {
      * @param jsonStr 乐百分推送的数据
      * @return
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/RepayController/receiveRepaymentInfo")
+    @RequestMapping(method = RequestMethod.POST, value = "/repayController/receiveRepaymentInfo")
     String updateRepayInfo(@RequestBody String jsonStr);
 }

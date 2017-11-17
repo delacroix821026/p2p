@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @RestController
 @Log4j
-@RequestMapping("/SmsCodeController")
+@RequestMapping("/smsCodeController")
 public class SmsCodeController {
 
     @Autowired

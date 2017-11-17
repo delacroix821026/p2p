@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Log4j
-@RequestMapping("/RepayController")
+@RequestMapping("/repayController")
 public class RepayController {
 
     @Autowired

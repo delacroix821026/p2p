@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Log4j
-@RequestMapping("/SignatureController")
+@RequestMapping("/signatureController")
 public class SignatureController {
 
     @Autowired

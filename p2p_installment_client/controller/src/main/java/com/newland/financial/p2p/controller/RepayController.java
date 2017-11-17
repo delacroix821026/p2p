@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @Log4j
-@RequestMapping("/RepayController")
+@RequestMapping("/repayController")
 public class RepayController {
     /**内部服务.*/
     @Autowired
