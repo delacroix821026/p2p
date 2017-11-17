@@ -29,7 +29,7 @@ public class RepayService implements IRepayService {
         log.info("--------------------------------进入RepayService:");
         String id = UUID.randomUUID().toString().replace("-", "");
         repay.setId(id);
-        boolean bol = repayDao.updateRepayInfo(repay);
+        boolean bol = repayDao.insertRepayInfo(repay);
         if(bol){
             return "true";
         }
