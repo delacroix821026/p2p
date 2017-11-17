@@ -7,10 +7,7 @@ import com.newland.financial.p2p.service.impl.OrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -20,7 +17,7 @@ import java.io.IOException;
  * @author Mxia
  */
 
-@Controller
+@RestController
 @Log4j
 @RequestMapping("/ybforder")
 public class OrderController {
@@ -32,7 +29,6 @@ public class OrderController {
      * @return
      * @throws IOException
      */
-    @ResponseBody
     @RequestMapping(value = "/sendOrderMsg", method = {RequestMethod.POST, RequestMethod.GET})
     public Object sendOrderMsg(@RequestBody OrderMsgReq ob) throws IOException {
         log.info("come in ybf controller:" + ob);
@@ -41,7 +37,6 @@ public class OrderController {
     }
 
 
-    @ResponseBody
     @RequestMapping(value = "/sendOrderQueryMsg", method = {RequestMethod.POST, RequestMethod.GET})
     public Object senOrderQueryMsg(@RequestBody OrderQueryReq oq) throws IOException {
         log.info("come in ybf controller:" + oq);
