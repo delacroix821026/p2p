@@ -170,6 +170,7 @@ public class MethodFactory {
         orderInfo.setOrderId(map.get("orderId"));
         orderInfo.setRespCode(map.get("respCode"));
         orderInfo.setRespMsg(map.get("respMsg"));
+        orderInfo.setMerName(map.get("merName"));
         log.info("=========订单查询结果========：" + respCode);
         if ("0000".equals(respCode)) {
             log.info("=========查询成功========");
