@@ -4,15 +4,15 @@ import com.newland.financial.p2p.domain.CodeMsgReq;
 import com.newland.financial.p2p.domain.CodeMsgResp;
 
 /**
- *短信验证码Service.
+ *验签接口.
  * @author Gregory
  */
-public interface ISmsCodeServie {
+public interface ISignatureService {
 
     /**
-     * 请求乐百通短信接口.
-     * @param codeMsgReq
-     * @return
+     * 验签.
+     * @param jsonStr 验签字段
+     * @return  成功：true,失败：false
      */
-    Object backSMSCodeRequest(CodeMsgReq codeMsgReq);
+    String signature(String jsonStr);
 }

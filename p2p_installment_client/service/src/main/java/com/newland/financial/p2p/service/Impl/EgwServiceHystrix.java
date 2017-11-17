@@ -6,9 +6,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Log4j
-public class IEgwServiceHystrix implements IEgwService {
+public class EgwServiceHystrix implements IEgwService {
 
     public Object backSMSCodeRequest(Object jsonStr) {
         return 1026;
+    }
+
+    public String signature(String jsonStr){
+        return 1026+"";
     }
 }
