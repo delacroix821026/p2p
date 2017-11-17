@@ -17,5 +17,8 @@ public interface IOrderService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/Order/tradeUpdateOrder")
     Object tradeUpdateOrder(@RequestBody String jsonStr);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/Order/updateOrderInfo")
+    Object updateOrderInfo(@RequestBody Object ob);
 }
 

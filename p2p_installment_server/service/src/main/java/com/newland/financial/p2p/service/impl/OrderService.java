@@ -104,5 +104,13 @@ public class OrderService implements IOrderService {
         String merId = orderInfo.getMerId();
         return merInfoDao.selectMerInfoByMerId(merId);
     }
+    /**
+     * 更新订单.
+     * @param or 订单信息
+     * @return true or false
+     */
+    public boolean updateOrderInfo(OrderInfo or) {
+        return orderInfoDao.updateOrder(or);
+    }
 
 }

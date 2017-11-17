@@ -38,4 +38,11 @@ public interface IOrderService {
      * @return 商户信息
      */
     MerInfo findMerInfo(OrderInfo orderInfo);
+
+    /**
+     * 更新订单.
+     * @param or 订单信息
+     * @return true or false
+     */
+    boolean updateOrderInfo(OrderInfo or);
 }

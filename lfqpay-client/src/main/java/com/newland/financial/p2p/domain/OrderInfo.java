@@ -62,4 +62,12 @@ public class OrderInfo extends BaseEntity {
     private Long valueAdded;
     /**创建时间.*/
     private Date createTime;
+    /**0退款失败，1退款成功，2人工审核，无值或者null时表示订单没有退款行为.*/
+    private String stus;
+    /**响应码.*/
+    private String respCode;
+    /**响应信息.*/
+    private String respMsg;
+    /**商户名称.*/
+    private String merName;
 }

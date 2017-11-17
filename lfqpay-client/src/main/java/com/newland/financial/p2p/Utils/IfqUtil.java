@@ -1,12 +1,14 @@
 package com.newland.financial.p2p.Utils;
 
 import com.lfq.pay.client.MpiUtil;
+import junit.framework.ComparisonFailure;
 import junit.framework.TestCase;
 import lombok.extern.log4j.Log4j;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import javax.validation.ValidationException;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -94,13 +96,17 @@ public class IfqUtil {
             log.debug("返回状态码：" + map.get("respCode"));
             log.debug("返回信息：" + map.get("respMsg"));
             log.debug("合同号：" + map.get("contractsCode"));
-            TestCase.assertEquals(map.get("respCode"), "0000");
+            try{
+                TestCase.assertEquals(map.get("respCode"), "0000");
+            }catch (ComparisonFailure e){
+                e.printStackTrace();
+            }
         } catch (JsonParseException e) {
-            e.printStackTrace();
+            throw new ValidationException("验签异常");
         } catch (JsonMappingException e) {
-            e.printStackTrace();
+            throw new ValidationException("验签异常");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ValidationException("验签异常");
         }
         return map;
     }
