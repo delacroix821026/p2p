@@ -9,9 +9,9 @@ import com.newland.financial.p2p.domain.entity.Repay;
 public interface IRepayService {
 
     /**
-     * 更新还款表.
+     * 接收还款推送信息.
      * @param repay     还款对象
      * @return  成功：true，失败：false
      */
-    String updateRepayInfo(Repay repay);
+    String receiveRepayInfo(Repay repay);
 }

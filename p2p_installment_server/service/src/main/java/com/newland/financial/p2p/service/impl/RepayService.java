@@ -21,15 +21,24 @@ public class RepayService implements IRepayService {
     private IRepayDao repayDao;
 
     /**
-     * 更新还款表.
+     * 接收还款推送信息.
      * @param repay     还款对象
      * @return  成功：true，失败：false
      */
-    public String updateRepayInfo(Repay repay){
+    public String receiveRepayInfo(Repay repay){
         log.info("--------------------------------进入RepayService:");
         String id = UUID.randomUUID().toString().replace("-", "");
         repay.setId(id);
-        boolean bol = repayDao.insertRepayInfo(repay);
+        boolean bol = false;
+        Repay existRepay = repayDao.findRepayInfo(repay);
+        //首次推送则插入新纪录
+        if(existRepay == null){
+            bol = repayDao.insertRepayInfo(repay);
+        }else {
+            //重复推送则更新还款单
+            bol = repayDao.updateRepayInfo(repay);
+        }
+
         if(bol){
             return "true";
         }

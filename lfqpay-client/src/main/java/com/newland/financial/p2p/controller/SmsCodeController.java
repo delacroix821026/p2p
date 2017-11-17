@@ -15,10 +15,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -30,7 +27,7 @@ import java.util.Map;
  *短信验证码Controller.
  * @author Gregory
  */
-@Controller
+@RestController
 @Log4j
 @RequestMapping("/SmsCodeController")
 public class SmsCodeController {
@@ -74,7 +71,6 @@ public class SmsCodeController {
      * &nbsp;}<BR>
      * }
      */
-    @ResponseBody
     @RequestMapping(value = "/backSMSCodeRequest",
             method = {RequestMethod.POST, RequestMethod.GET})
     public Object backSMSCodeRequest(@RequestBody CodeMsgReq codeMsgReq){
