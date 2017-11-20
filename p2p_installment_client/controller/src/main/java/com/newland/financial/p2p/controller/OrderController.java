@@ -83,8 +83,8 @@ public class OrderController {
      */
     @RequestMapping(value = "/findOrderInfo", method = RequestMethod.POST)
     public Object findOrderInfo(@RequestBody String jsonStr) {
-        log.info("========client:findOrderInfo=======");
-        log.info("jsonStr：" + jsonStr);
+        log.info("========1:client:findOrderInfo=======");
+        log.info("2:jsonStr：" + jsonStr);
         Object ob = orderService.findOrderInfo(jsonStr);
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1);

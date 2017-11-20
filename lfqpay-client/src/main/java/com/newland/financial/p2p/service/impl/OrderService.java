@@ -32,7 +32,7 @@ public class OrderService implements IOrderService {
      * @return
      * @throws IOException
      */
-    public Object sendOrderMsg(OrderMsgReq orm) throws IOException {
+    public OrderInfo sendOrderMsg(OrderMsgReq orm) throws IOException {
         log.info("====come in ybf service====");
         String requestUrlA = ADDRESS_DEVELOP + "/lfq-pay/gateway/api/backTransRequest.do"; // 创建订单地址.
         String requestUrlB = ADDRESS_DEVELOP + "/lfq-pay/gateway/api/singleQueryRequest.do"; // 查询订单地址.
@@ -67,7 +67,12 @@ public class OrderService implements IOrderService {
         map.put("merName",oqr.getMerName());
         map.put("merAbbr", oqr.getMerAbbr());
         map.put("orderId", oqr.getOrderId());
-        map.put("contractsCode", oqr.getContractsCode());
+        //map.put("contractsCode", oqr.getContractsCode());
+        log.info("=============6:查询报文内容 begin================");
+        for (String key : map.keySet()) {
+            log.info("key= " + key + " and value= " + map.get(key));
+        }
+        log.info("=============7:查询报文内容 end================");
         MpiUtil.sign(map, "utf-8"); // 签名
         Map<String, String> mapA = IfqUtil.execute(requestUrl, map);
         OrderInfo or = MethodFactory.installOrderInfoA(mapA);

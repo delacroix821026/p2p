@@ -79,11 +79,11 @@ public class MethodFactory {
         map.put("merAbbr", m.get("merAbbr"));
         map.put("orderId", m.get("orderId"));
         map.put("contractsCode", m.get("contractsCode"));
-        log.info("===================================");
+        log.info("=============交易后查询================");
         for (String key : map.keySet()) {
             log.info("key= " + key + " and value= " + map.get(key));
         }
-        log.info("===================================");
+        log.info("=============交易后查询================");
         return map;
 
     }
@@ -157,7 +157,9 @@ public class MethodFactory {
             orderInfo.setRespCode(respCodeA);
             orderInfo.setRespMsg(mapA.get("respMsg"));
         }
-        log.info("orderInfo" + orderInfo.toString());
+        log.info("=============交易后最终返回内容orderInfo begin================");
+        log.info(orderInfo.toString());
+        log.info("=============交易后最终返回内容orderInfo end================");
         return orderInfo;
     }
 
@@ -173,9 +175,9 @@ public class MethodFactory {
         orderInfo.setRespCode(map.get("respCode"));
         orderInfo.setRespMsg(map.get("respMsg"));
         orderInfo.setMerName(map.get("merName"));
-        log.info("=========订单查询结果========：" + respCode);
+        log.info("=========8:订单查询结果========：" + respCode);
         if ("0000".equals(respCode)) {
-            log.info("=========查询成功========");
+            log.info("=========9:查询成功========");
             orderInfo.setContractsState(map.get("contractsState"));
             orderInfo.setSumTerms(Integer.parseInt(map.get("sumTerms")));
             orderInfo.setSumAmount(Long.parseLong(map.get("sumAmount")));
@@ -183,6 +185,9 @@ public class MethodFactory {
             orderInfo.setCancelAmount(Long.parseLong(map.get("cancelAmount")));
             orderInfo.setCancelInterest(Long.parseLong(map.get("cancelInterest")));
         }
+        log.info("==============10:单个查询结果begin================");
+        log.info(orderInfo.toString());
+        log.info("==============11:单个查询结果end================");
         return orderInfo;
     }
 

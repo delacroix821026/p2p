@@ -1,5 +1,6 @@
 package com.newland.financial.p2p.controller;
 
+import com.newland.financial.p2p.domain.OrderInfo;
 import com.newland.financial.p2p.domain.OrderMsgReq;
 import com.newland.financial.p2p.domain.OrderQueryReq;
 import com.newland.financial.p2p.service.IOrderService;
@@ -30,7 +31,7 @@ public class OrderController {
      * @throws IOException
      */
     @RequestMapping(value = "/sendOrderMsg", method = {RequestMethod.POST, RequestMethod.GET})
-    public Object sendOrderMsg(@RequestBody OrderMsgReq ob) throws IOException {
+    public OrderInfo sendOrderMsg(@RequestBody OrderMsgReq ob) throws IOException {
         log.info("come in ybf controller:" + ob);
         OrderMsgReq orm = ob;
         return oerderService.sendOrderMsg(ob);
@@ -39,7 +40,7 @@ public class OrderController {
 
     @RequestMapping(value = "/sendOrderQueryMsg", method = {RequestMethod.POST, RequestMethod.GET})
     public Object senOrderQueryMsg(@RequestBody OrderQueryReq oq) throws IOException {
-        log.info("come in ybf controller:" + oq);
+        log.info("5:come in ybf controller:" + oq);
         OrderQueryReq oqr = oq;
         return oerderService.findOrderInfo(oqr);
     }

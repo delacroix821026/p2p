@@ -93,13 +93,13 @@ public class OrderController {
      */
     @RequestMapping(value = "/findOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
     public Object findOrderInfo(@RequestBody String jsonStr) {
-        log.info("======come to server:findOrderInfo=====");
+        log.info("======3:come to server:findOrderInfo=====");
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String orderId = paramJSON.getString("orderId");
         OrderInfo orderInfo = orderService.findOrderInfo(orderId);
         MerInfo merInfo = orderService.findMerInfo(orderInfo);
         OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);
-        log.info("OrderQueryReq:" + oq.toString());
+        log.info("4:OrderQueryReq:" + oq.toString());
         return oq;
     }
 
@@ -108,7 +108,7 @@ public class OrderController {
      */
     @RequestMapping(value = "/updateAndGetOrder", method = {RequestMethod.POST, RequestMethod.GET})
     public Object updateAndGetOrder(@RequestBody OrderInfo or) {
-        log.info("======come to server:updateAndGetOrder=====");
+        log.info("======查询后更新：come to server:updateAndGetOrder=====");
         log.info(or);
         OrderInfo orderInfo = or;
         orderService.updateOrderInfo(or);
