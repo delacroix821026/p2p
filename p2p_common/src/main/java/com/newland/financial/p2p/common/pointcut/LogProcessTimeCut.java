@@ -27,8 +27,8 @@ public class LogProcessTimeCut {
 
     /**
      * @param point ProceedingJoinPoint
-     * @throws Throwable if has error
      * @return object
+     * @throws Throwable if has error
      */
     @Around("controllerAspect()")
     public final Object around(final ProceedingJoinPoint point)
@@ -39,10 +39,10 @@ public class LogProcessTimeCut {
         Object result = point.proceed();
         Long useTime = System.currentTimeMillis() - start;
 
-        log.info("Process Class:" + className + " - " + methodName + " in " + useTime+ "ms");
-        if(useTime > 3000)
+        log.info("Process Class:" + className + " - " + methodName + " in " + useTime + "ms");
+        if (useTime > 3000)
             log.warn("Process Class:" + className + " - " + methodName + " need be  optimize!");
         return result;
-        }
+
     }
 }
