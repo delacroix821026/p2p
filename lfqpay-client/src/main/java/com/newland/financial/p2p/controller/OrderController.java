@@ -31,7 +31,7 @@ public class OrderController {
      * @throws IOException
      */
     @RequestMapping(value = "/sendOrderMsg", method = {RequestMethod.POST, RequestMethod.GET})
-    public OrderInfo sendOrderMsg(@RequestBody OrderMsgReq ob) throws IOException {
+    public Object sendOrderMsg(@RequestBody OrderMsgReq ob) throws IOException {
         log.info("come in ybf controller:" + ob);
         OrderMsgReq orm = ob;
         return oerderService.sendOrderMsg(ob);

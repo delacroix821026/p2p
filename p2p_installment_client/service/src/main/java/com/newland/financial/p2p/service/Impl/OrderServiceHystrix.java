@@ -15,21 +15,21 @@ public class OrderServiceHystrix implements IOrderService {
 
     public Object findOrderInfo(String jsonStr) {
         log.info("*********findOrderInfo:被熔断***********");
-        return 1026;
+        return "1026";
     }
 
     public Object tradeUpdateOrder(String jsonStr) {
         log.info("*********tradeUpdateOrder:被熔断***********");
-        return 1026;
+        return "1026";
     }
 
     public Object updateOrderInfo(Object ob) {
         log.info("*********updateOrderInfo:被熔断***********");
-        return 1026;
+        return "1026";
     }
     public Object updateAndGetOrder(Object ob) {
         log.info("*********updateAndGetOrder:被熔断***********");
-        return 1026;
+        return "1026";
     }
 
 }
