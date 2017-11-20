@@ -33,6 +33,7 @@ public class MethodFactory {
         map.put("txnAmt", orm.getTxnAmt()); // 订单总金额，单位：分
         map.put("accNo", orm.getAccNo()); // 卡号
         map.put("orderId", orm.getOrderId()); // 订单号
+        map.put("smsCode", orm.getSmsCode()); // 手机验证码
         map.put("backUrl", "http://localhost:8080/lfq-pay/backurl.do"); // 异步通知地址
 
         String cvn = orm.getCvn2(); // CVN
