@@ -42,6 +42,7 @@ public class OrderService implements IOrderService {
         Map<String, String> mapA = IfqUtil.execute(requestUrlA, map1);
         // 根据创建订单返回的报文，查询订单，获得合同状态.
         Map<String, String> map2 = MethodFactory.initQueryOrderDate(mapA, orm.getMerPwd());
+        MpiUtil.sign(map2, "utf-8"); // 签名
         Map<String, String> mapB = IfqUtil.execute(requestUrlB, map2);
         OrderInfo od = MethodFactory.installOrderInfo(mapA, mapB, orm);
         return od;

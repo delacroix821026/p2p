@@ -79,9 +79,11 @@ public class MethodFactory {
         map.put("merAbbr", m.get("merAbbr"));
         map.put("orderId", m.get("orderId"));
         map.put("contractsCode", m.get("contractsCode"));
+        log.info("===================================");
         for (String key : map.keySet()) {
             log.info("key= " + key + " and value= " + map.get(key));
         }
+        log.info("===================================");
         return map;
 
     }

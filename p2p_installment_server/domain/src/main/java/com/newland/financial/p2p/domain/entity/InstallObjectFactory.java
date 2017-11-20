@@ -1,9 +1,12 @@
 package com.newland.financial.p2p.domain.entity;
 
+import lombok.extern.log4j.Log4j;
+
 /**
  * @author Mxia
  * 封装报文类.
  */
+@Log4j
 public class InstallObjectFactory {
     /**
      * 创建订单请求报文信息封装.
@@ -17,6 +20,8 @@ public class InstallObjectFactory {
         OrderMsgReq orm = new OrderMsgReq();
         orm.setTxnType("01");
         orm.setMerId(orderInfo.getMerId());
+        log.info("merInfo:===="+(merInfo == null));
+        log.info("===========" + merInfo.toString());
         orm.setMerPwd(merInfo.getMerPwd());
         orm.setMerName(merInfo.getMerName());
         orm.setMerAbbr(merInfo.getMerAbbr());
@@ -35,6 +40,7 @@ public class InstallObjectFactory {
 
     /**
      * 封装订单查询请求报文.
+     *
      * @param orderInfo
      * @param merInfo
      * @return
