@@ -27,15 +27,16 @@ public class Repay extends BaseEntity {
     /**已还款金额,单位：分.*/
     private Long sumAmount;
     /**还款时间：yyyyMMddHHmmss.*/
+//    @JSONField(format = "yyyyMMddHHmmss")
     private Date instalmentDate;
     /**下期还款日期,最后一期还款为空，格式：yyyyMMddHHmmss.*/
     private Date nextDate;
     /**还款类型:0：正常还款,1：提前还款.*/
     private String payType;
-//    /**还款状态码.*/
+    /**还款状态码.*/
 //    private String respCode;
-//    /**还款状态信息.*/
+    /**还款状态信息.*/
 //    private String respMsg;
-//    /**响应时间.*/
-//    private Date respTime;
+    /**响应时间.*/
+    private Date respTime;
 }

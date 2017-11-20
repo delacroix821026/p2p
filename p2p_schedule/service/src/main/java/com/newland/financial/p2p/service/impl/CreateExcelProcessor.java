@@ -28,6 +28,9 @@ public class CreateExcelProcessor implements ItemProcessor<CustomerFlowDebit, Ex
         excelOrderModel.setApplyName(customerFlowDebit.getApplyName());
         excelOrderModel.setPhone(customerFlowDebit.getPhone());
         excelOrderModel.setDMoney(customerFlowDebit.getDMoney());
+        excelOrderModel.setProvince(customerFlowDebit.getProvince());
+        excelOrderModel.setCity(customerFlowDebit.getCity());
+        excelOrderModel.setRegion(customerFlowDebit.getRegion());
         excelOrderModel.setDetailAdd(customerFlowDebit.getDetailAdd());
         excelOrderModel.setIdentityCard(customerFlowDebit.getIdentityCard());
         excelOrderModel.setIsSend("1");

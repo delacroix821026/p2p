@@ -143,6 +143,7 @@ public class OrderController {
         log.info("1.jsonStr：" + jsonStr);
         Object ob = orderService.tradeUpdateOrder(jsonStr);
         Object obj = sendService.sendOrderMsgToLbf(ob);
+        log.info("=====obj=====:"+obj);
         orderService.updateOrderInfo(obj);
         return obj;
     }

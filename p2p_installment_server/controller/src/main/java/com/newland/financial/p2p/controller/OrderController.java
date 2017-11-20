@@ -104,7 +104,7 @@ public class OrderController {
     }
 
     /**
-     *
+     *更新订单并过去最新订单信息.
      */
     @RequestMapping(value = "/updateAndGetOrder", method = {RequestMethod.POST, RequestMethod.GET})
     public Object updateAndGetOrder(@RequestBody OrderInfo or) {

@@ -35,7 +35,19 @@ public class ExcelOrderModel extends BaseEntity {
      */
     private BigDecimal dMoney;
     /**
-     * 面签地址.
+     * 省份.
+     */
+    private String province;
+    /**
+     * 市.
+     */
+    private String city;
+    /**
+     * 区或县.
+     */
+    private String region;
+    /**
+     * 详细地址.
      */
     private String detailAdd;
     /**
@@ -62,7 +74,8 @@ public class ExcelOrderModel extends BaseEntity {
     @Override
     public String toString() {
         return this.getDDate() + "," + this.getOddNumbers() + "," + this.getApplyName() + ","
-                + this.getPhone() + "," + this.getDMoney() + "," + this.getDetailAdd() + ","
+                + this.getPhone() + "," + this.getDMoney() + "," + this.getProvince() + ","
+                + this.getCity() + "," + this.getRegion() + "," +this.getDetailAdd() + ","
                 + this.getIdentityCard() + "," + this.getCorpPhone() + "," + this.getMerchantName();
     }
 }

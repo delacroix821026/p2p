@@ -36,11 +36,12 @@ public class RepayController {
         if("true".equals(respStus)){
             log.info("------------------------验签成功，更新还款表信息表");
            String repayResp =  innerService.updateRepayInfo(jsonStr);
-
+           if("true".equals(repayResp)){
+               //更新完成后应答“success”
+               return "success";
+           }
         }
-        //更新完成后应答“success”
-        return "success";
-//        return null;
+        return null;
     }
 
 

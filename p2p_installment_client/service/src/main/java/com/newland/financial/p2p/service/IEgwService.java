@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *外发Ifqpay-client接口.
  * @author Gregory
  */
-@FeignClient(name = "p2p",url = "localhost:3003", fallback = EgwServiceHystrix.class)
+//@FeignClient(name = "p2p",url = "localhost:3003", fallback = EgwServiceHystrix.class)
+@FeignClient(name = "p2p",url = "localhost:3003", fallbackFactory = EgwServiceHystrix.class)
 public interface IEgwService {
     /**
      * 请求Ifqpay-client短信接口.
