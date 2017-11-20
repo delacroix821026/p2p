@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "p2p-installment-server${DEVLOPER_NAME:}", fallback = InnerServiceHystrix.class)
+//@FeignClient(value = "p2p-installment-server${DEVLOPER_NAME:}", fallback = InnerServiceHystrix.class)
+@FeignClient(value = "p2p-installment-server${DEVLOPER_NAME:}", fallbackFactory = InnerServiceHystrix.class)
 public interface IInnerService {
 
     /**

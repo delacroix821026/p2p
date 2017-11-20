@@ -28,13 +28,13 @@ import java.util.Map;
 @Service
 public class SmsCodeServieImpl implements ISmsCodeServie {
 
-    public static final String ADDRESS_TEST = "https://tt.lfqpay.com:343";
+//    private static final String ADDRESS_TEST = "https://tt.lfqpay.com:343/lfq-pay/gateway/api/backSMSCodeRequest.do";
 
     /**
      * 短信接口测试地址.
      */
-//    @Value("${ADDRESS_TEST}")
-//    private String destPath;
+    @Value("${IFQ_SMSCODE_ADDRESS}")
+    private String requestUrl;
 
     /**
      * 请求乐百通短信接口.
@@ -42,7 +42,7 @@ public class SmsCodeServieImpl implements ISmsCodeServie {
      * @return
      */
     public Object backSMSCodeRequest(CodeMsgReq codeMsgReq) {
-        String requestUrl = ADDRESS_TEST + "/lfq-pay/gateway/api/backSMSCodeRequest.do";
+//        String requestUrl = ADDRESS_TEST + "/lfq-pay/gateway/api/backSMSCodeRequest.do";
 
         String txnTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         Map<String, String> data = new HashMap<String, String>();

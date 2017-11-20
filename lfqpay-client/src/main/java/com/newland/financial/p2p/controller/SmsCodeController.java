@@ -31,7 +31,7 @@ import java.util.Map;
 @Log4j
 @RequestMapping("/smsCodeController")
 public class SmsCodeController {
-
+    /** * 短信验证码Service.*/
     @Autowired
     private ISmsCodeServie iSmsCodeServie;
 
