@@ -32,7 +32,7 @@ public class SignatureServiceImpl implements ISignatureService{
         try {
             map = mapper.readValue(jsonStr, Map.class);
             checkSign = MpiUtil.validate(map, "utf-8");
-            log.debug("验签结果：" + checkSign);
+            log.info("验签结果：" + checkSign);
             TestCase.assertEquals(map.get("respCode"), "0000");
         } catch (JsonParseException e) {
             e.printStackTrace();

@@ -1,13 +1,13 @@
 package com.newland.financial.p2p.service;
 
-import com.newland.financial.p2p.service.Impl.InnerServiceHystrix;
+import com.newland.financial.p2p.service.Impl.InnerServiceFallBackFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 //@FeignClient(value = "p2p-installment-server${DEVLOPER_NAME:}", fallback = InnerServiceHystrix.class)
-@FeignClient(value = "p2p-installment-server${DEVLOPER_NAME:}", fallbackFactory = InnerServiceHystrix.class)
+@FeignClient(value = "p2p-installment-server${DEVLOPER_NAME:}", fallbackFactory = InnerServiceFallBackFactory.class)
 public interface IInnerService {
 
     /**

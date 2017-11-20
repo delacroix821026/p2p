@@ -1,6 +1,6 @@
 package com.newland.financial.p2p.service;
 
-import com.newland.financial.p2p.service.Impl.EgwServiceHystrix;
+import com.newland.financial.p2p.service.Impl.EgwServiceFallBackFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Gregory
  */
 //@FeignClient(name = "p2p",url = "localhost:3003", fallback = EgwServiceHystrix.class)
-@FeignClient(name = "p2p",url = "localhost:3003", fallbackFactory = EgwServiceHystrix.class)
+@FeignClient(name = "p2p",url = "localhost:3003", fallbackFactory = EgwServiceFallBackFactory.class)
 public interface IEgwService {
     /**
      * 请求Ifqpay-client短信接口.
