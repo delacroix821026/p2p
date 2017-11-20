@@ -26,28 +26,52 @@ public class BaseEntityReq implements Serializable {
                 ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
-    /**版本号.*/
+    /**
+     * 版本号.
+     */
     private String version = "1.0.0";
-    /**编码方式.*/
+    /**
+     * 编码方式.
+     */
     private String encoding = "UTF-8";
-    /**证书ID.*/
+    /**
+     * 证书ID.
+     */
     private String certId;
-    /**签名.*/
+    /**
+     * 签名.
+     */
     private String signature;
-    /**交易类型.*/
+    /**
+     * 交易类型.
+     */
     private String txnType;
-    /**发送时间.*/
+    /**
+     * 发送时间.
+     */
     private String txnTime;
-    /**商户代码.*/
+    /**
+     * 商户代码.
+     */
     private String merId;
-    /**商户密码.*/
+    /**
+     * 商户密码.
+     */
     private String merPwd;
-    /**商户名称.*/
+    /**
+     * 商户名称.
+     */
     private String merName;
-    /**商户简称.*/
+    /**
+     * 商户简称.
+     */
     private String merAbbr;
-    /**保留域.*/
+    /**
+     * 保留域.
+     */
     private String reserved;
-    /**请求方保留域.*/
+    /**
+     * 请求方保留域暂无作用.
+     */
     private String reqReserved;
 }
