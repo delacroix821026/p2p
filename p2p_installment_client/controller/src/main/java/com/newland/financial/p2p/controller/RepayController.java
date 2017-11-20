@@ -40,6 +40,8 @@ public class RepayController {
                //更新完成后应答“success”
                return "success";
            }
+        }else {
+            log.info("------------------------验签失败！！");
         }
         return null;
     }
