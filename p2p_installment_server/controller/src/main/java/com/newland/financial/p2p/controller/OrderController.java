@@ -115,6 +115,7 @@ public class OrderController {
         OrderInfo orf = orderService.findOrderInfo(or.getOrderId());
         orf.setRespCode(or.getRespCode());
         orf.setRespMsg(or.getRespMsg());
+        orf.setMerName(or.getMerName());
         return orf;
     }
 
