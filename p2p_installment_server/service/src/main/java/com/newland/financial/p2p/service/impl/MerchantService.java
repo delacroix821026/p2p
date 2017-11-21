@@ -9,24 +9,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *商户信息处理ServiceImpl.
+ * 商户信息处理ServiceImpl.
+ *
  * @author Gregory
  */
 @Log4j
 @Service
 public class MerchantService implements IMerchantService {
-
+    /**
+     * 商户信息处理Dao.
+     */
     @Autowired
     private IMerInfoDao iMerInfoDao;
 
     /**
      * 查询商户信息.
-     * @param merId     商户Id
-     * @return     MerInfo对象
+     * @param merId 商户Id
+     * @return MerInfo对象
      */
-    public CodeMsgReq getMerInfo(String merId){
+    public CodeMsgReq getMerInfo(String merId) {
         MerInfo merInfo = iMerInfoDao.selectMerInfoByMerId(merId);
-        if(merInfo == null){
+        if (merInfo == null) {
             return null;
         }
         CodeMsgReq codeMsgReq = new CodeMsgReq();

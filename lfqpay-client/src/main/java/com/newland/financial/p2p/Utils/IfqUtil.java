@@ -18,7 +18,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**
- *分期业务工具类.
+ * 分期业务工具类.
+ *
  * @author Gregory
  */
 @Log4j
@@ -38,25 +39,26 @@ public class IfqUtil {
 
     /**
      * 发送请求到乐百分.
-     * @param requestUrl    请求路径
-     * @param data  请求数据
-     * @param encoding  编码
-     * @param connectionTimeout  创建连接的最长时间
-     * @param readTimeout  数据传输的最长时间
-     * @return  响应报文
+     *
+     * @param requestUrl        请求路径
+     * @param data              请求数据
+     * @param encoding          编码
+     * @param connectionTimeout 创建连接的最长时间
+     * @param readTimeout       数据传输的最长时间
+     * @return 响应报文
      */
-    public static Map<String, String> execute(String requestUrl, Map<String, String> data,String encoding,
-                                        Integer connectionTimeout, Integer readTimeout) {
-        if(encoding == null || "".equals(encoding)){
+    public static Map<String, String> execute(String requestUrl, Map<String, String> data, String encoding,
+                                              Integer connectionTimeout, Integer readTimeout) {
+        if (encoding == null || "".equals(encoding)) {
             encoding = ENCODING;
         }
-        if(connectionTimeout == null || connectionTimeout<=0){
+        if (connectionTimeout == null || connectionTimeout <= 0) {
             connectionTimeout = CONNECTION_TIMEOUT;
         }
-        if(readTimeout == null || readTimeout<=0){
+        if (readTimeout == null || readTimeout <= 0) {
             readTimeout = READ_TIMEOUT;
         }
-        String resp = MpiUtil.send(requestUrl, data, encoding, connectionTimeout,readTimeout);
+        String resp = MpiUtil.send(requestUrl, data, encoding, connectionTimeout, readTimeout);
         log.debug("发送报文：" + data);
         log.debug("返回报文：" + resp);
         ObjectMapper mapper = new ObjectMapper();
@@ -80,9 +82,10 @@ public class IfqUtil {
 
     /**
      * 发送请求到乐百分.
-     * @param requestUrl    请求路径
-     * @param data  请求数据
-     * @return  响应报文
+     *
+     * @param requestUrl 请求路径
+     * @param data       请求数据
+     * @return 响应报文
      */
     public static Map<String, String> execute(String requestUrl, Map<String, String> data) {
         String resp = MpiUtil.send(requestUrl, data, ENCODING, CONNECTION_TIMEOUT, READ_TIMEOUT);
@@ -96,9 +99,9 @@ public class IfqUtil {
             log.debug("返回状态码：" + map.get("respCode"));
             log.debug("返回信息：" + map.get("respMsg"));
             log.debug("合同号：" + map.get("contractsCode"));
-            try{
+            try {
                 TestCase.assertEquals(map.get("respCode"), "0000");
-            }catch (ComparisonFailure e){
+            } catch (ComparisonFailure e) {
                 e.printStackTrace();
             }
         } catch (JsonParseException e) {
@@ -112,24 +115,25 @@ public class IfqUtil {
     }
 
     /**
-     * 将一个 Map 对象转化为一个 JavaBean
+     * 将一个 Map 对象转化为一个 JavaBean.
+     *
      * @param type 要转化的类型
-     * @param map 包含属性值的 map
+     * @param map  包含属性值的 map
      * @return 转化出来的 JavaBean 对象
-     * @throws IntrospectionException 如果分析类属性失败
-     * @throws IllegalAccessException 如果实例化 JavaBean 失败
-     * @throws InstantiationException 如果实例化 JavaBean 失败
+     * @throws IntrospectionException    如果分析类属性失败
+     * @throws IllegalAccessException    如果实例化 JavaBean 失败
+     * @throws InstantiationException    如果实例化 JavaBean 失败
      * @throws InvocationTargetException 如果调用属性的 setter 方法失败
      */
     public static Object convertMap(Class type, Map map) {
         Object obj = null;
-        try{
+        try {
             BeanInfo beanInfo = Introspector.getBeanInfo(type); // 获取类属性
             obj = type.newInstance(); // 创建 JavaBean 对象
 
             // 给 JavaBean 对象的属性赋值
-            PropertyDescriptor[] propertyDescriptors =  beanInfo.getPropertyDescriptors();
-            for (int i = 0; i< propertyDescriptors.length; i++) {
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for (int i = 0; i < propertyDescriptors.length; i++) {
                 PropertyDescriptor descriptor = propertyDescriptors[i];
                 String propertyName = descriptor.getName();
 
@@ -144,7 +148,7 @@ public class IfqUtil {
                 }
             }
 
-        }catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();

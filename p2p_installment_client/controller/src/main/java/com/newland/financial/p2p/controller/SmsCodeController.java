@@ -13,27 +13,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *发送短信验证码.
+ * 发送短信验证码.
+ *
  * @author Gregory
  */
 @RestController
 @Log4j
 @RequestMapping("/smsCodeController")
 public class SmsCodeController {
-    /**内部服务.*/
+    /**
+     * 内部服务.
+     */
     @Autowired
     private ISmsCodeService smsCodeService;
-    /**外发接口.*/
+    /**
+     * 外发接口.
+     */
     @Autowired
     private ISmsIfqService smsIfqService;
 
     /**
-     *生成短信接口请求报文.
+     * 生成短信接口请求报文.
+     *
      * @param jsonStr 请求参数：<BR>
-     * {<BR>
-     * &nbsp;"merId":"商户代码",<BR>
-     * &nbsp;"mobile":"手机号码"<BR>
-     * }
+     *                {<BR>
+     *                &nbsp;"merId":"商户代码",<BR>
+     *                &nbsp;"mobile":"手机号码"<BR>
+     *                }
      * @return 返回参数：<BR>
      * {<BR>
      * &nbsp;"merId":"商户代码",<BR>
@@ -51,10 +57,10 @@ public class SmsCodeController {
 
         Object msgCodeReqPram = smsCodeService.getMsgCodeReqPram(jsonStr);
         //请求参数未通过校验或没有对应的商户信息
-        Map<String,Object> resp = new HashMap<String,Object>();
-        if(msgCodeReqPram == null){
-            resp.put("respCode","0220");
-            resp.put("respMsg","商户不存在");
+        Map<String, Object> resp = new HashMap<String, Object>();
+        if (msgCodeReqPram == null) {
+            resp.put("respCode", "0220");
+            resp.put("respMsg", "商户不存在");
             return resp;
         }
         //请求乐百分短信接口
