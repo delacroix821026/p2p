@@ -13,19 +13,21 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- *验签接口.
+ * 验签接口.
+ *
  * @author Gregory
  */
 @Log4j
 @Service
-public class SignatureServiceImpl implements ISignatureService{
+public class SignatureServiceImpl implements ISignatureService {
 
     /**
      * 验签.
+     *
      * @param jsonStr 验签字段
-     * @return  成功：true,失败：false
+     * @return 成功：true,失败：false
      */
-    public String signature(String jsonStr){
+    public String signature(String jsonStr) {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> map = null;
         boolean checkSign = false;
@@ -42,7 +44,7 @@ public class SignatureServiceImpl implements ISignatureService{
             e.printStackTrace();
         }
 
-        if(checkSign){
+        if (checkSign) {
             return "true";
         }
         return "false";
