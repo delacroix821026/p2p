@@ -11,10 +11,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 组装报文类.
+ *
+ * @author Mxia
+ */
 @Log4j
 public class MethodFactory {
     /**
      * 封装创建订单请求报文参数.
+     * @param orm 请求报文
+     * @throws IOException an error
+     * @return 封装好的请求报文
      */
     public static Map<String, String> initOrderData(OrderMsgReq orm) throws IOException {
         Map<String, String> map = new HashMap<String, String>();
@@ -47,11 +55,20 @@ public class MethodFactory {
     }
 
     /**
-     * 持卡人身份信息.
+     * 持卡人信息封装.
+     * @param type 交易类型
+     * @param idCard 身份证
+     * @param name 姓名
+     * @param phone 电话
+     * @param cvn 信用卡背面3位数
+     * @param validDate 有效期
+     * @param encoding 编码格式
+     * @return 加签后的字符串
+     * @throws IOException an error
      */
     public static String generateCustomerInfo(String type, String idCard, String name, String phone, String cvn, String validDate, String encoding) throws IOException {
         StringBuffer info = new StringBuffer("{").append(type).append(MpiConstants.COLON); // 证件类型
-        info.append(idCard).append(MpiConstants.COLON);// 证件号码
+        info.append(idCard).append(MpiConstants.COLON); // 证件号码
         info.append(name).append(MpiConstants.COLON); // 姓名
         info.append(phone).append(MpiConstants.COLON); // 电话
         info.append(MpiConstants.COLON); // 校验码
@@ -65,6 +82,9 @@ public class MethodFactory {
 
     /**
      * 查询订单请求报文封装.
+     * @param m 请求参数
+     * @param merPwd 商户密码
+     * @return 封装好的查询报文
      */
     public static Map<String, String> initQueryOrderDate(Map<String, String> m, String merPwd) {
         Map<String, String> map = new HashMap<String, String>();
@@ -92,10 +112,10 @@ public class MethodFactory {
     /**
      * 创建订单时需要使用的返回封装对象方法.
      *
-     * @param mapA
-     * @param mapB
-     * @param orm
-     * @return
+     * @param mapA 请求信息
+     * @param mapB 请求信息
+     * @param orm 请求报文
+     * @return 订单信息
      */
     public static OrderInfo installOrderInfo(Map<String, String> mapA, Map<String, String> mapB, OrderMsgReq orm) {
         String respCodeA = mapA.get("respCode");
@@ -166,8 +186,9 @@ public class MethodFactory {
 
     /**
      * 单个订单查询封装返回对象.
-     * @param map
-     * @return
+     *
+     * @param map 请求信息
+     * @return 订单信息
      */
     public static OrderInfo installOrderInfoA(Map<String, String> map) {
         OrderInfo orderInfo = new OrderInfo();

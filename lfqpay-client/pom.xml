@@ -15,7 +15,7 @@
 		<!-- checkStyle错误中断发布 -->
 		<checkstyle.failOnViolation>true</checkstyle.failOnViolation>
 		<!-- checkStyle跳过检验 -->
-		<checkstyle.skip>true</checkstyle.skip>
+		<checkstyle.skip>false</checkstyle.skip>
 		<!-- junit跳过测试 -->
 		<junit.skipTests>false</junit.skipTests>
 		<!-- junit错误中断发布 -->

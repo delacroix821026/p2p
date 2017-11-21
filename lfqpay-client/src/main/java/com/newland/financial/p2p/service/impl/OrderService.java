@@ -21,16 +21,21 @@ import java.util.Map;
  */
 @Log4j
 public class OrderService implements IOrderService {
-    // 外网测试地址
+    /**
+     * 外网测试地址.
+     */
     public static final String ADDRESS_TEST = "https://tt.lfqpay.com:343";
-    // 本地开发地址
+    /**
+     * 本地开发地址.
+     */
     public static final String ADDRESS_DEVELOP = "https://tt.lfqpay.com:343";
 
     /**
      * 创建订单.
-     * @param orm
-     * @return
-     * @throws IOException
+     *
+     * @param orm 请求参数
+     * @return 订单信息
+     * @throws IOException an error
      */
     public OrderInfo sendOrderMsg(OrderMsgReq orm) throws IOException {
         log.info("====come in ybf service====");
@@ -50,9 +55,10 @@ public class OrderService implements IOrderService {
 
     /**
      * 查询单个订单.
-     * @param oqr
-     * @return
-     * @throws IOException
+     *
+     * @param oqr 请求参数
+     * @return 订单信息
+     * @throws IOException an error
      */
     public Object findOrderInfo(OrderQueryReq oqr) throws IOException {
         String requestUrl = ADDRESS_DEVELOP + "/lfq-pay/gateway/api/singleQueryRequest.do";
@@ -64,7 +70,7 @@ public class OrderService implements IOrderService {
         map.put("txnType", "73"); // 查询:73
         map.put("merId", oqr.getMerId());
         map.put("merPwd", SecureUtil.encryptWithDES(txnTime, oqr.getMerPwd()));
-        map.put("merName",oqr.getMerName());
+        map.put("merName", oqr.getMerName());
         map.put("merAbbr", oqr.getMerAbbr());
         map.put("orderId", oqr.getOrderId());
         //map.put("contractsCode", oqr.getContractsCode());
