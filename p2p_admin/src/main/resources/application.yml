@@ -13,7 +13,7 @@ spring:
 spring:
     profiles: test
     rabbitmq:
-        host: 118.31.22.18
+        host: 10.0.1.42
         port: 5672
         username: user_admin
         password: admin123%

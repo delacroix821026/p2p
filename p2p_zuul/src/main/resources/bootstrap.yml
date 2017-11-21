@@ -39,7 +39,7 @@ hystrix:
                         maxConcurrentRequests: 2000
             execution:
                 isolation:
-                    strategy: thread
+                    strategy: THREAD
                     thread:
                         timeoutInMilliseconds: 10000
                 timeout:

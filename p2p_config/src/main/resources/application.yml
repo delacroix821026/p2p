@@ -14,7 +14,7 @@ spring:
 spring:
     profiles: test
     rabbitmq:
-        host: 118.31.22.18
+        host: 10.0.1.42
         port: 5672
         username: user_admin
         password: admin123%
@@ -45,11 +45,11 @@ spring:
         config:
             server:
                 git:
-                    uri: https://github.com/delacroix821026/p2p_config.git
+                    uri: http://118.31.22.18/p2p_group/p2p_config.git
                     cloneOnStart: true
                     force-pull: true
                     searchPaths: p2p*
-                    username: 66039496@qq.com
+                    username: cendaijun
                     password: philips1234
                 health:
                     enabled: false
