@@ -25,11 +25,11 @@ import java.util.UUID;
 @Log4j
 @Service
 public class OrderService implements IOrderService {
-    @Autowired
     /**注入Dao层对象.*/
+    @Autowired
     private IOrderInfoDao orderInfoDao;
-    @Autowired
     /**注入Dao层对象.*/
+    @Autowired
     private IMerInfoDao merInfoDao;
 
     /**

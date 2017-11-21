@@ -88,7 +88,7 @@ public class RefundController {
     }
 
     /**
-     * 接收乐百分推送的退款信息
+     * 接收乐百分推送的退款信息.
      *
      * @param jsonStr 退款信息<BR>
      *                {<BR>
