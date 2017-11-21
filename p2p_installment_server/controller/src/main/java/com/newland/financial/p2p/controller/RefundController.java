@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 退款Controller.
- *
  * @author Gregory
  */
 @RestController
 @Log4j
-@RequestMapping("/RefundController")
+@RequestMapping("/refundController")
 public class RefundController {
 
     /**

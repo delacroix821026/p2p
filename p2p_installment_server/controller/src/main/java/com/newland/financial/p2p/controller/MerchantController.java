@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- *商户信息处理Controller.
+ * 商户信息处理Controller.
  * @author Gregory
  */
 @Controller
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MerchantController {
 
     /**
-     *生成短信接口请求报文.
+     * 生成短信接口请求报文.
      * @param jsonStr 请求参数：<BR>
-     * {<BR>
-     * &nbsp;"merId":"商户代码"<BR>
-     * }
+     *                {<BR>
+     *                &nbsp;"merId":"商户代码"<BR>
+     *                }
      * @return 返回参数：<BR>
      * {<BR>
      * &nbsp;"merId":"商户代码",<BR>
@@ -61,7 +61,7 @@ public class MerchantController {
     @ResponseBody
     @RequestMapping(value = "/getMerInfo",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public Object getMerInfo(@RequestBody String jsonStr){
+    public Object getMerInfo(@RequestBody String jsonStr) {
 
 
         return null;

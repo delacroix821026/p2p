@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 短信验证码Controller.
- *
  * @author Gregory
  */
 @RestController
