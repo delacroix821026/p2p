@@ -49,7 +49,7 @@ spring:
 appstore:
     masterHost: starpos.com.cn
     masterProtocol: https
-    address: http://192.168.4.19:7380/server/remote/cxf/slaveMessageService
+    address: http://121.43.177.59/server/remote/cxf/slaveMessageService
 ...
 
 ---
