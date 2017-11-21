@@ -27,7 +27,7 @@ public interface IOrderService {
 
     /**
      * 进行分期交易并更新订单.
-     * @param jsonStr
+     * @param jsonStr 请求信息
      * @return 返回创建订单请求报文.
      */
     Object tradeUpdateOrder(String jsonStr);

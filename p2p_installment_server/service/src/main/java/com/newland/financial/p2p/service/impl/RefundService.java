@@ -5,7 +5,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 
 /**
- *退款ServiceImpl
+ * 退款ServiceImpl.
  * @author Gregory
  */
 @Log4j

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * 商户信息处理ServiceImpl.
- *
  * @author Gregory
  */
 @Log4j

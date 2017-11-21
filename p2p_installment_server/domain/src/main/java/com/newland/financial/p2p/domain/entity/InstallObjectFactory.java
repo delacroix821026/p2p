@@ -11,16 +11,16 @@ public class InstallObjectFactory {
     /**
      * 创建订单请求报文信息封装.
      *
-     * @param orderInfo
-     * @param merInfo
-     * @param smsCode
-     * @return
+     * @param orderInfo 订单信息
+     * @param merInfo 商户信息
+     * @param smsCode 短信验证码
+     * @return OrderMsgReq
      */
     public static OrderMsgReq installOrderMsgReq(OrderInfo orderInfo, MerInfo merInfo, String smsCode) {
         OrderMsgReq orm = new OrderMsgReq();
         orm.setTxnType("01");
         orm.setMerId(orderInfo.getMerId());
-        log.info("merInfo:===="+(merInfo == null));
+        log.info("merInfo:====" + (merInfo == null));
         log.info("===========" + merInfo.toString());
         orm.setMerPwd(merInfo.getMerPwd());
         orm.setMerName(merInfo.getMerName());
@@ -41,9 +41,9 @@ public class InstallObjectFactory {
     /**
      * 封装订单查询请求报文.
      *
-     * @param orderInfo
-     * @param merInfo
-     * @return
+     * @param orderInfo 订单信息
+     * @param merInfo 商户信息
+     * @return OrderQueryReq
      */
     public static OrderQueryReq installOrderQueryReq(OrderInfo orderInfo, MerInfo merInfo) {
         OrderQueryReq oq = new OrderQueryReq();

@@ -2,12 +2,19 @@ package com.newland.financial.p2p.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.newland.financial.p2p.domain.entity.*;
+import com.newland.financial.p2p.domain.entity.InstallObjectFactory;
+import com.newland.financial.p2p.domain.entity.MerInfo;
+import com.newland.financial.p2p.domain.entity.OrderInfo;
+import com.newland.financial.p2p.domain.entity.OrderMsgReq;
+import com.newland.financial.p2p.domain.entity.OrderQueryReq;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 
 /**
  * 订单处理Controller.
@@ -19,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @Log4j
 @RequestMapping("/Order")
 public class OrderController {
-
+    /**注入对象.*/
     @Autowired
     private IOrderService orderService;
 
@@ -64,8 +71,8 @@ public class OrderController {
     /**
      * 根据乐百分返回的数据更新订单信息.
      *
-     * @param ob
-     * @return
+     * @param ob 订单信息
+     * @return true or false
      */
     @RequestMapping(value = "/updateOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
     public Object updateOrderInfo(@RequestBody OrderInfo ob) {
@@ -105,17 +112,19 @@ public class OrderController {
 
     /**
      *更新订单并过去最新订单信息.
+     * @param or 订单信息
+     * @return  最新的订单信息
      */
     @RequestMapping(value = "/updateAndGetOrder", method = {RequestMethod.POST, RequestMethod.GET})
     public Object updateAndGetOrder(@RequestBody OrderInfo or) {
         log.info("======查询后更新：come to server:updateAndGetOrder=====");
         log.info(or);
         OrderInfo orderInfo = or;
-        orderService.updateOrderInfo(or);
-        OrderInfo orf = orderService.findOrderInfo(or.getOrderId());
-        orf.setRespCode(or.getRespCode());
-        orf.setRespMsg(or.getRespMsg());
-        orf.setMerName(or.getMerName());
+        orderService.updateOrderInfo(orderInfo);
+        OrderInfo orf = orderService.findOrderInfo(orderInfo.getOrderId());
+        orf.setRespCode(orderInfo.getRespCode());
+        orf.setRespMsg(orderInfo.getRespMsg());
+        orf.setMerName(orderInfo.getMerName());
         return orf;
     }
 

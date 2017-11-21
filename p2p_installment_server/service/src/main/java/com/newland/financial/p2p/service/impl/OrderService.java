@@ -25,8 +25,10 @@ import java.util.UUID;
 @Log4j
 @Service
 public class OrderService implements IOrderService {
+    /**注入Dao层对象.*/
     @Autowired
     private IOrderInfoDao orderInfoDao;
+    /**注入Dao层对象.*/
     @Autowired
     private IMerInfoDao merInfoDao;
 
@@ -72,7 +74,7 @@ public class OrderService implements IOrderService {
     /**
      * 进行分期交易并更新订单.
      *
-     * @param jsonStr
+     * @param jsonStr 前端访问信息
      * @return 返回创建订单请求报文.
      */
     public Object tradeUpdateOrder(String jsonStr) {

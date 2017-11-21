@@ -20,12 +20,12 @@ public interface IRepayDao {
      * @param repay 还款对象
      * @return 成功：true，失败：false
      */
-    public boolean insertRepayInfo(Repay repay);
+    boolean insertRepayInfo(Repay repay);
 
     /**
      * 查询换款单.
      * @param repay 还款对象
      * @return 成功：repay，失败：null
      */
-    public Repay findRepayInfo(Repay repay);
+    Repay findRepayInfo(Repay repay);
 }
