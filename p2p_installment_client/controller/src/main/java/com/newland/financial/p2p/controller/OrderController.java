@@ -6,10 +6,8 @@ import com.newland.financial.p2p.utils.UserInfoUtils;
 import lombok.extern.java.Log;
 import org.ohuyo.libra.client.session.LibraSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Gregory
@@ -36,7 +34,8 @@ public class OrderController {
      *&nbsp;"orderId":2017111615064349906//订单号<BR>
      *}
      */
-    @RequestMapping(value = "/createBlankOrder", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
     public String createBlankOrder(@RequestBody String jsonStr) {
         log.info("========client:createBlankOrder=======");
         log.info("jsonStr：" + jsonStr);
@@ -83,7 +82,8 @@ public class OrderController {
      *&nbsp;"respMsg": "查询成功"//返回信息<BR>
      *}
      */
-    @RequestMapping(value = "/findOrderInfo", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
     public Object findOrderInfo(@RequestBody String jsonStr) {
         log.info("========1:client:findOrderInfo=======");
         log.info("2:jsonStr：" + jsonStr);
@@ -139,11 +139,12 @@ public class OrderController {
      *&nbsp;"respMsg":""//返回信息<BR>
      *}
      */
-    @RequestMapping(value = "/tradeUpdateOrder", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.CREATED)
     public Object tradeUpdateOrder(@RequestBody String jsonStr) {
         log.info("========client:tradeUpdateOrder=======");
         log.info("1.jsonStr：" + jsonStr);
-        LibraSession librea = UserInfoUtils.getUserInfo();
+        //LibraSession librea = UserInfoUtils.getUserInfo();
         Object ob = orderService.tradeUpdateOrder(jsonStr);
         Object obj = sendService.sendOrderMsgToLbf(ob);
         log.info("=====obj=====:"+obj);

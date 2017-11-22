@@ -11,6 +11,7 @@
         <result column="txnAmt" property="txnAmt" jdbcType="BIGINT"/>
         <result column="txnterms" property="txnterms" jdbcType="INTEGER"/>
         <result column="orderId" property="orderId" jdbcType="VARCHAR"/>
+        <result column="userId" property="userId" jdbcType="VARCHAR"/>
         <result column="accName" property="accName" jdbcType="VARCHAR"/>
         <result column="accNo" property="accNo" jdbcType="VARCHAR"/>
         <result column="validity" property="validity" jdbcType="VARCHAR"/>
@@ -31,20 +32,21 @@
         <result column="valueAdded" property="valueAdded" jdbcType="BIGINT"/>
         <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="stus" property="stus" jdbcType="VARCHAR"/>
+        <result column="openId" property="openId" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id,txnTime,merId,txnAmt,txnterms,orderId,accName,accNo,validity,accIdcard,accMobile,CVN2,discount,contractsCode,amount,queryId,poundage,contractsState,sumTerms,sumAmount,remainAmount,cancelAmount,cancelInterest,valueAdded,createTime,stus
+        id,txnTime,merId,txnAmt,txnterms,orderId,userId,accName,accNo,validity,accIdcard,accMobile,CVN2,discount,contractsCode,amount,queryId,poundage,contractsState,sumTerms,sumAmount,remainAmount,cancelAmount,cancelInterest,valueAdded,createTime,stus,openId
     </sql>
     <!--插入订单-->
     <insert id="insertOrder" parameterType="com.newland.financial.p2p.domain.entity.OrderInfo">
         INSERT INTO t_inst_orderinfo (<include refid="Base_Column_List"/>) VALUES
         (#{id,jdbcType=VARCHAR},#{txnTime,jdbcType=TIMESTAMP},#{merId,jdbcType=VARCHAR},#{txnAmt,jdbcType=BIGINT},#{txnterms,jdbcType=INTEGER},#{orderId,jdbcType=VARCHAR},
-        #{accName,jdbcType=VARCHAR},#{accNo,jdbcType=VARCHAR},#{validity,jdbcType=VARCHAR},#{accIdcard,jdbcType=VARCHAR},
+        #{userId,jdbcType=VARCHAR},#{accName,jdbcType=VARCHAR},#{accNo,jdbcType=VARCHAR},#{validity,jdbcType=VARCHAR},#{accIdcard,jdbcType=VARCHAR},
         #{accMobile,jdbcType=VARCHAR},#{cvn2,jdbcType=VARCHAR},#{discount,jdbcType=BIGINT},#{contractsCode,jdbcType=VARCHAR},
         #{amount,jdbcType=BIGINT},#{queryId,jdbcType=VARCHAR},#{poundage,jdbcType=BIGINT},#{contractsState,jdbcType=VARCHAR},#{sumTerms,jdbcType=INTEGER},
         #{sumAmount,jdbcType=BIGINT},#{remainAmount,jdbcType=BIGINT},#{cancelAmount,jdbcType=BIGINT},#{cancelInterest,jdbcType=BIGINT},
-        #{valueAdded,jdbcType=BIGINT},#{createTime,jdbcType=TIMESTAMP},#{stus,jdbcType=VARCHAR})
+        #{valueAdded,jdbcType=BIGINT},#{createTime,jdbcType=TIMESTAMP},#{stus,jdbcType=VARCHAR},#{openId,jdbcType=VARCHAR})
     </insert>
     <!--根据订单号更新订单-->
     <update id="updateByOrderId" parameterType="com.newland.financial.p2p.domain.entity.OrderInfo">
@@ -64,6 +66,9 @@
             </if>
             <if test="txnterms != null">
                 txnterms = #{txnterms,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                userId = #{userId,jdbcType=INTEGER},
             </if>
             <if test="accName != null">
                 accName = #{accName,jdbcType=VARCHAR},
@@ -121,6 +126,9 @@
             </if>
             <if test="stus != null">
                 stus = #{stus,jdbcType=VARCHAR},
+            </if>
+            <if test="openId != null">
+                openId = #{openId,jdbcType=VARCHAR},
             </if>
         </set>
         WHERE orderId = #{orderId,jdbcType=VARCHAR}
