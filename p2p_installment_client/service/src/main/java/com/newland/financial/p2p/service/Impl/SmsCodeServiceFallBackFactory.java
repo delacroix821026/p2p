@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class SmsCodeServiceFallBackFactory implements FallbackFactory<ISmsCodeService> {
     public ISmsCodeService create(final Throwable cause) {
         return new ISmsCodeService() {
-            public Object getMsgCodeReqPram(String jsonStr) {
+            public Object getMsgCodeReqPram(String merId,String mobile) {
                     log.info("*********getMsgCodeReqPram:被熔断***********");
                     log.error(cause);
                     return "1026";

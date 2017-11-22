@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @RestController
 @Log4j
-@RequestMapping("/signatureController")
+@RequestMapping("/signature")
 public class SignatureController {
     /**
      * 验签Service.
@@ -29,7 +29,7 @@ public class SignatureController {
      * @param jsonStr 乐百分请求参数
      * @return 成功：true,失败：false
      */
-    @RequestMapping(value = "/signature",
+    @RequestMapping(value = "/sign",
             method = {RequestMethod.POST, RequestMethod.GET})
     public String signature(@RequestBody String jsonStr) {
         log.info("-------------------------验签:");

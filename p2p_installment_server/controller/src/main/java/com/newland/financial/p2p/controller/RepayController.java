@@ -5,9 +5,11 @@ import com.newland.financial.p2p.domain.entity.Repay;
 import com.newland.financial.p2p.service.IRepayService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Log4j
-@RequestMapping("/repayController")
+@RequestMapping("/repay")
 public class RepayController {
     /**
      * 还款处理Service.
@@ -56,8 +58,8 @@ public class RepayController {
      *                }<BR>
      * @return 成功:true,失败：false
      */
-    @RequestMapping(value = "/receiveRepaymentInfo",
-            method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/receiveRepaymentInfo", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
     public String updateRepayInfo02(@RequestBody String jsonStr) {
         log.info("--------------------------进入RepayController:" + jsonStr);
         Repay repay = new Repay();

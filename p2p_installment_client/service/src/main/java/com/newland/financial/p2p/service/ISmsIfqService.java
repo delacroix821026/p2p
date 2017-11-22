@@ -16,6 +16,6 @@ public interface ISmsIfqService {
      * @param jsonStr 请求参数 CodeMsgReq对象
      * @return  Ifqpay-client返回报文
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/smsCodeController/backSMSCodeRequest")
+    @RequestMapping(method = RequestMethod.POST, value = "/smscode/backSMSCodeRequest")
     Object backSMSCodeRequest(Object jsonStr);
 }

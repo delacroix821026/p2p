@@ -16,6 +16,6 @@ public interface IRepayService {
      * @param jsonStr 乐百分推送的数据
      * @return
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/repayController/receiveRepaymentInfo")
+    @RequestMapping(method = RequestMethod.POST, value = "/repay/receiveRepaymentInfo")
     String updateRepayInfo(@RequestBody String jsonStr);
 }

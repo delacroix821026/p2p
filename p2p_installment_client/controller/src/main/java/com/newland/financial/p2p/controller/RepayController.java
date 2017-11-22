@@ -4,10 +4,13 @@ import com.newland.financial.p2p.service.IRepayService;
 import com.newland.financial.p2p.service.ISignatureIfqService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 /**
  * 还款推送处理.
@@ -16,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Log4j
-@RequestMapping("/repayController")
+@RequestMapping("/repay")
 public class RepayController {
     /**
      * 内部服务.
@@ -28,6 +31,7 @@ public class RepayController {
     private ISignatureIfqService signatureService;
 
     @RequestMapping(value = "/receiveRepaymentInfo", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
     public String receiveRepaymentInfo(@RequestBody String jsonStr) {
         log.info("------------------------------receiveRepaymentInfo----------------------------");
         log.info("jsonStr：" + jsonStr);

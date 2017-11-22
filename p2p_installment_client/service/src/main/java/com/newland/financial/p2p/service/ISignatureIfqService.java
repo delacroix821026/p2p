@@ -16,7 +16,7 @@ public interface ISignatureIfqService {
      * @param jsonStr 请求参数 RepayMsgResp对象
      * @return  Ifqpay-client返回报文
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/signatureController/signature")
+    @RequestMapping(method = RequestMethod.POST, value = "/signature/sign")
     String signature(String jsonStr);
 
 }

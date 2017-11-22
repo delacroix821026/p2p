@@ -4,10 +4,8 @@ import com.newland.financial.p2p.service.ISmsCodeService;
 import com.newland.financial.p2p.service.ISmsIfqService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +17,7 @@ import java.util.Map;
  */
 @RestController
 @Log4j
-@RequestMapping("/smsCodeController")
+@RequestMapping("/smscode")
 public class SmsCodeController {
     /**
      * 内部服务.
@@ -34,12 +32,6 @@ public class SmsCodeController {
 
     /**
      * 生成短信接口请求报文.
-     *
-     * @param jsonStr 请求参数：<BR>
-     *                {<BR>
-     *                &nbsp;"merId":"商户代码",<BR>
-     *                &nbsp;"mobile":"手机号码"<BR>
-     *                }
      * @return 返回参数：<BR>
      * {<BR>
      * &nbsp;"merId":"商户代码",<BR>
@@ -50,12 +42,13 @@ public class SmsCodeController {
      * &nbsp;}<BR>
      * }
      */
-    @RequestMapping(value = "/sendSmsCode", method = RequestMethod.POST)
-    public Object sendSmsCode(@RequestBody String jsonStr) {
-        log.info("------------------------------sendSmsCode----------------------------");
-        log.info("jsonStr：" + jsonStr);
+    @RequestMapping(value = "/{merId}/{mobile}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Object sendSmsCode(@PathVariable(name = "merId") String merId, @PathVariable(name = "mobile") String mobile ) {
+        log.info("------------------------------client-->SmsCodeController-----------------------------");
+        log.info("mer_id:" + merId + ", mobile:" + mobile);
 
-        Object msgCodeReqPram = smsCodeService.getMsgCodeReqPram(jsonStr);
+        Object msgCodeReqPram = smsCodeService.getMsgCodeReqPram(merId,mobile);
         //请求参数未通过校验或没有对应的商户信息
         Map<String, Object> resp = new HashMap<String, Object>();
         if (msgCodeReqPram == null) {

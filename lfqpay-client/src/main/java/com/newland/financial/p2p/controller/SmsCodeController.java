@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @RestController
 @Log4j
-@RequestMapping("/smsCodeController")
+@RequestMapping("/smscode")
 public class SmsCodeController {
     /**
      * 短信验证码Service.
