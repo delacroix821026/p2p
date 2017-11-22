@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Log4j
 @RequestMapping("/order")
 public class OrderController {
-    /**注入对象.*/
+    /**
+     * 注入对象.
+     */
     @Autowired
     private IOrderService orderService;
 
@@ -48,6 +50,7 @@ public class OrderController {
      *                &nbsp;"validity":"0820",//信用卡有效期<BR>
      *                &nbsp;"smsCode":"111111"//验证码<BR>
      *                }
+     *  @param orderId 订单号
      * @return 返回参数：<BR>
      * {<BR>
      * &nbsp;"merName":"新大陆",//商户名称<BR>
@@ -76,6 +79,7 @@ public class OrderController {
      * 根据乐百分返回的数据更新订单信息.
      *
      * @param ob 订单信息
+     * @param orderId 订单号
      * @return true or false
      */
     @RequestMapping(value = "/{orderId}", method = RequestMethod.PUT)
@@ -87,7 +91,7 @@ public class OrderController {
 
     /**
      * 生成一张空白订单.
-     *
+     * @param merId 商户代码
      * @param jsonStr 订单信息.
      * @return 空白订单的订单编号
      */
@@ -117,12 +121,13 @@ public class OrderController {
     }
 
     /**
-     *更新订单并过去最新订单信息.
+     * 更新订单并过去最新订单信息.
+     *@param orderId 订单号
      * @param or 订单信息
-     * @return  最新的订单信息
+     * @return 最新的订单信息
      */
     @RequestMapping(value = "/{orderId}/OrderInfo", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.CREATED )
+    @ResponseStatus(HttpStatus.CREATED)
     public Object updateAndGetOrder(@RequestBody OrderInfo or, @PathVariable(name = "orderId") String orderId) {
         log.info("======查询后更新：come to server:updateAndGetOrder=====");
         log.info(or);
