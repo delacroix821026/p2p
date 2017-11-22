@@ -10,10 +10,13 @@ import com.newland.financial.p2p.domain.entity.OrderQueryReq;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 /**
@@ -24,14 +27,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Log4j
-@RequestMapping("/Order")
+@RequestMapping("/order")
 public class OrderController {
     /**注入对象.*/
     @Autowired
     private IOrderService orderService;
 
     /**
-     * 创建订单.
+     * 分期交易时进行更新订单.
      *
      * @param jsonStr 请求参数：<BR>
      *                {<BR>
@@ -57,8 +60,9 @@ public class OrderController {
      * &nbsp;}<BR>
      * }
      */
-    @RequestMapping(value = "/tradeUpdateOrder", method = {RequestMethod.POST, RequestMethod.GET})
-    public Object tradeUpdateOrder(@RequestBody String jsonStr) {
+    @RequestMapping(value = "/{orderId}/OrderMsgReq", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Object tradeUpdateOrder(@RequestBody String jsonStr, @PathVariable(name = "orderId") String orderId) {
         log.info("======come to server:tradeUpdateOrder=====");
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String smsCode = paramJSON.getString("smsCode");
@@ -74,8 +78,9 @@ public class OrderController {
      * @param ob 订单信息
      * @return true or false
      */
-    @RequestMapping(value = "/updateOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
-    public Object updateOrderInfo(@RequestBody OrderInfo ob) {
+    @RequestMapping(value = "/{orderId}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Object updateOrderInfo(@RequestBody OrderInfo ob, @PathVariable(name = "orderId") String orderId) {
         OrderInfo or = ob;
         return orderService.updateOrderInfo(or);
     }
@@ -86,8 +91,9 @@ public class OrderController {
      * @param jsonStr 订单信息.
      * @return 空白订单的订单编号
      */
-    @RequestMapping(value = "/createBlankOrder", method = {RequestMethod.POST, RequestMethod.GET})
-    public String createOrderInfo(@RequestBody String jsonStr) {
+    @RequestMapping(value = "/{merId}", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public String createOrderInfo(@RequestBody String jsonStr, @PathVariable(name = "merId") String merId) {
         log.info("======come to server:createBlankOrder=====");
         return orderService.createBlankOrder(jsonStr);
     }
@@ -95,14 +101,14 @@ public class OrderController {
     /**
      * 获得相应订单信息.
      *
-     * @param jsonStr orderId
+     * @param orderId orderId
      * @return 订单信息.
      */
-    @RequestMapping(value = "/findOrderInfo", method = {RequestMethod.POST, RequestMethod.GET})
-    public Object findOrderInfo(@RequestBody String jsonStr) {
+    @RequestMapping(value = "/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Object findOrderInfo(@PathVariable(name = "orderId") String orderId) {
         log.info("======3:come to server:findOrderInfo=====");
-        JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String orderId = paramJSON.getString("orderId");
+        log.info("orderId:" + orderId);
         OrderInfo orderInfo = orderService.findOrderInfo(orderId);
         MerInfo merInfo = orderService.findMerInfo(orderInfo);
         OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);
@@ -115,8 +121,9 @@ public class OrderController {
      * @param or 订单信息
      * @return  最新的订单信息
      */
-    @RequestMapping(value = "/updateAndGetOrder", method = {RequestMethod.POST, RequestMethod.GET})
-    public Object updateAndGetOrder(@RequestBody OrderInfo or) {
+    @RequestMapping(value = "/{orderId}/OrderInfo", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.CREATED )
+    public Object updateAndGetOrder(@RequestBody OrderInfo or, @PathVariable(name = "orderId") String orderId) {
         log.info("======查询后更新：come to server:updateAndGetOrder=====");
         log.info(or);
         OrderInfo orderInfo = or;

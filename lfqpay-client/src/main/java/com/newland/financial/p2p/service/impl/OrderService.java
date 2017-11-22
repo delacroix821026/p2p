@@ -42,14 +42,29 @@ public class OrderService implements IOrderService {
         String requestUrlA = ADDRESS_DEVELOP + "/lfq-pay/gateway/api/backTransRequest.do"; // 创建订单地址.
         String requestUrlB = ADDRESS_DEVELOP + "/lfq-pay/gateway/api/singleQueryRequest.do"; // 查询订单地址.
         // 首次创建订单.
+        long start1 = System.currentTimeMillis();
         Map<String, String> map1 = MethodFactory.initOrderData(orm);
         MpiUtil.sign(map1, "utf-8"); // 签名
+        long end1 = System.currentTimeMillis();
+        log.info("====p1====:" + (end1 - start1));
+
+        long start2 = System.currentTimeMillis();
         Map<String, String> mapA = IfqUtil.execute(requestUrlA, map1);
+        long end2 = System.currentTimeMillis();
+        log.info("====p2====:" + (end2 - start2));
+
         // 根据创建订单返回的报文，查询订单，获得合同状态.
+        long start3 = System.currentTimeMillis();
         Map<String, String> map2 = MethodFactory.initQueryOrderDate(mapA, orm.getMerPwd());
         MpiUtil.sign(map2, "utf-8"); // 签名
+        long end3 = System.currentTimeMillis();
+        log.info("====p3====:" + (end3 - start3));
+
+        long start4 = System.currentTimeMillis();
         Map<String, String> mapB = IfqUtil.execute(requestUrlB, map2);
         OrderInfo od = MethodFactory.installOrderInfo(mapA, mapB, orm);
+        long end4 = System.currentTimeMillis();
+        log.info("====p4====:" + (end4 - start4));
         return od;
     }
 

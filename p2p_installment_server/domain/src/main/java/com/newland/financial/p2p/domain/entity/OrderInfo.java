@@ -24,7 +24,7 @@ public class OrderInfo extends BaseEntity {
     private Integer txnterms;
     /**商户订单号.*/
     private String orderId;
-    /**用户代码*/
+    /**用户代码.*/
     private String userId;
     /**持卡人姓名.*/
     private String accName;
