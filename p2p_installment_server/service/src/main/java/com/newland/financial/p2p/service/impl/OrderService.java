@@ -53,6 +53,7 @@ public class OrderService implements IOrderService {
         orderInfo.setCreateTime(date);
         orderInfo.setMerId(paramJSON.getString("merId"));
         orderInfo.setTxnAmt(paramJSON.getLong("txnAmt"));
+        orderInfo.setOpenId(paramJSON.getString("openId"));
         orderInfoDao.insertOrder(orderInfo);
         return new String(s);
     }
