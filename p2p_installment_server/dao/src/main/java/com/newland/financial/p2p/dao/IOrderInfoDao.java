@@ -27,4 +27,11 @@ public interface IOrderInfoDao {
      * @return OrderInfo 订单对象.
      */
     OrderInfo selectOrderInfo(String orderId);
+
+    /**
+     * 删除订单.
+     * @param orderId 订单号
+     * @return true or false
+     */
+    boolean deleteOrderInfo(String orderId);
 }

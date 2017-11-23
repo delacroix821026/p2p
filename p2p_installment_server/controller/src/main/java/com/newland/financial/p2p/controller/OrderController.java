@@ -68,6 +68,7 @@ public class OrderController {
     public Object tradeUpdateOrder(@RequestBody String jsonStr, @PathVariable(name = "orderId") String orderId) {
         log.info("======come to server:tradeUpdateOrder=====");
         JSONObject paramJSON = JSON.parseObject(jsonStr);
+        log.info("========tradeUpdateOrder========jsonStr:" + jsonStr);
         String smsCode = paramJSON.getString("smsCode");
         OrderInfo orderInfo = (OrderInfo) orderService.tradeUpdateOrder(jsonStr);
         MerInfo merInfo = orderService.findMerInfo(orderInfo);
@@ -98,7 +99,7 @@ public class OrderController {
     @RequestMapping(value = "/{merId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public String createOrderInfo(@RequestBody String jsonStr, @PathVariable(name = "merId") String merId) {
-        log.info("======come to server:createBlankOrder=====");
+        log.info("======come to server:createBlankOrder=====jsonStr:" + jsonStr);
         return orderService.createBlankOrder(jsonStr);
     }
 
@@ -130,7 +131,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public Object updateAndGetOrder(@RequestBody OrderInfo or, @PathVariable(name = "orderId") String orderId) {
         log.info("======查询后更新：come to server:updateAndGetOrder=====");
-        log.info(or);
+        log.info("=========传入参数========:" + or);
         OrderInfo orderInfo = or;
         orderService.updateOrderInfo(orderInfo);
         OrderInfo orf = orderService.findOrderInfo(orderInfo.getOrderId());
