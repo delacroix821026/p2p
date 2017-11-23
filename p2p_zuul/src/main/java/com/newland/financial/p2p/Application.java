@@ -42,12 +42,6 @@ public class Application {
     }
 
     @Bean
-    public SessionFilter addSessionFilter() {
-        return new SessionFilter();
-    }
-
-
-    @Bean
     public CORSFilter addCORSFilter() throws ServletException {
         CORSFilter corsFilter = new CORSFilter();
         corsFilter.init(new FilterConfig() {
@@ -99,6 +93,22 @@ public class Application {
         registration.setName("sessionFilter");
         return registration;
     }*/
+
+    @Bean(name = "installmentSessionFilter")
+    public SessionFilter addSessionFilter() {
+        SessionFilter sessionFilter = new SessionFilter();
+        return sessionFilter;
+    }
+
+    @Bean
+    public FilterRegistrationBean addSessionFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(addSessionFilter());
+        registration.addUrlPatterns("/installment/*");
+        registration.addInitParameter("paramName", "paramValue");
+        registration.setName("installmentSessionFilter");
+        return registration;
+    }
 
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean(){

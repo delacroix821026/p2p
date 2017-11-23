@@ -59,6 +59,19 @@ public class Example {
         //return r;
     }
 
+    /**
+     * @param a Integer
+     * @param b Integer
+     * @return Integer
+     * @throws Exception if has error
+     */
+    @RequestMapping(value = "/add1", method = RequestMethod.GET)
+    public Integer add1(@RequestParam final Integer a, @RequestParam final Integer b) throws Exception {
+
+        throw new Exception("TEST001");
+        //return r;
+    }
+
     /***/
     @Autowired
     private ExceptionMapping exceptionMapping;

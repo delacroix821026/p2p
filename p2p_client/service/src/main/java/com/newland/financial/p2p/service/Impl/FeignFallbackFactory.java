@@ -16,13 +16,14 @@ public class FeignFallbackFactory implements FallbackFactory<FeignService>, Feig
 
     }
     public Integer add(Integer a, Integer b) {
-        log.error(cause.getMessage());
+        log.error("aaaa" + cause.getMessage());
 
         return 1026;
     }
 
     public Integer add1(Integer a, Integer b) {
-        return 1026;
+        log.error("bbbb" + cause.getMessage());
+        return 1027;
     }
 
     public Integer add2(Integer a, Integer b) {

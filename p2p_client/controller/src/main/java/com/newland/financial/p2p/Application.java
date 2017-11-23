@@ -53,7 +53,7 @@ public class Application {
         return Feign.builder();
     }
 
-    /*
+
     @Bean
     public Jackson2JsonRedisSerializer jackson2JsonRedisSerializer() {
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
@@ -74,5 +74,5 @@ public class Application {
         redisTemplate.setHashValueSerializer(fastJson2JsonRedisSerializer);
         redisTemplate.setConnectionFactory(connectionFactory);
         return redisTemplate;
-    }*/
+    }
 }

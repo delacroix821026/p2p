@@ -67,6 +67,6 @@ public class Example {
     @RequestMapping(value = "/add1", method = RequestMethod.GET)
     public Object add1() {
         log.info("controller add Enter=====");
-        return feignService.add(9,9);
+        return feignService.add2(9,9);
     }
 }
