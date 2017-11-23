@@ -42,7 +42,7 @@
 		<property name="errorUrl" value="/slave/error.jsp" />
 
 		<!-- filterÅÅ³ýµÄURL -->
-		<property name="excludeUrls" value="/resources/,/common/,/styles/" />
+		<property name="excludeUrls" value="/resources/,/common/,/styles/,/app/" />
 	</bean>
 </beans>
 

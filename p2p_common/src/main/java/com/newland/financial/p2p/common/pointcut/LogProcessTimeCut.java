@@ -1,15 +1,12 @@
 package com.newland.financial.p2p.common.pointcut;
 
-import com.newland.financial.p2p.common.entity.ReturnResult;
+import com.newland.financial.p2p.common.util.AopTargetUtils;
 import lombok.extern.log4j.Log4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 /**
  * @author cengdaijuan
@@ -34,7 +31,7 @@ public class LogProcessTimeCut {
     public final Object around(final ProceedingJoinPoint point)
             throws Throwable {
         String methodName = point.getSignature().getName();
-        String className = point.getTarget().getClass().getSimpleName();
+        String className = AopTargetUtils.getTarget(point.getTarget()).getClass().getSimpleName();
         Long start = System.currentTimeMillis();
         Object result = point.proceed();
         Long useTime = System.currentTimeMillis() - start;

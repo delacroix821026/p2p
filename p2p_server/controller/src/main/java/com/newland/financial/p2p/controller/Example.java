@@ -1,5 +1,7 @@
 package com.newland.financial.p2p.controller;
 
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
+import com.newland.financial.p2p.common.handler.ExceptionMapping;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * @author cendaijuan
@@ -46,7 +50,16 @@ public class Example {
         log.debug("/add, host:" + instance.getHost()
                 + ", service_id:" + instance.getServiceId() + ", result:" + r);
         log.info("p2p_server come in==========");
-        return r;
+        for (Map.Entry<String, String> entry : exceptionMapping.getExceptionMap().entrySet()) {
+            log.info(entry.getKey());
+            log.info(entry.getValue());
+
+        }
+        throw new BaseRuntimeException("TEST001");
+        //return r;
     }
 
+    /***/
+    @Autowired
+    private ExceptionMapping exceptionMapping;
 }

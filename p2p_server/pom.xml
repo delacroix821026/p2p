@@ -28,7 +28,7 @@
         <!-- checkStyle跳过检验 -->
         <checkstyle.skip>false</checkstyle.skip>
         <!-- junit跳过测试 -->
-        <junit.skipTests>false</junit.skipTests>
+        <junit.skipTests>true</junit.skipTests>
         <!-- junit错误中断发布 -->
         <junit.testFailureIgnore>true</junit.testFailureIgnore>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -258,7 +258,7 @@
                 <executions>
                     <execution>
                         <id>run-integration-test</id>
-                        <phase>integration-test</phase>
+                        <phase>integration-tes</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
@@ -402,6 +402,28 @@
                         <goals>
                             <goal>generate</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 生成javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>aggregate</id>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <!--<includeDependencySources>true</includeDependencySources>-->
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
