@@ -41,10 +41,10 @@ public class SessionController {
 
 
         log.info("libraSess================================" + libraSession);
-        log.info("1--------LibraSession--------permissions---------" + libraSession.getMenuList());
+        /*log.info("1--------LibraSession--------permissions---------" + libraSession.getMenuList());
         log.info("1--------LibraSession--------organization---------" + libraSession.getOrgList());
         log.info("1--------LibraSession--------loginName---------" + libraSession.getLoginName());
-        log.info("1--------LibraSession--------userName---------" + libraSession.getUserName());
+        log.info("1--------LibraSession--------userName---------" + libraSession.getUserName());*/
 
         return "PING OK";
     }

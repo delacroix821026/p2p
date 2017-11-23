@@ -27,29 +27,7 @@ spring:
                 #profile: {profile.active}
                 #label: master
                 serviceId: P2P-CONFIG-SERVER
-hystrix:
-    threadpool:
-        default:
-            coreSize: 500
-    command:
-        default:
-            fallback:
-                isolation:
-                    thread:
-                        maxConcurrentRequests: 2000
-            execution:
-                isolation:
-                    strategy: THREAD
-                    thread:
-                        timeoutInMilliseconds: 10000
-                timeout:
-                    enabled: false
-zuul:
-    host:
-        maxTotalConnections: 2000
-        maxPerRouteConnections: 2000
-    semaphore:
-        maxSemaphores: 1000
+
 ...
 
 ---
@@ -124,4 +102,30 @@ security:
     basic:
         enabled: true
         path: ${management.context-path}
+...
+
+---
+hystrix:
+    threadpool:
+        default:
+            coreSize: 500
+    command:
+        default:
+            fallback:
+                isolation:
+                    thread:
+                        maxConcurrentRequests: 2000
+            execution:
+                isolation:
+                    strategy: THREAD
+                    thread:
+                        timeoutInMilliseconds: 10000
+                timeout:
+                    enabled: false
+zuul:
+    host:
+        maxTotalConnections: 2000
+        maxPerRouteConnections: 2000
+    semaphore:
+        maxSemaphores: 1000
 ...

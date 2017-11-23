@@ -53,7 +53,6 @@ public class OrderService implements IOrderService {
         orderInfo.setCreateTime(date);
         orderInfo.setMerId(paramJSON.getString("merId"));
         orderInfo.setTxnAmt(paramJSON.getLong("txnAmt"));
-        orderInfo.setOpenId(paramJSON.getString("openId"));
         orderInfoDao.insertOrder(orderInfo);
         return new String(s);
     }
@@ -93,6 +92,7 @@ public class OrderService implements IOrderService {
         orderInfo.setAccMobile(paramJSON.getString("accMobile"));
         orderInfo.setCvn2(paramJSON.getString("cvn2"));
         orderInfo.setValidity(paramJSON.getString("validity"));
+        orderInfo.setOpenId(paramJSON.getString("openId"));
         orderInfoDao.updateOrder(orderInfo);
         return orderInfoDao.selectOrderInfo(orderId);
     }

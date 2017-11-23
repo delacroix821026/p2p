@@ -5,7 +5,15 @@ import com.newland.financial.p2p.service.ISendService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Gregory
@@ -34,10 +42,13 @@ public class OrderController {
      */
     @RequestMapping(value = "/{merId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public String createBlankOrder(@PathVariable(name = "merId") String merId, @RequestBody String jsonStr) {
+    public Object createBlankOrder(@PathVariable(name = "merId") String merId, @RequestBody String jsonStr) {
         log.info("========client:createBlankOrder=======");
         log.info("jsonStr：" + jsonStr);
-        return orderService.createOrderInfo(jsonStr, merId);
+        String orderId = orderService.createOrderInfo(jsonStr, merId);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("orderId",orderId);
+        return map;
     }
 
     /**
@@ -103,7 +114,8 @@ public class OrderController {
      *                &nbsp;"accMobile":"1300000000",//持卡人银行预留手机号码<BR>
      *                &nbsp;"cvn2":"567",//信用卡背面末三位数字<BR>
      *                &nbsp;"validity":"0820",//信用卡有效期<BR>
-     *                &nbsp;"smsCode":"111111"//短信验证码<BR>
+     *                &nbsp;"smsCode":"111111",//短信验证码<BR>
+     *                &nbsp;"openId":"adadadfdf1231"
      *                }
      * @return 返回参数：<BR>
      * {<BR>

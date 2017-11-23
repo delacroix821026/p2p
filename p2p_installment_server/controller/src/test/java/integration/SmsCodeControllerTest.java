@@ -1,15 +1,13 @@
 package integration;
 
 import com.newland.financial.p2p.Application;
-import com.newland.financial.p2p.controller.OrderController;
-import com.newland.financial.p2p.dao.IOrderInfoDao;
+import com.newland.financial.p2p.controller.SmsCodeController;
 import lombok.extern.log4j.Log4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,13 +22,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @Log4j
 public class SmsCodeControllerTest {
     @Autowired
-    private OrderController SmsCodeController;
+    private SmsCodeController smsCodeController;
 
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(SmsCodeController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(smsCodeController).build();
     }
 
     @Test

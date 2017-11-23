@@ -70,6 +70,10 @@ zuul:
             path: /p2p/**
             sensitiveHeaders:
             serviceId: p2p-client${DEVLOPER_NAME:}
+        installment:
+            path: /installment/**
+            sensitiveHeaders:
+            serviceId: p2p_installment_client${DEVLOPER_NAME:}
 ...
 
 ---
