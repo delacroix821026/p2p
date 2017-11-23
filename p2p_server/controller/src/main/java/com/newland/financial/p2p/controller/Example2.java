@@ -1,6 +1,6 @@
 package com.newland.financial.p2p.controller;
 
-import com.newland.financial.p2p.common.exception.BaseRuntimeException;
+//import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -50,8 +50,8 @@ public class Example2 {
     public Integer update(@RequestParam final Integer a, @RequestParam final Integer b) {
         Integer r = a + b;
         log.info("p2p_server come in controller==========");
-        throw new BaseRuntimeException("Test100");
-        //return r;
+        //throw new BaseRuntimeException("Test100");
+        return r;
     }
 
 }

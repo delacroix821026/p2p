@@ -36,6 +36,17 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
     public OrderInfo selectOrderInfo(String orderId) {
         return super.selectEntity("selectOrderInfo", orderId);
     }
+    /**
+     * 删除订单.
+     * @param orderId 订单号
+     * @return true or false
+     */
+    public boolean deleteOrderInfo(String orderId) {
+        if (orderId == null || orderId.length() == 0) {
+            return false;
+        }
+        return super.deletes("deleteByOrderId", orderId);
+    }
 
 
 }

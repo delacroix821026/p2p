@@ -133,12 +133,16 @@
         </set>
         WHERE orderId = #{orderId,jdbcType=VARCHAR}
     </update>
-
+    <!--根据订单号查询订单信息-->
     <select id="selectOrderInfo" resultMap="BaseResultMap" parameterType="String">
         select
         <include refid="Base_Column_List" />
         from t_inst_orderinfo
         where orderId = #{orderId}
     </select>
+   <!--根据订单号删除订单-->
+    <delete id="deleteByOrderId" parameterType="String">
+        delete from t_inst_orderinfo where orderId = #{orderId}
+    </delete>
 
 </mapper>
