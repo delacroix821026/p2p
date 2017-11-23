@@ -36,17 +36,18 @@ public class SessionFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         log.info("Installment filter:");
-        RequestContext ctx = RequestContext.getCurrentContext();
-        HttpSession httpSession = ctx.getRequest().getSession();//false
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpSession httpSession = httpServletRequest.getSession();//false
         if(httpSession.getAttribute("ORG_OHUYO_LIBRA_CLIENT_LIBRA_SESSION") == null) {
             log.debug("USER_INFO in session is null");
-            String userNo = ctx.getRequest().getHeader("userNo");
-            String mercList = ctx.getRequest().getHeader("mercList");
-            String tokenId = ctx.getRequest().getHeader("tokenId");
+            String userNo = httpServletRequest.getHeader("userNo");
+            String mercList = httpServletRequest.getHeader("mercList");
+            String tokenId = httpServletRequest.getHeader("tokenId");
             SlaveLibraSessionImpl libraSession = new SlaveLibraSessionImpl();
             libraSession.setAppTicket(tokenId);
             libraSession.setLoginName(userNo);
             libraSession.setOrgList(mercList);
+            log.info("Installment filter-userId:" + userNo);
             httpSession.setAttribute("ORG_OHUYO_LIBRA_CLIENT_LIBRA_SESSION", libraSession);
         }
 
