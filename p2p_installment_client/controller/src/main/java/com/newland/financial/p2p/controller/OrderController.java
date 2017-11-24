@@ -150,7 +150,7 @@ public class OrderController {
      * &nbsp;"respMsg":""//返回信息<BR>
      * }
      */
-    @RequestMapping(value = "/{orderId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/createOrder/{orderId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Object tradeUpdateOrder(@PathVariable(name = "orderId") String orderId, @RequestBody String jsonStr) {
         log.info("========client:tradeUpdateOrder=======");
