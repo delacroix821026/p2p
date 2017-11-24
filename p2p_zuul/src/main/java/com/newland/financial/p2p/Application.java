@@ -94,7 +94,7 @@ public class Application {
         return registration;
     }*/
 
-    /*@Bean(name = "installmentSessionFilter")
+    @Bean(name = "installmentSessionFilter")
     public SessionFilter addSessionFilter() {
         SessionFilter sessionFilter = new SessionFilter();
         return sessionFilter;
@@ -104,11 +104,11 @@ public class Application {
     public FilterRegistrationBean addSessionFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(addSessionFilter());
-        registration.addUrlPatterns("/installment/*");
+        registration.addUrlPatterns("/installment/*#");
         registration.addInitParameter("paramName", "paramValue");
         registration.setName("installmentSessionFilter");
         return registration;
-    }*/
+    }
 
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean(){
