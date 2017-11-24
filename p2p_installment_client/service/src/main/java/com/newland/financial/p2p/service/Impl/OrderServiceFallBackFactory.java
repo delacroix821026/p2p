@@ -39,6 +39,12 @@ public class OrderServiceFallBackFactory implements FallbackFactory<IOrderServic
                 log.error(cause);
                 return "1026";
             }
+
+            public Object findBlankOrder(String orderId) {
+                log.info("*********findBlankOrder:被熔断***********");
+                log.error(cause);
+                return "1026";
+            }
         };
     }
 }

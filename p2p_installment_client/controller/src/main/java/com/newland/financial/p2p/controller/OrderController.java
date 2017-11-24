@@ -163,4 +163,18 @@ public class OrderController {
         return obj;
     }
 
+    /**
+     * 查询空白订单信息.
+     * @param orderId  订单号.
+     * @return 空白订单信息
+     */
+    @RequestMapping(value = "/{orderId}/OrderInfo", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Object findBlankOrder(@PathVariable(name = "orderId") String orderId) {
+        log.info("========client:findBlankOrder=======");
+        log.info("======orderId======：" + orderId);
+        Object ob = orderService.findBlankOrder(orderId);
+        return ob;
+    }
+
 }

@@ -24,5 +24,8 @@ public interface IOrderService {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/order/{orderId}/OrderInfo")
     Object updateAndGetOrder(@RequestBody Object ob, @PathVariable(name = "orderId") String orderId);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/order/{orderId}/OrderInfo")
+    Object findBlankOrder(@PathVariable(name = "orderId") String orderId);
 }
 

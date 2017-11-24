@@ -63,7 +63,7 @@ public class Application {
                 parameters.put("cors.allowGenericHttpRequests", "true");
                 parameters.put("cors.allowOrigin", "*");
                 parameters.put("cors.allowSubdomains", "false");
-                parameters.put("cors.supportedMethods", "GET, HEAD, POST, OPTIONS");
+                parameters.put("cors.supportedMethods", "GET, HEAD, POST, OPTIONS, PUT, DELETE");
                 parameters.put("cors.supportedHeaders", "Accept, Origin, X-Requested-With, Content-Type, Last-Modified");
                 parameters.put("cors.exposedHeaders", "X-Test-1, X-Test-2");
                 parameters.put("cors.supportsCredentials", "true");
@@ -94,7 +94,7 @@ public class Application {
         return registration;
     }*/
 
-    @Bean(name = "installmentSessionFilter")
+    /*@Bean(name = "installmentSessionFilter")
     public SessionFilter addSessionFilter() {
         SessionFilter sessionFilter = new SessionFilter();
         return sessionFilter;
@@ -108,7 +108,7 @@ public class Application {
         registration.addInitParameter("paramName", "paramValue");
         registration.setName("installmentSessionFilter");
         return registration;
-    }
+    }*/
 
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean(){
