@@ -7,7 +7,6 @@ import com.newland.financial.p2p.filter.SessionFilter;
 import com.thetransactioncompany.cors.CORSFilter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
@@ -17,10 +16,8 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.RedisFlushMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-import org.ohuyo.libra.client.filter.SlaveClientFilter;
 import org.springframework.web.context.request.RequestContextListener;
 
 import javax.servlet.FilterConfig;
@@ -39,6 +36,11 @@ import java.util.Map;
 public class Application {
     public static void main(String[] args) {
         new SpringApplicationBuilder(Application.class).web(true).run(args);
+    }
+
+    @Bean
+    public SessionFilter addSessionFilter() {
+        return new SessionFilter();
     }
 
     @Bean
@@ -63,7 +65,7 @@ public class Application {
                 parameters.put("cors.allowGenericHttpRequests", "true");
                 parameters.put("cors.allowOrigin", "*");
                 parameters.put("cors.allowSubdomains", "false");
-                parameters.put("cors.supportedMethods", "GET, HEAD, POST, OPTIONS");
+                parameters.put("cors.supportedMethods", "GET, HEAD, POST, OPTIONS, PUT, DELETE");
                 parameters.put("cors.supportedHeaders", "Accept, Origin, X-Requested-With, Content-Type, Last-Modified");
                 parameters.put("cors.exposedHeaders", "X-Test-1, X-Test-2");
                 parameters.put("cors.supportsCredentials", "true");
@@ -93,22 +95,6 @@ public class Application {
         registration.setName("sessionFilter");
         return registration;
     }*/
-
-    @Bean(name = "installmentSessionFilter")
-    public SessionFilter addSessionFilter() {
-        SessionFilter sessionFilter = new SessionFilter();
-        return sessionFilter;
-    }
-
-    @Bean
-    public FilterRegistrationBean addSessionFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(addSessionFilter());
-        registration.addUrlPatterns("/installment/*");
-        registration.addInitParameter("paramName", "paramValue");
-        registration.setName("installmentSessionFilter");
-        return registration;
-    }
 
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean(){
