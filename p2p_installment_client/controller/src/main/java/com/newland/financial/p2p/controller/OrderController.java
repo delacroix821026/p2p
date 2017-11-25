@@ -150,7 +150,7 @@ public class OrderController {
      * &nbsp;"respMsg":""//返回信息<BR>
      * }
      */
-    @RequestMapping(value = "/{orderId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/createOrder/{orderId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Object tradeUpdateOrder(@PathVariable(name = "orderId") String orderId, @RequestBody String jsonStr) {
         log.info("========client:tradeUpdateOrder=======");
@@ -161,6 +161,20 @@ public class OrderController {
         log.info("=====obj=====:" + obj);
         orderService.updateOrderInfo(obj, orderId);
         return obj;
+    }
+
+    /**
+     * 查询空白订单信息.
+     * @param orderId  订单号.
+     * @return 空白订单信息
+     */
+    @RequestMapping(value = "/{orderId}/OrderInfo", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Object findBlankOrder(@PathVariable(name = "orderId") String orderId) {
+        log.info("========client:findBlankOrder=======");
+        log.info("======orderId======：" + orderId);
+        Object ob = orderService.findBlankOrder(orderId);
+        return ob;
     }
 
 }

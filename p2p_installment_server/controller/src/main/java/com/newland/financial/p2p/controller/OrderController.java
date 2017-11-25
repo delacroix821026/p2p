@@ -141,4 +141,19 @@ public class OrderController {
         return orf;
     }
 
+    /**
+     * 查询空白订单信息.
+     *
+     * @param orderId orderId
+     * @return 订单信息.
+     */
+    @RequestMapping(value = "/{orderId}/OrderInfo", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Object findBlankOrder(@PathVariable(name = "orderId") String orderId) {
+        log.info("======come to server:findBlankOrder=====");
+        log.info("orderId:" + orderId);
+        OrderInfo orderInfo = orderService.findOrderInfo(orderId);
+        return orderInfo;
+    }
+
 }

@@ -96,6 +96,25 @@ public class Application {
         return registration;
     }*/
 
+<<<<<<< HEAD
+=======
+    @Bean(name = "installmentSessionFilter")
+    public SessionFilter addSessionFilter() {
+        SessionFilter sessionFilter = new SessionFilter();
+        return sessionFilter;
+    }
+
+    @Bean
+    public FilterRegistrationBean addSessionFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(addSessionFilter());
+        registration.addUrlPatterns("/installment/*#");
+        registration.addInitParameter("paramName", "paramValue");
+        registration.setName("installmentSessionFilter");
+        return registration;
+    }
+
+>>>>>>> 498085f6a7a6fe51f50e282b6a4111e3664d8bf3
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean(){
         ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
