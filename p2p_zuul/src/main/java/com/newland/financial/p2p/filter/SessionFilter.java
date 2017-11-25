@@ -2,7 +2,6 @@ package com.newland.financial.p2p.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
 import org.ohuyo.libra.client.session.LibraSession;
 import org.ohuyo.libra.client.session.LibraSessionUtils;
@@ -51,6 +50,7 @@ public class SessionFilter extends ZuulFilter {
             httpSession.setAttribute("ORG_OHUYO_LIBRA_CLIENT_LIBRA_SESSION", libraSession);
             ctx.addZuulRequestHeader("Cookie", "SESSION=" + httpSession.getId());
         }
+        return null;
     }
 }
 

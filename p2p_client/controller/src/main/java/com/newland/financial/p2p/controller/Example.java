@@ -3,6 +3,7 @@ package com.newland.financial.p2p.controller;
 
 import com.newland.financial.p2p.service.ExampleService;
 import com.newland.financial.p2p.service.FeignService;
+import com.newland.financial.p2p.utils.UserInfoUtils;
 import lombok.extern.java.Log;
 import org.ohuyo.libra.client.exception.LibraClientException;
 import org.ohuyo.libra.client.session.LibraSession;
@@ -42,7 +43,7 @@ public class Example {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public Object add() {
-        log.info("controller add Enter=====");
+        log.info("controller add Enter=====" + UserInfoUtils.getUserInfo().getLoginName());
         return feignService.add(6,9);
     }
 
