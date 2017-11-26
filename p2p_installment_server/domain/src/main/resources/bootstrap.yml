@@ -15,7 +15,7 @@ spring:
           name: @project.parent.name@${DEVLOPER_NAME:}
     cloud:
         config:
-            uri: http://192.168.10.38:2001/
+            uri: http://configserver:2001/
 HOSTNAME: ${spring.cloud.client.ipAddress}
 
 ...

@@ -2,12 +2,12 @@
 spring:
     profiles: dev
     rabbitmq:
-        host: 192.168.10.38
+        host: mqsserver
         port: 5672
         username: user_admin
         password: admin123%
     redis:
-        host: 192.168.10.47
+        host: redisserver
         port: 6379
         database: 0
 appstore:

@@ -3,7 +3,7 @@ HOSTNAME: ${spring.cloud.client.ipAddress}
 spring:
     profiles: dev
     rabbitmq:
-        host: 192.168.10.38
+        host: mqsserver
         port: 5672
         username: user_admin
         password: admin123%
