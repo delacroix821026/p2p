@@ -13,10 +13,10 @@ spring:
           name: @project.parent.name@${DEVLOPER_NAME:}
     cloud:
         config:
-            uri: http://configserver:2001/
+            uri: http://192.168.10.18:2001/
 HOSTNAME: ${spring.cloud.client.ipAddress}
 SMALLLOAN_FILE_ADDRESS: /home/smallloan/
-SMALLLOAN_HOST: ftpserver
+SMALLLOAN_HOST: 192.168.10.19
 SMALLLOAN_PORT: 21
 SMALLLOAN_USERNAME: ftpuser
 SMALLLOAN_PASSWORD: ftpuser
