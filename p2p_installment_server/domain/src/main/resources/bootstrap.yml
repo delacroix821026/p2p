@@ -46,7 +46,7 @@ spring:
 
 ---
 server:
-    port: ${SERVER_PORT:3001}
+    port: ${SERVER_PORT:3002}
     tomcat:
         max-connections: 2000
         accept-count: 1000
@@ -84,7 +84,7 @@ spring:
         config:
             profile: ${SPRING_PROFILES_ACTIVE}
             label: master
-            name: p2p-server
+            name: @project.parent.name@
             #uri: http://localhost:2001/
             #failFast: true
             #retry:

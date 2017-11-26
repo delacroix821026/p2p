@@ -36,7 +36,7 @@ public class SmsCodeControllerTest {
         //第一种情况merId和mobile均正确
         ResultActions ra = null;
         ra = this.mockMvc.perform(MockMvcRequestBuilders
-                .get("/smscode/GZW-001/15021327865"));
+                .get("/smscode/SHFYJR001/15021327865"));
         MvcResult mr = ra.andReturn();
         String result = mr.getResponse().getContentAsString();
         log.info("=============orderId===========" + result);
