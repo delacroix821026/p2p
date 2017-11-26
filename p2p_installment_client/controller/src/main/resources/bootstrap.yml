@@ -39,7 +39,7 @@ spring:
 
 ---
 server:
-    port: ${SERVER_PORT:4001}
+    port: ${SERVER_PORT:4002}
     tomcat:
         max-connections: 2000
         accept-count: 1000

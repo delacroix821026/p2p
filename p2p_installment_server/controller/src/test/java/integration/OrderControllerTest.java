@@ -47,13 +47,13 @@ public class OrderControllerTest {
         orderInfo.setContractsState("1");
         // 创建空白订单createOrderInfo
         String reqJson = " {\n" +
-                "    \"merId\": \"GZW-001\",\n" +
+                "    \"merId\": \"SHFYJR001\",\n" +
                 "    \"txnAmt\":100000,\n" +
                 "    \"openId\":\"12345abcd\"\n" +
                 "  }";
         ResultActions ra = null;
         ra = this.mockMvc.perform(MockMvcRequestBuilders
-                .post("/order/GZW-001")
+                .post("/order/SHFYJR001")
                 .contentType(MediaType.APPLICATION_JSON).content(reqJson));
         MvcResult mr = ra.andReturn();
         String result = mr.getResponse().getContentAsString();
