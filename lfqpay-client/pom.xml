@@ -179,8 +179,6 @@
 			<groupId>com.lfqpay</groupId>
 			<artifactId>lfqpay-client</artifactId>
 			<version>1.0.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/lfqpay-client-1.0.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
