@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "p2p",url = "localhost:3003", fallbackFactory = SendServiceFallBackFactory.class)
+@FeignClient(value = "lfqpay-client${DEVLOPER_NAME:}", fallbackFactory = SendServiceFallBackFactory.class)
 public interface ISendService {
     @RequestMapping(method = RequestMethod.POST, value = "/ybforder/sendOrderMsg")
     @HystrixCommand(commandProperties = {
-            @HystrixProperty(name = "hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds", value = "15000")
+            @HystrixProperty(name = "hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds", value = "30000")
     })
     Object sendOrderMsgToLbf(@RequestBody Object object);
 

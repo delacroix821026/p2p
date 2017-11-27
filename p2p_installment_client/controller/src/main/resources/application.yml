@@ -78,3 +78,8 @@ feign:
 
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
 ...
+---
+ribbon:
+    ConnectTimeout: 15000
+    ReadTimeout: 15000
+...

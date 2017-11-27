@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *外发Ifqpay-client短信接口.
  * @author Gregory
  */
-@FeignClient(name = "p2p",url = "localhost:3003", fallbackFactory = SmsIfqServiceFallBackFactory.class)
+@FeignClient(value = "lfqpay-client${DEVLOPER_NAME:}", fallbackFactory = SmsIfqServiceFallBackFactory.class)
 public interface ISmsIfqService {
     /**
      * 请求Ifqpay-client短信接口.

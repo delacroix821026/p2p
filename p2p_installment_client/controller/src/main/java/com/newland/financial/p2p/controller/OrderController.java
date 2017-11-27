@@ -47,7 +47,7 @@ public class OrderController {
         log.info("jsonStr：" + jsonStr);
         String orderId = orderService.createOrderInfo(jsonStr, merId);
         Map<String, String> map = new HashMap<String, String>();
-        map.put("orderId",orderId);
+        map.put("orderId", orderId);
         return map;
     }
 
@@ -165,7 +165,8 @@ public class OrderController {
 
     /**
      * 查询空白订单信息.
-     * @param orderId  订单号.
+     *
+     * @param orderId 订单号.
      * @return 空白订单信息
      */
     @RequestMapping(value = "/{orderId}/OrderInfo", method = RequestMethod.GET)
@@ -176,5 +177,17 @@ public class OrderController {
         Object ob = orderService.findBlankOrder(orderId);
         return ob;
     }
+
+    /**
+     * 运营平台查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    /*@RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+        public Object getOrderdInfoList(HttpServletRequest request) {
+        request.getParameter("merId");
+        return null;
+    }*/
 
 }
