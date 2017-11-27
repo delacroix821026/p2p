@@ -25,7 +25,7 @@ public class SessionFilter extends ZuulFilter {
 
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        if(ctx.getRequest().getRequestURI().startsWith("/installment/")) {
+        if(ctx.getRequest().getRequestURI().startsWith("/sso2/")) {
             log.info("Session filter shoud be run");
             return true;
         }
