@@ -49,7 +49,7 @@ public class RepayController {
         } else {
             log.info("------------------------验签失败！！");
         }
-        return null;
+        return "failed";
     }
 
 
