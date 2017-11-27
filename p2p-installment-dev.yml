@@ -56,6 +56,7 @@ services:
         image: nexusserver:8082/lfqpay-client:latest
         volumes:
             - /home/DockerCommand/:/home/DockerCommand/
+            - /home/DockerCommand/cert/001/:/home/DockerCommand/cert/001/
         deploy:
             replicas: 1
             restart_policy:

@@ -2,6 +2,7 @@ package com.newland.financial.p2p.controller;
 
 import com.newland.financial.p2p.service.IOrderService;
 import com.newland.financial.p2p.service.ISendService;
+import com.newland.financial.p2p.utils.UserInfoUtils;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -156,6 +157,8 @@ public class OrderController {
         log.info("========client:tradeUpdateOrder=======");
         log.info("1.jsonStr：" + jsonStr);
         //LibraSession librea = UserInfoUtils.getUserInfo();
+        //String userId = UserInfoUtils.getUserInfo().getLoginName();
+        //log.info("userId:==========" + UserInfoUtils.getUserInfo().getLoginName());
         Object ob = orderService.tradeUpdateOrder(jsonStr, orderId);
         Object obj = sendService.sendOrderMsgToLbf(ob);
         log.info("=====obj=====:" + obj);
