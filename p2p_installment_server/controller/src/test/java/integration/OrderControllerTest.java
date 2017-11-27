@@ -1,4 +1,4 @@
-package integration;
+/*package integration;
 
 import com.newland.financial.p2p.Application;
 import com.newland.financial.p2p.controller.OrderController;
@@ -113,4 +113,4 @@ public class OrderControllerTest {
         // 删除数据库测试数据
         orderInfoDao.deleteOrderInfo(result);
     }
-}
+}*/

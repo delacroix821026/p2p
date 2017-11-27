@@ -73,7 +73,7 @@ zuul:
         installment:
             path: /installment/**
             sensitiveHeaders:
-            serviceId: p2p_installment_client${DEVLOPER_NAME:}
+            serviceId: p2p-installment-client${DEVLOPER_NAME:}
 ...
 
 ---

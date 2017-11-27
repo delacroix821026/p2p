@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.newland.financial.p2p.mapping.RepayMapper">
+
+    <resultMap id="BaseResultMap" type="com.newland.financial.p2p.domain.entity.Repay">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
+        <result column="CONTRACTS_CODE" property="contractsCode" jdbcType="VARCHAR"/>
+        <result column="TXN_AMT" property="txnAmt" jdbcType="NUMERIC"/>
+        <result column="TERMS" property="terms" jdbcType="NUMERIC"/>
+        <result column="AMOUNT" property="amount" jdbcType="NUMERIC"/>
+        <result column="SUM_AMOUNT" property="sumAmount" jdbcType="NUMERIC"/>
+        <result column="INSTALMENT_DATE" property="instalmentDate" jdbcType="TIMESTAMP"/>
+        <result column="NEXT_DATE" property="nextDate" jdbcType="TIMESTAMP"/>
+        <result column="PAY_TYPE" property="payType" jdbcType="VARCHAR"/>
+        <result column="RESP_TIME" property="respTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,ORDER_ID,CONTRACTS_CODE,TXN_AMT,TERMS,AMOUNT,SUM_AMOUNT,INSTALMENT_DATE,NEXT_DATE,PAY_TYPE,RESP_TIME
+    </sql>
+
+    <insert id="insertRepayInfo"  parameterType="com.newland.financial.p2p.domain.entity.Repay">
+        INSERT INTO t_inst_repay (<include refid="Base_Column_List"/>) VALUES
+        (#{id,jdbcType=VARCHAR},#{orderId,jdbcType=VARCHAR},#{contractsCode,jdbcType=VARCHAR},#{txnAmt,jdbcType=NUMERIC},
+        #{terms,jdbcType=NUMERIC},#{amount,jdbcType=NUMERIC},#{sumAmount,jdbcType=NUMERIC},#{instalmentDate,jdbcType=TIMESTAMP},
+        #{nextDate,jdbcType=TIMESTAMP},#{payType,jdbcType=VARCHAR},#{respTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <select id="findRepayInfo" resultMap="BaseResultMap" parameterType="com.newland.financial.p2p.domain.entity.Repay">
+        SELECT ID,ORDER_ID,CONTRACTS_CODE FROM t_inst_repay
+        WHERE ORDER_ID = #{orderId,jdbcType=VARCHAR}
+        AND CONTRACTS_CODE = #{contractsCode,jdbcType=VARCHAR} AND TERMS = #{terms,jdbcType=NUMERIC}
+    </select>
+
+    <update id="updateRepayInfo" parameterType="com.newland.financial.p2p.domain.entity.Repay">
+        UPDATE t_inst_repay SET
+        ORDER_ID = #{orderId,jdbcType=VARCHAR},
+        CONTRACTS_CODE = #{contractsCode,jdbcType=VARCHAR},
+        TXN_AMT = #{txnAmt,jdbcType=NUMERIC},
+        TERMS = #{terms,jdbcType=NUMERIC},
+        AMOUNT = #{amount,jdbcType=NUMERIC},
+        SUM_AMOUNT = #{sumAmount,jdbcType=NUMERIC},
+        INSTALMENT_DATE = #{instalmentDate,jdbcType=TIMESTAMP},
+        NEXT_DATE = #{nextDate,jdbcType=TIMESTAMP},
+        PAY_TYPE = #{payType,jdbcType=VARCHAR},
+        RESP_TIME = #{respTime,jdbcType=TIMESTAMP}
+        WHERE ID = #{id}
+    </update>
+
+</mapper>

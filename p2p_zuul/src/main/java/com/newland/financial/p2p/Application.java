@@ -42,6 +42,13 @@ public class Application {
     }
 
     @Bean
+    public ServletListenerRegistrationBean servletListenerRegistrationBean(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new RequestContextListener());
+        return servletListenerRegistrationBean;
+    }
+
+    @Bean
     public CORSFilter addCORSFilter() throws ServletException {
         CORSFilter corsFilter = new CORSFilter();
         corsFilter.init(new FilterConfig() {

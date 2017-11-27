@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *外发Ifqpay-client验签接口.
  * @author Gregory
  */
-@FeignClient(name = "p2p",url = "localhost:3003", fallbackFactory = SignatureIfqServiceFallBackFactory.class)
+@FeignClient(value = "lfqpay-client${DEVLOPER_NAME:}", fallbackFactory = SignatureIfqServiceFallBackFactory.class)
 public interface ISignatureIfqService {
     /**
      * 请求Ifqpay-client验签接口.
