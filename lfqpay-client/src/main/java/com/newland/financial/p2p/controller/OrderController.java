@@ -3,8 +3,8 @@ package com.newland.financial.p2p.controller;
 import com.newland.financial.p2p.domain.OrderMsgReq;
 import com.newland.financial.p2p.domain.OrderQueryReq;
 import com.newland.financial.p2p.service.IOrderService;
-import com.newland.financial.p2p.service.impl.OrderService;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +26,8 @@ public class OrderController {
     /**
      * 创建service对象.
      */
-    private IOrderService oerderService = new OrderService();
+    @Autowired
+    private IOrderService oerderService;
 
     /**
      * 创建订单.

@@ -9,6 +9,8 @@ import com.newland.financial.p2p.domain.OrderMsgReq;
 import com.newland.financial.p2p.domain.OrderQueryReq;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -20,7 +22,13 @@ import java.util.Map;
  * @author Mxia
  */
 @Log4j
+@Service
 public class OrderService implements IOrderService {
+    /**
+     * 还款推送URL.
+     */
+    @Value("${IFQ_REPAY_ADDRESS}")
+    private String repayUrl;
     /**
      * 外网测试地址.
      */
@@ -44,6 +52,8 @@ public class OrderService implements IOrderService {
         // 首次创建订单.
         long start1 = System.currentTimeMillis();
         Map<String, String> map1 = MethodFactory.initOrderData(orm);
+        map1.put("backUrl", repayUrl);
+        log.info("----------------repayUrl-------------->:" + repayUrl);
         MpiUtil.sign(map1, "utf-8"); // 签名
         long end1 = System.currentTimeMillis();
         log.info("====p1====:" + (end1 - start1));

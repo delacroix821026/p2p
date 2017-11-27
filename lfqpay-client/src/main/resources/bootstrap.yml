@@ -27,6 +27,7 @@ spring:
         database: 0
 HOSTNAME: ${spring.cloud.client.ipAddress}
 IFQ_SMSCODE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backSMSCodeRequest.do
+IFQ_REPAY_ADDRESS: http://192.168.10.18:5001/installment/repay/receiveRepaymentInfo
 ...
 
 ---
@@ -49,6 +50,7 @@ spring:
         port: 6379
         database: 0
 IFQ_SMSCODE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backSMSCodeRequest.do
+IFQ_REPAY_ADDRESS: http://192.168.10.18:5001/installment/repay/receiveRepaymentInfo
 ...
 
 ---
