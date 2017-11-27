@@ -160,6 +160,12 @@ public class OrderController {
         //String userId = UserInfoUtils.getUserInfo().getLoginName();
         //log.info("userId:==========" + UserInfoUtils.getUserInfo().getLoginName());
         Object ob = orderService.tradeUpdateOrder(jsonStr, orderId);
+        if (ob == null) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("respCode", "0410");
+            map.put("respMsg", "已请求分期的订单，请不要重复提交");
+            return map;
+        }
         Object obj = sendService.sendOrderMsgToLbf(ob);
         log.info("=====obj=====:" + obj);
         orderService.updateOrderInfo(obj, orderId);

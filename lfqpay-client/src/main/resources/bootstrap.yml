@@ -17,7 +17,7 @@ spring:
         config:
             uri: http://configserver:2001/
     rabbitmq:
-        host: mqsserver
+        host: 192.168.10.18
         port: 5672
         username: user_admin
         password: admin123%

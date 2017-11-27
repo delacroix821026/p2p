@@ -69,6 +69,13 @@ public class OrderController {
         log.info("======come to server:tradeUpdateOrder=====");
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         log.info("========tradeUpdateOrder========jsonStr:" + jsonStr);
+        OrderInfo order = orderService.findOrderInfo(orderId);
+        String contractsCode = order.getContractsCode();
+        log.info("constractscode====:" + contractsCode);
+        if (order.getContractsCode() != null) {
+            log.info("已成交的商户不可重复扫码更改信息");
+            return null;
+        }
         String smsCode = paramJSON.getString("smsCode");
         OrderInfo orderInfo = (OrderInfo) orderService.tradeUpdateOrder(jsonStr);
         MerInfo merInfo = orderService.findMerInfo(orderInfo);
