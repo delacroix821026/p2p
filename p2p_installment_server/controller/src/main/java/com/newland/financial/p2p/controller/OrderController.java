@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * 订单处理Controller.
@@ -160,7 +164,19 @@ public class OrderController {
         log.info("======come to server:findBlankOrder=====");
         log.info("orderId:" + orderId);
         OrderInfo orderInfo = orderService.findOrderInfo(orderId);
-        return orderInfo;
+        Map<String, Object> map = new HashMap<String, Object>();
+        long createtime  = orderInfo.getCreateTime().getTime();
+        long endtime = new Date().getTime();
+        if (endtime - createtime > 86400000) {
+            log.info("二维码已超过一天有效期endtime - createtime=" + (endtime - createtime));
+            map.put("respCode", "0411");
+            map.put("respMsg", "二维码已过期失效");
+            return map;
+        }
+        map.put("orderInfo", orderInfo);
+        map.put("respCode", "0000");
+        map.put("respMsg", "二维码可用");
+        return map;
     }
 
 }
