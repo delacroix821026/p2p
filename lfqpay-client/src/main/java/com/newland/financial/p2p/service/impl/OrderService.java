@@ -29,14 +29,12 @@ public class OrderService implements IOrderService {
      */
     @Value("${IFQ_REPAY_ADDRESS}")
     private String repayUrl;
-    /**
-     * 外网测试地址.
-     */
-    public static final String ADDRESS_TEST = "https://tt.lfqpay.com:343";
-    /**
-     * 本地开发地址.
-     */
-    public static final String ADDRESS_DEVELOP = "https://tt.lfqpay.com:343";
+    /**创建订单地址.*/
+    @Value("IFQ_CREATE_ADDRESS")
+    private String createUrl;
+    /**查询订单地址.*/
+    @Value("IFQ_QUERY_ADDRESS")
+    private String queryUrl;
 
     /**
      * 创建订单.
@@ -47,34 +45,22 @@ public class OrderService implements IOrderService {
      */
     public OrderInfo sendOrderMsg(OrderMsgReq orm) throws IOException {
         log.info("====come in ybf service====");
-        String requestUrlA = ADDRESS_DEVELOP + "/lfq-pay/gateway/api/backTransRequest.do"; // 创建订单地址.
-        String requestUrlB = ADDRESS_DEVELOP + "/lfq-pay/gateway/api/singleQueryRequest.do"; // 查询订单地址.
+        String requestUrlA = createUrl; // 创建订单地址.
+        String requestUrlB = queryUrl; // 查询订单地址.
         // 首次创建订单.
-        long start1 = System.currentTimeMillis();
         Map<String, String> map1 = MethodFactory.initOrderData(orm);
         map1.put("backUrl", repayUrl);
         log.info("----------------repayUrl-------------->:" + repayUrl);
         MpiUtil.sign(map1, "utf-8"); // 签名
-        long end1 = System.currentTimeMillis();
-        log.info("====p1====:" + (end1 - start1));
 
-        long start2 = System.currentTimeMillis();
         Map<String, String> mapA = IfqUtil.execute(requestUrlA, map1);
-        long end2 = System.currentTimeMillis();
-        log.info("====p2====:" + (end2 - start2));
 
         // 根据创建订单返回的报文，查询订单，获得合同状态.
-        long start3 = System.currentTimeMillis();
         Map<String, String> map2 = MethodFactory.initQueryOrderDate(mapA, orm.getMerPwd());
         MpiUtil.sign(map2, "utf-8"); // 签名
-        long end3 = System.currentTimeMillis();
-        log.info("====p3====:" + (end3 - start3));
 
-        long start4 = System.currentTimeMillis();
         Map<String, String> mapB = IfqUtil.execute(requestUrlB, map2);
         OrderInfo od = MethodFactory.installOrderInfo(mapA, mapB, orm);
-        long end4 = System.currentTimeMillis();
-        log.info("====p4====:" + (end4 - start4));
         return od;
     }
 
@@ -86,7 +72,7 @@ public class OrderService implements IOrderService {
      * @throws IOException an error
      */
     public Object findOrderInfo(OrderQueryReq oqr) throws IOException {
-        String requestUrl = ADDRESS_DEVELOP + "/lfq-pay/gateway/api/singleQueryRequest.do";
+        String requestUrl = queryUrl;
         Map<String, String> map = new HashMap<String, String>();
         map.put("version", "1.0.0"); // 固定值：1.0.0
         map.put("encoding", "utf-8"); // 编码
