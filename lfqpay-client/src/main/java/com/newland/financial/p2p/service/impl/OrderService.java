@@ -30,10 +30,10 @@ public class OrderService implements IOrderService {
     @Value("${IFQ_REPAY_ADDRESS}")
     private String repayUrl;
     /**创建订单地址.*/
-    @Value("IFQ_CREATE_ADDRESS")
+    @Value("${IFQ_CREATE_ADDRESS}")
     private String createUrl;
     /**查询订单地址.*/
-    @Value("IFQ_QUERY_ADDRESS")
+    @Value("${IFQ_QUERY_ADDRESS}")
     private String queryUrl;
 
     /**
@@ -47,6 +47,9 @@ public class OrderService implements IOrderService {
         log.info("====come in ybf service====");
         String requestUrlA = createUrl; // 创建订单地址.
         String requestUrlB = queryUrl; // 查询订单地址.
+        log.info("创建订单地址：" + requestUrlA);
+        log.info("查询订单地址：" + requestUrlB);
+
         // 首次创建订单.
         Map<String, String> map1 = MethodFactory.initOrderData(orm);
         map1.put("backUrl", repayUrl);
