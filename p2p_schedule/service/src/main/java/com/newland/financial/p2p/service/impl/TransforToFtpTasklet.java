@@ -103,7 +103,7 @@ public class TransforToFtpTasklet implements Tasklet {
             //主动模式
 //            ftp.enterLocalActiveMode();
             //被动模式
-            ftp.enterLocalPassiveMode();
+//            ftp.enterLocalPassiveMode();
             ftp.setRemoteVerificationEnabled(false);
             //设置上传文件的类型为二进制类型
             ftp.setFileType(FTP.BINARY_FILE_TYPE);

@@ -23,6 +23,7 @@
         <result column="CONTRACT_NUMBER" property="contractNumber" jdbcType="VARCHAR"/>
         <result column="D_DATE" property="dDate" jdbcType="TIMESTAMP"/>
         <result column="D_MONEY" property="dMoney" jdbcType="NUMERIC"/>
+        <result column="MERCHANT_NUM" property="merchantNum" jdbcType="VARCHAR"/>
     </resultMap>
 
 
@@ -31,7 +32,7 @@
     </sql>
 
     <select id="selectSendOrderList" resultMap="BaseResultMap">
-        SELECT b.D_DATE,a.ODD_NUMBERS,a.APPLY_NAME,a.PHONE,b.D_MONEY,a.PROVINCE,a.CITY,a.REGION,a.DETAIL_ADD,a.IDENTITY_CARD
+        SELECT b.D_DATE,a.ODD_NUMBERS,a.APPLY_NAME,a.PHONE,b.D_MONEY,a.PROVINCE,a.CITY,a.REGION,a.DETAIL_ADD,a.IDENTITY_CARD,b.MERCHANT_NUM
         FROM customer_flow_debit a
         LEFT JOIN t_debitandcredit b ON a.DT_ID=b.DT_ID
         WHERE a.IS_SEND='0'AND b.STUS='1' AND a.EFFECTIVE='1'

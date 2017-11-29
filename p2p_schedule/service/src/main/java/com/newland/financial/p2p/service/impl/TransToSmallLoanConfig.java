@@ -75,7 +75,7 @@ public class TransToSmallLoanConfig {
         delimitedLineAggregator.setDelimiter(",");
         BeanWrapperFieldExtractor beanWrapperFieldExtractor = new BeanWrapperFieldExtractor();
         beanWrapperFieldExtractor.setNames(new String[]{"dDate", "oddNumbers", "applyName", "phone", "dMoney",
-                "province","city","region","detailAdd", "identityCard", "corpPhone", "merchantName"});
+                "province","city","region","detailAdd", "identityCard","merchantNum"});
         delimitedLineAggregator.setFieldExtractor(beanWrapperFieldExtractor);
         flatFileItemWriter.setLineAggregator(delimitedLineAggregator);
 

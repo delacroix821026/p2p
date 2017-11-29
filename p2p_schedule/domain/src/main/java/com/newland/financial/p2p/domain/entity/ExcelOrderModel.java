@@ -57,11 +57,15 @@ public class ExcelOrderModel extends BaseEntity {
     /**
      * 法人手机号.
      */
-    private String corpPhone;
+//    private String corpPhone;
     /**
      * 所拥有商户.
      */
-    private String merchantName;
+//    private String merchantName;
+    /**
+     * 绑定的商户号.
+     */
+    private String merchantNum;
     /**
      * 是否已发送.
      */
@@ -76,6 +80,6 @@ public class ExcelOrderModel extends BaseEntity {
         return this.getDDate() + "," + this.getOddNumbers() + "," + this.getApplyName() + ","
                 + this.getPhone() + "," + this.getDMoney() + "," + this.getProvince() + ","
                 + this.getCity() + "," + this.getRegion() + "," +this.getDetailAdd() + ","
-                + this.getIdentityCard() + "," + this.getCorpPhone() + "," + this.getMerchantName();
+                + this.getIdentityCard() + "," + this.getMerchantNum();
     }
 }

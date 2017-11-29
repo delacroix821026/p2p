@@ -33,6 +33,7 @@ public class CreateExcelProcessor implements ItemProcessor<CustomerFlowDebit, Ex
         excelOrderModel.setRegion(customerFlowDebit.getRegion());
         excelOrderModel.setDetailAdd(customerFlowDebit.getDetailAdd());
         excelOrderModel.setIdentityCard(customerFlowDebit.getIdentityCard());
+        excelOrderModel.setMerchantNum(customerFlowDebit.getMerchantNum());
         excelOrderModel.setIsSend("1");
         excelOrderModel.setTransformTime(new Date());
         log.debug("CreateExcelProcessor:customerFlowDebit-----------------------" + excelOrderModel.toString());
