@@ -47,11 +47,11 @@ public class Application {
         return servletListenerRegistrationBean;
     }
 
-    @Bean
+    /*@Bean
     @Scope("prototype")
     public Feign.Builder feignBuilder() {
         return Feign.builder();
-    }
+    }*/
 
 
     @Bean

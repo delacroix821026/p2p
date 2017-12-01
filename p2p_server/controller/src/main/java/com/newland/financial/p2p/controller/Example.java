@@ -2,6 +2,7 @@ package com.newland.financial.p2p.controller;
 
 //import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 //import com.newland.financial.p2p.common.handler.ExceptionMapping;
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,8 +66,8 @@ public class Example {
      */
     @RequestMapping(value = "/add1", method = RequestMethod.GET)
     public Integer add1(@RequestParam final Integer a, @RequestParam final Integer b) throws Exception {
-
-        throw new Exception("TEST001");
+        log.info("Server add1!");
+        throw new BaseRuntimeException("TEST001");
         //return r;
     }
 

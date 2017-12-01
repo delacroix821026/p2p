@@ -8,15 +8,16 @@ spring:
 spring:
     profiles: dev
     application:
-          name: @project.name@${DEVLOPER_NAME:}
+        name: @project.name@${DEVLOPER_NAME:}
     cloud:
         config:
-            uri: http://192.168.10.38:2001/
+            uri: http://192.168.10.18:2001/
+    rabbitmq:
+        host: 192.168.10.18
+        port: 5672
+        username: user_admin
+        password: admin123%
 HOSTNAME: ${spring.cloud.client.ipAddress}
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
 ...
 
 ---
@@ -31,15 +32,37 @@ spring:
                 #profile: {profile.active}
                 #label: master
                 serviceId: P2P-CONFIG-SERVER
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://192.168.10.38:1111/eureka/}
+    rabbitmq:
+        host: 10.0.1.42
+        port: 5672
+        username: user_admin
+        password: admin123%
+
+...
+
+---
+spring:
+    profiles: prod
+    application:
+        name: @project.name@
+    cloud:
+        config:
+            discovery:
+                enabled: true
+                #profile: {profile.active}
+                #label: master
+                serviceId: P2P-CONFIG-SERVER
+    rabbitmq:
+        host: 10.0.1.46
+        port: 5672
+        username: user_admin
+        password: admin123%Prod
+
 ...
 
 ---
 server:
-    port: ${SERVER_PORT:5001}
+    port: ${SERVER_PORT:9411}
 ...
 
 ---
@@ -62,6 +85,9 @@ eureka:
         statusPageUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/info
         healthCheckUrl: http://${HOSTNAME}:${server.port}/${management.context-path}/health
         secure-health-check-url: http://${HOSTNAME}:${server.port}/${management.context-path}/health
+    client:
+        serviceUrl:
+            defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://eurekaserver:1111/eureka/}
 ...
 
 ---
@@ -80,12 +106,15 @@ spring:
 
 ---
 management:
+    #security:
+        #enabled: true
+        #roles: SUPERUSER
     context-path: /manage
 security:
     user:
         name: admin
-        password: 123456
-    basic:
-        enabled: true
-        path: ${management.context-path}
+        password: cendaijun123!
+    #basic:
+        #enabled: true
+        #path: ${management.context-path}
 ...

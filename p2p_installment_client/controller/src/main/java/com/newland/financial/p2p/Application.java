@@ -28,7 +28,7 @@ import org.springframework.web.context.request.RequestContextListener;
 @EnableConfigurationProperties
 @EnableCircuitBreaker
 @EnableFeignClients
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 86400*30)
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 360)
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

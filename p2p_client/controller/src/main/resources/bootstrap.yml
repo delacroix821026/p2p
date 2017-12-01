@@ -91,6 +91,9 @@ spring:
                 initial-interval: 1000
     profiles:
         active: ${SPRING_PROFILES_ACTIVE:dev}
+    sleuth:
+        sampler:
+            percentage: 1.0
 ...
 
 ---

@@ -53,8 +53,6 @@ services:
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - EUREKA_INSTANCE_HOSTNAME=p2padmin
             - SERVER_PORT = 6001
-        entrypoint:
-            - /home/DockerCommand/SetJVM.sh
 networks:
     docker-net:
         external:

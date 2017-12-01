@@ -26,7 +26,8 @@ spring:
         password: admin123%
     redis:
         host: 10.0.1.41
-        port: 6379
+        port: 9529
+        password: admin123%Prod
         database: 0
 appstore:
     masterHost: 51starpos.com
@@ -44,7 +45,8 @@ spring:
         password: admin123%Prod
     redis:
         host: 10.0.1.47
-        port: 6379
+        port: 9529
+        password: newland123@456!
         database: 0
 appstore:
     masterHost: starpos.com.cn

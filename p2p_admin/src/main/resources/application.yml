@@ -98,7 +98,7 @@ management:
 security:
     user:
         name: admin
-        password: 123456
+        password: cendaijun123!
     #basic:
         #enabled: true
         #path: ${management.context-path}

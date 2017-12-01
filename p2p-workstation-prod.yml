@@ -52,33 +52,6 @@ services:
             - SPRING_PROFILES_ACTIVE=prod
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - SERVER_PORT = 4001
-    p2pzuul:
-        image: nexusserver:8082/p2p-zuul:latest
-        volumes:
-            - /home/DockerCommand/:/home/DockerCommand/
-        depends_on:
-            - p2pclient
-        deploy:
-            replicas: 1
-            restart_policy:
-                condition: on-failure
-            resources:
-                limits:
-                    #cpus: '0.001'
-                    memory: 2046M
-                reservations:
-                    #cpus: '0.0001'
-                    memory: 64M
-        networks:
-            docker-net:
-                aliases:
-                    - p2pzuul
-        ports:
-            - "5001:5001"
-        environment:
-            - SPRING_PROFILES_ACTIVE=prod
-            - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
-            - SERVER_PORT = 5001
 
 networks:
     docker-net:

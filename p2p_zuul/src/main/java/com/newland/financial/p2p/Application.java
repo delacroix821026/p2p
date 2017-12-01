@@ -41,6 +41,10 @@ public class Application {
         new SpringApplicationBuilder(Application.class).web(true).run(args);
     }
 
+    /**
+     * 绑定Cxt
+     * @return ServletListenerRegistrationBean
+     */
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean(){
         ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();

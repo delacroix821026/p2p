@@ -1,10 +1,9 @@
 version: '3'
 services:
-    p2pschedule:
-        image: nexusserver:8082/p2p-schedule:latest
+    p2p-logcent:
+        image: nexusserver:8082/p2p-logcent:latest
         volumes:
-              - /home/smallloan/:/home/smallloan/
-              - /home/DockerCommand/:/home/DockerCommand/
+            - /home/DockerCommand/:/home/DockerCommand/
         deploy:
             restart_policy:
                 condition: on-failure
@@ -15,20 +14,16 @@ services:
                 reservations:
                     #cpus: '0.0001'
                     memory: 64M
-            placement:
-                constraints:
-                    - node.role == manager
         networks:
             docker-net:
                 aliases:
-                    - p2pschedule
+                    - p2p-logcent
         ports:
-            - "4002:4002"
+            - "9411:9411"
         environment:
-            - SPRING_PROFILES_ACTIVE=dev
+            - SPRING_PROFILES_ACTIVE=test
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
-            - SERVER_PORT = 4002
-
+            - SERVER_PORT = 9411
 
 networks:
     docker-net:
