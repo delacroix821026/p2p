@@ -27,7 +27,7 @@ spring:
     redis:
         host: 10.0.1.41
         port: 9529
-        password: admin123%Prod
+        password: newland123@456!
         database: 0
 appstore:
     masterHost: 51starpos.com

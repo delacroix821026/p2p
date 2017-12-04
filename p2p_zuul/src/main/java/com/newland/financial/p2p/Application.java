@@ -19,6 +19,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.RedisFlushMode;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.ohuyo.libra.client.filter.SlaveClientFilter;
 import org.springframework.web.context.request.RequestContextListener;
@@ -131,5 +132,10 @@ public class Application {
         redisTemplate.setHashValueSerializer(fastJson2JsonRedisSerializer);
         redisTemplate.setConnectionFactory(connectionFactory);
         return redisTemplate;
+    }
+
+    @Bean
+    public static ConfigureRedisAction configureRedisAction() {
+        return ConfigureRedisAction.NO_OP;
     }
 }
