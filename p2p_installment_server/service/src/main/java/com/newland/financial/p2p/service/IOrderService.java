@@ -2,6 +2,10 @@ package com.newland.financial.p2p.service;
 
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 /**
  * 订单处理Service.
@@ -45,4 +49,16 @@ public interface IOrderService {
      * @return true or false
      */
     boolean updateOrderInfo(OrderInfo or);
+
+    List<OrderInfo> getOrderInfoListByCustomer(String userId, OrderInfo orderInfo);
+
+    OrderInfo getOrderInfoDetailByCustomer(String userId, String orderId);
+
+    List<OrderInfo> getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, OrderInfo orderInfo);
+
+    OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId);
+
+    OrderInfo getOrderInfoListByPlantManager(OrderInfo orderInfo);
+
+    OrderInfo getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId);
 }

@@ -7,6 +7,11 @@ import com.newland.financial.p2p.service.IMerchantService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 /**
  * 商户信息处理ServiceImpl.
@@ -41,4 +46,26 @@ public class MerchantService implements IMerchantService {
         codeMsgReq.setMerAbbr(merInfo.getMerAbbr());
         return codeMsgReq;
     }
+
+    public List<MerInfo> getMerchantList(MerInfo merInfo) {
+        return null;
+    }
+
+    public MerInfo getMerchantDetail(String merchantId) {
+        return null;
+    }
+
+    public void updateMerchantBySystem(MerInfo merInfo) {
+
+    }
+
+    public void uploadMerchantBySystem(MerInfo merInfo) {
+
+    }
+
+    public void updateMerchant(MerInfo merInfo) {
+
+    }
+
+
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -177,6 +178,72 @@ public class OrderController {
         map.put("respCode", "0000");
         map.put("respMsg", "二维码可用");
         return map;
+    }
+
+    /**
+     * 用户查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/my/{userId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrderInfo> getOrderInfoListByCustomer(@PathVariable(name = "userId") String userId, @RequestBody String jsonStr) {
+        return null;
+    }
+
+    /**
+     * 用户订单列表详细.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/my/{userId}/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public OrderInfo getOrderInfoDetailByCustomer(@PathVariable(name = "userId") String userId, @PathVariable(name = "orderId") String orderId) {
+        return null;
+    }
+
+    /**
+     * 商户查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/merchant/{merchantId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrderInfo> getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
+        return null;
+    }
+
+    /**
+     * 商户查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/merchant/{merchantId}/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId) {
+        return null;
+    }
+
+    /**
+     * 平台管理员查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/plant/", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public  OrderInfo getOrderInfoListByPlantManager(@RequestBody String jsonStr) {
+        return null;
+    }
+
+    /**
+     * 平台管理员查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/plant/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public OrderInfo getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId) {
+        return null;
     }
 
 }

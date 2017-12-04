@@ -1,19 +1,20 @@
 package com.newland.financial.p2p.controller;
 
 import lombok.extern.log4j.Log4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *退款Controller
  * @author Gregory
  */
-@Controller
+@RestController
 @Log4j
-@RequestMapping("/refundController")
+@RequestMapping("/refund")
 public class RefundController {
 
     /**
@@ -39,14 +40,26 @@ public class RefundController {
      *                &nbsp;&nbsp;"respTime":"响应时间"<BR>
      *                }<BR>
      */
-    @ResponseBody
-    @RequestMapping(value = "/createRefundOrder",
-            method = {RequestMethod.POST, RequestMethod.GET})
-    public Object createRefundOrder(@RequestBody String jsonStr){
-
+    @RequestMapping(value = "/createRefundOrder", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public Object createRefundOrder(@RequestBody String jsonStr) {
 
         return null;
     }
 
+    /**
+     * 上传凭证.
+     *
+     * @param jsonStr 接收的json字符串:<BR>
+     *                {<BR>
+     *                &nbsp;&nbsp;"merId":"商户代码",<BR>
+     *                &nbsp;&nbsp;"orderId":"订单编号"<BR>
+     *                }<BR>
+     *
+     */
+    @RequestMapping(value = "/createRefundOrder", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void uploadFile() {
 
+    }
 }

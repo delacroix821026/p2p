@@ -12,22 +12,8 @@ import java.util.List;
  * @author Gregory
  */
 public interface IMerchantService {
-
-    /**
-     * 查询商户信息.
-     *
-     * @param merId 商户Id
-     * @return MerInfo对象
-     */
-    CodeMsgReq getMerInfo(String merId);
-
-    List<MerInfo> getMerchantList(MerInfo merInfo);
-
-    MerInfo getMerchantDetail(@PathVariable(name = "merchantId") String merchantId);
-
     void updateMerchantBySystem(MerInfo merInfo);
 
     void uploadMerchantBySystem(MerInfo merInfo);
 
-    void updateMerchant(MerInfo merInfo);
 }

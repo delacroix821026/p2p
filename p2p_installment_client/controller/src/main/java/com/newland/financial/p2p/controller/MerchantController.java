@@ -3,24 +3,17 @@ package com.newland.financial.p2p.controller;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * 商户信息处理Controller.
- * @author Gregory
+ * @author Delacroix
  */
 @RestController
 @Log4j
 @RequestMapping("/merchant")
 public class MerchantController {
-
     /**
      * 商户查询.
      *
@@ -28,7 +21,7 @@ public class MerchantController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<MerInfo> getMerchantList(MerInfo merInfo) {
+    public List<MerInfo> getMerchantList(@RequestBody String jsonStr) {
         return null;
     }
 
@@ -49,7 +42,7 @@ public class MerchantController {
      */
     @RequestMapping(value = "/synchMerchant", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateMerchantBySystem(MerInfo merInfo) {
+    public void updateMerchantBySystem(@RequestBody String jsonStr) {
 
     }
 
@@ -59,7 +52,7 @@ public class MerchantController {
      */
     @RequestMapping(value = "/synchMerchantFile", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void uploadMerchantBySystem(MerInfo merInfo) {
+    public void uploadMerchantBySystem(@RequestBody String jsonStr) {
 
     }
 
@@ -69,7 +62,8 @@ public class MerchantController {
      */
     @RequestMapping(value = "/{merchantId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateMerchant(MerInfo merInfo) {
+    public void updateMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
 
     }
+
 }

@@ -1,9 +1,9 @@
 package com.newland.financial.p2p.controller;
 
+import com.newland.financial.p2p.domain.entity.OrderInfo;
 import com.newland.financial.p2p.service.IOrderService;
 import com.newland.financial.p2p.service.ISendService;
-import com.newland.financial.p2p.utils.UserInfoUtils;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author Gregory
  */
 @RestController
-@Log
+@Log4j
 @RequestMapping("/order")
 public class OrderController {
     @Autowired
@@ -188,15 +189,68 @@ public class OrderController {
     }
 
     /**
-     * 运营平台查询订单列表.
+     * 用户查询订单列表.
      *
      * @return OrderInfolist
      */
-    /*@RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/my/{userId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-        public Object getOrderdInfoList(HttpServletRequest request) {
-        request.getParameter("merId");
+    public List<OrderInfo> getOrderInfoListByCustomer(@PathVariable(name = "userId") String userId, OrderInfo orderInfo) {
         return null;
-    }*/
+    }
 
+    /**
+     * 用户订单列表详细.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/my/{userId}/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public OrderInfo getOrderInfoDetailByCustomer(@PathVariable(name = "userId") String userId, @PathVariable(name = "orderId") String orderId) {
+        return null;
+    }
+
+    /**
+     * 商户查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/merchant/{merchantId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrderInfo> getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, OrderInfo orderInfo) {
+        return null;
+    }
+
+    /**
+     * 商户查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/merchant/{merchantId}/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId) {
+        return null;
+    }
+
+    /**
+     * 平台管理员查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/plant/", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public  OrderInfo getOrderInfoListByPlantManager(OrderInfo orderInfo) {
+        return null;
+    }
+
+    /**
+     * 平台管理员查询订单列表.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/plant/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public OrderInfo getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId) {
+        return null;
+    }
 }
