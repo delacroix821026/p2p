@@ -222,9 +222,9 @@ public class OrderController {
     }
 
     /**
-     * 商户查询订单列表.
+     * 商户查询订单详情.
      *
-     * @return OrderInfolist
+     * @return OrderInfo
      */
     @RequestMapping(value = "/merchant/{merchantId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
