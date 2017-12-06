@@ -66,11 +66,12 @@
     <select id="selectMerchantList" resultMap="BaseResultMap" parameterType="Map">
         SELECT * FROM t_inst_merinfo
         <where>
+            1=1
             <if test="merId != null">
                 and MER_ID like CONCAT('%','${merId}','%')
             </if>
             <if test="merName != null">
-                and MER_NAME = like CONCAT('%','${merName}','%')
+                and MER_NAME like CONCAT('%','${merName}','%')
             </if> ORDER BY CREATE_TIME desc
         </where>
     </select>

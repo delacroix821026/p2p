@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -114,6 +115,30 @@ public class OrderService implements IOrderService {
      */
     public boolean updateOrderInfo(OrderInfo or) {
         return orderInfoDao.updateOrder(or);
+    }
+
+    public List<OrderInfo> getOrderInfoListByCustomer(String userId, OrderInfo orderInfo) {
+        return null;
+    }
+
+    public OrderInfo getOrderInfoDetailByCustomer(String userId, String orderId) {
+        return null;
+    }
+
+    public List<OrderInfo> getOrderInfoListByMerchant(String merchantId, OrderInfo orderInfo) {
+        return null;
+    }
+
+    public OrderInfo getOrderInfoDetailByMerchant(String merchantId, String orderId) {
+        return null;
+    }
+
+    public OrderInfo getOrderInfoListByPlantManager(OrderInfo orderInfo) {
+        return null;
+    }
+
+    public OrderInfo getOrderInfoDetailByPlantManager(String orderId) {
+        return null;
     }
 
 }
