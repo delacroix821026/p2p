@@ -3,6 +3,7 @@ package com.newland.financial.p2p.domain.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -26,6 +27,8 @@ public class MerInfo extends BaseEntity {
     private String registeredAddress;
     /**上级渠道商编码.*/
     private String parentChannelsCode;
+    /**上级商户编码.*/
+    private String parentMerchantCode;
     /**营业地址.*/
     private String addr;
     /**法人代表.*/
@@ -78,4 +81,22 @@ public class MerInfo extends BaseEntity {
     private String lev;
     /**备注.*/
     private String remark;
+    /**商户状态，0:正常  1:冻结.*/
+    private String state;
+    /**接入审批状态，0-入网成功，1-审核中，2-审核失败.*/
+    private String scheduleState;
+    /**6期费率.*/
+    private BigDecimal rateSix;
+    /**12期费率.*/
+    private BigDecimal rateTwelve;
+    /**24期费率.*/
+    private BigDecimal rateTwentyFour;
+    /**补贴方式，0：持卡人补贴  1：商户补贴.*/
+    private String subsidy;
+    /**接入时间.*/
+    private Date createTime;
+    /**合同号.*/
+    private String contractsCode;
+    /**接入失败原因.*/
+    private String failure;
 }

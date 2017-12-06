@@ -143,7 +143,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @param params Object
      * @param offset int
      * @param limit  int
-     * @return PageInfo
+     * @return AbstractPageModel
      * @throws Exception has a error
      */
     protected PageInfo selectByEntityAndPage(final String listId,
@@ -152,13 +152,13 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
         return selectByPage(listId, params, offset, limit);
     }
 
-    /**
+   /* *//**
      * @param listId    String
      * @param params    Object
      * @param pageModel PageModel
      * @return PageModel
      * @throws Exception has a error
-     */
+     *//*
     protected PageModel selectByEntityAndPage(final String listId,
          final Object params, final PageModel pageModel) throws Exception {
         PageInfo pageInfo = selectByPage(listId, params,
@@ -168,14 +168,14 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
             pageModel.setList(pageInfo.getList());
         }
         return pageModel;
-    }
+    }*/
 
-    /**
+   /* *//**
      * @param listId String
      * @param params Map
      * @return PageModel
      * @throws Exception has a error
-     */
+     *//*
     protected PageModel selectByEntityAndPage(final String listId,
          final Map<String, String> params) throws Exception {
         String curPage = StringUtils.defaultIfEmpty((String) params.get(
@@ -185,14 +185,14 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
         PageModel pageModel = new PageModel(Integer.parseInt(curPage));
         pageModel.setPageSize(Integer.parseInt(numPerPage));
         return selectByEntityAndPage(listId, params, pageModel);
-    }
+    }*/
 
     /**
      * @param listId String
      * @param params Object
      * @param offset int
      * @param limit  int
-     * @return PageInfo
+     * @return AbstractPageModel
      * @throws Exception has a error
      */
     protected PageInfo selectByPage(final String listId,

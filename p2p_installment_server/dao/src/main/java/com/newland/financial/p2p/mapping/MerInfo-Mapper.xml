@@ -12,6 +12,7 @@
         <result column="MER_ABBR" property="merAbbr" jdbcType="VARCHAR"/>
         <result column="REGISTERED_ADDRESS" property="registeredAddress" jdbcType="VARCHAR"/>
         <result column="PARENT_CHANNELS_CODE" property="parentChannelsCode" jdbcType="VARCHAR"/>
+        <result column="PARENT_MERCHANT_CODE" property="parentMerchantCode" jdbcType="VARCHAR"/>
         <result column="ADDR" property="addr" jdbcType="VARCHAR"/>
         <result column="CORPORATE_REPRESENTATIVE" property="corporateRepresentative" jdbcType="VARCHAR"/>
         <result column="LXR" property="lxr" jdbcType="VARCHAR"/>
@@ -38,12 +39,21 @@
         <result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR"/>
         <result column="LEV" property="lev" jdbcType="VARCHAR"/>
         <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="SCHEDULE_STATE" property="scheduleState" jdbcType="VARCHAR"/>
+        <result column="RATE_SIX" property="rateSix" jdbcType="NUMERIC"/>
+        <result column="RATE_TWELVE" property="rateTwelve" jdbcType="NUMERIC"/>
+        <result column="RATE_TWENTY_FOUR" property="rateTwentyFour" jdbcType="NUMERIC"/>
+        <result column="SUBSIDY" property="subsidy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="CONTRACTS_CODE" property="contractsCode" jdbcType="VARCHAR"/>
+        <result column="FAILURE" property="failure" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List" >
-        ID,MER_ID,MER_NAME,MER_PWD,MER_ABBR,REGISTERED_ADDRESS,PARENT_CHANNELS_CODE,ADDR,CORPORATE_REPRESENTATIVE,LXR,TEL,MOBILE,EMAIL,FAX,NATURE,LEASE,SITEAREA,START_BUSINESS,
+        ID,MER_ID,MER_NAME,MER_PWD,MER_ABBR,REGISTERED_ADDRESS,PARENT_CHANNELS_CODE,PARENT_MERCHANT_CODE,ADDR,CORPORATE_REPRESENTATIVE,LXR,TEL,MOBILE,EMAIL,FAX,NATURE,LEASE,SITEAREA,START_BUSINESS,
         BUSINESS_HOURSE,INDUSTRIES_ID,INDUSTRIES_EXPLAI,BANKCARD_TURNOVER,SALESSLIP_TURNOVER,LFQ_TURNOVER,CHANNELS_ID,BANK_NAME,BANK_NUM,HOLDER_NAME,CARD_NUM,UNIONPAY_MERCHANT_NUM,PARENT_NAME,
-        LEV,REMARK
+        LEV,REMARK,STATE,SCHEDULE_STATE,RATE_SIX,RATE_TWELVE,RATE_TWENTY_FOUR,SUBSIDY,CREATE_TIME,CONTRACTS_CODE,FAILURE
     </sql>
 
     <select id="selectByMerId" resultMap="BaseResultMap" parameterType="String">
@@ -52,5 +62,17 @@
         from t_inst_merinfo
         where MER_ID = #{merId}
     </select>
-
+    <!--查询商户列表（条件模糊查询）-->
+    <select id="selectMerchantList" resultMap="BaseResultMap" parameterType="Map">
+        SELECT * FROM t_inst_merinfo
+        <where>
+            1=1
+            <if test="merId != null">
+                and MER_ID like CONCAT('%','${merId}','%')
+            </if>
+            <if test="merName != null">
+                and MER_NAME like CONCAT('%','${merName}','%')
+            </if> ORDER BY CREATE_TIME desc
+        </where>
+    </select>
 </mapper>
