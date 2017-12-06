@@ -57,7 +57,7 @@ public class RefundController {
      *                }<BR>
      *
      */
-    @RequestMapping(value = "/createRefundOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/createRefundOrder/uploadfile", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void uploadFile() {
 

@@ -1,10 +1,38 @@
 version: '3'
 services:
-    eurekaserver1:
-        image: nexusserver:8082/p2p-eureka-server:latest
+    p2p-installment-server:
+        image: nexusserver:8082/p2p-installment-server:latest
         volumes:
             - /home/DockerCommand/:/home/DockerCommand/
         deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+            resources:
+                limits:
+                    #cpus: '0.001'
+                    memory: 2046M
+                reservations:
+                    #cpus: '0.0001'
+                    memory: 64M
+        networks:
+            docker-net:
+                aliases:
+                    - p2p-installment-server
+        ports:
+            - "3003:3003"
+        environment:
+            - SPRING_PROFILES_ACTIVE=test
+            - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
+            - SERVER_PORT = 3003
+    p2p-installment-client:
+        image: nexusserver:8082/p2p-installment-client:latest
+        volumes:
+            - /home/DockerCommand/:/home/DockerCommand/
+        depends_on:
+            - p2p-installment-server
+        deploy:
+            replicas: 1
             restart_policy:
                 condition: on-failure
             resources:
@@ -17,18 +45,20 @@ services:
         networks:
             docker-net:
                 aliases:
-                   - eurekaserver
+                    - p2p-installment-client
         ports:
-            - "1111:1111"
+            - "4003:4003"
         environment:
-            - spring.profiles.active=server1
-            - ADDITIONAL_EUREKA_SERVER_LIST=http://eurekaserver2:1112/eureka/,http://eurekaserver3:1113/eureka/
-
-    eurekaserver2:
-        image: nexusserver:8082/p2p-eureka-server:latest
+            - SPRING_PROFILES_ACTIVE=test
+            - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
+            - SERVER_PORT = 4003
+    lfqpay-client:
+        image: nexusserver:8082/lfqpay-client:latest
         volumes:
             - /home/DockerCommand/:/home/DockerCommand/
+            - /home/DockerCommand/cert/001/:/home/DockerCommand/cert/001/
         deploy:
+            replicas: 1
             restart_policy:
                 condition: on-failure
             resources:
@@ -41,36 +71,13 @@ services:
         networks:
             docker-net:
                 aliases:
-                   - eurekaserver
+                    - lfqpay-client
         ports:
-            - "1112:1111"
+            - "3004:3004"
         environment:
-            - spring.profiles.active=server2
-            - ADDITIONAL_EUREKA_SERVER_LIST=http://eurekaserver1:1111/eureka/,http://eurekaserver3:1113/eureka/
-
-    eurekaserver3:
-        image: nexusserver:8082/p2p-eureka-server:latest
-        volumes:
-            - /home/DockerCommand/:/home/DockerCommand/
-        deploy:
-            restart_policy:
-                condition: on-failure
-            resources:
-                limits:
-                    #cpus: '0.001'
-                    memory: 1024M
-                reservations:
-                    #cpus: '0.0001'
-                    memory: 64M
-        networks:
-            docker-net:
-                aliases:
-                    - eurekaserver
-        ports:
-            - "1113:1111"
-        environment:
-            - spring.profiles.active=server3
-            - ADDITIONAL_EUREKA_SERVER_LIST=http://eurekaserver1:1111/eureka/,http://eurekaserver2:1112/eureka/
+            - SPRING_PROFILES_ACTIVE=test
+            - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
+            - SERVER_PORT = 3004
 
 networks:
     docker-net:

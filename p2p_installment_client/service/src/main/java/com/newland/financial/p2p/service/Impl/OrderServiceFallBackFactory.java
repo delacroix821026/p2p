@@ -1,9 +1,12 @@
 package com.newland.financial.p2p.service.Impl;
 
+import com.newland.financial.p2p.domain.entity.OrderInfo;
 import com.newland.financial.p2p.service.IOrderService;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Log4j
 @Component
@@ -44,6 +47,30 @@ public class OrderServiceFallBackFactory implements FallbackFactory<IOrderServic
                 log.info("*********findBlankOrder:被熔断***********");
                 log.error(cause);
                 return "1026";
+            }
+
+            public List<OrderInfo> getOrderInfoListByCustomer(String userId, OrderInfo orderInfo) {
+                return null;
+            }
+
+            public OrderInfo getOrderInfoDetailByCustomer(String userId, String orderId) {
+                return null;
+            }
+
+            public List<OrderInfo> getOrderInfoListByMerchant(String merchantId, OrderInfo orderInfo) {
+                return null;
+            }
+
+            public OrderInfo getOrderInfoDetailByMerchant(String merchantId, String orderId) {
+                return null;
+            }
+
+            public OrderInfo getOrderInfoListByPlantManager(OrderInfo orderInfo) {
+                return null;
+            }
+
+            public OrderInfo getOrderInfoDetailByPlantManager(String orderId) {
+                return null;
             }
         };
     }

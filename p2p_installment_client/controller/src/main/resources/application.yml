@@ -25,7 +25,8 @@ spring:
         password: admin123%
     redis:
         host: 10.0.1.41
-        port: 6379
+        port: 9529
+        password: newland123@456!
         database: 0
 
 hystrix:
