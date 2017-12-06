@@ -34,4 +34,10 @@ public interface IOrderInfoDao {
      * @return true or false
      */
     boolean deleteOrderInfo(String orderId);
+    /**
+     * pos端查询单个订单详细信息.
+     * @param orderId 订单号
+     * @param merId 商户代码
+     */
+   OrderInfo selectOrderInfoPos(String orderId, String merId);
 }

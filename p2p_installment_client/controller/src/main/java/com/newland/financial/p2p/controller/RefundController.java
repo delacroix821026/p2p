@@ -1,4 +1,5 @@
-/*package com.newland.financial.p2p.controller;
+/*
+package com.newland.financial.p2p.controller;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
@@ -8,16 +9,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
 
-*//**
+*/
+/**
  *退款Controller
  * @author Gregory
  *//*
+
 @RestController
 @Log4j
 @RequestMapping("/refund")
 public class RefundController {
 
-    *//**
+    */
+/**
      * 创建退款单.
      *
      * @param jsonStr 接收的json字符串:<BR>
@@ -40,6 +44,7 @@ public class RefundController {
      *                &nbsp;&nbsp;"respTime":"响应时间"<BR>
      *                }<BR>
      *//*
+
     @RequestMapping(value = "/createRefundOrder", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public Object createRefundOrder(@RequestBody String jsonStr) {
@@ -47,7 +52,8 @@ public class RefundController {
         return null;
     }
 
-    *//**
+    */
+/**
      * 上传凭证.
      *
      * @param jsonStr 接收的json字符串:<BR>
@@ -57,9 +63,11 @@ public class RefundController {
      *                }<BR>
      *
      *//*
+
     @RequestMapping(value = "/createRefundOrder", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void uploadFile() {
+    public void uploadFile(@RequestBody String jsonStr) {
 
     }
-}*/
+}
+*/

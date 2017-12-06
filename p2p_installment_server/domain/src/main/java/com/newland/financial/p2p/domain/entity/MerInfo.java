@@ -78,7 +78,7 @@ public class MerInfo extends BaseEntity {
     /**母公司名称.*/
     private String parentName;
     /**证件类型,1：新营业执照；2：旧的营业执照.*/
-    private String lev;
+    private String level;
     /**备注.*/
     private String remark;
     /**商户状态，0:正常  1:冻结.*/

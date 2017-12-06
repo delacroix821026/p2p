@@ -61,7 +61,7 @@ public class MerchantController {
      */
     @RequestMapping(value = "/synchMerchant", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateMerchantBySystem(@RequestBody String jsonStr) {
+    public void updateMerchantBySystem(@RequestBody MerInfo merInfo) {
 
     }
 

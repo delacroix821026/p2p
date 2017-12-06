@@ -19,7 +19,7 @@ public class OrderServiceFallBackFactory implements FallbackFactory<IOrderServic
                 return "1026";
             }
 
-            public Object findOrderInfo(String orderId) {
+            public Object findOrderInfo(String merId, String orderId) {
                 log.info("*********findOrderInfo:被熔断***********");
                 log.error(cause);
                 return "1026";

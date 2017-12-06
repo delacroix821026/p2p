@@ -27,10 +27,11 @@ public class MerchantController {
     /**service注入.*/
     @Autowired
     private IMerchantService merchantService;
+
     /**
-     * 商户查询.
-     *
-     * @return List<MerInfo>
+     * 管理平台商户列表查询，支持模糊查询.
+     * @param pageModel 包含查询条件
+     * @return 分页结果
      */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)

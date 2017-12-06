@@ -144,5 +144,12 @@
     <delete id="deleteByOrderId" parameterType="String">
         delete from t_inst_orderinfo where orderId = #{orderId}
     </delete>
+    <!--pos端单个订单查询-->
+    <select id="selectOrderPos" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List" />
+        from t_inst_orderinfo
+        where orderId = #{orderId} and merId = #{merId} and contractsCode is not null
+    </select>
 
 </mapper>

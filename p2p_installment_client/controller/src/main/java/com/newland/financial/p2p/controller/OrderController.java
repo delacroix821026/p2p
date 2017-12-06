@@ -93,12 +93,15 @@ public class OrderController {
      * &nbsp;"respMsg": "查询成功"//返回信息<BR>
      * }
      */
-    @RequestMapping(value = "/{orderId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{merId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Object findOrderInfo(@PathVariable(name = "orderId") String orderId) {
+    public Object findOrderInfo(@PathVariable(name = "merId") String merId, @PathVariable(name = "orderId") String orderId) {
         log.info("========1:client:findOrderInfo=======");
-        log.info("2:orderId：" + orderId);
-        Object ob = orderService.findOrderInfo(orderId);
+        log.info("orderId:" + orderId + ";merId:" + merId);
+        Object ob = orderService.findOrderInfo(merId, orderId);
+        if (ob == null) {
+            return ob;
+        }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1, orderId);
     }
@@ -239,7 +242,7 @@ public class OrderController {
      */
     @RequestMapping(value = "/plant/", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public  OrderInfo getOrderInfoListByPlantManager(OrderInfo orderInfo) {
+    public OrderInfo getOrderInfoListByPlantManager(OrderInfo orderInfo) {
         return null;
     }
 

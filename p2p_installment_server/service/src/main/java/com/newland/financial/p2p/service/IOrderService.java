@@ -2,6 +2,7 @@ package com.newland.financial.p2p.service;
 
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -49,6 +50,12 @@ public interface IOrderService {
      * @return true or false
      */
     boolean updateOrderInfo(OrderInfo or);
+    /**
+     * pos端查询单个订单详细信息.
+     * @param orderId 订单号
+     * @param merId 商户代码
+     */
+    OrderInfo findOrderInfoPos(String orderId, String merId);
 
     List<OrderInfo> getOrderInfoListByCustomer(String userId, OrderInfo orderInfo);
 

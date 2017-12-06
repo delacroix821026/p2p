@@ -121,12 +121,15 @@ public class OrderController {
      * @param orderId orderId
      * @return 订单信息.
      */
-    @RequestMapping(value = "/{orderId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{merId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Object findOrderInfo(@PathVariable(name = "orderId") String orderId) {
+    public Object findOrderInfo(@PathVariable(name = "merId") String merId, @PathVariable(name = "orderId") String orderId) {
         log.info("======3:come to server:findOrderInfo=====");
-        log.info("orderId:" + orderId);
-        OrderInfo orderInfo = orderService.findOrderInfo(orderId);
+        log.info("orderId:" + orderId + ";merId:" + merId);
+        OrderInfo orderInfo = orderService.findOrderInfoPos(orderId, merId);
+        if (orderInfo == null) {
+            return null;
+        }
         MerInfo merInfo = orderService.findMerInfo(orderInfo);
         OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);
         log.info("4:OrderQueryReq:" + oq.toString());

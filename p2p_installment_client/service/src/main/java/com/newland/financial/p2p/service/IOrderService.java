@@ -16,8 +16,8 @@ public interface IOrderService {
     @RequestMapping(method = RequestMethod.POST, value = "/order/{merId}")
     String createOrderInfo(@RequestBody String jsonStr, @PathVariable(name = "merId") String merId);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/order/{orderId}")
-    Object findOrderInfo(@PathVariable(name = "orderId") String orderId);
+    @RequestMapping(method = RequestMethod.GET, value = "/order/{merId}/{orderId}")
+    Object findOrderInfo(@PathVariable(name = "merId") String merId, @PathVariable(name = "orderId") String orderId);
 
     @RequestMapping(method = RequestMethod.PUT, value = "/order/{orderId}/OrderMsgReq")
     Object tradeUpdateOrder(@RequestBody String jsonStr, @PathVariable(name = "orderId") String orderId);

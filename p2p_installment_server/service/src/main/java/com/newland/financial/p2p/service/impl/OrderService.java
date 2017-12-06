@@ -116,6 +116,20 @@ public class OrderService implements IOrderService {
     public boolean updateOrderInfo(OrderInfo or) {
         return orderInfoDao.updateOrder(or);
     }
+    /**
+     * pos端查询单个订单详细信息.
+     * @param orderId 订单号
+     * @param merId 商户代码
+     */
+    public OrderInfo findOrderInfoPos(String orderId, String merId) {
+        if (orderId == null || orderId.length() == 0) {
+            return null;
+        }
+        if (merId == null || merId.length() == 0) {
+            return null;
+        }
+        return orderInfoDao.selectOrderInfoPos(orderId, merId);
+    }
 
     public List<OrderInfo> getOrderInfoListByCustomer(String userId, OrderInfo orderInfo) {
         return null;

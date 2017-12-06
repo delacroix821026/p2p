@@ -4,6 +4,9 @@ import com.newland.financial.p2p.dao.IOrderInfoDao;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 订单处理DaoImpl.
  *
@@ -46,6 +49,17 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
             return false;
         }
         return super.deletes("deleteByOrderId", orderId);
+    }
+    /**
+     * pos端查询单个订单详细信息.
+     * @param orderId 订单号
+     * @param merId 商户代码
+     */
+    public OrderInfo selectOrderInfoPos(String orderId, String merId) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("orderId", orderId);
+        map.put("merId", merId);
+        return super.selectEntity("selectOrderPos", map);
     }
 
 

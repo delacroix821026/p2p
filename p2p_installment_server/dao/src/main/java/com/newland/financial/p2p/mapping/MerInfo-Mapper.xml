@@ -37,7 +37,7 @@
         <result column="CARD_NUM" property="cardNum" jdbcType="VARCHAR"/>
         <result column="UNIONPAY_MERCHANT_NUM" property="unionpayMerchantNum" jdbcType="VARCHAR"/>
         <result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR"/>
-        <result column="LEV" property="lev" jdbcType="VARCHAR"/>
+        <result column="LEV" property="level" jdbcType="VARCHAR"/>
         <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
         <result column="STATE" property="state" jdbcType="VARCHAR"/>
         <result column="SCHEDULE_STATE" property="scheduleState" jdbcType="VARCHAR"/>
