@@ -1,6 +1,7 @@
 package com.newland.financial.p2p.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.service.IMerchantService;
@@ -28,7 +29,8 @@ public class MerchantController {
     @ResponseStatus(HttpStatus.OK)
     public Object getMerchantList(@RequestParam("jsonStr") String jsonStr) {
         log.info("*****client*****");
-        PageModel<MerInfo> pageModel = JSONObject.parseObject(jsonStr, PageModel.class);
+        PageModel<MerInfo> pageModel = JSONObject.parseObject(jsonStr, new TypeReference<PageModel<MerInfo>>() {});
+        //PageModel<MerInfo> pageModel = JSONObject.parseObject(jsonStr, PageModel.class);
         MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
         pageModel.setModel(merInfo);
         log.info("getMerchantList:" + pageModel.getModel().getMerId());
