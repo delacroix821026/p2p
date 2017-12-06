@@ -143,7 +143,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @param params Object
      * @param offset int
      * @param limit  int
-     * @return PageInfo
+     * @return AbstractPageModel
      * @throws Exception has a error
      */
     protected PageInfo selectByEntityAndPage(final String listId,
@@ -192,7 +192,7 @@ public class MybatisBaseDao<T extends BaseEntity> extends SqlSessionDaoSupport {
      * @param params Object
      * @param offset int
      * @param limit  int
-     * @return PageInfo
+     * @return AbstractPageModel
      * @throws Exception has a error
      */
     protected PageInfo selectByPage(final String listId,
