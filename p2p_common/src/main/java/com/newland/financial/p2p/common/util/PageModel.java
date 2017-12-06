@@ -26,14 +26,7 @@ public final class PageModel<T> extends AbstractPageModel<T> implements Serializ
      * 无参构造.
      * */
     public PageModel() {
-        Class <T> entityClass = ReflectUtils.getClassGenricType(getClass());
-        try {
-            model = (T) entityClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+
     }
     /**
      *@param pageNum Integer
