@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.*;
 @Log4j
 @RequestMapping("/merchant")
 public class MerchantController {
-    /**service注用.*/
+    /**service注入.*/
     @Autowired
     private IMerchantService merchantService;
     /**
-     * 商户查询.
-     *
+     * 管理平台商户列表分页模糊查询.
+     *@param jsonStr 查询条件
      * @return List<MerInfo>
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -49,9 +49,9 @@ public class MerchantController {
      *
      * @return MerInfo
      */
-    @RequestMapping(value = "/{merchantId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{merId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public MerInfo getMerchantDetail(@PathVariable(name = "merchantId") String merchantId) {
+    public MerInfo getMerchantDetail(@PathVariable(name = "merId") String merId) {
         return null;
     }
 
@@ -61,8 +61,12 @@ public class MerchantController {
      */
     @RequestMapping(value = "/synchMerchant", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateMerchantBySystem(@RequestBody MerInfo merInfo) {
-
+    public void updateMerchantBySystem(@RequestBody String jsonStr) {
+        log.info("jsonStr" + jsonStr);
+        MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
+        log.info("MerInfo:" + merInfo.getMerId());
+        log.info("MerInfo:" + merInfo.getMerName());
+        
     }
 
     /**
