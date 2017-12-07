@@ -26,7 +26,7 @@ public interface IMerchantService {
     @RequestMapping(method = RequestMethod.POST, value = "/merchant/synchMerchantFile")
     void uploadMerchantBySystem(MerInfo merInfo);
 
-    @RequestMapping(method = RequestMethod.POST, value = "/merchant/{merchantId}")
-    void updateMerchant(MerInfo merInfo);
+    @RequestMapping(method = RequestMethod.POST, value = "/merchant/{merId}")
+    Object updateMerchant(@PathVariable(name = "merId") String merId, MerInfo merInfo);
 
 }

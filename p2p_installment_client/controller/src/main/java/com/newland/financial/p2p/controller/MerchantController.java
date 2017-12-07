@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Delacroix
  */
@@ -66,7 +69,8 @@ public class MerchantController {
         MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
         log.info("MerInfo:" + merInfo.getMerId());
         log.info("MerInfo:" + merInfo.getMerName());
-        
+        log.info("MerInfo" + merInfo.getRateSix());
+
     }
 
     /**
@@ -83,10 +87,18 @@ public class MerchantController {
      * 商户更新（前端输入）.
      *
      */
-    @RequestMapping(value = "/{merchantId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{merId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
-
+    public Object updateMerchant(@PathVariable(name = "merId") String merId, @RequestBody String jsonStr) {
+        log.info("merId:" + merId + ";jsonStr:" + jsonStr);
+        MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
+        if (merInfo.getMerId() == null || "".equals(merInfo.getMerId())) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("respCode", "0414");
+            map.put("respMsg", "操作失败");
+            return map;
+        }
+        return merchantService.updateMerchant(merId, merInfo);
     }
 
 }

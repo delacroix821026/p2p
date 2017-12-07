@@ -29,4 +29,12 @@ public class MerInfoDaoImpl extends MybatisBaseDao<MerInfo> implements IMerInfoD
     public List<MerInfo> findMerchantList(Map<String, Object> map) {
         return super.select("selectMerchantList", map);
     }
+    /**
+     * 更新商户信息(费率和合同号).
+     * @param merInfo 更新内容
+     * @return boolean
+     */
+    public boolean updateMerchant(MerInfo merInfo) {
+        return super.update("updateMerchantRateAndCon", merInfo);
+    }
 }

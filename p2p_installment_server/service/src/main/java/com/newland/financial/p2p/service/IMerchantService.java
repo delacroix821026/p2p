@@ -31,5 +31,10 @@ public interface IMerchantService {
 
     void uploadMerchantBySystem(MerInfo merInfo);
 
-    void updateMerchant(MerInfo merInfo);
+    /**
+     * 更新商户信息(费率和合同号).
+     * @param merInfo 更新内容
+     * @return boolean
+     */
+    boolean updateMerchant(MerInfo merInfo);
 }

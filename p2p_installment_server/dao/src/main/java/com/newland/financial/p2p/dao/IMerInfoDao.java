@@ -23,4 +23,10 @@ public interface IMerInfoDao {
      * @return 信息集合
      */
     List<MerInfo> findMerchantList(Map<String, Object> map);
+    /**
+     * 更新商户信息(费率和合同号).
+     * @param merInfo 更新内容
+     * @return boolean
+     */
+    boolean updateMerchant(MerInfo merInfo);
 }

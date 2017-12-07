@@ -75,4 +75,23 @@
             </if> ORDER BY CREATE_TIME desc
         </where>
     </select>
+
+    <update id="updateMerchantRateAndCon" parameterType="com.newland.financial.p2p.domain.entity.MerInfo">
+        update t_inst_merinfo
+        <set>
+            <if test="rateSix != null">
+                RATE_SIX = #{rateSix,jdbcType=NUMERIC},
+            </if>
+            <if test="rateTwelve != null">
+                RATE_TWELVE = #{rateTwelve,jdbcType=NUMERIC},
+            </if>
+            <if test="rateTwentyFour != null">
+                RATE_TWENTY_FOUR = #{rateTwentyFour,jdbcType=NUMERIC},
+            </if>
+            <if test="contractsCode != null">
+                CONTRACTS_CODE = #{contractsCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE MER_ID = #{merId,jdbcType=VARCHAR}
+    </update>
 </mapper>

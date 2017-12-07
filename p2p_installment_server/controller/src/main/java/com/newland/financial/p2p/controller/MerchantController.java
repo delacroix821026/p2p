@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * 商户信息处理Controller.
@@ -24,12 +28,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Log4j
 @RequestMapping("/merchant")
 public class MerchantController {
-    /**service注入.*/
+    /**
+     * service注入.
+     */
     @Autowired
     private IMerchantService merchantService;
 
     /**
      * 管理平台商户列表查询，支持模糊查询.
+     *
      * @param pageModel 包含查询条件
      * @return 分页结果
      */
@@ -76,9 +83,22 @@ public class MerchantController {
     /**
      * 商户更新（前端输入）.
      */
-    @RequestMapping(value = "/{merchantId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{merId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateMerchant(MerInfo merInfo) {
-
+    public Object updateMerchant(@PathVariable(name = "merId") String merId, @RequestBody MerInfo merInfo) {
+        MerInfo mer = merInfo;
+        if ("".equals(mer.getContractsCode())) {
+            mer.setContractsCode(null);
+        }
+        boolean b = merchantService.updateMerchant(mer);
+        Map<String, String> map = new HashMap<String, String>();
+        if (b) {
+            map.put("respCode", "0000");
+            map.put("respMsg", "操作成功");
+        } else {
+            map.put("respCode", "0414");
+            map.put("respMsg", "操作失败");
+        }
+        return map;
     }
 }
