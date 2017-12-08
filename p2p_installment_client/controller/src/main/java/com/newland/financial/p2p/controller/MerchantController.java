@@ -8,6 +8,7 @@ import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.service.ILfqMerchantService;
 import com.newland.financial.p2p.service.IMerchantService;
+import com.newland.financial.p2p.service.IMerinfoAndPicture;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,8 @@ public class MerchantController {
      */
     @Autowired
     private ILfqMerchantService lfqMerchantService;
+    @Autowired
+    private IMerinfoAndPicture merinfoAndPicture;
 
     /**
      * 管理平台商户列表分页模糊查询.
@@ -80,6 +83,11 @@ public class MerchantController {
         MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
         log.info("MerInfo:" + merInfo.getMerchantId());
         log.info("MerInfo:" + merInfo.getMerName());
+        String jsonStr1 = "{\n" +
+                "\t\"merchantId\":\"85715029311L000\"\n" +
+                "}";
+        String result = merinfoAndPicture.getMerInfoAndPicture(jsonStr1);
+        log.info("收单平台返回数据：" + result);
         // 先入库
         boolean b = merchantService.updateMerchantBySystem(merInfo);
         log.info("入库结果：" + b);

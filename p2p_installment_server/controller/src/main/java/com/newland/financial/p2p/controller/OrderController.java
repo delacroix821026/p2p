@@ -2,6 +2,7 @@ package com.newland.financial.p2p.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.domain.entity.InstallObjectFactory;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
@@ -11,6 +12,7 @@ import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -182,17 +184,6 @@ public class OrderController {
         map.put("respMsg", "二维码可用");
         return map;
     }
-
-/*    *//**
-     * 用户查询订单列表.
-     *
-     * @return OrderInfolist
-     *//*
-    @RequestMapping(value = "/my/{userId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<OrderInfo> getOrderInfoListByCustomer(@PathVariable(name = "userId") String userId, @RequestBody String jsonStr) {
-        return null;
-    }*/
 
     /**
      * 用户订单列表详细.

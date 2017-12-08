@@ -1,5 +1,7 @@
 package com.newland.financial.p2p.service;
 
+import com.github.pagehelper.PageInfo;
+import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
 import org.aspectj.weaver.ast.Or;
