@@ -70,4 +70,6 @@ public class OrderInfo extends BaseEntity {
     private String respMsg;
     /**商户名称.*/
     private String merName;
+    /**新大陆处商户Id.*/
+    private String merchantId;
 }

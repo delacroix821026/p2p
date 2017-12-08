@@ -34,7 +34,7 @@ public class OrderController {
      *
      * @param jsonStr 请求参数:<BR>
      *                {<BR>
-     *                &nbsp;"merId":"111111111",//商户代码<BR>
+     *                &nbsp;"merchantId":"111111111",//商户代码<BR>
      *                &nbsp;"txnAmt":10000//分期金额<BR>
      *                }
      * @return 返回参数:<BR>
@@ -42,12 +42,12 @@ public class OrderController {
      * &nbsp;"orderId":2017111615064349906//订单号<BR>
      * }
      */
-    @RequestMapping(value = "/{merId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{merchantId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Object createBlankOrder(@PathVariable(name = "merId") String merId, @RequestBody String jsonStr) {
+    public Object createBlankOrder(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
         log.info("========client:createBlankOrder=======");
         log.info("jsonStr：" + jsonStr);
-        String orderId = orderService.createOrderInfo(jsonStr, merId);
+        String orderId = orderService.createOrderInfo(jsonStr, merchantId);
         Map<String, String> map = new HashMap<String, String>();
         map.put("orderId", orderId);
         return map;
@@ -93,12 +93,12 @@ public class OrderController {
      * &nbsp;"respMsg": "查询成功"//返回信息<BR>
      * }
      */
-    @RequestMapping(value = "/{merId}/{orderId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{merchantId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Object findOrderInfo(@PathVariable(name = "merId") String merId, @PathVariable(name = "orderId") String orderId) {
+    public Object findOrderInfo(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId) {
         log.info("========1:client:findOrderInfo=======");
-        log.info("orderId:" + orderId + ";merId:" + merId);
-        Object ob = orderService.findOrderInfo(merId, orderId);
+        log.info("orderId:" + orderId + ";merchantId:" + merchantId);
+        Object ob = orderService.findOrderInfo(merchantId, orderId);
         if (ob == null) {
             return ob;
         }
@@ -160,9 +160,6 @@ public class OrderController {
     public Object tradeUpdateOrder(@PathVariable(name = "orderId") String orderId, @RequestBody String jsonStr) {
         log.info("========client:tradeUpdateOrder=======");
         log.info("1.jsonStr：" + jsonStr);
-        //LibraSession librea = UserInfoUtils.getUserInfo();
-        //String userId = UserInfoUtils.getUserInfo().getLoginName();
-        //log.info("userId:==========" + UserInfoUtils.getUserInfo().getLoginName());
         Object ob = orderService.tradeUpdateOrder(jsonStr, orderId);
         if (ob == null) {
             Map<String, String> map = new HashMap<String, String>();

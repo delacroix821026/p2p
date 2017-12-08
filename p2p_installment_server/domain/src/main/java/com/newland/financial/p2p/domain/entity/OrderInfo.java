@@ -16,7 +16,7 @@ public class OrderInfo extends BaseEntity {
     private String id;
     /**发送时间.*/
     private Date txnTime;
-    /**商户代码.*/
+    /**乐百分处商户代码.*/
     private String merId;
     /**订单总金额.*/
     private Long txnAmt;
@@ -74,4 +74,6 @@ public class OrderInfo extends BaseEntity {
     private String merName;
     /**微信需要使用的id.*/
     private String openId;
+    /**新大陆处商户Id.*/
+    private String merchantId;
 }

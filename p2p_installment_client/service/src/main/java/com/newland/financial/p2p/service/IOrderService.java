@@ -13,11 +13,11 @@ import java.util.List;
 @FeignClient(value = "p2p-installment-server${DEVLOPER_NAME:}", fallbackFactory = OrderServiceFallBackFactory.class)
 public interface IOrderService {
 
-    @RequestMapping(method = RequestMethod.POST, value = "/order/{merId}")
-    String createOrderInfo(@RequestBody String jsonStr, @PathVariable(name = "merId") String merId);
+    @RequestMapping(method = RequestMethod.POST, value = "/order/{merchantId}")
+    String createOrderInfo(@RequestBody String jsonStr, @PathVariable(name = "merchantId") String merchantId);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/order/{merId}/{orderId}")
-    Object findOrderInfo(@PathVariable(name = "merId") String merId, @PathVariable(name = "orderId") String orderId);
+    @RequestMapping(method = RequestMethod.GET, value = "/order/{merchantId}/{orderId}")
+    Object findOrderInfo(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId);
 
     @RequestMapping(method = RequestMethod.PUT, value = "/order/{orderId}/OrderMsgReq")
     Object tradeUpdateOrder(@RequestBody String jsonStr, @PathVariable(name = "orderId") String orderId);

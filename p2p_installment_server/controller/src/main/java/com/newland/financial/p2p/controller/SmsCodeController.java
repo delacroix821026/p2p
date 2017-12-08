@@ -30,7 +30,7 @@ public class SmsCodeController {
     /**
      * 生成短信接口请求报文.
      *
-     * @param merId  商户代码
+     * @param merchantId  商户代码
      * @param mobile 手机号码
      * @return 返回参数：<BR>
      * {<BR>
@@ -48,18 +48,18 @@ public class SmsCodeController {
      * &nbsp;}<BR>
      * }
      */
-    @RequestMapping(value = "/{merId}/{mobile}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{merchantId}/{mobile}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Object sendSmsCode(@PathVariable(name = "merId") String merId, @PathVariable(name = "mobile") String mobile) {
+    public Object sendSmsCode(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "mobile") String mobile) {
         log.info("------------------------------server-->SmsCodeController----------------------------");
-        log.info("merId:" + merId + ", mobile:" + mobile);
+        log.info("merchantId:" + merchantId + ", mobile:" + mobile);
         //校验商户号
-        if (merId == null | "".equals(merId)) {
+        if (merchantId == null | "".equals(merchantId)) {
             log.info("--------------------------商户号为空");
             return null;
         }
         //没有对应商户信息直接返回
-        CodeMsgReq codeMsgReq = merchantService.getMerInfo(merId);
+        CodeMsgReq codeMsgReq = merchantService.getMerInfo(merchantId);
         if (codeMsgReq == null) {
             log.info("--------------------------没有对应商户信息");
             return null;

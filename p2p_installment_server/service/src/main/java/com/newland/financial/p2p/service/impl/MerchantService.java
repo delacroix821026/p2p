@@ -34,11 +34,11 @@ public class MerchantService implements IMerchantService {
     /**
      * 查询商户信息.
      *
-     * @param merId 商户Id
+     * @param merchantId 商户Id
      * @return MerInfo对象
      */
-    public CodeMsgReq getMerInfo(String merId) {
-        MerInfo merInfo = iMerInfoDao.selectMerInfoByMerId(merId);
+    public CodeMsgReq getMerInfo(String merchantId) {
+        MerInfo merInfo = iMerInfoDao.selectMerInfoByMerchantId(merchantId);
         if (merInfo == null) {
             return null;
         }

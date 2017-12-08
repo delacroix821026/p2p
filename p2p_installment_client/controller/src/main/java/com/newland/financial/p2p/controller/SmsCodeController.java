@@ -42,13 +42,13 @@ public class SmsCodeController {
      * &nbsp;}<BR>
      * }
      */
-    @RequestMapping(value = "/{merId}/{mobile}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{merchantId}/{mobile}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Object sendSmsCode(@PathVariable(name = "merId") String merId, @PathVariable(name = "mobile") String mobile ) {
+    public Object sendSmsCode(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "mobile") String mobile ) {
         log.info("------------------------------client-->SmsCodeController-----------------------------");
-        log.info("mer_id:" + merId + ", mobile:" + mobile);
+        log.info("merchantId:" + merchantId + ", mobile:" + mobile);
 
-        Object msgCodeReqPram = smsCodeService.getMsgCodeReqPram(merId,mobile);
+        Object msgCodeReqPram = smsCodeService.getMsgCodeReqPram(merchantId,mobile);
         //请求参数未通过校验或没有对应的商户信息
         Map<String, Object> resp = new HashMap<String, Object>();
         if (msgCodeReqPram == null) {

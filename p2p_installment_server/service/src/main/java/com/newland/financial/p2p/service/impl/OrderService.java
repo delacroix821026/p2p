@@ -50,9 +50,13 @@ public class OrderService implements IOrderService {
         Date date = new Date();
         StringBuffer s = new StringBuffer(sdf.format(date));
         s.append(str);
+        String merchantId = paramJSON.getString("merchantId");
+        MerInfo merInfo = merInfoDao.selectMerInfoByMerchantId(merchantId);
+        log.info("merchantId:" + merchantId + ";merId" + merInfo.getMerId());
+        orderInfo.setMerId(merInfo.getMerId());
         orderInfo.setOrderId(new String(s));
         orderInfo.setCreateTime(date);
-        orderInfo.setMerId(paramJSON.getString("merId"));
+        orderInfo.setMerchantId(merchantId);
         orderInfo.setTxnAmt(paramJSON.getLong("txnAmt"));
         orderInfoDao.insertOrder(orderInfo);
         return new String(s);
@@ -105,8 +109,8 @@ public class OrderService implements IOrderService {
      * @return 商户信息
      */
     public MerInfo findMerInfo(OrderInfo orderInfo) {
-        String merId = orderInfo.getMerId();
-        return merInfoDao.selectMerInfoByMerId(merId);
+        String merchantId = orderInfo.getMerchantId();
+        return merInfoDao.selectMerInfoByMerchantId(merchantId);
     }
     /**
      * 更新订单.
@@ -119,16 +123,16 @@ public class OrderService implements IOrderService {
     /**
      * pos端查询单个订单详细信息.
      * @param orderId 订单号
-     * @param merId 商户代码
+     * @param merchantId 商户代码
      */
-    public OrderInfo findOrderInfoPos(String orderId, String merId) {
+    public OrderInfo findOrderInfoPos(String orderId, String merchantId) {
         if (orderId == null || orderId.length() == 0) {
             return null;
         }
-        if (merId == null || merId.length() == 0) {
+        if (merchantId == null || merchantId.length() == 0) {
             return null;
         }
-        return orderInfoDao.selectOrderInfoPos(orderId, merId);
+        return orderInfoDao.selectOrderInfoPos(orderId, merchantId);
     }
 
     public List<OrderInfo> getOrderInfoListByCustomer(String userId, OrderInfo orderInfo) {

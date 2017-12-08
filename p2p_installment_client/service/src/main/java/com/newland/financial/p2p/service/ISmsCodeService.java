@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "p2p-installment-server${DEVLOPER_NAME:}", fallbackFactory = SmsCodeServiceFallBackFactory.class)
 public interface ISmsCodeService {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/smscode/{merId}/{mobile}")
-    Object getMsgCodeReqPram(@PathVariable(name = "merId") String merId, @PathVariable(name = "mobile") String mobile);
+    @RequestMapping(method = RequestMethod.GET, value = "/smscode/{merchantId}/{mobile}")
+    Object getMsgCodeReqPram(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "mobile") String mobile);
 }

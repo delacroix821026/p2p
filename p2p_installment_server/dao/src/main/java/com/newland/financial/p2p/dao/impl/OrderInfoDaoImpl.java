@@ -53,12 +53,12 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
     /**
      * pos端查询单个订单详细信息.
      * @param orderId 订单号
-     * @param merId 商户代码
+     * @param merchantId 商户代码
      */
-    public OrderInfo selectOrderInfoPos(String orderId, String merId) {
+    public OrderInfo selectOrderInfoPos(String orderId, String merchantId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("orderId", orderId);
-        map.put("merId", merId);
+        map.put("merchantId", merchantId);
         return super.selectEntity("selectOrderPos", map);
     }
 

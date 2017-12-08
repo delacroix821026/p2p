@@ -104,13 +104,13 @@ public class OrderController {
 
     /**
      * 生成一张空白订单.
-     * @param merId 商户代码
+     * @param merchantId 商户代码
      * @param jsonStr 订单信息.
      * @return 空白订单的订单编号
      */
-    @RequestMapping(value = "/{merId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{merchantId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public String createOrderInfo(@RequestBody String jsonStr, @PathVariable(name = "merId") String merId) {
+    public String createOrderInfo(@RequestBody String jsonStr, @PathVariable(name = "merchantId") String merchantId) {
         log.info("======come to server:createBlankOrder=====jsonStr:" + jsonStr);
         return orderService.createBlankOrder(jsonStr);
     }
@@ -121,12 +121,12 @@ public class OrderController {
      * @param orderId orderId
      * @return 订单信息.
      */
-    @RequestMapping(value = "/{merId}/{orderId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{merchantId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Object findOrderInfo(@PathVariable(name = "merId") String merId, @PathVariable(name = "orderId") String orderId) {
+    public Object findOrderInfo(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId) {
         log.info("======3:come to server:findOrderInfo=====");
-        log.info("orderId:" + orderId + ";merId:" + merId);
-        OrderInfo orderInfo = orderService.findOrderInfoPos(orderId, merId);
+        log.info("orderId:" + orderId + ";merchantId:" + merchantId);
+        OrderInfo orderInfo = orderService.findOrderInfoPos(orderId, merchantId);
         if (orderInfo == null) {
             return null;
         }

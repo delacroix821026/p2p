@@ -131,5 +131,4 @@ public class MerchantController {
         }
         return merchantService.updateMerchant(merchantId, merInfo);
     }
-
 }

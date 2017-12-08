@@ -33,10 +33,11 @@
         <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="stus" property="stus" jdbcType="VARCHAR"/>
         <result column="openId" property="openId" jdbcType="VARCHAR"/>
+        <result column="merchantId" property="merchantId" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id,txnTime,merId,txnAmt,txnterms,orderId,userId,accName,accNo,validity,accIdcard,accMobile,CVN2,discount,contractsCode,amount,queryId,poundage,contractsState,sumTerms,sumAmount,remainAmount,cancelAmount,cancelInterest,valueAdded,createTime,stus,openId
+        id,txnTime,merId,txnAmt,txnterms,orderId,userId,accName,accNo,validity,accIdcard,accMobile,CVN2,discount,contractsCode,amount,queryId,poundage,contractsState,sumTerms,sumAmount,remainAmount,cancelAmount,cancelInterest,valueAdded,createTime,stus,openId,merchantId
     </sql>
     <!--插入订单-->
     <insert id="insertOrder" parameterType="com.newland.financial.p2p.domain.entity.OrderInfo">
@@ -46,7 +47,7 @@
         #{accMobile,jdbcType=VARCHAR},#{cvn2,jdbcType=VARCHAR},#{discount,jdbcType=BIGINT},#{contractsCode,jdbcType=VARCHAR},
         #{amount,jdbcType=BIGINT},#{queryId,jdbcType=VARCHAR},#{poundage,jdbcType=BIGINT},#{contractsState,jdbcType=VARCHAR},#{sumTerms,jdbcType=INTEGER},
         #{sumAmount,jdbcType=BIGINT},#{remainAmount,jdbcType=BIGINT},#{cancelAmount,jdbcType=BIGINT},#{cancelInterest,jdbcType=BIGINT},
-        #{valueAdded,jdbcType=BIGINT},#{createTime,jdbcType=TIMESTAMP},#{stus,jdbcType=VARCHAR},#{openId,jdbcType=VARCHAR})
+        #{valueAdded,jdbcType=BIGINT},#{createTime,jdbcType=TIMESTAMP},#{stus,jdbcType=VARCHAR},#{openId,jdbcType=VARCHAR},#{merchantId,jdbcType=VARCHAR})
     </insert>
     <!--根据订单号更新订单-->
     <update id="updateByOrderId" parameterType="com.newland.financial.p2p.domain.entity.OrderInfo">
@@ -149,7 +150,7 @@
         select
         <include refid="Base_Column_List" />
         from t_inst_orderinfo
-        where orderId = #{orderId} and merId = #{merId} and contractsCode is not null
+        where orderId = #{orderId} and merchantId = #{merchantId} and contractsCode is not null
     </select>
 
 </mapper>
