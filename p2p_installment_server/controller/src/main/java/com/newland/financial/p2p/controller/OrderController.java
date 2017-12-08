@@ -183,26 +183,32 @@ public class OrderController {
         return map;
     }
 
-    /**
+/*    *//**
      * 用户查询订单列表.
      *
      * @return OrderInfolist
-     */
+     *//*
     @RequestMapping(value = "/my/{userId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<OrderInfo> getOrderInfoListByCustomer(@PathVariable(name = "userId") String userId, @RequestBody String jsonStr) {
         return null;
-    }
+    }*/
 
     /**
      * 用户订单列表详细.
      *
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/my/{userId}/{orderId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/weixin", method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public OrderInfo getOrderInfoDetailByCustomer(@PathVariable(name = "userId") String userId, @PathVariable(name = "orderId") String orderId) {
-        return null;
+    public Object getOrderInfoDetailByCustomer (@RequestBody PageModel<OrderInfo> pageModel) {
+        log.info("*********---------***********");
+        log.info("getMerchantList:" + pageModel.getModel().getOpenId());
+        log.info("getMerchantList:" + pageModel.getModel().getOrderId());
+        log.info("getMerchantList:" + pageModel.getPageNum());
+        log.info("getMerchantList:" + pageModel.getPageSize());
+
+        return orderService.getOrderInfoDetailByCustomer(pageModel);
     }
 
     /**

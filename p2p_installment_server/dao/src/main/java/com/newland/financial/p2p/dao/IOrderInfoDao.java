@@ -40,4 +40,10 @@ public interface IOrderInfoDao {
      * @param merId 商户代码
      */
    OrderInfo selectOrderInfoPos(String orderId, String merId);
+    /**
+     * 微信用户订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo> findOrderInfoDetailByCustomer(Map<String, Object> map);
 }

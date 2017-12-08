@@ -49,12 +49,10 @@ public class OrderServiceFallBackFactory implements FallbackFactory<IOrderServic
                 return "1026";
             }
 
-            public List<OrderInfo> getOrderInfoListByCustomer(String userId, OrderInfo orderInfo) {
-                return null;
-            }
-
-            public OrderInfo getOrderInfoDetailByCustomer(String userId, String orderId) {
-                return null;
+            public Object getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel) {
+                log.info("*********getOrderInfoDetailByCustomer:被熔断***********");
+                log.error(cause);
+                return "1026";
             }
 
             public List<OrderInfo> getOrderInfoListByMerchant(String merchantId, OrderInfo orderInfo) {

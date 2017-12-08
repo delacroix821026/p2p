@@ -31,11 +31,8 @@ public interface IOrderService {
     @RequestMapping(method = RequestMethod.GET, value = "/order/{orderId}/OrderInfo")
     Object findBlankOrder(@PathVariable(name = "orderId") String orderId);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/order/my/{userId}")
-    List<OrderInfo> getOrderInfoListByCustomer(@PathVariable(name = "userId") String userId, OrderInfo orderInfo);
-
-    @RequestMapping(method = RequestMethod.GET, value = "/order/my/{userId}/{orderId}")
-    OrderInfo getOrderInfoDetailByCustomer(@PathVariable(name = "userId") String userId, @PathVariable(name = "orderId") String orderId);
+    @RequestMapping(method = RequestMethod.GET, value = "/order/weixin")
+    Object getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel);
 
     @RequestMapping(method = RequestMethod.GET, value = "/order/merchant/{merchantId}")
     List<OrderInfo> getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, OrderInfo orderInfo);

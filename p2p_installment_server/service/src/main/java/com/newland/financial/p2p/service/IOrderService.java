@@ -57,9 +57,10 @@ public interface IOrderService {
      */
     OrderInfo findOrderInfoPos(String orderId, String merId);
 
-    List<OrderInfo> getOrderInfoListByCustomer(String userId, OrderInfo orderInfo);
-
-    OrderInfo getOrderInfoDetailByCustomer(String userId, String orderId);
+    /**
+     *  微信顾客查询订单.
+     */
+    PageInfo<OrderInfo> getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel);
 
     List<OrderInfo> getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, OrderInfo orderInfo);
 

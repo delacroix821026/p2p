@@ -135,12 +135,40 @@ public class OrderService implements IOrderService {
         return orderInfoDao.selectOrderInfoPos(orderId, merchantId);
     }
 
-    public List<OrderInfo> getOrderInfoListByCustomer(String userId, OrderInfo orderInfo) {
-        return null;
-    }
-
-    public OrderInfo getOrderInfoDetailByCustomer(String userId, String orderId) {
-        return null;
+    /**
+     * 微信顾客查询订单.
+     */
+    public PageInfo<OrderInfo> getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel) {
+        String openId = pageModel.getModel().getOpenId();
+        String orderId = pageModel.getModel().getOrderId();
+        Integer p = pageModel.getPageNum();
+        Integer c = pageModel.getPageSize();
+        Integer page = null;
+        Integer count = null;
+        if (p == null || p < 1) {
+            page = 1;
+        } else {
+            page = p;
+        }
+        if (c == null || c < 5) {
+            count = 5;
+        } else {
+            count = c;
+        }
+        if (openId == null || "".equals(openId)) {
+            return null;
+        }
+        if ("".equals(orderId)) {
+            orderId = null;
+        }
+        log.info("page=" + page + ";count=" + count + ";openId=" + openId + ";orderId=" + orderId);
+        Map<String, Object> map1 = new HashMap<String, Object>();
+        map1.put("openId", openId);
+        map1.put("orderId", orderId);
+        //开始分页
+        PageHelper.startPage(page, count);
+        PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findOrderInfoDetailByCustomer(map1));
+        return pageInfo;
     }
 
     public List<OrderInfo> getOrderInfoListByMerchant(String merchantId, OrderInfo orderInfo) {

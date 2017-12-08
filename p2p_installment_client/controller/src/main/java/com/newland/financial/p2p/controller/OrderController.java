@@ -188,28 +188,39 @@ public class OrderController {
         return ob;
     }
 
-    /**
+   /*    *//**
      * 用户查询订单列表.
      *
      * @return OrderInfolist
-     */
+     *//*
     @RequestMapping(value = "/my/{userId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<OrderInfo> getOrderInfoListByCustomer(@PathVariable(name = "userId") String userId, OrderInfo orderInfo) {
         return null;
-    }
+    }*/
 
     /**
-     * 用户订单列表详细.
+     * 微信用户订单列表详细.
      *
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/my/{userId}/{orderId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/weixin", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public OrderInfo getOrderInfoDetailByCustomer(@PathVariable(name = "userId") String userId, @PathVariable(name = "orderId") String orderId) {
-        return null;
+    public Object getOrderInfoDetailByCustomer(@RequestParam("jsonStr") String jsonStr) {
+        log.info("========client:getOrderInfoDetailByCustomer=======");
+        ObjectMapper objectMapper = new ObjectMapper();
+        PageModel<OrderInfo> pageModel = null;
+        try {
+            pageModel = objectMapper.readValue(jsonStr, new TypeReference<PageModel<OrderInfo>>() {});
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+        log.info("getMerchantList:" + pageModel.getModel().getOpenId());
+        log.info("getMerchantList:" + pageModel.getModel().getOrderId());
+        log.info("getMerchantList:" + pageModel.getPageNum());
+        log.info("getMerchantList:" + pageModel.getPageSize());
+        return orderService.getOrderInfoDetailByCustomer(pageModel);
     }
-
     /**
      * 商户查询订单列表.
      *

@@ -61,6 +61,14 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
         map.put("merchantId", merchantId);
         return super.selectEntity("selectOrderPos", map);
     }
+    /**
+     * 微信顾客查询订单.
+     * 跟据map查询
+     */
+    public List<OrderInfo> findOrderInfoDetailByCustomer(Map<String, Object> map){
+
+        return super.select("findOrderByCustomer", map);
+    }
 
 
 }

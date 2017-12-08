@@ -152,5 +152,14 @@
         from t_inst_orderinfo
         where orderId = #{orderId} and merchantId = #{merchantId} and contractsCode is not null
     </select>
-
+    <!--微信顾客查询订单-->
+    <select id="findOrderByCustomer" resultMap="BaseResultMap" parameterType="Map">
+        SELECT * FROM t_inst_orderinfo
+        <where>
+            openId = #{openId}
+            <if test="orderId != null">
+                and orderId like CONCAT('%','${orderId}','%')
+            </if> ORDER BY createTime desc
+        </where>
+    </select>
 </mapper>
