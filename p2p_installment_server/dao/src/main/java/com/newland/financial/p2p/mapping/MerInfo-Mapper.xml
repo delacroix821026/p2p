@@ -21,9 +21,9 @@
         <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
         <result column="FAX" property="fax" jdbcType="VARCHAR"/>
         <result column="NATURE" property="nature" jdbcType="VARCHAR"/>
-        <result column="LEASE" property="lease" jdbcType="DATE"/>
+        <result column="LEASE" property="lease" jdbcType="VARCHAR"/>
         <result column="SITEAREA" property="sitearea" jdbcType="INTEGER"/>
-        <result column="START_BUSINESS" property="startBusiness" jdbcType="DATE"/>
+        <result column="START_BUSINESS" property="startBusiness" jdbcType="VARCHAR"/>
         <result column="BUSINESS_HOURSE" property="businessHourse" jdbcType="INTEGER"/>
         <result column="INDUSTRIES_ID" property="industriesId" jdbcType="VARCHAR"/>
         <result column="INDUSTRIES_EXPLAI" property="industriesExplai" jdbcType="VARCHAR"/>
@@ -48,17 +48,31 @@
         <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="CONTRACTS_CODE" property="contractsCode" jdbcType="VARCHAR"/>
         <result column="FAILURE" property="failure" jdbcType="VARCHAR"/>
+        <result column="MERCHANT_ID" property="merchantId" jdbcType="VARCHAR"/>
+        <result column="SCHEDULE_NUM" property="scheduleNum" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
         ID,MER_ID,MER_NAME,MER_PWD,MER_ABBR,REGISTERED_ADDRESS,PARENT_CHANNELS_CODE,PARENT_MERCHANT_CODE,ADDR,CORPORATE_REPRESENTATIVE,LXR,TEL,MOBILE,EMAIL,FAX,NATURE,LEASE,SITEAREA,START_BUSINESS,
         BUSINESS_HOURSE,INDUSTRIES_ID,INDUSTRIES_EXPLAI,BANKCARD_TURNOVER,SALESSLIP_TURNOVER,LFQ_TURNOVER,CHANNELS_ID,BANK_NAME,BANK_NUM,HOLDER_NAME,CARD_NUM,UNIONPAY_MERCHANT_NUM,PARENT_NAME,
-        LEV,REMARK,STATE,SCHEDULE_STATE,RATE_SIX,RATE_TWELVE,RATE_TWENTY_FOUR,SUBSIDY,CREATE_TIME,CONTRACTS_CODE,FAILURE
+        LEV,REMARK,STATE,SCHEDULE_STATE,RATE_SIX,RATE_TWELVE,RATE_TWENTY_FOUR,SUBSIDY,CREATE_TIME,CONTRACTS_CODE,FAILURE,MERCHANT_ID,SCHEDULE_NUM
     </sql>
+    <!--插入商户-->
+    <insert id="insertMerInfo" parameterType="com.newland.financial.p2p.domain.entity.MerInfo">
+        insert into t_inst_merinfo (<include refid="Base_Column_List"/>) values
+        (#{id,jdbcType=VARCHAR},#{merId,jdbcType=VARCHAR},#{merName,jdbcType=VARCHAR},#{merPwd,jdbcType=VARCHAR},#{merAbbr,jdbcType=VARCHAR},#{registeredAddress,jdbcType=VARCHAR},#{parentChannelsCode,jdbcType=VARCHAR}
+        ,#{parentMerchantCode,jdbcType=VARCHAR},#{addr,jdbcType=VARCHAR},#{corporateRepresentative,jdbcType=VARCHAR},#{lxr,jdbcType=VARCHAR},#{tel,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR}
+        ,#{fax,jdbcType=VARCHAR},#{nature,jdbcType=VARCHAR},#{lease,jdbcType=VARCHAR},#{sitearea,jdbcType=INTEGER},#{startBusiness,jdbcType=VARCHAR},#{businessHourse,jdbcType=INTEGER}
+        ,#{industriesId,jdbcType=INTEGER},#{industriesExplai,jdbcType=INTEGER},#{bankcardTurnover,jdbcType=INTEGER},#{salesslipTurnover,jdbcType=INTEGER}
+        ,#{lfqTurnover,jdbcType=INTEGER},#{channelsId,jdbcType=VARCHAR},#{bankName,jdbcType=VARCHAR},#{bankNum,jdbcType=VARCHAR},#{holderName,jdbcType=VARCHAR},#{cardNum,jdbcType=VARCHAR},#{unionpayMerchantNum,jdbcType=VARCHAR}
+        ,#{parentName,jdbcType=VARCHAR},#{level,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{scheduleState,jdbcType=VARCHAR},#{rateSix,jdbcType=NUMERIC},#{rateTwelve,jdbcType=NUMERIC}
+        ,#{rateTwentyFour,jdbcType=NUMERIC},#{subsidy,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{contractsCode,jdbcType=VARCHAR},#{failure,jdbcType=VARCHAR},#{merchantId,jdbcType=VARCHAR},
+        #{scheduleNum,jdbcType=VARCHAR})
+    </insert>
 
     <select id="selectByMerId" resultMap="BaseResultMap" parameterType="String">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from t_inst_merinfo
         where MER_ID = #{merId}
     </select>
@@ -67,15 +81,16 @@
         SELECT * FROM t_inst_merinfo
         <where>
             1=1
-            <if test="merId != null">
-                and MER_ID like CONCAT('%','${merId}','%')
+            <if test="merchantId != null">
+                and MER_ID like CONCAT('%','${merchantId}','%')
             </if>
             <if test="merName != null">
                 and MER_NAME like CONCAT('%','${merName}','%')
-            </if> ORDER BY CREATE_TIME desc
+            </if>
+            ORDER BY CREATE_TIME desc
         </where>
     </select>
-
+    <!--利率和合同号更新-->
     <update id="updateMerchantRateAndCon" parameterType="com.newland.financial.p2p.domain.entity.MerInfo">
         update t_inst_merinfo
         <set>
@@ -92,6 +107,146 @@
                 CONTRACTS_CODE = #{contractsCode,jdbcType=VARCHAR},
             </if>
         </set>
-        WHERE MER_ID = #{merId,jdbcType=VARCHAR}
+        WHERE MERCHANT_ID = #{merchantId,jdbcType=VARCHAR}
     </update>
+    <!--全字段更新-->
+    <update id="updateMerInfo" parameterType="com.newland.financial.p2p.domain.entity.MerInfo">
+        update t_inst_merinfo
+        <set>
+            <if test="merId != null and merId != ''">
+                MER_ID = #{merId,jdbcType=VARCHAR},
+            </if>
+            <if test="merName != null and merName != ''">
+                MER_NAME = #{merName,jdbcType=VARCHAR},
+            </if>
+            <if test="merPwd != null and merPwd != ''">
+                MER_PWD = #{merPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="merAbbr != null and merAbbr != ''">
+                MER_ABBR = #{merAbbr,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredAddress != null and registeredAddress != ''">
+                REGISTERED_ADDRESS = #{registeredAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="parentChannelsCode != null and parentChannelsCode != ''">
+                PARENT_CHANNELS_CODE = #{parentChannelsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="parentMerchantCode != null and parentMerchantCode != ''">
+                PARENT_MERCHANT_CODE = #{parentMerchantCode,jdbcType=VARCHAR},
+            </if>
+            <if test="addr != null and addr != ''">
+                ADDR = #{addr,jdbcType=VARCHAR},
+            </if>
+            <if test="corporateRepresentative != null and corporateRepresentative != ''">
+                CORPORATE_REPRESENTATIVE = #{corporateRepresentative,jdbcType=VARCHAR},
+            </if>
+            <if test="lxr != null and lxr != ''">
+                LXR = #{lxr,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null and tel != ''">
+                TEL = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                MOBILE = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null and email != ''">
+                EMAIL = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="fax != null and fax != ''">
+                FAX = #{fax,jdbcType=VARCHAR},
+            </if>
+            <if test="nature != null and nature != ''">
+                NATURE = #{nature,jdbcType=VARCHAR},
+            </if>
+            <if test="lease != null and lease != ''">
+                LEASE = #{lease,jdbcType=VARCHAR},
+            </if>
+            <if test="sitearea != null and sitearea != ''">
+                SITEAREA = #{sitearea,jdbcType=INTEGER},
+            </if>
+            <if test="startBusiness != null and startBusiness != ''">
+                START_BUSINESS = #{startBusiness,jdbcType=VARCHAR},
+            </if>
+            <if test="businessHourse != null and businessHourse != ''">
+                BUSINESS_HOURSE = #{businessHourse,jdbcType=INTEGER},
+            </if>
+            <if test="industriesId != null and industriesId != ''">
+                INDUSTRIES_ID = #{industriesId,jdbcType=VARCHAR},
+            </if>
+            <if test="industriesExplai != null and industriesExplai != ''">
+                INDUSTRIES_EXPLAI = #{industriesExplai,jdbcType=VARCHAR},
+            </if>
+            <if test="bankcardTurnover != null and bankcardTurnover != ''">
+                BANKCARD_TURNOVER = #{bankcardTurnover,jdbcType=INTEGER},
+            </if>
+            <if test="salesslipTurnover != null and salesslipTurnover != ''">
+                SALESSLIP_TURNOVER = #{salesslipTurnover,jdbcType=INTEGER},
+            </if>
+            <if test="lfqTurnover != null and lfqTurnover != ''">
+                LFQ_TURNOVER = #{lfqTurnover,jdbcType=INTEGER},
+            </if>
+            <if test="channelsId!= null and channelsId != ''">
+                CHANNELS_ID = #{channelsId,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName!= null and bankName != ''">
+                BANK_NAME = #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankNum != null and bankNum != ''">
+                BANK_NUM = #{bankNum,jdbcType=VARCHAR},
+            </if>
+            <if test="holderName != null and holderName != ''">
+                HOLDER_NAME = #{holderName,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNum != null and cardNum != ''">
+                CARD_NUM = #{cardNum,jdbcType=VARCHAR},
+            </if>
+            <if test="unionpayMerchantNum != null and unionpayMerchantNum != ''">
+                UNIONPAY_MERCHANT_NUM = #{unionpayMerchantNum,jdbcType=VARCHAR},
+            </if>
+            <if test="parentName != null and parentName != ''">
+                PARENT_NAME = #{parentName,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null and level != ''">
+                LEV = #{level,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null and remark != ''">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="scheduleState != null and scheduleState != ''">
+                SCHEDULE_STATE = #{scheduleState,jdbcType=VARCHAR},
+            </if>
+            <if test="rateSix != null and rateSix != ''">
+                RATE_SIX = #{rateSix,jdbcType=NUMERIC},
+            </if>
+            <if test="rateTwelve != null and rateTwelve != ''">
+                RATE_TWELVE = #{rateTwelve,jdbcType=NUMERIC},
+            </if>
+            <if test="rateTwentyFour != null and rateTwentyFour != ''">
+                RATE_TWENTY_FOUR = #{rateTwentyFour,jdbcType=NUMERIC},
+            </if>
+            <if test="subsidy != null and subsidy != ''">
+                SUBSIDY = #{subsidy,jdbcType=VARCHAR},
+            </if>
+            <if test="contractsCode != null and contractsCode != ''">
+                CONTRACTS_CODE = #{contractsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="failure != null and failure != ''">
+                FAILURE = #{failure,jdbcType=VARCHAR},
+            </if>
+            <if test="scheduleNum != null and scheduleNum != ''">
+                SCHEDULE_NUM = #{scheduleNum,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE MERCHANT_ID = #{merchantId,jdbcType=VARCHAR}
+    </update>
+    <!--根据merchantId获取商户信息-->
+    <select id="selectByMerchantId" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_inst_merinfo
+        where MERCHANT_ID = #{merchantId}
+    </select>
 </mapper>

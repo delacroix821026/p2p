@@ -3,6 +3,7 @@ package com.newland.financial.p2p.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -26,6 +27,8 @@ public class MerInfo extends BaseEntity {
     private String registeredAddress;
     /**上级渠道商编码.*/
     private String parentChannelsCode;
+    /**上级商户编码.*/
+    private String parentMerchantCode;
     /**营业地址.*/
     private String addr;
     /**法人代表.*/
@@ -43,11 +46,11 @@ public class MerInfo extends BaseEntity {
     /**营业用地性质(1：自用；2：租用).*/
     private String nature;
     /**租赁到期时间,自用可以为空，格式：yyyy-MM-dd.*/
-    private Date lease;
+    private String lease;
     /**营业用地面积,单位：平方米（请四舍五入保留整数）.*/
     private Integer sitearea;
     /**开业时间,格式：yyyy-MM-dd.*/
-    private Date startBusiness;
+    private String startBusiness;
     /**营业时间,例：10小时.*/
     private Integer businessHourse;
     /**经营产品.*/
@@ -75,7 +78,27 @@ public class MerInfo extends BaseEntity {
     /**母公司名称.*/
     private String parentName;
     /**证件类型,1：新营业执照；2：旧的营业执照.*/
-    private String lev;
+    private String level;
     /**备注.*/
     private String remark;
+    /**商户状态，0:正常  1:冻结.*/
+    private String state;
+    /**接入审批状态，0-入网成功，1-审核中，2-审核失败.*/
+    private String scheduleState;
+    /**6期费率.*/
+    private BigDecimal rateSix;
+    /**12期费率.*/
+    private BigDecimal rateTwelve;
+    /**24期费率.*/
+    private BigDecimal rateTwentyFour;
+    /**补贴方式，0：持卡人补贴  1：商户补贴.*/
+    private String subsidy;
+    /**接入时间.*/
+    private Date createTime;
+    /**合同号.*/
+    private String contractsCode;
+    /**接入失败原因.*/
+    private String failure;
+    /**新大陆处商户Id.*/
+    private String merchantId;
 }

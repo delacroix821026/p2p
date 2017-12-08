@@ -23,11 +23,22 @@ public interface IMerchantService {
      */
     CodeMsgReq getMerInfo(String merId);
 
+    /**
+     * 管理平台获取商户列表.
+     *
+     * @param pageModel 查询条件
+     * @return 分页结果
+     */
     PageInfo<MerInfo> getMerchantList(PageModel<MerInfo> pageModel);
 
     MerInfo getMerchantDetail(@PathVariable(name = "merchantId") String merchantId);
 
-    void updateMerchantBySystem(MerInfo merInfo);
+    /**
+     * 商户接入.
+     * @param merInfo
+     * @return 最新的商户信息
+     */
+    boolean updateMerchantBySystem(MerInfo merInfo);
 
     void uploadMerchantBySystem(MerInfo merInfo);
 

@@ -1,6 +1,7 @@
 package com.newland.financial.p2p.domain;
 
 import com.lfq.pay.client.MpiConstants;
+import com.lfq.pay.client.MpiUtil;
 import com.lfq.pay.client.SecureUtil;
 import lombok.extern.log4j.Log4j;
 
@@ -211,6 +212,65 @@ public class MethodFactory {
         log.info(orderInfo.toString());
         log.info("==============11:单个查询结果end================");
         return orderInfo;
+    }
+
+    /**
+     * 商户入网报文封装.
+     * @param merInfo 商户信息
+     * @return 报文
+     */
+    public static Map<String, String> installMerchantInfo(MerInfo merInfo) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("name", merInfo.getMerName()); //商户名称
+        map.put("registeredAddress", merInfo.getRegisteredAddress()); //注册地址
+        map.put("addr", merInfo.getAddr()); //营业地址
+        map.put("corporateRepresentative", merInfo.getCorporateRepresentative()); //法人代表
+        map.put("lxr", merInfo.getLxr()); //联系人
+        map.put("tel", merInfo.getTel()); //移动电话
+        map.put("mobile", merInfo.getMobile()); //固话
+        map.put("email", merInfo.getEmail()); //电子邮箱
+        //map.put("fax", "传真号码"); //传真
+        if (!"1".equals(merInfo.getNature())) {
+            log.info("租赁到期时间：" + merInfo.getNature());
+            map.put("lease", merInfo.getLease()); // 租赁到期时间，自用可以为空，格式：yyyy-MM-dd
+        }
+        map.put("nature", merInfo.getNature()); // 营业用地性质：1：自用；2：租用
+        map.put("sitearea", String.valueOf(merInfo.getSitearea())); // 营业用地面积
+        map.put("startBusiness", merInfo.getStartBusiness()); // 开业时间，格式：yyyy-MM-dd
+        map.put("businessHours", String.valueOf(merInfo.getBusinessHourse())); // 营业时间
+        map.put("industriesId", merInfo.getIndustriesId()); //经营产品
+        map.put("industriesExplai", merInfo.getIndustriesExplai()); //经验产品说明
+        map.put("bankcardTurnover", String.valueOf(merInfo.getBankcardTurnover())); // 预计月平均银行卡营业额，单位：元
+        map.put("salesslipTurnover", String.valueOf(merInfo.getSalesslipTurnover())); // 预计每张签购单平均交易额，单位：元
+        map.put("lfqTurnover", String.valueOf(merInfo.getLfqTurnover())); // 预计月平均乐百分营业额，单位：元
+//		map.put("createDate", "2014-12-14"); // 可以为空，格式：yyyy-MM-dd
+        map.put("bankName", merInfo.getBankName()); //开户行名称
+        map.put("bankNum", merInfo.getBankNum()); //开户行行号
+        map.put("holderName", merInfo.getHolderName()); //账户户名
+        map.put("cardNum", merInfo.getCardNum()); //银行账号
+        //map.put("parentName", "母公司");
+       // map.put("unionpayMerchantNum", "123123");
+        //map.put("remark", "remark");
+        map.put("level", merInfo.getLevel()); // 证件类型：1：新营业执照；2：旧的营业执照
+        return map;
+    }
+
+    /**
+     * 商户接入发送请求
+     * @param requestUrl 请求地址
+     * @param data 请求参数
+     */
+    public static String execute(String requestUrl, Map<String, String> data) {
+        String resp = null;
+        try {
+            resp = MpiUtil.send(requestUrl, data, "utf-8", 60 * 1000, 60 * 1000);
+            log.info("发送信息：" + data);
+            log.info("返回信息：" + resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resp;
     }
 
 }

@@ -44,7 +44,7 @@ public class MerchantController {
     @ResponseStatus(HttpStatus.OK)
     public Object getMerchantList(@RequestBody PageModel<MerInfo> pageModel) {
         log.info("*********---------***********");
-        log.info("getMerchantList:" + pageModel.getModel().getMerId());
+        log.info("getMerchantList:" + pageModel.getModel().getMerchantId());
         log.info("getMerchantList:" + pageModel.getModel().getMerName());
         log.info("getMerchantList:" + pageModel.getPageSize());
         log.info("getMerchantList:" + pageModel.getPageNum());
@@ -67,8 +67,9 @@ public class MerchantController {
      */
     @RequestMapping(value = "/synchMerchant", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateMerchantBySystem(MerInfo merInfo) {
-
+    public boolean updateMerchantBySystem(@RequestBody MerInfo merInfo) {
+        log.info(merInfo.toString());
+        return merchantService.updateMerchantBySystem(merInfo);
     }
 
     /**
@@ -83,9 +84,9 @@ public class MerchantController {
     /**
      * 商户更新（前端输入）.
      */
-    @RequestMapping(value = "/{merId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{merchantId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Object updateMerchant(@PathVariable(name = "merId") String merId, @RequestBody MerInfo merInfo) {
+    public Object updateMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody MerInfo merInfo) {
         MerInfo mer = merInfo;
         if ("".equals(mer.getContractsCode())) {
             mer.setContractsCode(null);

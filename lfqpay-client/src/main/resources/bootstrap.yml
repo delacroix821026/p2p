@@ -30,6 +30,9 @@ IFQ_SMSCODE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backSMSCodeRe
 IFQ_REPAY_ADDRESS: http://192.168.10.18:5001/installment/repay/receiveRepaymentInfo
 IFQ_CREATE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backTransRequest.do
 IFQ_QUERY_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/singleQueryRequest.do
+IFQ_MERCHANT_ADDRESS: https://tt.lfqpay.com/lfq-manager/merchant/register.do
+parentChannelsCode: XDLCS001
+parentChannelsPwd: XDLCS127
 ...
 
 ---
@@ -55,6 +58,7 @@ IFQ_SMSCODE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backSMSCodeRe
 IFQ_REPAY_ADDRESS: http://192.168.10.18:5001/installment/repay/receiveRepaymentInfo
 IFQ_CREATE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backTransRequest.do
 IFQ_QUERY_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/singleQueryRequest.do
+IFQ_MERCHANT_ADDRESS: https://tt.lfqpay.com/lfq-manager/merchant/register.do
 ...
 
 ---
@@ -80,6 +84,7 @@ IFQ_SMSCODE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backSMSCodeRe
 IFQ_REPAY_ADDRESS: http://47.96.17.236:5001/installment/repay/receiveRepaymentInfo
 IFQ_CREATE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backTransRequest.do
 IFQ_QUERY_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/singleQueryRequest.do
+IFQ_MERCHANT_ADDRESS: https://tt.lfqpay.com/lfq-manager/merchant/register.do
 ...
 
 ---

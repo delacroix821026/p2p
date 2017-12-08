@@ -21,12 +21,12 @@ public interface IMerchantService {
     MerInfo getMerchantDetail(@PathVariable(name = "merchantId") String merchantId);
 
     @RequestMapping(method = RequestMethod.POST, value = "/merchant/synchMerchant")
-    void updateMerchantBySystem(MerInfo merInfo);
+    boolean updateMerchantBySystem(MerInfo merInfo);
 
     @RequestMapping(method = RequestMethod.POST, value = "/merchant/synchMerchantFile")
-    void uploadMerchantBySystem(MerInfo merInfo);
+    Object uploadMerchantBySystem(MerInfo merInfo);
 
-    @RequestMapping(method = RequestMethod.POST, value = "/merchant/{merId}")
-    Object updateMerchant(@PathVariable(name = "merId") String merId, MerInfo merInfo);
+    @RequestMapping(method = RequestMethod.POST, value = "/merchant/{merchantId}")
+    Object updateMerchant(@PathVariable(name = "merchantId") String merchantId, MerInfo merInfo);
 
 }

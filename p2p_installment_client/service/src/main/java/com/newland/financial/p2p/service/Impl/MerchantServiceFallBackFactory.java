@@ -23,12 +23,16 @@ public class MerchantServiceFallBackFactory {
                 return null;
             }
 
-            public void updateMerchantBySystem(MerInfo merInfo) {
-
+            public boolean updateMerchantBySystem(MerInfo merInfo) {
+                log.info("*********updateMerchantBySystem:被熔断***********");
+                log.error(cause);
+                return false;
             }
 
-            public void uploadMerchantBySystem(MerInfo merInfo) {
-
+            public Object uploadMerchantBySystem(MerInfo merInfo) {
+                log.info("*********uploadMerchantBySystem:被熔断***********");
+                log.error(cause);
+                return "1026";
             }
 
             public Object updateMerchant(String merId, MerInfo merInfo) {

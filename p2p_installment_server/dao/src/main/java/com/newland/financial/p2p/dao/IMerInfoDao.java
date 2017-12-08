@@ -12,6 +12,7 @@ import java.util.Map;
 public interface IMerInfoDao {
     /**
      * 根据商户代码查询商户信息.
+     *
      * @param merId 商户代码
      * @return 商户信息
      */
@@ -19,14 +20,39 @@ public interface IMerInfoDao {
 
     /**
      * 分页查询商户列表(管理平台).
+     *
      * @param map 查询条件
      * @return 信息集合
      */
     List<MerInfo> findMerchantList(Map<String, Object> map);
+
     /**
      * 更新商户信息(费率和合同号).
+     *
      * @param merInfo 更新内容
      * @return boolean
      */
     boolean updateMerchant(MerInfo merInfo);
+
+    /**
+     * 插入商户.
+     * @param merInfo 商户实体.
+     * @return boolean
+     */
+    boolean insertMerInfo(MerInfo merInfo);
+
+    /**
+     * 更新商户.
+     * @param merInfo 商户实体
+     * @return
+     */
+    boolean updateMerInfo(MerInfo merInfo);
+
+    /**
+     * 根据商户代码查询商户信息.
+     *
+     * @param merchantId 新大陆处商户代码
+     * @return 商户信息
+     */
+    MerInfo selectMerInfoByMerchantId(String merchantId);
 }

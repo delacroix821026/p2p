@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 商户信息处理ServiceImpl.
+ *
  * @author Gregory
  */
 @Log4j
@@ -30,6 +33,7 @@ public class MerchantService implements IMerchantService {
 
     /**
      * 查询商户信息.
+     *
      * @param merId 商户Id
      * @return MerInfo对象
      */
@@ -49,8 +53,14 @@ public class MerchantService implements IMerchantService {
         return codeMsgReq;
     }
 
+    /**
+     * 管理平台获取商户列表.
+     *
+     * @param pageModel 查询条件
+     * @return 分页结果
+     */
     public PageInfo<MerInfo> getMerchantList(PageModel<MerInfo> pageModel) {
-        String merId = pageModel.getModel().getMerId();
+        String merchantId = pageModel.getModel().getMerchantId();
         String merName = pageModel.getModel().getMerName();
         Integer p = pageModel.getPageNum();
         Integer c = pageModel.getPageSize();
@@ -66,15 +76,15 @@ public class MerchantService implements IMerchantService {
         } else {
             count = c;
         }
-        if ("".equals(merId)) {
-            merId = null;
+        if ("".equals(merchantId)) {
+            merchantId = null;
         }
         if ("".equals(merName)) {
             merName = null;
         }
-        log.info("page=" + page + ";count=" + count + ";merId=" + merId + ";merName=" + merName);
+        log.info("page=" + page + ";count=" + count + ";merId=" + merchantId + ";merName=" + merName);
         Map<String, Object> map1 = new HashMap<String, Object>();
-        map1.put("merId", merId);
+        map1.put("merchantId", merchantId);
         map1.put("merName", merName);
         //开始分页
         PageHelper.startPage(page, count);
@@ -86,15 +96,35 @@ public class MerchantService implements IMerchantService {
         return null;
     }
 
-    public void updateMerchantBySystem(MerInfo merInfo) {
-
+    /**
+     * 商户接入,有则更新，无则插入.
+     *
+     * @param merInfo
+     * @return 最新的商户信息
+     */
+    public boolean updateMerchantBySystem(MerInfo merInfo) {
+        // 查找是否已经拥有记录，有就更新，无则插入.
+        String merchantId = merInfo.getMerchantId();
+        MerInfo mer = iMerInfoDao.selectMerInfoByMerchantId(merchantId);
+        log.info("是否已存在改商户号" + (mer == null));
+        if (mer == null) {
+            String id = UUID.randomUUID().toString().replaceAll("-", "");
+            merInfo.setId(id);
+            Date date = new Date();
+            merInfo.setCreateTime(date);
+            return iMerInfoDao.insertMerInfo(merInfo);
+        } else {
+            return iMerInfoDao.updateMerInfo(merInfo);
+        }
     }
 
     public void uploadMerchantBySystem(MerInfo merInfo) {
 
     }
+
     /**
      * 更新商户信息(费率和合同号).
+     *
      * @param merInfo 更新内容
      * @return boolean
      */

@@ -1,10 +1,7 @@
 package com.newland.financial.p2p.service;
 
-import com.newland.financial.p2p.domain.entity.CodeMsgReq;
-import com.newland.financial.p2p.domain.entity.MerInfo;
-import org.springframework.web.bind.annotation.PathVariable;
+import com.newland.financial.p2p.domain.MerInfo;
 
-import java.util.List;
 
 /**
  * 商户信息处理Service.
@@ -12,7 +9,11 @@ import java.util.List;
  * @author Gregory
  */
 public interface IMerchantService {
-    void updateMerchantBySystem(MerInfo merInfo);
+    /**
+     * 商户接入.
+     * @param merInfo 商户信息
+     */
+    String updateMerchantBySystem(MerInfo merInfo);
 
     void uploadMerchantBySystem(MerInfo merInfo);
 

@@ -15,7 +15,7 @@ import java.util.Date;
 public class MerInfo extends BaseEntity {
     /**主键Id.*/
     private String id;
-    /**商户代码.*/
+    /**易百分处商户代码.*/
     private String merId;
     /**商户名称.*/
     private String merName;
@@ -46,11 +46,11 @@ public class MerInfo extends BaseEntity {
     /**营业用地性质(1：自用；2：租用).*/
     private String nature;
     /**租赁到期时间,自用可以为空，格式：yyyy-MM-dd.*/
-    private Date lease;
+    private String lease;
     /**营业用地面积,单位：平方米（请四舍五入保留整数）.*/
     private Integer sitearea;
     /**开业时间,格式：yyyy-MM-dd.*/
-    private Date startBusiness;
+    private String startBusiness;
     /**营业时间,例：10小时.*/
     private Integer businessHourse;
     /**经营产品.*/
@@ -99,4 +99,9 @@ public class MerInfo extends BaseEntity {
     private String contractsCode;
     /**接入失败原因.*/
     private String failure;
+    /**新大陆处商户Id.*/
+    private String merchantId;
+    /**商户查询码.*/
+    private String scheduleNum;
+
 }

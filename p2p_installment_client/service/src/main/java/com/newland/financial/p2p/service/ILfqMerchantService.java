@@ -6,6 +6,8 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Map;
+
 /**
  * 外发商户信息
  * @author Delacroix
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "lfqpay-client${DEVLOPER_NAME:}", fallbackFactory = LfqMerchantServiceFallBackFactory.class)
 public interface ILfqMerchantService {
     @RequestMapping(method = RequestMethod.POST, value = "/merchant/synchMerchant")
-    void updateMerchantBySystem(MerInfo merInfo);
+    String updateMerchantBySystem(MerInfo merInfo);
 
     @RequestMapping(method = RequestMethod.POST, value = "/merchant/synchMerchantFile")
     void uploadMerchantBySystem(MerInfo merInfo);
