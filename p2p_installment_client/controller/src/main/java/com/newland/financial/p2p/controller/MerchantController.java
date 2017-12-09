@@ -87,13 +87,18 @@ public class MerchantController {
                 "}";
         String result = merinfoAndPicture.getMerInfoAndPicture(jsonStr1);
         log.info("收单平台返回数据：" + result);
+        Map<String, String> map = new HashMap<String, String>();
         JSONObject paramStr = JSON.parseObject(result);
+        if (!"000000".equals(paramStr.getString("resultCode"))) {
+            map.put("code", "fail");
+            map.put("failure", "商户号不存在");
+            return map;
+        }
         //完善MerInfo
         merInfo = NewMerInfoUtils.getNewMerInfo(merInfo, paramStr);
         // 先入库
         boolean b = merchantService.updateMerchantBySystem(merInfo);
         log.info("入库结果：" + b);
-        Map<String, String> map = new HashMap<String, String>();
         if (b) {
             // 入库成功则请求乐百分
             String resp = lfqMerchantService.updateMerchantBySystem(merInfo);
