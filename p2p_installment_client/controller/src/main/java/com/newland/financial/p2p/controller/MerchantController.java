@@ -9,11 +9,15 @@ import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.service.ILfqMerchantService;
 import com.newland.financial.p2p.service.IMerchantService;
 import com.newland.financial.p2p.service.IMerinfoAndPicture;
+import com.newland.financial.p2p.util.NewMerInfoUtils;
+import com.newland.financial.p2p.utils.UserInfoUtils;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,13 +85,14 @@ public class MerchantController {
     public Object updateMerchantBySystem(@RequestBody String jsonStr) {
         log.info("jsonStr" + jsonStr);
         MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
-        log.info("MerInfo:" + merInfo.getMerchantId());
-        log.info("MerInfo:" + merInfo.getMerName());
         String jsonStr1 = "{\n" +
-                "\t\"merchantId\":\"85715029311L000\"\n" +
+                "\t\"merchantId\":\"" + merInfo.getMerchantId() + "\"\n" +
                 "}";
         String result = merinfoAndPicture.getMerInfoAndPicture(jsonStr1);
         log.info("收单平台返回数据：" + result);
+        JSONObject paramStr = JSON.parseObject(result);
+        //完善MerInfo
+        merInfo = NewMerInfoUtils.getNewMerInfo(merInfo, paramStr);
         // 先入库
         boolean b = merchantService.updateMerchantBySystem(merInfo);
         log.info("入库结果：" + b);
@@ -96,12 +101,11 @@ public class MerchantController {
             // 入库成功则请求乐百分
             String resp = lfqMerchantService.updateMerchantBySystem(merInfo);
             log.info("返回结果============:" + resp);
-            JSONObject json = JSONObject.parseObject(resp);
-            JSONObject paramJSON = JSON.parseObject(resp);
-            String code = paramJSON.getString("code");
+            JSONObject json = JSON.parseObject(resp);
+            String code = json.getString("code");
             if ("success".equals(code)) {
                 MerInfo merInfo1 = new MerInfo();
-                merInfo1.setScheduleNum(paramJSON.getString("schedule"));
+                merInfo1.setScheduleNum(json.getString("schedule"));
                 merInfo1.setMerchantId(merInfo.getMerchantId());
                 merchantService.updateMerchantBySystem(merInfo1);
             }
