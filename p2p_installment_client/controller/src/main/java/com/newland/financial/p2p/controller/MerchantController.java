@@ -10,14 +10,11 @@ import com.newland.financial.p2p.service.ILfqMerchantService;
 import com.newland.financial.p2p.service.IMerchantService;
 import com.newland.financial.p2p.service.IMerinfoAndPicture;
 import com.newland.financial.p2p.util.NewMerInfoUtils;
-import com.newland.financial.p2p.utils.UserInfoUtils;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
