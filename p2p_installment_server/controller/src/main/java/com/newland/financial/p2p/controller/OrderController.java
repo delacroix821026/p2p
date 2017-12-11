@@ -229,12 +229,19 @@ public class OrderController {
      *
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/plant/", method = RequestMethod.GET)
+    @RequestMapping(value = "/orderList", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public  OrderInfo getOrderInfoListByPlantManager(@RequestBody String jsonStr) {
-        return null;
+    public  Object getOrderInfoListByPlantManager(@RequestBody PageModel<OrderInfo> pageModel) {
+        log.info("*********----管理员查询订单---***********");
+        log.info("getMerchantList:" + pageModel.getModel());
+        log.info("getMerchantId:" + pageModel.getModel().getMerchantId());
+        log.info("getOrderId:" + pageModel.getModel().getOrderId());
+        log.info("getMerName:" + pageModel.getModel().getMerName());
+        log.info("getContractsState:" + pageModel.getModel().getContractsState());
+        log.info("getPageNum:" + pageModel.getPageNum());
+        log.info("getPageSize:" + pageModel.getPageSize());
+        return orderService.getOrderInfoListByPlantManager(pageModel);
     }
-
     /**
      * 平台管理员查询订单列表.
      *

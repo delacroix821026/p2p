@@ -162,4 +162,44 @@
             </if> ORDER BY createTime desc
         </where>
     </select>
+
+    <!--商户订单查询-->
+    <select id="findOrderByPlantByCustomer" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_inst_orderinfo
+        <where>
+            contractsState = 5 or contractsState = 2
+            or contractsState = 3  or  contractsState = 4
+            or contractsState = 1
+            <if test="merchantId != null">
+                and merchantId like CONCAT('%','${merchantId}','%')
+            </if>
+            <if test="merName != null">
+                and merName like CONCAT('%','${merName}','%')
+            </if>
+            <if test="orderId != null">
+                and orderId like CONCAT('%','${orderId}','%')
+            </if> ORDER BY createTime desc
+        </where>
+    </select>
+    <!--商户结清订单查询-->
+    <select id="findOrderInfoListByFinish" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_inst_orderinfo
+        <where>
+            contractsState = 5 or contractsState = 2
+            or contractsState = 3  or  contractsState = 4
+            <if test="merchantId != null">
+                and merchantId like CONCAT('%','${merchantId}','%')
+            </if>
+            <if test="merName != null">
+                and merName like CONCAT('%','${merName}','%')
+            </if>
+            <if test="orderId != null">
+                and orderId like CONCAT('%','${orderId}','%')
+            </if> ORDER BY createTime desc
+        </where>
+    </select>
 </mapper>

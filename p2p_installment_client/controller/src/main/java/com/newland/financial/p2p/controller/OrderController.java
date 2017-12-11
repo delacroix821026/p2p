@@ -252,12 +252,26 @@ public class OrderController {
      *
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/plant/", method = RequestMethod.GET)
+    @RequestMapping(value = "/orderList", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public OrderInfo getOrderInfoListByPlantManager(OrderInfo orderInfo) {
-        return null;
+    public Object getOrderInfoListByPlantManager(@RequestParam("jsonStr") String jsonStr) {
+        log.info("========client:getOrderInfoListByPlantManager=======");
+        ObjectMapper objectMapper = new ObjectMapper();
+        PageModel<OrderInfo> pageModel = null;
+        try {
+            pageModel = objectMapper.readValue(jsonStr, new TypeReference<PageModel<OrderInfo>>() {
+            });
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+        log.info("getMerchantId:" + pageModel.getModel().getMerchantId());
+        log.info("getOrderId:" + pageModel.getModel().getOrderId());
+        log.info("getMerName:" + pageModel.getModel().getMerName());
+        log.info("getContractsState:" + pageModel.getModel().getContractsState());
+        log.info("getPageNum:" + pageModel.getPageNum());
+        log.info("getPageSize:" + pageModel.getPageSize());
+        return orderService.getOrderInfoListByPlantManager(pageModel);
     }
-
     /**
      * 平台管理员查询订单列表.
      *

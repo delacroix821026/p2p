@@ -76,4 +76,8 @@ public class OrderInfo extends BaseEntity {
     private String openId;
     /**新大陆处商户Id.*/
     private String merchantId;
+    /**订单表和退款表的一对一关系*/
+    private Refund refund;
+    /**订单表和还款表的一对一关系*/
+    private Repay repay;
 }

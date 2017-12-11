@@ -49,4 +49,17 @@ public interface IOrderInfoDao {
      * @return 信息集合
      */
     List<OrderInfo> findOrderInfoDetailByCustomer(Map<String, Object> map);
+    /**
+     * 运营平台商户订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo>  findOrderInfoListByPlantManager(Map<String, Object> map);
+
+    /**
+     * 运营平台商户已结清订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo>  findOrderInfoListByFinish(Map<String, Object> map);
 }

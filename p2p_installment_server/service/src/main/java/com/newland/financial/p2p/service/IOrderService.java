@@ -68,7 +68,10 @@ public interface IOrderService {
 
     OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId);
 
-    OrderInfo getOrderInfoListByPlantManager(OrderInfo orderInfo);
+    /**
+     *  商户订单查询
+     */
+    PageInfo<OrderInfo> getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel);
 
     OrderInfo getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId);
 }

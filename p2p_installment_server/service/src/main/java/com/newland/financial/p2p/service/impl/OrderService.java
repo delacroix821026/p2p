@@ -7,8 +7,12 @@ import com.github.pagehelper.PageInfo;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.dao.IMerInfoDao;
 import com.newland.financial.p2p.dao.IOrderInfoDao;
+import com.newland.financial.p2p.dao.IRefundDao;
+import com.newland.financial.p2p.dao.IRepayDao;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
+import com.newland.financial.p2p.domain.entity.Refund;
+import com.newland.financial.p2p.domain.entity.Repay;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +41,16 @@ public class OrderService implements IOrderService {
     /**注入Dao层对象.*/
     @Autowired
     private IMerInfoDao merInfoDao;
-
+    /**
+     * 注入Dao层对象.
+     */
+    @Autowired
+    private IRefundDao refundDao;
+    /**
+     * 注入Dao层对象.
+     */
+    @Autowired
+    private IRepayDao repayDao;
     /**
      * 创建一个空白订单.
      *
@@ -184,7 +197,70 @@ public class OrderService implements IOrderService {
         return null;
     }
 
-    public OrderInfo getOrderInfoListByPlantManager(OrderInfo orderInfo) {
+    /**
+     * 运营平台商户查询
+     */
+    public PageInfo getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel) {
+        String merchantId = pageModel.getModel().getMerchantId();
+        String orderId = pageModel.getModel().getOrderId();
+        String merName = pageModel.getModel().getMerName();
+        String contractsState = pageModel.getModel().getContractsState();
+        Integer p = pageModel.getPageNum();
+        Integer c = pageModel.getPageSize();
+        Integer page = null;
+        Integer count = null;
+        if (p == null || p < 1) {
+            page = 1;
+        } else {
+            page = p;
+        }
+        if (c == null || c < 5) {
+            count = 5;
+        } else {
+            count = c;
+        }
+        if ("".equals(merchantId)) {
+            merchantId = null;
+        }
+        if ("".equals(merName)) {
+            merName = null;
+        }
+        if ("".equals(orderId)) {
+            orderId = null;
+        }
+        if ("".equals(contractsState)) {
+            contractsState = null;
+        }
+        log.info("page=" + page + ";count=" + count + ";openId=" + merchantId + ";orderId=" + orderId + ";merName=" + merName + ";contractsState=" + contractsState);
+        Map<String, Object> map1 = new HashMap<String, Object>();
+        map1.put("merId", merchantId);
+        map1.put("orderId", orderId);
+        map1.put("merName", merName);
+        map1.put("contractsState", contractsState);
+        //开始分页
+        PageHelper.startPage(page, count);
+        if (contractsState == null) {
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findOrderInfoListByPlantManager(map1));
+            return pageInfo;
+        }
+        // 0 还款中
+        if ("0".equals(contractsState)) {
+            log.info("========0000===========");
+            PageInfo<Repay> pageInfo = new PageInfo<Repay>(repayDao.findRepayList(map1)) ;
+            return pageInfo;
+        }
+        // 1 结清
+        if ("1".equals(contractsState)) {
+            log.info("========11111===========");
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findOrderInfoListByFinish(map1));
+            return pageInfo;
+        }
+        // 2 退款中
+        if ("2".equals(contractsState)) {
+            log.info("========222222===========");
+            PageInfo<Refund> pageInfo = new PageInfo<Refund>(refundDao.findRefundList(map1)) ;
+            return pageInfo;
+        }
         return null;
     }
 
