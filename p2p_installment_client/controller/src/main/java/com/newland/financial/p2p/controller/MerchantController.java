@@ -82,9 +82,7 @@ public class MerchantController {
     public Object updateMerchantBySystem(@RequestBody String jsonStr) {
         log.info("jsonStr" + jsonStr);
         MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
-        String jsonStr1 = "{\n" +
-                "\t\"merchantId\":\"" + merInfo.getMerchantId() + "\"\n" +
-                "}";
+        String jsonStr1 = "{\n" + "\t\"merchantId\":\"" + merInfo.getMerchantId() + "\"\n" + "}";
         String result = merinfoAndPicture.getMerInfoAndPicture(jsonStr1);
         log.info("收单平台返回数据：" + result);
         Map<String, String> map = new HashMap<String, String>();

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Log4j
 public class SignatureIfqServiceFallBackFactory implements FallbackFactory<ISignatureIfqService> {
-
+    
     public ISignatureIfqService create(final Throwable cause) {
         return new ISignatureIfqService() {
             public String signature(String jsonStr) {
