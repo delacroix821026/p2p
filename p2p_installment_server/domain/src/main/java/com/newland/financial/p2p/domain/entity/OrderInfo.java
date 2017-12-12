@@ -50,8 +50,8 @@ public class OrderInfo extends BaseEntity {
     private Long poundage;
     /**合同状态0：未生效 1：已生效 2：已结束(正常还款) 3：已结束(断供) 4：已结束(提前还款) 5：已结束(退款) 6：退款中 7：退款失败.*/
     private String contractsState;
-    /**已还款总期数.*/
     private Integer sumTerms;
+    /**已还款总期数.*/
     /**已还款总金额.*/
     private Long sumAmount;
     /**剩余还款金额.*/

@@ -28,4 +28,6 @@ public class Refund extends BaseEntity {
     private String orderId;
     /**请求编号.*/
     private String queryId;
+    /**退款订单和订单表一对一关联*/
+    private OrderInfo orderInfo;
 }

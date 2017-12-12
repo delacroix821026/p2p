@@ -169,9 +169,7 @@
         <include refid="Base_Column_List" />
         FROM t_inst_orderinfo
         <where>
-            contractsState = 5 or contractsState = 2
-            or contractsState = 3  or  contractsState = 4
-            or contractsState = 1
+            contractsState <![CDATA[!= ]]> 0
             <if test="merchantId != null">
                 and merchantId like CONCAT('%','${merchantId}','%')
             </if>
