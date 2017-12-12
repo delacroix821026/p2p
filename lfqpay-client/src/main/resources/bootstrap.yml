@@ -33,6 +33,7 @@ IFQ_QUERY_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/singleQueryRequ
 IFQ_MERCHANT_ADDRESS: https://tt.lfqpay.com/lfq-manager/merchant/register.do
 parentChannelsCode: XDLCS001
 parentChannelsPwd: XDLCS127
+backCancel_address: https://tt.lfqpay.com/lfq-pay/gateway/api/backCancelRequest.do
 ...
 
 ---

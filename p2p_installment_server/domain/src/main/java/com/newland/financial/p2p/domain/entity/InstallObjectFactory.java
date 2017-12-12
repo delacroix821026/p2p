@@ -2,6 +2,8 @@ package com.newland.financial.p2p.domain.entity;
 
 import lombok.extern.log4j.Log4j;
 
+import java.util.Date;
+
 /**
  * @author Mxia
  * 封装报文类.
@@ -55,6 +57,30 @@ public class InstallObjectFactory {
         oq.setOrderId(orderInfo.getOrderId());
         oq.setContractsCode(orderInfo.getContractsCode());
         return oq;
+    }
+
+    /**
+     * 生成退款报文.
+     *
+     * @param orderInfo 订单信息
+     * @return RefundMsgReq
+     */
+    public static RefundMsgReq installRefundMsgReq(OrderInfo orderInfo, MerInfo merInfo) {
+        RefundMsgReq refundMsgReq = new RefundMsgReq();
+        refundMsgReq.setTxnType("04");
+        refundMsgReq.setMerId(orderInfo.getMerId());
+        refundMsgReq.setMerPwd(merInfo.getMerPwd());
+        refundMsgReq.setMerName(merInfo.getMerName());
+        refundMsgReq.setMerAbbr(merInfo.getMerAbbr());
+        refundMsgReq.setContractsCode(orderInfo.getContractsCode());
+        Long beg = orderInfo.getTxnTime().getTime();
+        Long end = new Date().getTime();
+        log.info("beg:" + beg + ";end:" + end);
+        if (end - beg > 3888000000L) {
+            log.info("订单时间已经超过45天，无法退款");
+            return null;
+        }
+        return refundMsgReq;
     }
 
 }

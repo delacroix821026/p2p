@@ -22,5 +22,9 @@ public interface IRefundDao {
      * @return 信息集合
      */
     List<Refund> getOrderInfoListByMerchant(Map<String, Object> map);
-
+    /**
+     * 插入或者更新Refund.
+     * @param refund 退款单
+     */
+    void insertOrUpdateRefund(Refund refund);
 }
