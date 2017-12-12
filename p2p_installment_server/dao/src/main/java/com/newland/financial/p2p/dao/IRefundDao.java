@@ -16,4 +16,11 @@ public interface IRefundDao {
      * @return 信息集合
      */
     List<Refund> findRefundList(Map<String, Object> map);
+    /**
+     * 商户退款查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<Refund> getOrderInfoListByMerchant(Map<String, Object> map);
+
 }

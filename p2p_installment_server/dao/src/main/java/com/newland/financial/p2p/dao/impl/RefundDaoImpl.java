@@ -22,4 +22,12 @@ public class RefundDaoImpl extends MybatisBaseDao<Refund> implements IRefundDao 
     public List<Refund> findRefundList(Map<String, Object> map) {
         return super.select("findFundInfo", map);
     }
+    /**
+     * 商户退款订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<Refund> getOrderInfoListByMerchant(Map<String, Object> map) {
+        return super.select("getOrderInfoListByMerchant", map);
+    }
 }
