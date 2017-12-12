@@ -18,7 +18,7 @@ services:
         networks:
             docker-net:
                 aliases:
-                    - p2pconfig
+                    - configserver
         ports:
             - "2001:2001"
         environment:

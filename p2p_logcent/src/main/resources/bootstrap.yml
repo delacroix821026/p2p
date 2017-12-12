@@ -37,7 +37,10 @@ spring:
         port: 5672
         username: user_admin
         password: admin123%
-
+zipkin:
+    storage:
+        elasticsearch:
+            hosts: 10.0.1.42:9200
 ...
 
 ---
@@ -117,4 +120,19 @@ security:
     #basic:
         #enabled: true
         #path: ${management.context-path}
+...
+
+---
+zipkin:
+    storage:
+        type: elasticsearch
+        StorageComponent: elasticsearch
+        elasticsearch:
+            cluster: elasticsearch
+            max-requests: 30
+            index: zipkin
+            index-shards: 3
+            index-replicas: 1
+
+
 ...
