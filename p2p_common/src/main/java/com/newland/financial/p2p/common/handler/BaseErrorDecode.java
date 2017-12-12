@@ -15,16 +15,14 @@ import java.io.IOException;
 import static feign.FeignException.errorStatus;
 
 @Log4j
-//@Configuration
-public class BaseErrorDecode {//implements ErrorDecoder {
+@Configuration
+public class BaseErrorDecode implements ErrorDecoder {
     public Exception decode(String methodKey, Response response) {
-        FeignException exception = errorStatus(methodKey, response);
         if (response.status() == 400) {
             try {
-                log.info("status" + response.body().asReader());
-                //ObjectMapper mapper = new ObjectMapper();
-                //RestError restError = mapper.readValue(response.body().asReader(), RestError.class);
-                return new HystrixBadRequestException("B");
+                ObjectMapper mapper = new ObjectMapper();
+                RestError restError = mapper.readValue(response.body().asReader(), RestError.class);
+                return new HystrixBadRequestException("", new BaseRuntimeException(restError));
 
             } catch (IOException e) {
                 log.error(e);
@@ -32,6 +30,6 @@ public class BaseErrorDecode {//implements ErrorDecoder {
             log.info("reason" + response.reason());
 
         }
-        return feign.FeignException.errorStatus(methodKey, response);
+        return FeignException.errorStatus(methodKey, response);
     }
 }

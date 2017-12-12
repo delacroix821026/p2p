@@ -90,6 +90,16 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin-autoconfigure-storage-elasticsearch-http</artifactId>
+            <version>2.4.0</version>
+        </dependency>
     </dependencies>
 
 

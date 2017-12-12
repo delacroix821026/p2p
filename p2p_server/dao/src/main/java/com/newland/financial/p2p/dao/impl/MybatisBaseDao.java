@@ -1,10 +1,7 @@
 package com.newland.financial.p2p.dao.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.newland.financial.p2p.common.util.Constants;
-import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.domain.entity.BaseEntity;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
@@ -16,7 +13,6 @@ import javax.annotation.Resource;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @param <T> 泛型
