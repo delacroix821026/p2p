@@ -22,7 +22,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
@@ -188,8 +187,65 @@ public class OrderService implements IOrderService {
         PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findOrderInfoDetailByCustomer(map1));
         return pageInfo;
     }
+    /**
+     * Pos端订单查询(列表)
+     */
+    public PageInfo getOrderInfoListByMerchant(String merchantId, String jsonStr) {
+        log.info("jsonStr" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String orderId =paramJSON.getString("orderId");
+        String accName =paramJSON.getString("accName");
+        String statusA =paramJSON.getString("statusA");
+        String statusB =paramJSON.getString("statusB");
+        String statusC =paramJSON.getString("statusC");
+        Long beginTime =paramJSON.getLong("beginTime");
+        Long endTime =paramJSON.getLong("endTime");
+        Integer c = paramJSON.getInteger("pageSize");
+        Integer p = paramJSON.getInteger("pageNum");
+        Integer page = null;
+        Integer count = null;
+        if (p == null || p < 1) {
+            page = 1;
+        } else {
+            page = p;
+        }
+        if (c == null || c < 5) {
+            count = 5;
+        } else {
+            count = c;
+        }
+        if ("".equals(merchantId)) {
+            merchantId = null;
+        }
+        if ("".equals(orderId)) {
+            orderId = null;
+        }
+        if ("".equals(accName)) {
+            accName = null;
+        }
+        if ("".equals(statusA)) {
+            statusA = null;
+        }
+        if ("".equals(statusB)) {
+            statusB = null;
+        }
+        if ("".equals(statusC)) {
+            statusC = null;
+        }
+        log.info("page=" + page + ";count=" + count + ";merchantId=" + merchantId + ";orderId=" + orderId + ";accName=" + accName
+                + ";statusA=" + statusA+ ";statusB=" + statusB+ ";statusC=" + statusC+ ";beginTime=" + beginTime+ ";endTime=" + endTime);
+        Map<String, Object> map1 = new HashMap<String, Object>();
+        map1.put("merId", merchantId);
+        map1.put("orderId", orderId);
+        map1.put("accName", accName);
+        map1.put("statusA", statusA);
+        map1.put("statusB", statusB);
+        map1.put("statusC", statusC);
+        map1.put("beginTime", beginTime);
+        map1.put("endTime", endTime);
+        //开始分页
+        PageHelper.startPage(page, count);
 
-    public List<OrderInfo> getOrderInfoListByMerchant(String merchantId, OrderInfo orderInfo) {
         return null;
     }
 
@@ -231,9 +287,9 @@ public class OrderService implements IOrderService {
         if ("".equals(contractsState)) {
             contractsState = null;
         }
-        log.info("page=" + page + ";count=" + count + ";openId=" + merchantId + ";orderId=" + orderId + ";merName=" + merName + ";contractsState=" + contractsState);
+        log.info("page=" + page + ";count=" + count + ";merchantId=" + merchantId + ";orderId=" + orderId + ";merName=" + merName + ";contractsState=" + contractsState);
         Map<String, Object> map1 = new HashMap<String, Object>();
-        map1.put("merId", merchantId);
+        map1.put("merchantId", merchantId);
         map1.put("orderId", orderId);
         map1.put("merName", merName);
         map1.put("contractsState", contractsState);

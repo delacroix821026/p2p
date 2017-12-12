@@ -64,14 +64,14 @@ public interface IOrderService {
      */
     PageInfo<OrderInfo> getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel);
 
-    List<OrderInfo> getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, OrderInfo orderInfo);
+    Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, String jsonStr);
 
     OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId);
 
     /**
      *  商户订单查询
      */
-    PageInfo<OrderInfo> getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel);
+    Object getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel);
 
     OrderInfo getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId);
 }
