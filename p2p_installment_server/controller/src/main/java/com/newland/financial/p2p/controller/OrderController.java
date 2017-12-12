@@ -209,8 +209,21 @@ public class OrderController {
      */
     @RequestMapping(value = "/merchant/{merchantId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderInfo> getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
-        return null;
+    public Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
+        log.info("========***********************=======");
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        log.info("merchantId:" + paramJSON.getString("merchantId"));
+        log.info("orderId:" + paramJSON.getString("orderId"));
+        log.info("accName:" + paramJSON.getString("accName"));
+        log.info("statusA:" + paramJSON.getString("statusA"));
+        log.info("statusB:" + paramJSON.getString("statusB"));
+        log.info("statusC:" + paramJSON.getString("statusC"));
+        log.info("beginTime:" + paramJSON.getString("beginTime"));
+        log.info("endTime:" + paramJSON.getString("endTime"));
+        log.info("pageSize:" + paramJSON.getString("pageSize"));
+        log.info("pageNum:" + paramJSON.getString("pageNum"));
+
+        return orderService.getOrderInfoListByMerchant(merchantId,jsonStr);
     }
 
     /**

@@ -36,7 +36,7 @@ public interface IOrderService {
     Object getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel);
 
     @RequestMapping(method = RequestMethod.GET, value = "/order/merchant/{merchantId}")
-    List<OrderInfo> getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, OrderInfo orderInfo);
+    Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, String  jsonStr);
 
     @RequestMapping(method = RequestMethod.GET, value = "/order/merchant/{merchantId}/{orderId}")
     OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId);

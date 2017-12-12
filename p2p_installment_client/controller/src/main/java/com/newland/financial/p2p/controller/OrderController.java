@@ -1,5 +1,7 @@
 package com.newland.financial.p2p.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -232,8 +234,26 @@ public class OrderController {
      */
     @RequestMapping(value = "/merchant/{merchantId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderInfo> getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, OrderInfo orderInfo) {
-        return null;
+    public Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestParam("jsonStr") String jsonStr) {
+        log.info("========client:getOrderInfoListByMerchant=======");
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        if ("".equals(merchantId)){
+            HashMap map = new HashMap<String,String>();
+            map.put("respCode","0419");
+            map.put("respMsg","商户代码为空");
+            return map;
+        }
+        log.info("merchantId:" + paramJSON.getString("merchantId"));
+        log.info("orderId:" + paramJSON.getString("orderId"));
+        log.info("accName:" + paramJSON.getString("accName"));
+        log.info("statusA:" + paramJSON.getString("statusA"));
+        log.info("statusB:" + paramJSON.getString("statusB"));
+        log.info("statusC:" + paramJSON.getString("statusC"));
+        log.info("beginTime:" + paramJSON.getString("beginTime"));
+        log.info("endTime:" + paramJSON.getString("endTime"));
+        log.info("pageSize:" + paramJSON.getString("pageSize"));
+        log.info("pageNum:" + paramJSON.getString("pageNum"));
+        return orderService.getOrderInfoListByMerchant(merchantId,jsonStr );
     }
 
     /**
