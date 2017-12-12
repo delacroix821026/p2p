@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface ISendService {
     @RequestMapping(method = RequestMethod.POST, value = "/ybforder/sendOrderMsg")
     @HystrixCommand(commandProperties = {
-            @HystrixProperty(name = "hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds", value = "30000")
+            @HystrixProperty(name = "hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     })
     Object sendOrderMsgToLbf(@RequestBody Object object);
 

@@ -2,6 +2,8 @@ package com.newland.financial.p2p.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.newland.financial.p2p.common.exception.BaseException;
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.domain.entity.InstallObjectFactory;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
@@ -51,6 +53,9 @@ public class RefundController {
         JSONObject param = JSON.parseObject(jsonStr);
         String orderId = param.getString("orderId");
         OrderInfo orderInfo = orderService.findOrderInfo(orderId);
+        if (orderInfo == null) {
+            throw new BaseRuntimeException("2004");
+        }
         MerInfo merInfo = merchantService.getMerchantDetail(orderInfo.getMerchantId());
         RefundMsgReq refundMsgReq = InstallObjectFactory.installRefundMsgReq(orderInfo, merInfo);
         if (refundMsgReq != null) {

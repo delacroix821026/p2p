@@ -2,6 +2,7 @@ package com.newland.financial.p2p.service.Impl;
 
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.service.ILfqMerchantService;
+import feign.hystrix.FallbackFactory;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ import java.util.Map;
 
 @Component
 @Log4j
-public class LfqMerchantServiceFallBackFactory {
+public class LfqMerchantServiceFallBackFactory implements FallbackFactory<ILfqMerchantService> {
     public ILfqMerchantService create(final Throwable cause) {
         return new ILfqMerchantService() {
 

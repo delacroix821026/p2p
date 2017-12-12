@@ -1,6 +1,7 @@
 
 package com.newland.financial.p2p.controller;
 
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.domain.entity.Refund;
 import com.newland.financial.p2p.domain.entity.RefundMsgReq;
 import com.newland.financial.p2p.service.IRefundService;
@@ -13,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -42,12 +40,9 @@ public class RefundController {
     @ResponseStatus(HttpStatus.OK)
     public Object createRefundOrder(@RequestBody String jsonStr) {
         log.info(jsonStr);
-        Map<String, String> map = new HashMap<String, String>();
         RefundMsgReq refundMsgReq = refundService.getRefundMsg(jsonStr);
         if (refundMsgReq == null) {
-            map.put("respCode", "0420");
-            map.put("respMsg", "订单已经超过45天，无法退款");
-            return map;
+            throw new BaseRuntimeException("2003");
         }
         log.info("client中拿到的refundMsgReq:" + refundMsgReq.toString());
         Refund refund = sendService.sendRefundMsgReq(refundMsgReq);
