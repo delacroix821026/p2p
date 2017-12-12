@@ -202,61 +202,73 @@
     </select>
 
     <!--商户退款中订单查询-->
-    <resultMap type="com.newland.financial.p2p.domain.entity.Refund" id="BaseResultRefundMap">
-        <id property="redundId" column="refundId" />
-        <result property="txnTime" column="refundTime" />
+    <resultMap type= "com.newland.financial.p2p.domain.entity.OrderInfo" id="BaseResultRefundMap">
+        <id property="id" column="id" />
+        <result property="txnTime" column="txnTime" />
         <result property="merId" column="merId" />
-        <result property="contractsCode" column="contractsCode" />
-        <result property="cancelAmount" column="cancelAmount" />
-        <result property="state" column="state" />
+        <result property="txnAmt" column="txnAmt" />
+        <result property="txnterms" column="txnterms" />
         <result property="orderId" column="orderId" />
-        <result property="vocher" column="vocher" />
-        <result property="sendTime" column="sendTime" />
-        <result property="path" column="path" />
-        <association property="orderInfo" javaType="com.newland.financial.p2p.domain.entity.OrderInfo" >
-            <id property="id" column="id" />
-            <result property="txnTime" column="txnTime" />
+        <result property="userId" column="userId" />
+        <result property="accName" column="accName" />
+        <result property="accNo" column="accNo" />
+        <result property="validity" column="validity" />
+        <result property="accIdcard" column="accIdcard" />
+        <result column="accMobile" property="accMobile" />
+        <result column="CVN2" property="cvn2" />
+        <result column="discount" property="discount" />
+        <result column="contractsCode" property="contractsCode" />
+        <result column="amount" property="amount" />
+        <result column="queryId" property="queryId" />
+        <result column="poundage" property="poundage" />
+        <result column="contractsState" property="contractsState" />
+        <result column="sumTerms" property="sumTerms" />
+        <result column="sumAmount" property="sumAmount" />
+        <result column="remainAmount" property="remainAmount" />
+        <result column="cancelAmount" property="cancelAmount" />
+        <result column="cancelInterest" property="cancelInterest" />
+        <result column="valueAdded" property="valueAdded" />
+        <result column="createTime" property="createTime" />
+        <result column="stus" property="stus" />
+        <result column="openId" property="openId" />
+        <association property="refund" javaType="com.newland.financial.p2p.domain.entity.Refund" >
+            <id property="redundId" column="refundId" />
+            <result property="txnTime" column="refundTime" />
             <result property="merId" column="merId" />
-            <result property="txnAmt" column="txnAmt" />
-            <result property="txnterms" column="txnterms" />
+            <result property="contractsCode" column="contractsCode" />
+            <result property="cancelAmount" column="cancelAmount" />
+            <result property="state" column="state" />
             <result property="orderId" column="orderId" />
-            <result property="userId" column="userId" />
-            <result property="accName" column="accName" />
-            <result property="accNo" column="accNo" />
-            <result property="validity" column="validity" />
-            <result property="accIdcard" column="accIdcard" />
-            <result column="accMobile" property="accMobile" />
-            <result column="CVN2" property="cvn2" />
-            <result column="discount" property="discount" />
-            <result column="contractsCode" property="contractsCode" />
-            <result column="amount" property="amount" />
-            <result column="queryId" property="queryId" />
-            <result column="poundage" property="poundage" />
-            <result column="contractsState" property="contractsState" />
-            <result column="sumTerms" property="sumTerms" />
-            <result column="sumAmount" property="sumAmount" />
-            <result column="remainAmount" property="remainAmount" />
-            <result column="cancelAmount" property="cancelAmount" />
-            <result column="cancelInterest" property="cancelInterest" />
-            <result column="valueAdded" property="valueAdded" />
-            <result column="createTime" property="createTime" />
-            <result column="stus" property="stus" />
-            <result column="openId" property="openId" />
+            <result property="vocher" column="vocher" />
+            <result property="sendTime" column="sendTime" />
+            <result property="path" column="path" />
         </association>
     </resultMap>
     <!--Pos端订单查询(列表)-->
-    <select id="findOrderByPlantByCustomer" resultMap="BaseResultMap" parameterType="Map">
+    <select id="getOrderByCustomer" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT
         *
-        FROM t_inst_orderinfo a JOIN t_inst_refund b
-        on a.orderid
+        FROM t_inst_orderinfo a LEFT JOIN t_inst_refund b
+        ON a.orderId = b.orderId
         <where>
-            contractsState <![CDATA[!= ]]> 0
-            <if test="merchantId != null">
-                and merchantId like CONCAT('%','${merchantId}','%')
+            a.contractsState <![CDATA[!= ]]> 0
+            AND
+            a.merchantId = #{merchantId}
+            <if test="statusA != null">
+                AND a.contractsState = 1
             </if>
-            <if test="merName != null">
-                and merName like CONCAT('%','${merName}','%')
+            <if test="statusB != null">
+               AND a.contractsState = 5 or a.contractsState = 2
+                or a.contractsState = 3  or  a.contractsState = 4
+            </if>
+            <if test="startTime != null">
+                  AND a.txnTime &gt; #{startTime}
+            </if> 
+             <if test="endsTime != null">
+                AND a.txnTime &lt; #{endsTime}
+              </if>
+            <if test="accName != null">
+                and accName like CONCAT('%','${accName}','%')
             </if>
             <if test="orderId != null">
                 and orderId like CONCAT('%','${orderId}','%')
