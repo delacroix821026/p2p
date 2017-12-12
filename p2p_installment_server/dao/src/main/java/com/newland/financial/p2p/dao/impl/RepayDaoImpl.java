@@ -4,6 +4,9 @@ import com.newland.financial.p2p.dao.IRepayDao;
 import com.newland.financial.p2p.domain.entity.Repay;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 还款处理DaoImpl.
  * @author Gregory
@@ -36,5 +39,13 @@ public class RepayDaoImpl extends MybatisBaseDao<Repay> implements IRepayDao {
      */
     public Repay findRepayInfo(Repay repay) {
         return super.selectEntity("findRepayInfo", repay);
+    }
+    /**
+     * 运营平台商户还款中订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<Repay> findRepayList(Map<String, Object> map) {
+        return super.select("findRepayList", map);
     }
 }

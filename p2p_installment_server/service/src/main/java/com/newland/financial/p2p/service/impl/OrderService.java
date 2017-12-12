@@ -245,8 +245,8 @@ public class OrderService implements IOrderService {
         map1.put("endTime", endTime);
         //开始分页
         PageHelper.startPage(page, count);
-
-        return null;
+        PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderInfoListByMerchant(map1));
+        return pageInfo;
     }
 
     public OrderInfo getOrderInfoDetailByMerchant(String merchantId, String orderId) {

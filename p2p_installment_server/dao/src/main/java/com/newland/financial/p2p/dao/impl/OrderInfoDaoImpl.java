@@ -70,6 +70,31 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
 
         return super.select("findOrderByCustomer", map);
     }
+    /**
+     * 运营平台商户订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo> findOrderInfoListByPlantManager(Map<String, Object> map) {
+        return super.select("findOrderByPlantByCustomer", map);
+    }
+    /**
+     * 已结清订单
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo> findOrderInfoListByFinish(Map<String, Object> map) {
+        return super.select("findOrderInfoListByFinish", map);
+    }
+
+    /**
+     * Pos端订单查询(列表)
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo>  getOrderInfoListByMerchant(Map<String, Object> map){
+        return super.select("getOrderByCustomer", map);
+    }
 
 
 }

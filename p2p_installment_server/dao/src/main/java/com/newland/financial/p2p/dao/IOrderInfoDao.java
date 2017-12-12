@@ -62,4 +62,10 @@ public interface IOrderInfoDao {
      * @return 信息集合
      */
     List<OrderInfo>  findOrderInfoListByFinish(Map<String, Object> map);
+    /**
+     * Pos端订单查询(列表)
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo>  getOrderInfoListByMerchant(Map<String, Object> map);
 }
