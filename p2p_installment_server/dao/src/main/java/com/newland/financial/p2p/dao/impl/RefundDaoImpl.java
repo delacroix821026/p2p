@@ -36,7 +36,7 @@ public class RefundDaoImpl extends MybatisBaseDao<Refund> implements IRefundDao 
      * 插入或者更新Refund.
      * @param refund 退款单
      */
-    public void insertOrUpdateRefund(Refund refund) {
+    public Object insertOrUpdateRefund(Refund refund) {
         String orderId = refund.getOrderId();
         log.info("Dao层orderId:" + orderId);
         // 查找是否存在
@@ -44,11 +44,11 @@ public class RefundDaoImpl extends MybatisBaseDao<Refund> implements IRefundDao 
         if (re != null) {
             log.info("==================进行更新=================");
             // 存在则更新
-            super.update("updateRefundByOrderId", refund);
+           return super.update("updateRefundByOrderId", refund);
         } else {
             log.info("==================进行插入=================");
             // 不存在则插入
-            super.insert("insertRefund", refund);
+            return super.insert("insertRefund", refund);
         }
     }
 }

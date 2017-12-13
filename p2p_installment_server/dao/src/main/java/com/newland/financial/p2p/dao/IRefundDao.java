@@ -26,5 +26,5 @@ public interface IRefundDao {
      * 插入或者更新Refund.
      * @param refund 退款单
      */
-    void insertOrUpdateRefund(Refund refund);
+    Object insertOrUpdateRefund(Refund refund);
 }

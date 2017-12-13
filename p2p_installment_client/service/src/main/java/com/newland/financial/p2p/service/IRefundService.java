@@ -16,5 +16,5 @@ public interface IRefundService {
     RefundMsgReq getRefundMsg(@RequestBody String jsonStr);
 
     @RequestMapping(method = RequestMethod.POST, value = "/refund/updateRefundOrder")
-    RefundMsgReq insertRefund(@RequestBody Refund refund);
+    Object insertRefund(@RequestBody Refund refund);
 }

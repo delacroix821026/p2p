@@ -21,7 +21,7 @@ public class RefundService implements IRefundService {
      * 插入或者更新Refund.
      * @param refund 退款单
      */
-    public void insertOrUpdateRefund(Refund refund) {
-        refundDao.insertOrUpdateRefund(refund);
+    public Object insertOrUpdateRefund(Refund refund) {
+        return refundDao.insertOrUpdateRefund(refund);
     }
 }

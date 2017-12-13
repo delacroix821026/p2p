@@ -55,6 +55,8 @@ public class RefundController {
         OrderInfo orderInfo = orderService.findOrderInfo(orderId);
         if (orderInfo == null) {
             throw new BaseRuntimeException("2004");
+        } else if (orderInfo.getMerchantId() == null) {
+            throw new BaseRuntimeException("2005");
         }
         MerInfo merInfo = merchantService.getMerchantDetail(orderInfo.getMerchantId());
         RefundMsgReq refundMsgReq = InstallObjectFactory.installRefundMsgReq(orderInfo, merInfo);
@@ -72,9 +74,9 @@ public class RefundController {
      */
     @RequestMapping(value = "/updateRefundOrder", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateRefundOrder(@RequestBody Refund refund) {
+    public Object updateRefundOrder(@RequestBody Refund refund) {
         Refund re = refund;
-        refundService.insertOrUpdateRefund(re);
+       return refundService.insertOrUpdateRefund(re);
     }
 
     /**

@@ -6,6 +6,8 @@ import com.newland.financial.p2p.domain.entity.Refund;
 import com.newland.financial.p2p.domain.entity.RefundMsgReq;
 import com.newland.financial.p2p.service.IRefundService;
 import com.newland.financial.p2p.service.ISendService;
+import com.newland.financial.p2p.service.ISignatureIfqService;
+import com.newland.financial.p2p.util.NewMerInfoUtils;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,9 @@ public class RefundController {
     /**注入service.*/
     @Autowired
     private ISendService sendService;
+    /*** 外发接口.*/
+    @Autowired
+    private ISignatureIfqService signatureService;
     /**
      * 生成退款单.
      * @param jsonStr 包含订单号
@@ -50,7 +55,32 @@ public class RefundController {
         return refund;
     }
 
-
+    /**
+     * 退款推送接口.
+     * @param jsonStr 推送内容
+     * @return success or failed
+     */
+    @RequestMapping(value = "/receiveRefund", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public String receiveRefund(@RequestBody String jsonStr) {
+        log.info("------------------------------receiveRefund----------------------------");
+        log.info("jsonStr：" + jsonStr);
+        //调用Ifpay-client验签
+        String respStus = signatureService.signature(jsonStr);
+        //判断验签结果，成功则调用server更新还款表HttpServletRequest request
+        if ("true".equals(respStus)) {
+            log.info("------------------------验签成功，更新退款信息");
+            Boolean repayResp = (Boolean) refundService.insertRefund(NewMerInfoUtils.getNewRefund(jsonStr));
+            if (repayResp) {
+                //更新完成后应答“success”
+                log.info("------------------------更新还款推送信息成功");
+                return "success";
+            }
+        } else {
+            log.info("------------------------验签失败！！");
+        }
+        return "failed";
+    }
 /**
      * 上传凭证.
      *
