@@ -4,14 +4,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;
 
 public class RestError {
-    private final HttpStatus status;
-    private final int code;
-    private final String message;
-    private final String developerMessage;
-    private final String moreInfoUrl;
-    private final Throwable throwable;
+    private HttpStatus status;
+    private String code;
+    private String message;
+    private String developerMessage;
+    private String moreInfoUrl;
+    private Throwable throwable;
 
-    public RestError(HttpStatus status, int code, String message, String developerMessage, String moreInfoUrl, Throwable throwable) {
+    public RestError() {}
+
+    public RestError(HttpStatus status, String code, String message, String developerMessage, String moreInfoUrl, Throwable throwable) {
         if (status == null) {
             throw new NullPointerException("HttpStatus argument cannot be null.");
         }
@@ -27,7 +29,7 @@ public class RestError {
         return status;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -83,7 +85,7 @@ public class RestError {
     public static class Builder {
 
         private HttpStatus status;
-        private int code;
+        private String code;
         private String message;
         private String developerMessage;
         private String moreInfoUrl;
@@ -102,7 +104,7 @@ public class RestError {
             return this;
         }
 
-        public Builder setCode(int code) {
+        public Builder setCode(String code) {
             this.code = code;
             return this;
         }

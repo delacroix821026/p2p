@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 组装报文类.
@@ -21,9 +22,10 @@ import java.util.Map;
 public class MethodFactory {
     /**
      * 封装创建订单请求报文参数.
+     *
      * @param orm 请求报文
-     * @throws IOException an error
      * @return 封装好的请求报文
+     * @throws IOException an error
      */
     public static Map<String, String> initOrderData(OrderMsgReq orm) throws IOException {
         Map<String, String> map = new HashMap<String, String>();
@@ -57,13 +59,14 @@ public class MethodFactory {
 
     /**
      * 持卡人信息封装.
-     * @param type 交易类型
-     * @param idCard 身份证
-     * @param name 姓名
-     * @param phone 电话
-     * @param cvn 信用卡背面3位数
+     *
+     * @param type      交易类型
+     * @param idCard    身份证
+     * @param name      姓名
+     * @param phone     电话
+     * @param cvn       信用卡背面3位数
      * @param validDate 有效期
-     * @param encoding 编码格式
+     * @param encoding  编码格式
      * @return 加签后的字符串
      * @throws IOException an error
      */
@@ -83,7 +86,8 @@ public class MethodFactory {
 
     /**
      * 查询订单请求报文封装.
-     * @param m 请求参数
+     *
+     * @param m      请求参数
      * @param merPwd 商户密码
      * @return 封装好的查询报文
      */
@@ -115,7 +119,7 @@ public class MethodFactory {
      *
      * @param mapA 请求信息
      * @param mapB 请求信息
-     * @param orm 请求报文
+     * @param orm  请求报文
      * @return 订单信息
      */
     public static OrderInfo installOrderInfo(Map<String, String> mapA, Map<String, String> mapB, OrderMsgReq orm) {
@@ -216,6 +220,7 @@ public class MethodFactory {
 
     /**
      * 商户入网报文封装.
+     *
      * @param merInfo 商户信息
      * @return 报文
      */
@@ -250,7 +255,7 @@ public class MethodFactory {
         map.put("holderName", merInfo.getHolderName()); //账户户名
         map.put("cardNum", merInfo.getCardNum()); //银行账号
         //map.put("parentName", "母公司");
-       // map.put("unionpayMerchantNum", "123123");
+        // map.put("unionpayMerchantNum", "123123");
         //map.put("remark", "remark");
         map.put("level", merInfo.getLevel()); // 证件类型：1：新营业执照；2：旧的营业执照
         return map;
@@ -258,8 +263,9 @@ public class MethodFactory {
 
     /**
      * 商户接入发送请求
+     *
      * @param requestUrl 请求地址
-     * @param data 请求参数
+     * @param data       请求参数
      */
     public static String execute(String requestUrl, Map<String, String> data) {
         String resp = null;
@@ -271,6 +277,60 @@ public class MethodFactory {
             e.printStackTrace();
         }
         return resp;
+    }
+
+    /**
+     * 退款报文封装.
+     *
+     * @param re 退款信息
+     * @return 报文
+     */
+    public static Map<String, String> installRefundReqMsg(RefundMsgReq re) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("txnType", re.getTxnType()); // 订单退款：04
+        map.put("contractsCode", re.getContractsCode()); // 合同号
+        map.put("backUrl", "http://localhost:8080/lfq-pay/backurl.do"); // 异步推送地址
+        String merPwd = re.getMerPwd();
+        String txnTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        // 通用信息
+        map.put("version", re.getVersion()); // 固定值：1.0.0
+        map.put("encoding", re.getEncoding()); // 编码
+        map.put("merId", re.getMerId()); // 商户编号
+        map.put("merName", re.getMerName()); // 商户名称
+        map.put("merAbbr", re.getMerAbbr()); // 商户简称
+        // 加密传送密码
+        map.put("merPwd", SecureUtil.encryptWithDES(txnTime, merPwd)); // 商户密码
+        map.put("txnTime", txnTime); // 交易时间：yyyyMMddHHmmss
+        return map;
+    }
+
+    /**
+     * 退款请求返回报文封装.
+     *
+     * @param map 请求信息
+     * @return 退款单
+     */
+    public static Refund installRefund(Map<String, String> map) {
+        Refund refund = new Refund();
+        String respCode = map.get("respCode");
+        refund.setRespCode(respCode);
+        refund.setRespMsg(map.get("respMsg"));
+        if (!"0000".equals(respCode)) {
+            return refund;
+        }
+        refund.setRefundId(UUID.randomUUID().toString().replaceAll("-", ""));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        try {
+            refund.setTxnTime(sdf.parse(map.get("txnTime")) );
+        } catch (ParseException e) {
+            log.error("时间转换错误");
+        }
+        refund.setMerId(map.get("merId"));
+        refund.setContractsCode(map.get("contractsCode"));
+        refund.setCancelAmount(Long.parseLong(map.get("cancelAmount")));
+        refund.setState(map.get("state"));
+        refund.setOrderId(map.get("orderId"));
+        return refund;
     }
 
 }

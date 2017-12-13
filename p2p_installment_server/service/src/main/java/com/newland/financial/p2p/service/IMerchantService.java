@@ -31,7 +31,7 @@ public interface IMerchantService {
      */
     PageInfo<MerInfo> getMerchantList(PageModel<MerInfo> pageModel);
 
-    MerInfo getMerchantDetail(@PathVariable(name = "merchantId") String merchantId);
+    MerInfo getMerchantDetail(String merchantId);
 
     /**
      * 商户接入.

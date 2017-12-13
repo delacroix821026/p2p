@@ -11,9 +11,19 @@ import java.util.Map;
 
 @Component
 @RefreshScope
-@ConfigurationProperties(prefix = "exceptionProp")
+@ConfigurationProperties(prefix = "exceptionDesp")
 public class ExceptionMapping {
-    @Getter
-    @Setter
     private Map<String, String> exceptionMap = new HashMap<String, String>();
+
+    public String getValue(String key) {
+        return exceptionMap.get(key);
+    }
+
+    public Map<String, String> getExceptionMap() {
+        return exceptionMap;
+    }
+
+    public void setExceptionMap(Map<String, String> exceptionMap) {
+        this.exceptionMap = exceptionMap;
+    }
 }

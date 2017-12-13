@@ -2,6 +2,8 @@ package com.newland.financial.p2p.controller;
 
 import com.newland.financial.p2p.domain.OrderMsgReq;
 import com.newland.financial.p2p.domain.OrderQueryReq;
+import com.newland.financial.p2p.domain.Refund;
+import com.newland.financial.p2p.domain.RefundMsgReq;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +53,21 @@ public class OrderController {
      */
     @RequestMapping(value = "/sendOrderQueryMsg", method = {RequestMethod.POST, RequestMethod.GET})
     public Object senOrderQueryMsg(@RequestBody OrderQueryReq oq) throws IOException {
-        log.info("5:come in ybf controller:" + oq);
+        log.info("come in ybf controller:" + oq);
         OrderQueryReq oqr = oq;
         return oerderService.findOrderInfo(oqr);
     }
 
+    /**
+     * 退款请求.
+     * @param refundMsgReq 退款报文.
+     * @return 退款单
+     * @throws IOException an error
+     */
+    @RequestMapping(value = "/sendRefundReqMsg", method = {RequestMethod.POST, RequestMethod.GET})
+    public Refund senOrderQueryMsg(@RequestBody RefundMsgReq refundMsgReq) throws IOException {
+        log.info("come in ybf controller:" + refundMsgReq);
+        RefundMsgReq re = refundMsgReq;
+        return oerderService.senOrderQueryMsg(re);
+    }
 }

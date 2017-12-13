@@ -3,12 +3,13 @@ package com.newland.financial.p2p.service.Impl;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.service.IMerchantService;
+import feign.hystrix.FallbackFactory;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @Log4j
-public class MerchantServiceFallBackFactory {
+public class MerchantServiceFallBackFactory implements FallbackFactory<IMerchantService> {
     public IMerchantService create(final Throwable cause) {
         return new IMerchantService() {
 

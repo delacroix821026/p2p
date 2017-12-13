@@ -7,6 +7,8 @@ import com.newland.financial.p2p.domain.MethodFactory;
 import com.newland.financial.p2p.domain.OrderInfo;
 import com.newland.financial.p2p.domain.OrderMsgReq;
 import com.newland.financial.p2p.domain.OrderQueryReq;
+import com.newland.financial.p2p.domain.RefundMsgReq;
+import com.newland.financial.p2p.domain.Refund;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +37,9 @@ public class OrderService implements IOrderService {
     /**查询订单地址.*/
     @Value("${IFQ_QUERY_ADDRESS}")
     private String queryUrl;
+    /**退款请求地址.*/
+    @Value("${backCancel_address}")
+    private String backCancelUrl;
 
     /**
      * 创建订单.
@@ -97,5 +102,18 @@ public class OrderService implements IOrderService {
         Map<String, String> mapA = IfqUtil.execute(requestUrl, map);
         OrderInfo or = MethodFactory.installOrderInfoA(mapA);
         return or;
+    }
+    /**
+     * 发送退款请求.
+     * @param re 退款报文
+     * @return 退款结果
+     */
+    public Refund senOrderQueryMsg(RefundMsgReq re) {
+        RefundMsgReq ref = re;
+        Map<String, String> map = MethodFactory.installRefundReqMsg(re);
+        MpiUtil.sign(map, "utf-8"); // 签名
+        Map<String, String> mapA = IfqUtil.execute(backCancelUrl, map);
+        Refund refund = MethodFactory.installRefund(mapA);
+        return refund;
     }
 }

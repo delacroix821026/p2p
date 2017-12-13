@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;
+import feign.hystrix.HystrixFeign;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -52,8 +53,11 @@ public class Application {
     @Scope("prototype")
     public Feign.Builder feignBuilder() {
         return Feign.builder();
-    }*/
-
+    }
+    public HystrixFeign.Builder feignBuilder() {
+        return HystrixFeign.builder();
+    }
+    */
 
     @Bean
     public Jackson2JsonRedisSerializer jackson2JsonRedisSerializer() {

@@ -93,7 +93,7 @@ public class MerchantService implements IMerchantService {
     }
 
     public MerInfo getMerchantDetail(String merchantId) {
-        return null;
+        return iMerInfoDao.selectMerInfoByMerchantId(merchantId);
     }
 
     /**

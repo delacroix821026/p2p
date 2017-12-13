@@ -1,11 +1,19 @@
 package com.newland.financial.p2p.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.newland.financial.p2p.domain.entity.MerInfo;
+import com.newland.financial.p2p.domain.entity.Refund;
 import lombok.extern.log4j.Log4j;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Map;
+import java.util.UUID;
+
 @Log4j
 public class NewMerInfoUtils {
     public static MerInfo getNewMerInfo(MerInfo merInfo, JSONObject jsonStr) {
@@ -27,5 +35,26 @@ public class NewMerInfoUtils {
         }
         log.info("组装后的merinfo：" + mer.toString());
         return mer;
+    }
+
+    public static Refund getNewRefund(String jsonStr) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> map = null;
+        try {
+            map = mapper.readValue(jsonStr, Map.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Refund refund = new Refund();
+        String respCode = map.get("respCode");
+        refund.setRespCode(respCode);
+        refund.setRespMsg(map.get("respMsg"));
+        if (!"0000".equals(respCode)) {
+            return refund;
+        }
+        refund.setCancelAmount(Long.parseLong(map.get("cancelAmount")));
+        refund.setState(map.get("state"));
+        refund.setOrderId(map.get("orderId"));
+        return refund;
     }
 }

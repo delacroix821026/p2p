@@ -40,12 +40,12 @@ public class Application {
         return new RestTemplate();
     }
 
-    @Bean
+   /* @Bean
     @Scope("prototype")
     public Feign.Builder feignBuilder() {
         return Feign.builder();
     }
-
+*/
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean(){
         ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();

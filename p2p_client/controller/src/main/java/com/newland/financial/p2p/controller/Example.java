@@ -43,7 +43,7 @@ public class Example {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public Object add() {
-        log.info("controller add Enter=====" + UserInfoUtils.getUserInfo().getLoginName());
+        //log.info("controller add Enter=====" + UserInfoUtils.getUserInfo().getLoginName());
         return feignService.add(6,9);
     }
 

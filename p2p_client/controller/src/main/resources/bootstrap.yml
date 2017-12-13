@@ -5,36 +5,22 @@
 spring:
     profiles: dev
     application:
-          name: @project.parent.name@${DEVLOPER_NAME:}
-    cloud:
-        config:
-            uri: http://192.168.10.18:2001/
+        name: @project.parent.name@${DEVLOPER_NAME:}
 HOSTNAME: ${spring.cloud.client.ipAddress}
-
 ...
 
 ---
 spring:
     profiles: test
     application:
-              name: @project.parent.name@
-    cloud:
-        config:
-            discovery:
-                enabled: true
-                serviceId: P2P-CONFIG-SERVER
+        name: @project.parent.name@
 ...
 
 ---
 spring:
     profiles: prod
     application:
-              name: @project.parent.name@
-    cloud:
-        config:
-            discovery:
-                enabled: true
-                serviceId: P2P-CONFIG-SERVER
+        name: @project.parent.name@
 ...
 
 ---
@@ -84,7 +70,7 @@ spring:
             profile: ${SPRING_PROFILES_ACTIVE}
             label: master
             name: @project.parent.name@
-            #uri: http://localhost:2001/
+            uri: http://configserver:2001/
             failFast: true
             retry:
                 max-attempts: 10

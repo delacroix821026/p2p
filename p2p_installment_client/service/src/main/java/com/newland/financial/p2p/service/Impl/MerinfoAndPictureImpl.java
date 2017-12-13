@@ -1,18 +1,17 @@
 package com.newland.financial.p2p.service.Impl;
 
 import com.newland.financial.p2p.service.IMerinfoAndPicture;
+import feign.hystrix.FallbackFactory;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Component
 @Log4j
-public abstract class MerinfoAndPictureImpl implements IMerinfoAndPicture {
+public class MerinfoAndPictureImpl implements FallbackFactory<IMerinfoAndPicture> {
     public IMerinfoAndPicture create(final Throwable cause) {
         return new IMerinfoAndPicture() {
-
-            public String getMerInfoAndPicture(String jsonStr) {
-                log.info("*********getMerInfoAndPicture:被熔断***********");
-                log.error(cause);
+            public String getMerInfoAndPicture(@RequestBody String jsonStr) {
                 return "1026";
             }
         };

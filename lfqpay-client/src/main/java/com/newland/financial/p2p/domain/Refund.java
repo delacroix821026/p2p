@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 public class Refund extends BaseEntity {
     /**退款单号.*/
-    private String redundId;
+    private String refundId;
     /**发送时间.*/
     private Date txnTime;
     /**商户代码.*/
@@ -28,4 +28,13 @@ public class Refund extends BaseEntity {
     private String orderId;
     /**请求编号.*/
     private String queryId;
+    /**响应码.*/
+    private String respCode;
+    /**响应信息.*/
+    private String respMsg;
+    private String vocher;
+    /**凭证上传时间.*/
+    private Date sendTime;
+    /**汇款凭证保存路径.*/
+    private String path;
 }

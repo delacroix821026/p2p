@@ -13,11 +13,7 @@ spring:
     profiles: dev
     application:
           name: @project.parent.name@${DEVLOPER_NAME:}
-    cloud:
-        config:
-            uri: http://192.168.10.19:2001/
 HOSTNAME: ${spring.cloud.client.ipAddress}
-
 ...
 
 ---
@@ -25,11 +21,6 @@ spring:
     profiles: test
     application:
         name: @project.parent.name@
-    cloud:
-        config:
-            discovery:
-                enabled: true
-                serviceId: P2P-CONFIG-SERVER
 ...
 
 ---
@@ -37,11 +28,6 @@ spring:
     profiles: prod
     application:
         name: @project.parent.name@
-    cloud:
-        config:
-            discovery:
-                enabled: true
-                serviceId: P2P-CONFIG-SERVER
 ...
 
 ---
@@ -85,11 +71,11 @@ spring:
             profile: ${SPRING_PROFILES_ACTIVE}
             label: master
             name: p2p-server
-            #uri: http://localhost:2001/
-            #failFast: true
-            #retry:
-                #max-attempts: 10
-                #initial-interval: 1000
+            uri: http://configserver:2001/
+            failFast: true
+            retry:
+                max-attempts: 10
+                initial-interval: 1000
     sleuth:
         sampler:
             percentage: 1.0
