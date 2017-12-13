@@ -71,6 +71,7 @@ public class OrderService implements IOrderService {
         MerInfo merInfo = merInfoDao.selectMerInfoByMerchantId(merchantId);
         log.info("merchantId:" + merchantId + ";merId" + merInfo.getMerId());
         orderInfo.setMerId(merInfo.getMerId());
+        orderInfo.setMerName(merInfo.getMerName());
         orderInfo.setOrderId(new String(s));
         orderInfo.setCreateTime(date);
         orderInfo.setMerchantId(merchantId);
@@ -257,6 +258,7 @@ public class OrderService implements IOrderService {
             PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderInfoListByMerchant(map1));
             return pageInfo;
         }
+        return null;
     }
 
     public OrderInfo getOrderInfoDetailByMerchant(String merchantId, String orderId) {
