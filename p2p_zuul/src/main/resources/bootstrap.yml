@@ -113,4 +113,5 @@ zuul:
         maxPerRouteConnections: 2000
     semaphore:
         maxSemaphores: 1000
+    #forceOriginalQueryStringEncoding: true
 ...
