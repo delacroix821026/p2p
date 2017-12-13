@@ -3,6 +3,7 @@ package com.newland.financial.p2p;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.newland.financial.p2p.filter.JsonEncodeFilter;
 import com.newland.financial.p2p.filter.SessionFilter;
 import com.thetransactioncompany.cors.CORSFilter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -89,6 +90,10 @@ public class Application {
         return corsFilter;
     }
 
+    @Bean
+    public JsonEncodeFilter getJsonEncodeFilter() {
+        return new JsonEncodeFilter();
+    }
 
     /*@Bean(name = "sessionFilter")
     public SlaveClientFilter addSlaveClientFilter() {
