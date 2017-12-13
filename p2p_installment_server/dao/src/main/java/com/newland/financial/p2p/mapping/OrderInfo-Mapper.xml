@@ -263,10 +263,10 @@
             1=1
             AND
             a.merchantId = #{merchantId}
-           <if test="statusA = '1'">
+           <if test="statusA == 1">
                 AND a.contractsState = 1
             </if>
-            <if test="status = '2'">
+            <if test="status == 2">
                AND  a.contractsState <![CDATA[!= ]]> 0
                AND  a.contractsState <![CDATA[!= ]]> 1
                AND  a.contractsState is not null
