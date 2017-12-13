@@ -92,6 +92,8 @@
             <result column="createTime" property="createTime" />
             <result column="stus" property="stus" />
             <result column="openId" property="openId" />
+            <result column="merName" property="merName" jdbcType="VARCHAR"/>
+            <result column="merchantId" property="merchantId" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
     <select id="findRepayList" resultMap="BaseResultRepayMap" parameterType="Map">

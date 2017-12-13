@@ -58,6 +58,8 @@
             <result column="createTime" property="createTime" />
             <result column="stus" property="stus" />
             <result column="openId" property="openId" />
+            <result column="merName" property="merName" jdbcType="VARCHAR"/>
+            <result column="merchantId" property="merchantId" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
     <sql id="Base_Column_List">
@@ -148,4 +150,22 @@
         (#{refundId,jdbcType=VARCHAR},#{txnTime,jdbcType=TIMESTAMP},#{merId,jdbcType=VARCHAR},#{contractsCode,jdbcType=VARCHAR},#{cancelAmount,jdbcType=NUMERIC},#{state,jdbcType=VARCHAR},
         #{orderId,jdbcType=VARCHAR},#{vocher,jdbcType=VARCHAR},#{sendTime,jdbcType=TIMESTAMP},#{path,jdbcType=VARCHAR})
     </insert>
+    <!--还款订单查询-->
+    <select id="getOrderInfoListByMerchant" resultMap="BaseResultRefundMap" parameterType="Map">
+        SELECT * FROM t_inst_orderinfo rd,t_inst_refund re
+        <where>
+            rd.contractsState= 1 and
+            rd.orderId = re.orderId
+            re.state = 0 AND rd.orderId = re.orderId
+            <if test="merchantId != null">
+                and rd.merchantId like CONCAT('%','${merchantId}','%')
+            </if>
+            <if test="merName != null">
+                and rd.merName like CONCAT('%','${merName}','%')
+            </if>
+            <if test="orderId != null">
+                and rd.orderId like CONCAT('%','${orderId}','%')
+            </if> ORDER BY createTime desc
+        </where>
+    </select>
 </mapper>
