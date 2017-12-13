@@ -187,8 +187,8 @@
         <include refid="Base_Column_List" />
         FROM t_inst_orderinfo
         <where>
-            a.contractsState <![CDATA[!= ]]> 0
-            AND  a.contractsState <![CDATA[!= ]]> 1
+            contractsState <![CDATA[!= ]]> 0
+            AND  contractsState <![CDATA[!= ]]> 1
             <if test="merchantId != null">
                 and merchantId like CONCAT('%','${merchantId}','%')
             </if>
