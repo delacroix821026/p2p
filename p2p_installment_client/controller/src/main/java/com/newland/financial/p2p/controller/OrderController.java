@@ -265,10 +265,11 @@ public class OrderController {
      *
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/orderList", method = RequestMethod.GET)
+    @RequestMapping(value = "/orderList", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoListByPlantManager(@RequestParam("jsonStr") String jsonStr) {
+    public Object getOrderInfoListByPlantManager(@RequestBody String jsonStr) {
         log.info("========client:getOrderInfoListByPlantManager=======");
+        log.info(jsonStr);
         ObjectMapper objectMapper = new ObjectMapper();
         PageModel<OrderInfo> pageModel = null;
         try {
