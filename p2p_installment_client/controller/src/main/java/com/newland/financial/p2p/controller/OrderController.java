@@ -217,7 +217,8 @@ public class OrderController {
         ObjectMapper objectMapper = new ObjectMapper();
         PageModel<OrderInfo> pageModel = null;
         try {
-            pageModel = objectMapper.readValue(jsonStr, new TypeReference<PageModel<OrderInfo>>() {});
+            pageModel = objectMapper.readValue(jsonStr, new TypeReference<PageModel<OrderInfo>>() {
+            });
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
@@ -227,6 +228,7 @@ public class OrderController {
         log.info("getMerchantList:" + pageModel.getPageSize());
         return orderService.getOrderInfoDetailByCustomer(pageModel);
     }
+
     /**
      * 商户查询订单列表.
      *
@@ -238,21 +240,13 @@ public class OrderController {
         log.info("========client:getOrderInfoListByMerchant=======");
         log.info("jsonStr===" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        if ("".equals(merchantId)){
-            HashMap map = new HashMap<String,String>();
-            map.put("respCode","0419");
-            map.put("respMsg","商户代码为空");
+        if (merchantId == null || "".equals(merchantId)) {
+            HashMap map = new HashMap<String, String>();
+            map.put("respCode", "0419");
+            map.put("respMsg", "商户代码为空");
             return map;
         }
-        log.info("merchantId:" + merchantId);
-        log.info("orderId:" + paramJSON.getString("orderId"));
-        log.info("accName:" + paramJSON.getString("accName"));
-        log.info("status:" + paramJSON.getString("status"));
-        log.info("beginTime:" + paramJSON.getLong("beginTime"));
-        log.info("endTime:" + paramJSON.getLong("endTime"));
-        log.info("pageSize:" + paramJSON.getInteger("pageSize"));
-        log.info("pageNum:" + paramJSON.getInteger("pageNum"));
-        return orderService.getOrderInfoListByMerchant(merchantId,jsonStr );
+        return orderService.getOrderInfoListByMerchant(merchantId, jsonStr);
     }
 
     /**
@@ -271,10 +265,11 @@ public class OrderController {
      *
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/orderList", method = RequestMethod.GET)
+    @RequestMapping(value = "/orderList", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoListByPlantManager(@RequestParam("jsonStr") String jsonStr) {
+    public Object getOrderInfoListByPlantManager(@RequestBody String jsonStr) {
         log.info("========client:getOrderInfoListByPlantManager=======");
+        log.info(jsonStr);
         ObjectMapper objectMapper = new ObjectMapper();
         PageModel<OrderInfo> pageModel = null;
         try {
@@ -291,6 +286,7 @@ public class OrderController {
         log.info("getPageSize:" + pageModel.getPageSize());
         return orderService.getOrderInfoListByPlantManager(pageModel);
     }
+
     /**
      * 平台管理员查询订单列表.
      *

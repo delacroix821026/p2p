@@ -64,14 +64,9 @@
         refundId,refundTime,merId,contractsCode,cancelAmount,state,orderId,vocher,sendTime,path
     </sql>
     <select id="findFundInfo" resultMap="BaseResultRefundMap" parameterType="Map">
-        SELECT
-        *
-        FROM
-        t_inst_orderinfo rd,t_inst_refund re
+        SELECT * FROM t_inst_orderinfo rd,t_inst_refund re
         <where>
-            re.state = 2
-            AND
-            rd.orderId = re.orderId
+            re.state = 2 AND rd.orderId = re.orderId
             <if test="merchantId != null">
                 and rd.merchantId like CONCAT('%','${merchantId}','%')
             </if>
@@ -84,25 +79,29 @@
         </where>
     </select>
     <!--商户退款订单查询-->
-    <select id="getOrderInfoListByMerchant" resultMap="BaseResultRefundMap" parameterType="Map">
-        SELECT
-        *
-        FROM
-        t_inst_orderinfo rd,t_inst_refund re
+    <!--<select id="getOrderInfoListByMerchant" resultMap="BaseResultRefundMap" parameterType="Map">
+        SELECT rd.id,rd.txnTime,rd.merId,rd.txnAmt,rd.txnterms,rd.userId,rd.accName,rd.accNo,rd.validity,rd.accIdcard,rd.accMobile,rd.CVN2,rd.discount,rd.contractsCode,rd.amount,rd.queryId,rd.poundage,rd.contractsState,rd.sumTerms,rd.sumAmount,rd.remainAmount,rd.cancelInterest,rd.valueAdded,rd.createTime,rd.stus,rd.openId,rd.merchantId,re.refundId,re.refundTime,re.cancelAmount,re.state,re.orderId,re.vocher,re.sendTime,re.path
+        FROM t_inst_orderinfo rd,t_inst_refund re
         <where>
-            1=1
-            AND
-            merchantId = #{merchantId}
-            AND
-            rd.orderId = re.orderId
+            rd.merchantId = #{merchantId} AND rd.orderId = re.orderId
+            <if test="startTime != null">AND rd.txnTime &gt; #{startTime}</if> 
+           <if test="endsTime != null">AND rd.txnTime &lt; #{endsTime}</if>
+            <if test="accName != null"> and rd.accName like CONCAT('%','${accName}','%')</if>
+            <if test="orderId != null"> and rd.orderId like CONCAT('%','${orderId}','%')</if>
+        </where> ORDER BY rd.createTime desc
+    </select>-->
+    <select id="getOrderInfoListByMerchant" resultMap="BaseResultRefundMap" parameterType="Map">
+        SELECT * FROM t_inst_orderinfo rd,t_inst_refund re
+        <where>
+            rd.orderId = re.orderId AND rd.merchantId = #{merchantId}
             <if test="startTime != null">
-              AND rd.txnTime &gt; #{startTime}
-            </if> 
-           <if test="endsTime != null">
-            AND rd.txnTime &lt; #{endsTime}
-          </if>
+                and  rd.txnTime &gt; #{startTime}
+            </if>
+            <if test="endsTime != null">
+                and  rd.txnTime &lt; #{endsTime}
+            </if>
             <if test="accName != null">
-                and rd.accName like CONCAT('%','${accName}','%')
+                and rd.merName like CONCAT('%','${accName}','%')
             </if>
             <if test="orderId != null">
                 and rd.orderId like CONCAT('%','${orderId}','%')

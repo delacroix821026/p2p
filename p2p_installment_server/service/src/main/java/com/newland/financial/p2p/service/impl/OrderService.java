@@ -71,6 +71,7 @@ public class OrderService implements IOrderService {
         MerInfo merInfo = merInfoDao.selectMerInfoByMerchantId(merchantId);
         log.info("merchantId:" + merchantId + ";merId" + merInfo.getMerId());
         orderInfo.setMerId(merInfo.getMerId());
+        orderInfo.setMerName(merInfo.getMerName());
         orderInfo.setOrderId(new String(s));
         orderInfo.setCreateTime(date);
         orderInfo.setMerchantId(merchantId);
@@ -228,9 +229,6 @@ public class OrderService implements IOrderService {
         } else {
             count = c;
         }
-        if ("".equals(merchantId)) {
-            merchantId = null;
-        }
         if ("".equals(orderId)) {
             orderId = null;
         }
@@ -256,10 +254,11 @@ public class OrderService implements IOrderService {
             log.info("========退款=======");
             PageInfo<Refund> pageInfo = new PageInfo<Refund>(refundDao.getOrderInfoListByMerchant(map1)) ;
             return pageInfo;
-        }else{
+        }else if("0".equals(status)){
             PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderInfoListByMerchant(map1));
             return pageInfo;
         }
+        return null;
     }
 
     public OrderInfo getOrderInfoDetailByMerchant(String merchantId, String orderId) {

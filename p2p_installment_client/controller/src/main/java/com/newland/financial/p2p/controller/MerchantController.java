@@ -44,9 +44,9 @@ public class MerchantController {
      * @param jsonStr 查询条件
      * @return List<MerInfo>
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Object getMerchantList(@RequestParam("jsonStr") String jsonStr) {
+    public Object getMerchantList(@RequestBody String jsonStr) {
         log.info("*****client*****");
         ObjectMapper objectMapper = new ObjectMapper();
         PageModel<MerInfo> pageModel = null;
@@ -135,6 +135,7 @@ public class MerchantController {
     public Object updateMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
         log.info("merchantId:" + merchantId + ";jsonStr:" + jsonStr);
         MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
+        log.info("======merInfo=====" + merInfo.toString());
         if (merInfo.getMerchantId() == null || "".equals(merInfo.getMerchantId())) {
             Map<String, String> map = new HashMap<String, String>();
             map.put("respCode", "0414");

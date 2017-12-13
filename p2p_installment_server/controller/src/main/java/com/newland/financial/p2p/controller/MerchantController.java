@@ -88,6 +88,7 @@ public class MerchantController {
     @ResponseStatus(HttpStatus.CREATED)
     public Object updateMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody MerInfo merInfo) {
         MerInfo mer = merInfo;
+        log.info(mer.toString());
         if ("".equals(mer.getContractsCode())) {
             mer.setContractsCode(null);
         }
