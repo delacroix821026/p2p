@@ -83,8 +83,6 @@
             </if> ORDER BY createTime desc
         </where>
     </select>
-<<<<<<< HEAD
-
     <!--商户退款订单查询-->
     <select id="getOrderInfoListByMerchant" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT
@@ -111,7 +109,6 @@
             </if> ORDER BY createTime desc
         </where>
     </select>
-=======
 <!--根据订单号查询退款单-->
     <select id="selectRefundByOrderId" resultMap="BaseResultMap" parameterType="String">
         SELECT * FROM t_inst_refund WHERE orderId = #{orderId}
@@ -152,5 +149,4 @@
         (#{refundId,jdbcType=VARCHAR},#{txnTime,jdbcType=TIMESTAMP},#{merId,jdbcType=VARCHAR},#{contractsCode,jdbcType=VARCHAR},#{cancelAmount,jdbcType=NUMERIC},#{state,jdbcType=VARCHAR},
         #{orderId,jdbcType=VARCHAR},#{vocher,jdbcType=VARCHAR},#{sendTime,jdbcType=TIMESTAMP},#{path,jdbcType=VARCHAR})
     </insert>
->>>>>>> 46112d78c3d19cf15de62d6437f8c6c094c9377d
 </mapper>
