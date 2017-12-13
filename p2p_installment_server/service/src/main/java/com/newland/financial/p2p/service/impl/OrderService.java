@@ -195,13 +195,27 @@ public class OrderService implements IOrderService {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String orderId =paramJSON.getString("orderId");
         String accName =paramJSON.getString("accName");
-        String statusA =paramJSON.getString("statusA");
-        String statusB =paramJSON.getString("statusB");
-        String statusC =paramJSON.getString("statusC");
-        Long beginTime =paramJSON.getLong("beginTime");
-        Long endTime =paramJSON.getLong("endTime");
+        String status =paramJSON.getString("status"); //0：全部，1：未结清，2，已结清，3退款
         Integer c = paramJSON.getInteger("pageSize");
         Integer p = paramJSON.getInteger("pageNum");
+        //时间格式化
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long beginTime =paramJSON.getLong("beginTime");
+        Long endTime =paramJSON.getLong("endTime");
+        //时间转化
+        String startTime = null;
+        String endsTime = null;
+        if (beginTime != null) {
+            Date beginTimeDate = new Date(beginTime);
+            startTime = sdf.format(beginTimeDate);
+            log.info("---------------------------------" + startTime);
+        }
+        if (endTime != null) {
+            Date endTimeDate = new Date(endTime);
+            endsTime = sdf.format(endTimeDate);
+            log.info("---------------------------------" + endsTime);
+        }
+
         Integer page = null;
         Integer count = null;
         if (p == null || p < 1) {
@@ -223,30 +237,29 @@ public class OrderService implements IOrderService {
         if ("".equals(accName)) {
             accName = null;
         }
-        if ("".equals(statusA)) {
-            statusA = null;
-        }
-        if ("".equals(statusB)) {
-            statusB = null;
-        }
-        if ("".equals(statusC)) {
-            statusC = null;
+        if ("".equals(status)){
+            //0：全部，1：未结清，2，已结清，3退款
+            status = null;
         }
         log.info("page=" + page + ";count=" + count + ";merchantId=" + merchantId + ";orderId=" + orderId + ";accName=" + accName
-                + ";statusA=" + statusA+ ";statusB=" + statusB+ ";statusC=" + statusC+ ";beginTime=" + beginTime+ ";endTime=" + endTime);
+                + ";status=" + status+ ";startTime=" + startTime+ ";endsTime=" + endsTime);
         Map<String, Object> map1 = new HashMap<String, Object>();
-        map1.put("merId", merchantId);
+        map1.put("merchantId", merchantId);
         map1.put("orderId", orderId);
         map1.put("accName", accName);
-        map1.put("statusA", statusA);
-        map1.put("statusB", statusB);
-        map1.put("statusC", statusC);
-        map1.put("beginTime", beginTime);
-        map1.put("endTime", endTime);
+        map1.put("status", status);
+        map1.put("startTime", startTime);
+        map1.put("endsTime", endsTime);
         //开始分页
         PageHelper.startPage(page, count);
-        PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderInfoListByMerchant(map1));
-        return pageInfo;
+        if ("3".equals(status)){
+            log.info("========退款=======");
+            PageInfo<Refund> pageInfo = new PageInfo<Refund>(refundDao.getOrderInfoListByMerchant(map1)) ;
+            return pageInfo;
+        }else{
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderInfoListByMerchant(map1));
+            return pageInfo;
+        }
     }
 
     public OrderInfo getOrderInfoDetailByMerchant(String merchantId, String orderId) {

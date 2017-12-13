@@ -13,12 +13,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -207,17 +202,15 @@ public class OrderController {
      *
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/merchant/{merchantId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{merchantId}/orderList", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
     public Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
         log.info("========***********************=======");
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        log.info("merchantId:" + paramJSON.getString("merchantId"));
+        log.info("merchantId:" +merchantId);
         log.info("orderId:" + paramJSON.getString("orderId"));
         log.info("accName:" + paramJSON.getString("accName"));
-        log.info("statusA:" + paramJSON.getString("statusA"));
-        log.info("statusB:" + paramJSON.getString("statusB"));
-        log.info("statusC:" + paramJSON.getString("statusC"));
+        log.info("status:" + paramJSON.getString("status"));
         log.info("beginTime:" + paramJSON.getString("beginTime"));
         log.info("endTime:" + paramJSON.getString("endTime"));
         log.info("pageSize:" + paramJSON.getString("pageSize"));

@@ -63,7 +63,9 @@ public interface IOrderService {
      *  微信顾客查询订单.
      */
     PageInfo<OrderInfo> getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel);
-
+    /**
+     *  Pos端订单查询(列表)
+     */
     Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, String jsonStr);
 
     OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId);

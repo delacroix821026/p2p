@@ -83,4 +83,31 @@
             </if> ORDER BY createTime desc
         </where>
     </select>
+
+    <!--商户退款订单查询-->
+    <select id="getOrderInfoListByMerchant" resultMap="BaseResultRefundMap" parameterType="Map">
+        SELECT
+        *
+        FROM
+        t_inst_orderinfo rd,t_inst_refund re
+        <where>
+            1=1
+            AND
+            merchantId = #{merchantId}
+            AND
+            rd.orderId = re.orderId
+            <if test="startTime != null">
+              AND rd.txnTime &gt; #{startTime}
+            </if> 
+           <if test="endsTime != null">
+            AND rd.txnTime &lt; #{endsTime}
+          </if>
+            <if test="accName != null">
+                and rd.accName like CONCAT('%','${accName}','%')
+            </if>
+            <if test="orderId != null">
+                and rd.orderId like CONCAT('%','${orderId}','%')
+            </if> ORDER BY createTime desc
+        </where>
+    </select>
 </mapper>

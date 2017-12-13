@@ -187,8 +187,8 @@
         <include refid="Base_Column_List" />
         FROM t_inst_orderinfo
         <where>
-            contractsState = 5 or contractsState = 2
-            or contractsState = 3  or  contractsState = 4
+            a.contractsState <![CDATA[!= ]]> 0
+            AND  a.contractsState <![CDATA[!= ]]> 1
             <if test="merchantId != null">
                 and merchantId like CONCAT('%','${merchantId}','%')
             </if>
@@ -251,15 +251,16 @@
         FROM t_inst_orderinfo a LEFT JOIN t_inst_refund b
         ON a.orderId = b.orderId
         <where>
-            a.contractsState <![CDATA[!= ]]> 0
+            1=1
             AND
             a.merchantId = #{merchantId}
-            <if test="statusA != null">
+           <if test="statusA = '1'">
                 AND a.contractsState = 1
             </if>
-            <if test="statusB != null">
-               AND a.contractsState = 5 or a.contractsState = 2
-                or a.contractsState = 3  or  a.contractsState = 4
+            <if test="status = '2'">
+               AND  a.contractsState <![CDATA[!= ]]> 0
+               AND  a.contractsState <![CDATA[!= ]]> 1
+               AND  a.contractsState is not null
             </if>
             <if test="startTime != null">
                   AND a.txnTime &gt; #{startTime}

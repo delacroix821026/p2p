@@ -232,10 +232,11 @@ public class OrderController {
      *
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/merchant/{merchantId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestParam("jsonStr") String jsonStr) {
+    @RequestMapping(value = "/{merchantId}/orderList", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
         log.info("========client:getOrderInfoListByMerchant=======");
+        log.info("jsonStr===" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         if ("".equals(merchantId)){
             HashMap map = new HashMap<String,String>();
@@ -243,16 +244,14 @@ public class OrderController {
             map.put("respMsg","商户代码为空");
             return map;
         }
-        log.info("merchantId:" + paramJSON.getString("merchantId"));
+        log.info("merchantId:" + merchantId);
         log.info("orderId:" + paramJSON.getString("orderId"));
         log.info("accName:" + paramJSON.getString("accName"));
-        log.info("statusA:" + paramJSON.getString("statusA"));
-        log.info("statusB:" + paramJSON.getString("statusB"));
-        log.info("statusC:" + paramJSON.getString("statusC"));
-        log.info("beginTime:" + paramJSON.getString("beginTime"));
-        log.info("endTime:" + paramJSON.getString("endTime"));
-        log.info("pageSize:" + paramJSON.getString("pageSize"));
-        log.info("pageNum:" + paramJSON.getString("pageNum"));
+        log.info("status:" + paramJSON.getString("status"));
+        log.info("beginTime:" + paramJSON.getLong("beginTime"));
+        log.info("endTime:" + paramJSON.getLong("endTime"));
+        log.info("pageSize:" + paramJSON.getInteger("pageSize"));
+        log.info("pageNum:" + paramJSON.getInteger("pageNum"));
         return orderService.getOrderInfoListByMerchant(merchantId,jsonStr );
     }
 
