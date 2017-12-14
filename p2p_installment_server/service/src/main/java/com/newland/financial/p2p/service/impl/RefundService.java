@@ -38,6 +38,7 @@ public class RefundService implements IRefundService {
      * @return true or false
      */
     public Boolean updateRefund(Refund refund) {
+        log.info("service更新退款单");
         return refundDao.updateRefund(refund);
     }
 }

@@ -1,8 +1,6 @@
 
 package com.newland.financial.p2p.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.domain.entity.Refund;
 import com.newland.financial.p2p.domain.entity.RefundMsgReq;
@@ -54,17 +52,25 @@ public class RefundController {
     /*** 外发接口.*/
     @Autowired
     private ISignatureIfqService signatureService;
-    /**ftp地址.*/
-    @Value("${hostName}")
+    /**
+     * ftp地址.
+     */
+    @Value("${ftp.crt.hostName}")
     private String hostName;
-    /**ftp端口.*/
-    @Value("${port}")
+    /**
+     * ftp端口.
+     */
+    @Value("${ftp.crt.port}")
     private int port;
-    /**ftp账户名.*/
-    @Value("${userName}")
+    /**
+     * ftp账户名.
+     */
+    @Value("${ftp.crt.userName}")
     private String userName;
-    /**ftp密码.*/
-    @Value("${passWord}")
+    /**
+     * ftp密码.
+     */
+    @Value("${ftp.crt.passWord}")
     private String passWord;
 
     /**
@@ -79,7 +85,10 @@ public class RefundController {
         log.info(jsonStr);
         RefundMsgReq refundMsgReq = refundService.getRefundMsg(jsonStr);
         if (refundMsgReq == null) {
-            throw new BaseRuntimeException("2003");
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("respCode", "2003");
+            map.put("respMsg", "订单已经超过45天，无法退款");
+            return map;
         }
         log.info("client中拿到的refundMsgReq:" + refundMsgReq.toString());
         Refund refund = sendService.sendRefundMsgReq(refundMsgReq);
@@ -119,7 +128,7 @@ public class RefundController {
      * 上传凭证.
      */
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload/{orderId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public Object uploadFile(@RequestParam(value = "file") MultipartFile file, @PathVariable(name = "orderId") String orderId) throws Exception {
         if (file == null) {
@@ -132,6 +141,7 @@ public class RefundController {
         InputStream input = file.getInputStream();
         log.info("------------上传文件名-----------" + filename);
         FtpClientEntity a = new FtpClientEntity();
+        log.info("hostName:" + hostName + ";port:" + port + ";userName:" + userName + ";passWord:" + passWord);
         FTPClient ftp = a.getConnectionFTP(hostName, port, userName, passWord);
         boolean result = a.uploadFile(ftp, path, filename, input);
         a.closeFTP(ftp);

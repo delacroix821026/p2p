@@ -73,4 +73,16 @@
         <!--<appender-ref ref="logstash"/>-->
         <!--<appender-ref ref="flatfile"/>-->
     </root>
+    <logger name="dao" level="DEBUG" additivity="false">
+        <level value="debug" />
+        <appender-ref ref="console" />
+        <appender-ref ref="flatfile" />
+        <appender-ref ref="logstash" />
+    </logger>
+    <logger name="com.newland.financial" additivity="false">
+        <level value="info" />
+        <appender-ref ref="console" />
+        <appender-ref ref="flatfile" />
+        <appender-ref ref="logstash" />
+    </logger>
 </configuration>

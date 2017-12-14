@@ -58,6 +58,13 @@ public class RefundDaoImpl extends MybatisBaseDao<Refund> implements IRefundDao 
      * @return true or false
      */
     public Boolean updateRefund(Refund refund) {
+        String orderId = refund.getOrderId();
+        log.info("Dao层orderId:" + orderId);
+        // 查找是否存在
+        Refund re = super.selectEntity("selectRefundByOrderId", orderId);
+        if (re == null) {
+            return false;
+        }
         return super.update("updateRefundByOrderId", refund);
     }
 }

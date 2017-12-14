@@ -7,10 +7,12 @@ spring:
     application:
           name: @project.parent.name@${DEVLOPER_NAME:}
 HOSTNAME: ${spring.cloud.client.ipAddress}
-hostName: 192.168.10.19
-port: 8021
-userName: certificateuser
-passWord: ftpusertest123%
+ftp:
+    crt:
+        hostName: 192.168.10.19
+        port: 8021
+        userName: certificateuser
+        passWord: ftpusertest123%
 ...
 
 ---
