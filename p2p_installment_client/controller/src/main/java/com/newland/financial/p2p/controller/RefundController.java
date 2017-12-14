@@ -14,6 +14,7 @@ import com.newland.financial.p2p.util.NewMerInfoUtils;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +54,18 @@ public class RefundController {
     /*** 外发接口.*/
     @Autowired
     private ISignatureIfqService signatureService;
+    /**ftp地址.*/
+    @Value("${hostName}")
+    private String hostName;
+    /**ftp端口.*/
+    @Value("${port}")
+    private int port;
+    /**ftp账户名.*/
+    @Value("${userName}")
+    private String userName;
+    /**ftp密码.*/
+    @Value("${passWord}")
+    private String passWord;
 
     /**
      * 生成退款单.
@@ -121,7 +134,7 @@ public class RefundController {
         InputStream input = file.getInputStream();
         log.info("------------上传文件名-----------" + filename);
         FtpClientEntity a = new FtpClientEntity();
-        FTPClient ftp = a.getConnectionFTP("192.168.10.19", 8021, "certificateuser", "ftpusertest123%");
+        FTPClient ftp = a.getConnectionFTP(hostName, port, userName, passWord);
         boolean result = a.uploadFile(ftp, path, filename, input);
         a.closeFTP(ftp);
         Map<String, String> map = new HashMap<String, String>();

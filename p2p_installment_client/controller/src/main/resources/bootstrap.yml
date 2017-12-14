@@ -1,5 +1,5 @@
 #spring-boot:run -Drun.arguments=--SPRING_PROFILES_ACTIVE=local,--DEVLOPER_NAME=Delacroix
-# java -jar target/xxx.jar --server.port=9090 --server.context-path=/Test
+# java -ja target/xxx.jar --server.port=9090 --server.context-path=/Test
 
 ---
 spring:
@@ -7,7 +7,10 @@ spring:
     application:
           name: @project.parent.name@${DEVLOPER_NAME:}
 HOSTNAME: ${spring.cloud.client.ipAddress}
-
+hostName: 192.168.10.19
+port: 8021
+userName: certificateuser
+passWord: ftpusertest123%
 ...
 
 ---
