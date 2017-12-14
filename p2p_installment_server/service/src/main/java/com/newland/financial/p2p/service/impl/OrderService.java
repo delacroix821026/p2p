@@ -200,21 +200,21 @@ public class OrderService implements IOrderService {
         Integer c = paramJSON.getInteger("pageSize");
         Integer p = paramJSON.getInteger("pageNum");
         //时间格式化
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Long beginTime =paramJSON.getLong("beginTime");
-        Long endTime =paramJSON.getLong("endTime");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Long createTimeBeg =paramJSON.getLong("beginTime");
+        Long createTimeEnd =paramJSON.getLong("endTime");
         //时间转化
-        String startTime = null;
-        String endsTime = null;
-        if (beginTime != null) {
-            Date beginTimeDate = new Date(beginTime);
-            startTime = sdf.format(beginTimeDate);
-            log.info("---------------------------------" + startTime);
+        String begTime = null;
+        String endTime = null;
+        if (createTimeBeg != null) {
+            Date begTimeDate = new Date(createTimeBeg);
+            begTime = sdf.format(begTimeDate);
+            log.debug("---------------------------------" + begTime);
         }
-        if (endTime != null) {
-            Date endTimeDate = new Date(endTime);
-            endsTime = sdf.format(endTimeDate);
-            log.info("---------------------------------" + endsTime);
+        if (createTimeEnd != null) {
+            Date endTimeDate = new Date(createTimeEnd);
+            endTime = sdf.format(endTimeDate);
+            log.debug("---------------------------------" + endTime);
         }
 
         Integer page = null;
@@ -240,25 +240,34 @@ public class OrderService implements IOrderService {
             status = null;
         }
         log.info("page=" + page + ";count=" + count + ";merchantId=" + merchantId + ";orderId=" + orderId + ";accName=" + accName
-                + ";status=" + status+ ";startTime=" + startTime+ ";endsTime=" + endsTime);
+                + ";status=" + status+ ";begTime=" + begTime+ ";endTime=" + endTime);
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("merchantId", merchantId);
         map1.put("orderId", orderId);
         map1.put("accName", accName);
         map1.put("status", status);
-        map1.put("startTime", startTime);
-        map1.put("endsTime", endsTime);
+        map1.put("begTime", begTime);
+        map1.put("endTime", endTime);
         //开始分页
         PageHelper.startPage(page, count);
-        if ("3".equals(status)){
-            log.info("========退款=======");
-            PageInfo<Refund> pageInfo = new PageInfo<Refund>(refundDao.getOrderInfoListByMerchant(map1)) ;
+        if ("0".equals(status)){
+            log.info("========查询全部=======");
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderInfoListByMerchant(map1)) ;
             return pageInfo;
-        }else if("0".equals(status)){
-            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderInfoListByMerchant(map1));
+        }else if("3".equals(status)){
+            log.info("========退款中=======");
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRefundListPos(map1));
             return pageInfo;
+        }else{
+            if ("1".equals(status)){
+                status = null;
+                log.info("========未结清=======");
+            }
+            log.info("========已结清=======");
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findOrderListPos(map1));
+            return pageInfo;
+
         }
-        return null;
     }
 
     public OrderInfo getOrderInfoDetailByMerchant(String merchantId, String orderId) {
@@ -314,7 +323,7 @@ public class OrderService implements IOrderService {
         // 0 还款中
         if ("0".equals(contractsState)) {
             log.info("========0000===========");
-            PageInfo<Repay> pageInfo = new PageInfo<Repay>(repayDao.findRepayList(map1)) ;
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRepayList(map1)) ;
             return pageInfo;
         }
         // 1 结清
@@ -326,7 +335,7 @@ public class OrderService implements IOrderService {
         // 2 退款中
         if ("2".equals(contractsState)) {
             log.info("========222222===========");
-            PageInfo<Refund> pageInfo = new PageInfo<Refund>(refundDao.findRefundList(map1)) ;
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRefundList(map1)) ;
             return pageInfo;
         }
         return null;

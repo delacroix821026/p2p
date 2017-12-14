@@ -88,12 +88,44 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
     }
 
     /**
-     * Pos端订单查询(列表)
+     * Pos端全部订单查询(列表)
      * @param map 查询条件
      * @return 信息集合
      */
     public List<OrderInfo>  getOrderInfoListByMerchant(Map<String, Object> map){
         return super.select("getOrderByCustomer", map);
+    }
+    /**
+     * 还款中订单
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo> findRepayList(Map<String, Object> map) {
+        return super.select("findRepayList", map);
+    }
+    /**
+     * 退款中订单
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo> findRefundList(Map<String, Object> map) {
+        return super.select("findFundInfo", map);
+    }
+    /**
+     * POS退款订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo> findRefundListPos(Map<String, Object> map) {
+        return super.select("findRefundListPos", map);
+    }
+    /**
+     * 结清与未结清订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo> findOrderListPos(Map<String, Object> map) {
+        return super.select("findOrderListPos", map);
     }
 
 

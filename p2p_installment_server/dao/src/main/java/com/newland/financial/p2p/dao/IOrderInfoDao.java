@@ -63,9 +63,33 @@ public interface IOrderInfoDao {
      */
     List<OrderInfo>  findOrderInfoListByFinish(Map<String, Object> map);
     /**
-     * Pos端订单查询(列表)
+     * Pos端全部订单查询(列表)
      * @param map 查询条件
      * @return 信息集合
      */
     List<OrderInfo>  getOrderInfoListByMerchant(Map<String, Object> map);
+    /**
+     * 运营平台商户还款中订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo> findRepayList(Map<String, Object> map);
+    /**
+     * 运营平台商户退款中订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo> findRefundList(Map<String, Object> map);
+    /**
+     * POS退款订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo> findRefundListPos(Map<String, Object> map);
+    /**
+     * 结清与未结清订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo> findOrderListPos(Map<String, Object> map);
 }

@@ -96,25 +96,4 @@
             <result column="merchantId" property="merchantId" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
-    <select id="findRepayList" resultMap="BaseResultRepayMap" parameterType="Map">
-        SELECT
-        rd.*,re.*
-        FROM
-        t_inst_orderinfo rd,t_inst_repay re
-        <where>
-            rd.contractsState = 1
-            and
-            rd.orderId = re.ORDER_ID
-            <if test="merchantId != null">
-                and rd.merchantId like CONCAT('%','${merchantId}','%')
-            </if>
-            <if test="merName != null">
-                and rd.merName like CONCAT('%','${merName}','%')
-            </if>
-            <if test="orderId != null">
-                and rd.orderId like CONCAT('%','${orderId}','%')
-            </if> ORDER BY createTime desc
-        </where>
-    </select>
-
 </mapper>
