@@ -284,14 +284,16 @@
     <select id="findOrderListPos" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT * FROM t_inst_orderinfo a LEFT JOIN t_inst_refund b ON a.orderId = b.orderId
         <where>
-            a.merchantId = #{merchantId}
+            a.merchantId = #{merchantId} AND  a.contractsState is not null
             <if test="status != null">
                 AND  a.contractsState <![CDATA[!= ]]> 0
                 AND  a.contractsState <![CDATA[!= ]]> 1
-                AND  a.contractsState is not null
             </if>
             <if test="status == null">
-                AND  a.contractsState = 1
+                AND  a.contractsState <![CDATA[!= ]]> 2
+                AND  a.contractsState <![CDATA[!= ]]> 3
+                AND  a.contractsState <![CDATA[!= ]]> 4
+                AND  a.contractsState <![CDATA[!= ]]> 5
             </if>
             <if test="begTime != null">
                 AND DATE_FORMAT(a.txnTime,'%Y-%m-%d') &gt;= #{begTime}
