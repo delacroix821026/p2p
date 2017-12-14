@@ -63,14 +63,6 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
         return super.selectEntity("selectOrderPos", map);
     }
     /**
-     * 微信顾客查询订单.
-     * 跟据map查询
-     */
-    public List<OrderInfo> findOrderInfoDetailByCustomer(Map<String, Object> map){
-
-        return super.select("findOrderByCustomer", map);
-    }
-    /**
      * 运营平台商户订单查询
      * @param map 查询条件
      * @return 信息集合
@@ -126,6 +118,30 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
      */
     public List<OrderInfo> findOrderListPos(Map<String, Object> map) {
         return super.select("findOrderListPos", map);
+    }
+    /**
+     * 微信还款中订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo> findRepayWeixin(Map<String, Object> map) {
+        return super.select("findRepayWeixin", map);
+    }
+    /**
+     * 微信退款中订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo> findRefundWeixin(Map<String, Object> map) {
+        return super.select("findRefundWeixin", map);
+    }
+    /**
+     * 微信结清与全部订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    public List<OrderInfo> findByFinishWeixin(Map<String, Object> map) {
+        return super.select("findByFinishWeixin", map);
     }
 
 

@@ -43,12 +43,7 @@ public interface IOrderInfoDao {
      * @param merId 商户代码
      */
    OrderInfo selectOrderInfoPos(String orderId, String merId);
-    /**
-     * 微信用户订单查询
-     * @param map 查询条件
-     * @return 信息集合
-     */
-    List<OrderInfo> findOrderInfoDetailByCustomer(Map<String, Object> map);
+
     /**
      * 运营平台商户订单查询
      * @param map 查询条件
@@ -92,4 +87,22 @@ public interface IOrderInfoDao {
      * @return 信息集合
      */
     List<OrderInfo> findOrderListPos(Map<String, Object> map);
+    /**
+     * 微信还款中订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo> findRepayWeixin(Map<String, Object> map);
+    /**
+     * 微信退款中订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo> findRefundWeixin(Map<String, Object> map);
+    /**
+     * 微信结清与全部订单查询
+     * @param map 查询条件
+     * @return 信息集合
+     */
+    List<OrderInfo> findByFinishWeixin(Map<String, Object> map);
 }

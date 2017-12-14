@@ -156,11 +156,32 @@ public class OrderService implements IOrderService {
     /**
      * 微信顾客查询订单.
      */
-    public PageInfo<OrderInfo> getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel) {
-        String openId = pageModel.getModel().getOpenId();
-        String orderId = pageModel.getModel().getOrderId();
-        Integer p = pageModel.getPageNum();
-        Integer c = pageModel.getPageSize();
+    public PageInfo<OrderInfo> getOrderInfoDetailByCustomer(String jsonStr) {
+        log.info("jsonStr" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String openId =paramJSON.getString("openId");
+        String orderId =paramJSON.getString("orderId");
+        String accName =paramJSON.getString("accName");
+        String status =paramJSON.getString("status"); //0：全部，1：还款中，2，退款中，3，已结清
+        Integer c = paramJSON.getInteger("pageSize");
+        Integer p = paramJSON.getInteger("pageNum");
+        //时间格式化
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Long createTimeBeg =paramJSON.getLong("beginTime");
+        Long createTimeEnd =paramJSON.getLong("endTime");
+        //时间转化
+        String begTime = null;
+        String endTime = null;
+        if (createTimeBeg != null) {
+            Date begTimeDate = new Date(createTimeBeg);
+            begTime = sdf.format(begTimeDate);
+            log.debug("---------------------------------" + begTime);
+        }
+        if (createTimeEnd != null) {
+            Date endTimeDate = new Date(createTimeEnd);
+            endTime = sdf.format(endTimeDate);
+            log.debug("---------------------------------" + endTime);
+        }
         Integer page = null;
         Integer count = null;
         if (p == null || p < 1) {
@@ -173,20 +194,45 @@ public class OrderService implements IOrderService {
         } else {
             count = c;
         }
-        if (openId == null || "".equals(openId)) {
-            return null;
-        }
         if ("".equals(orderId)) {
             orderId = null;
         }
-        log.info("page=" + page + ";count=" + count + ";openId=" + openId + ";orderId=" + orderId);
+        if ("".equals(accName)) {
+            accName = null;
+        }
+        if ("".equals(status)){
+            //0：全部，1：未结清，2，已结清，3退款
+            status = null;
+        }
+        log.info("page=" + page + ";count=" + count + ";openId=" + openId + ";orderId=" + orderId + ";accName=" + accName
+                + ";status=" + status+ ";begTime=" + begTime+ ";endTime=" + endTime);
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("openId", openId);
         map1.put("orderId", orderId);
+        map1.put("accName", accName);
+        map1.put("status", status);
+        map1.put("begTime", begTime);
+        map1.put("endTime", endTime);
         //开始分页
         PageHelper.startPage(page, count);
-        PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findOrderInfoDetailByCustomer(map1));
-        return pageInfo;
+        if ("1".equals(status)){
+            log.info("========还款中=======");
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRepayWeixin(map1)) ;
+            return pageInfo;
+        }else if("2".equals(status)){
+            log.info("========退款中=======");
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRefundWeixin(map1));
+            return pageInfo;
+        }else {
+            if("3".equals(status)){
+                log.info("========已结清=======");
+                status = null;
+                map1.put("status",status);
+            }
+            log.info("========全部=======");
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findByFinishWeixin(map1));
+            return pageInfo;
+        }
     }
     /**
      * Pos端订单查询(列表)
@@ -262,6 +308,7 @@ public class OrderService implements IOrderService {
             if ("1".equals(status)){
                 status = null;
                 log.info("========未结清=======");
+                map1.put("status",status);
             }
             log.info("========已结清=======");
             PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findOrderListPos(map1));

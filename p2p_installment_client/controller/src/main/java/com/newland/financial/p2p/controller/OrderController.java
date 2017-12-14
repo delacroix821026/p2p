@@ -210,23 +210,20 @@ public class OrderController {
      *
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/weixin", method = RequestMethod.GET)
+    @RequestMapping(value = "/weixin", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoDetailByCustomer(@RequestParam("jsonStr") String jsonStr) {
+    public Object getOrderInfoDetailByCustomer(@RequestBody String jsonStr) {
         log.info("========client:getOrderInfoDetailByCustomer=======");
-        ObjectMapper objectMapper = new ObjectMapper();
-        PageModel<OrderInfo> pageModel = null;
-        try {
-            pageModel = objectMapper.readValue(jsonStr, new TypeReference<PageModel<OrderInfo>>() {
-            });
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
+        log.info("jsonStr===" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String openId =paramJSON.getString("openId");
+        if (openId == null || "".equals(openId)) {
+            HashMap map = new HashMap<String, String>();
+            map.put("respCode", "0419");
+            map.put("respMsg", "微信商户代码为空");
+            return map;
         }
-        log.info("getMerchantList:" + pageModel.getModel().getOpenId());
-        log.info("getMerchantList:" + pageModel.getModel().getOrderId());
-        log.info("getMerchantList:" + pageModel.getPageNum());
-        log.info("getMerchantList:" + pageModel.getPageSize());
-        return orderService.getOrderInfoDetailByCustomer(pageModel);
+        return orderService.getOrderInfoDetailByCustomer(jsonStr);
     }
 
     /**
@@ -239,7 +236,6 @@ public class OrderController {
     public Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
         log.info("========client:getOrderInfoListByMerchant=======");
         log.info("jsonStr===" + jsonStr);
-        JSONObject paramJSON = JSON.parseObject(jsonStr);
         if (merchantId == null || "".equals(merchantId)) {
             HashMap map = new HashMap<String, String>();
             map.put("respCode", "0419");
@@ -278,12 +274,6 @@ public class OrderController {
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-        log.info("getMerchantId:" + pageModel.getModel().getMerchantId());
-        log.info("getOrderId:" + pageModel.getModel().getOrderId());
-        log.info("getMerName:" + pageModel.getModel().getMerName());
-        log.info("getContractsState:" + pageModel.getModel().getContractsState());
-        log.info("getPageNum:" + pageModel.getPageNum());
-        log.info("getPageSize:" + pageModel.getPageSize());
         return orderService.getOrderInfoListByPlantManager(pageModel);
     }
 

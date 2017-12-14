@@ -187,14 +187,10 @@ public class OrderController {
      */
     @RequestMapping(value = "/weixin", method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoDetailByCustomer (@RequestBody PageModel<OrderInfo> pageModel) {
+    public Object getOrderInfoDetailByCustomer (@RequestBody String jsonStr) {
         log.info("*********---------***********");
-        log.info("getMerchantList:" + pageModel.getModel().getOpenId());
-        log.info("getMerchantList:" + pageModel.getModel().getOrderId());
-        log.info("getMerchantList:" + pageModel.getPageNum());
-        log.info("getMerchantList:" + pageModel.getPageSize());
-
-        return orderService.getOrderInfoDetailByCustomer(pageModel);
+        log.info("jsonStr = "+jsonStr);
+        return orderService.getOrderInfoDetailByCustomer(jsonStr);
     }
 
     /**

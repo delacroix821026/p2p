@@ -50,7 +50,7 @@ public class OrderServiceFallBackFactory implements FallbackFactory<IOrderServic
                 return "1026";
             }
 
-            public Object getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel) {
+            public Object getOrderInfoDetailByCustomer(String jsonStr) {
                 log.info("*********getOrderInfoDetailByCustomer:被熔断***********");
                 log.error(cause);
                 return "1026";

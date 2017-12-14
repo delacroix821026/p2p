@@ -62,7 +62,7 @@ public interface IOrderService {
     /**
      *  微信顾客查询订单.
      */
-    PageInfo<OrderInfo> getOrderInfoDetailByCustomer(PageModel<OrderInfo> pageModel);
+    PageInfo<OrderInfo> getOrderInfoDetailByCustomer(String jsonStr);
     /**
      *  Pos端订单查询(列表)
      */
