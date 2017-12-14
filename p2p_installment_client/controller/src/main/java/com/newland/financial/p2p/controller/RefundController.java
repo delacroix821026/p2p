@@ -121,9 +121,7 @@ public class RefundController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Object uploadFile(@RequestParam(value = "file") MultipartFile file, @RequestBody String jsonStr) throws Exception {
-        JSONObject param = JSON.parseObject(jsonStr);
-        String orderId = param.getString("orderId");
+    public Object uploadFile(@RequestParam(value = "file") MultipartFile file, @PathVariable(name = "orderId") String orderId) throws Exception {
         if (file == null) {
             log.info("------------上传文件为空-----------");
             throw new BaseRuntimeException("2007");
