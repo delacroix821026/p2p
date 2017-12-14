@@ -25,6 +25,12 @@ public class RefundServiceFallBackactory implements FallbackFactory<IRefundServi
                 log.error(cause);
                 return null;
             }
+
+            public Boolean updateRefund(Refund refund) {
+                log.info("*********updateRefund:被熔断***********");
+                log.error(cause);
+                return false;
+            }
         };
     }
 }

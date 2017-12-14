@@ -9,19 +9,35 @@ import org.springframework.stereotype.Service;
 
 /**
  * 退款ServiceImpl.
+ *
  * @author Gregory
  */
 @Log4j
 @Service
 public class RefundService implements IRefundService {
-    /**注入Dao.*/
+    /**
+     * 注入Dao.
+     */
     @Autowired
     private IRefundDao refundDao;
+
     /**
      * 插入或者更新Refund.
+     *
      * @param refund 退款单
+     * @return true or false
      */
     public Object insertOrUpdateRefund(Refund refund) {
         return refundDao.insertOrUpdateRefund(refund);
+    }
+
+    /**
+     * 更新退款单
+     *
+     * @param refund 退款单信息
+     * @return true or false
+     */
+    public Boolean updateRefund(Refund refund) {
+        return refundDao.updateRefund(refund);
     }
 }

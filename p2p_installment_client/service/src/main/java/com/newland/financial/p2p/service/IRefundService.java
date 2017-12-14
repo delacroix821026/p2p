@@ -17,4 +17,7 @@ public interface IRefundService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/refund/updateRefundOrder")
     Object insertRefund(@RequestBody Refund refund);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/refund/updateRefund")
+    Boolean updateRefund(@RequestBody Refund refund);
 }

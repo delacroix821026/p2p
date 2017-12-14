@@ -30,7 +30,7 @@ public class FtpClientEntity {
             //连接FTP服务器
             ftp.connect(hostName, port);
             //下面三行代码必须要，而且不能改变编码格式，否则不能正确下载中文文件
-            ftp.setControlEncoding("GBK");
+            ftp.setControlEncoding("UTF-8");
             FTPClientConfig conf = new FTPClientConfig(FTPClientConfig.SYST_NT);
             conf.setServerLanguageCode("zh");
             //登录ftp
@@ -80,8 +80,8 @@ public class FtpClientEntity {
             ftp.changeWorkingDirectory(path);//转移到指定FTP服务器目录
             FTPFile[] fs = ftp.listFiles();//得到目录的相应文件列表
             fileName = FtpClientEntity.changeName(fileName, fs);
-            fileName = new String(fileName.getBytes("GBK"), "ISO-8859-1");
-            path = new String(path.getBytes("GBK"), "ISO-8859-1");
+            fileName = new String(fileName.getBytes("UTF-8"), "UTF-8");
+            path = new String(path.getBytes("UTF-8"), "UTF-8");
             //转到指定上传目录
             ftp.changeWorkingDirectory(path);
             //将上传文件存储到指定目录
@@ -113,8 +113,8 @@ public class FtpClientEntity {
         boolean success = false;
         try {
             ftp.changeWorkingDirectory(path);//转移到指定FTP服务器目录
-            fileName = new String(fileName.getBytes("GBK"), "ISO-8859-1");
-            path = new String(path.getBytes("GBK"), "ISO-8859-1");
+            fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+            path = new String(path.getBytes("UTF-8"), "ISO-8859-1");
             ftp.deleteFile(fileName);
             ftp.logout();
             success = true;
@@ -143,7 +143,7 @@ public class FtpClientEntity {
                     File localFile = new File(localPath + "\\" + ff.getName());
                     OutputStream outputStream = new FileOutputStream(localFile);
                     //将文件保存到输出流outputStream中
-                    ftp.retrieveFile(new String(ff.getName().getBytes("GBK"), "ISO-8859-1"), outputStream);
+                    ftp.retrieveFile(new String(ff.getName().getBytes("UTF-8"), "ISO-8859-1"), outputStream);
                     outputStream.flush();
                     outputStream.close();
                     System.out.println("下载成功");

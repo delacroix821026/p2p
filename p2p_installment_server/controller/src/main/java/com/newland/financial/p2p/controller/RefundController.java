@@ -43,6 +43,7 @@ public class RefundController {
     /***/
     @Autowired
     private IRefundService refundService;
+
     /**
      * 生产退款请求报文.
      */
@@ -69,14 +70,26 @@ public class RefundController {
 
     /**
      * 根据乐百分返回的信息，更新退款单信息后返回前端.
-     *
-
+     * @param refund 退款单实体
+     * @return true or false
      */
     @RequestMapping(value = "/updateRefundOrder", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Object updateRefundOrder(@RequestBody Refund refund) {
         Refund re = refund;
-       return refundService.insertOrUpdateRefund(re);
+        return refundService.insertOrUpdateRefund(re);
+    }
+
+    /**
+     * 更新退款单信息.
+     * @param refund 退款单实体
+     * @return true or false
+     */
+    @RequestMapping(value = "/updateRefund", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Boolean updateRefund(@RequestBody Refund refund) {
+        Refund re = refund;
+        return refundService.updateRefund(re);
     }
 
     /**

@@ -51,4 +51,13 @@ public class RefundDaoImpl extends MybatisBaseDao<Refund> implements IRefundDao 
             return super.insert("insertRefund", refund);
         }
     }
+    /**
+     * 更新退款单
+     *
+     * @param refund 退款单信息
+     * @return true or false
+     */
+    public Boolean updateRefund(Refund refund) {
+        return super.update("updateRefundByOrderId", refund);
+    }
 }
