@@ -29,7 +29,7 @@ public class JsonEncodeFilter extends ZuulFilter {
 
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        if(ctx.getRequest().getQueryString().indexOf("jsonStr") > -1) {
+        if(ctx.getRequest().getQueryString() != null && ctx.getRequest().getQueryString().indexOf("jsonStr") > -1) {
             log.debug("JsonEncodeFilter filter shoud be run");
             return true;
         }
