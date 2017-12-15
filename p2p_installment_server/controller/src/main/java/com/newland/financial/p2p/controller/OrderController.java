@@ -52,7 +52,7 @@ public class OrderController {
      *                &nbsp;"validity":"0820",//信用卡有效期<BR>
      *                &nbsp;"smsCode":"111111"//验证码<BR>
      *                }
-     *  @param orderId 订单号
+     * @param orderId 订单号
      * @return 返回参数：<BR>
      * {<BR>
      * &nbsp;"merName":"新大陆",//商户名称<BR>
@@ -88,7 +88,7 @@ public class OrderController {
     /**
      * 根据乐百分返回的数据更新订单信息.
      *
-     * @param ob 订单信息
+     * @param ob      订单信息
      * @param orderId 订单号
      * @return true or false
      */
@@ -101,8 +101,9 @@ public class OrderController {
 
     /**
      * 生成一张空白订单.
+     *
      * @param merchantId 商户代码
-     * @param jsonStr 订单信息.
+     * @param jsonStr    订单信息.
      * @return 空白订单的订单编号
      */
     @RequestMapping(value = "/{merchantId}", method = RequestMethod.POST)
@@ -135,8 +136,9 @@ public class OrderController {
 
     /**
      * 更新订单并过去最新订单信息.
-     *@param orderId 订单号
-     * @param or 订单信息
+     *
+     * @param orderId 订单号
+     * @param or      订单信息
      * @return 最新的订单信息
      */
     @RequestMapping(value = "/{orderId}/OrderInfo", method = RequestMethod.PUT)
@@ -166,7 +168,7 @@ public class OrderController {
         log.info("orderId:" + orderId);
         OrderInfo orderInfo = orderService.findOrderInfo(orderId);
         Map<String, Object> map = new HashMap<String, Object>();
-        long createtime  = orderInfo.getCreateTime().getTime();
+        long createtime = orderInfo.getCreateTime().getTime();
         long endtime = new Date().getTime();
         if (endtime - createtime > 86400000) {
             log.info("二维码已超过一天有效期endtime - createtime=" + (endtime - createtime));
@@ -181,16 +183,38 @@ public class OrderController {
     }
 
     /**
-     * 用户订单列表详细.
+     * 用户订单列表.
      *
+     * @param jsonStr 查询参数
      * @return OrderInfolist
      */
-    @RequestMapping(value = "/weixin", method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/weixin", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoListByCustomer (@RequestBody String jsonStr) {
+    public Object getOrderInfoListByCustomer(@RequestBody String jsonStr) {
         log.info("*********----getOrderInfoListByCustomer----***********");
-        log.info("jsonStr = "+jsonStr);
+        log.info("jsonStr = " + jsonStr);
         return orderService.getOrderInfoListByCustomer(jsonStr);
+    }
+
+    /**
+     * 用户订单详情.
+     *
+     * @param openId 用户id
+     * @param orderId 订单id
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/weixin/{openId}/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Object getOrderInfoDetailByCustomer(@PathVariable(name = "openId") String openId, @PathVariable(name = "orderId") String orderId) {
+        log.info("openId:" + openId + ";orderId:" + orderId);
+        OrderInfo orderInfo = orderService.findOrderInfoWeiXin(openId,orderId);
+        if (orderInfo == null) {
+            return null;
+        }
+        MerInfo merInfo = orderService.findMerInfo(orderInfo);
+        OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);
+        log.info("OrderQueryReq:" + oq.toString());
+        return oq;
     }
 
     /**
@@ -203,7 +227,7 @@ public class OrderController {
     public Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
         log.info("========***********************=======");
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        log.info("merchantId:" +merchantId);
+        log.info("merchantId:" + merchantId);
         log.info("orderId:" + paramJSON.getString("orderId"));
         log.info("accName:" + paramJSON.getString("accName"));
         log.info("status:" + paramJSON.getString("status"));
@@ -212,7 +236,7 @@ public class OrderController {
         log.info("pageSize:" + paramJSON.getString("pageSize"));
         log.info("pageNum:" + paramJSON.getString("pageNum"));
 
-        return orderService.getOrderInfoListByMerchant(merchantId,jsonStr);
+        return orderService.getOrderInfoListByMerchant(merchantId, jsonStr);
     }
 
     /**
@@ -233,7 +257,7 @@ public class OrderController {
      */
     @RequestMapping(value = "/orderList", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public  Object getOrderInfoListByPlantManager(@RequestBody PageModel<OrderInfo> pageModel) {
+    public Object getOrderInfoListByPlantManager(@RequestBody PageModel<OrderInfo> pageModel) {
         log.info("*********----管理员查询订单---***********");
         log.info("getMerchantList:" + pageModel.getModel());
         log.info("getMerchantId:" + pageModel.getModel().getMerchantId());
@@ -244,6 +268,7 @@ public class OrderController {
         log.info("getPageSize:" + pageModel.getPageSize());
         return orderService.getOrderInfoListByPlantManager(pageModel);
     }
+
     /**
      * 平台管理员查询订单列表.
      *

@@ -105,4 +105,12 @@ public interface IOrderInfoDao {
      * @return 信息集合
      */
     List<OrderInfo> findByFinishWeixin(Map<String, Object> map);
+    /**
+     * 微信端查询订单信息.
+     *
+     * @param openId  微信Id
+     * @param orderId 订单id
+     * @return orderInfo
+     */
+    OrderInfo findOrderInfoWeiXin(String openId, String orderId);
 }

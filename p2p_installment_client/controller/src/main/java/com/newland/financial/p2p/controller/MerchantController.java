@@ -10,6 +10,7 @@ import com.newland.financial.p2p.service.ILfqMerchantService;
 import com.newland.financial.p2p.service.IMerchantService;
 import com.newland.financial.p2p.service.IMerinfoAndPicture;
 import com.newland.financial.p2p.util.NewMerInfoUtils;
+import com.newland.financial.p2p.util.RespMessage;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -137,10 +138,7 @@ public class MerchantController {
         MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
         log.info("======merInfo=====" + merInfo.toString());
         if (merInfo.getMerchantId() == null || "".equals(merInfo.getMerchantId())) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("respCode", "0414");
-            map.put("respMsg", "操作失败");
-            return map;
+            return RespMessage.setRespMap("0414", "操作失败");
         }
         return merchantService.updateMerchant(merchantId, merInfo);
     }

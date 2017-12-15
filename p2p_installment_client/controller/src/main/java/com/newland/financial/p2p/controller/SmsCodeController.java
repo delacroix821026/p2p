@@ -2,6 +2,7 @@ package com.newland.financial.p2p.controller;
 
 import com.newland.financial.p2p.service.ISmsCodeService;
 import com.newland.financial.p2p.service.ISmsIfqService;
+import com.newland.financial.p2p.util.RespMessage;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,11 +51,8 @@ public class SmsCodeController {
 
         Object msgCodeReqPram = smsCodeService.getMsgCodeReqPram(merchantId,mobile);
         //请求参数未通过校验或没有对应的商户信息
-        Map<String, Object> resp = new HashMap<String, Object>();
         if (msgCodeReqPram == null) {
-            resp.put("respCode", "0220");
-            resp.put("respMsg", "商户不存在");
-            return resp;
+            return RespMessage.setRespMap("0423", "商户不存在");
         }
         //请求乐百分短信接口
         log.info("-----------------------------------------请求乐百分短信接口：");

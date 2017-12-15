@@ -35,6 +35,9 @@ public interface IOrderService {
     @RequestMapping(method = RequestMethod.GET, value = "/order/weixin")
     Object getOrderInfoListByCustomer(@RequestBody String jsonStr);
 
+    @RequestMapping(method = RequestMethod.GET, value = "/order//weixin/{openId}/{orderId}")
+    Object getOrderInfoDetailByCustomer(@PathVariable(name = "openId") String openId, @PathVariable(name = "orderId") String orderId);
+
     @RequestMapping(method = RequestMethod.POST, value = "/order/{merchantId}/orderList")
     Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr);
 

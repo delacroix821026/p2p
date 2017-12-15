@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 订单处理Service.
  *
- * @author Gregory,Mxia
+ * @author Gregory, Mxia
  */
 public interface IOrderService {
     /**
@@ -34,6 +34,7 @@ public interface IOrderService {
 
     /**
      * 进行分期交易并更新订单.
+     *
      * @param jsonStr 请求信息
      * @return 返回创建订单请求报文.
      */
@@ -41,6 +42,7 @@ public interface IOrderService {
 
     /**
      * 查询商户信息.
+     *
      * @param orderInfo 包含商户id.
      * @return 商户信息
      */
@@ -48,32 +50,42 @@ public interface IOrderService {
 
     /**
      * 更新订单.
+     *
      * @param or 订单信息
      * @return true or false
      */
     boolean updateOrderInfo(OrderInfo or);
+
     /**
      * pos端查询单个订单详细信息.
+     *
      * @param orderId 订单号
-     * @param merId 商户代码
+     * @param merId   商户代码
      */
     OrderInfo findOrderInfoPos(String orderId, String merId);
 
     /**
-     *  微信顾客查询订单.
+     * 微信顾客查询订单.
      */
     PageInfo<OrderInfo> getOrderInfoListByCustomer(String jsonStr);
+
     /**
-     *  Pos端订单查询(列表)
+     * Pos端订单查询(列表)
      */
     Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, String jsonStr);
 
-    OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId);
 
     /**
-     *  商户订单查询
+     * 商户订单查询
      */
     Object getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel);
 
-    OrderInfo getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId);
+    /**
+     * 微信端查询订单信息.
+     * @param openId 微信Id
+     * @param orderId 订单id
+     * @return orderInfo
+     */
+    OrderInfo findOrderInfoWeiXin(String openId, String orderId);
+
 }

@@ -3,11 +3,13 @@ package com.newland.financial.p2p.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
 import com.newland.financial.p2p.service.IOrderService;
 import com.newland.financial.p2p.service.ISendService;
+import com.newland.financial.p2p.util.RespMessage;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -106,7 +108,7 @@ public class OrderController {
         log.info("orderId:" + orderId + ";merchantId:" + merchantId);
         Object ob = orderService.findOrderInfo(merchantId, orderId);
         if (ob == null) {
-            return ob;
+            return RespMessage.setRespMap("0420","不合法的订单");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1, orderId);
@@ -194,19 +196,29 @@ public class OrderController {
         return ob;
     }
 
-   /*    *//**
-     * 用户查询订单列表.
-     *
-     * @return OrderInfolist
-     *//*
-    @RequestMapping(value = "/my/{userId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<OrderInfo> getOrderInfoDetailByCustomer(@PathVariable(name = "userId") String userId, OrderInfo orderInfo) {
-        return null;
-    }*/
+   /*    */
 
     /**
-     * 微信用户订单列表详细.
+     * 微信用户查询订单详情.
+     *
+     * @return OrderInfolist
+     */
+    @RequestMapping(value = "/weixin/{openId}/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Object getOrderInfoDetailByCustomer(@PathVariable(name = "openId") String openId, @PathVariable(name = "orderId") String orderId) {
+        if (openId == null || "".equals(openId) || orderId == null || "".equals(orderId)) {
+            throw new BaseRuntimeException("2009");
+        }
+        Object ob = orderService.getOrderInfoDetailByCustomer(openId, orderId);
+        if (ob == null) {
+            return RespMessage.setRespMap("0420","不合法的订单");
+        }
+        Object ob1 = sendService.sendOrderQueryMsg(ob);
+        return orderService.updateAndGetOrder(ob1, orderId);
+    }
+
+    /**
+     * 微信用户订单列表.
      *
      * @return OrderInfolist
      */
@@ -216,12 +228,9 @@ public class OrderController {
         log.info("========client:getOrderInfoListByCustomer=======");
         log.info("jsonStr===" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String openId =paramJSON.getString("openId");
+        String openId = paramJSON.getString("openId");
         if (openId == null || "".equals(openId)) {
-            HashMap map = new HashMap<String, String>();
-            map.put("respCode", "0419");
-            map.put("respMsg", "微信商户代码为空");
-            return map;
+            return RespMessage.setRespMap("0419", "openId不可为空");
         }
         return orderService.getOrderInfoListByCustomer(jsonStr);
     }
@@ -236,11 +245,8 @@ public class OrderController {
     public Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
         log.info("========client:getOrderInfoListByMerchant=======");
         log.info("jsonStr===" + jsonStr);
-        if (merchantId == null || "".equals(merchantId)) {
-            HashMap map = new HashMap<String, String>();
-            map.put("respCode", "0419");
-            map.put("respMsg", "商户代码为空");
-            return map;
+        if (merchantId == null || "".equals(merchantId.trim())) {
+            return RespMessage.setRespMap("0421", "merchantId不可为空");
         }
         return orderService.getOrderInfoListByMerchant(merchantId, jsonStr);
     }

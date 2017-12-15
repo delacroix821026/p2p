@@ -9,6 +9,7 @@ import com.newland.financial.p2p.service.ISendService;
 import com.newland.financial.p2p.service.ISignatureIfqService;
 import com.newland.financial.p2p.util.FtpClientEntity;
 import com.newland.financial.p2p.util.NewMerInfoUtils;
+import com.newland.financial.p2p.util.RespMessage;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,10 +86,7 @@ public class RefundController {
         log.info(jsonStr);
         RefundMsgReq refundMsgReq = refundService.getRefundMsg(jsonStr);
         if (refundMsgReq == null) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("respCode", "2003");
-            map.put("respMsg", "订单已经超过45天，无法退款");
-            return map;
+            return RespMessage.setRespMap("0422", "订单已经超过45天，无法退款");
         }
         log.info("client中拿到的refundMsgReq:" + refundMsgReq.toString());
         Refund refund = sendService.sendRefundMsgReq(refundMsgReq);

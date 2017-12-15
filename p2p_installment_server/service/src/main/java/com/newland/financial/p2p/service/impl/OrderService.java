@@ -34,10 +34,14 @@ import java.util.UUID;
 @Log4j
 @Service
 public class OrderService implements IOrderService {
-    /**注入Dao层对象.*/
+    /**
+     * 注入Dao层对象.
+     */
     @Autowired
     private IOrderInfoDao orderInfoDao;
-    /**注入Dao层对象.*/
+    /**
+     * 注入Dao层对象.
+     */
     @Autowired
     private IMerInfoDao merInfoDao;
     /**
@@ -50,6 +54,7 @@ public class OrderService implements IOrderService {
      */
     @Autowired
     private IRepayDao repayDao;
+
     /**
      * 创建一个空白订单.
      *
@@ -130,17 +135,21 @@ public class OrderService implements IOrderService {
         String merchantId = orderInfo.getMerchantId();
         return merInfoDao.selectMerInfoByMerchantId(merchantId);
     }
+
     /**
      * 更新订单.
+     *
      * @param or 订单信息
      * @return true or false
      */
     public boolean updateOrderInfo(OrderInfo or) {
         return orderInfoDao.updateOrder(or);
     }
+
     /**
      * pos端查询单个订单详细信息.
-     * @param orderId 订单号
+     *
+     * @param orderId    订单号
      * @param merchantId 商户代码
      */
     public OrderInfo findOrderInfoPos(String orderId, String merchantId) {
@@ -160,16 +169,16 @@ public class OrderService implements IOrderService {
         log.info("======getOrderInfoListByCustomer======");
         log.info("jsonStr" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String openId =paramJSON.getString("openId");
-        String orderId =paramJSON.getString("orderId");
-        String accName =paramJSON.getString("accName");
-        String status =paramJSON.getString("status"); //0：全部，1：还款中，2，退款中，3，已结清
+        String openId = paramJSON.getString("openId");
+        String orderId = paramJSON.getString("orderId");
+        String accName = paramJSON.getString("accName");
+        String status = paramJSON.getString("status"); //0：全部，1：还款中，2，退款中，3，已结清
         Integer c = paramJSON.getInteger("pageSize");
         Integer p = paramJSON.getInteger("pageNum");
         //时间格式化
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Long createTimeBeg =paramJSON.getLong("beginTime");
-        Long createTimeEnd =paramJSON.getLong("endTime");
+        Long createTimeBeg = paramJSON.getLong("beginTime");
+        Long createTimeEnd = paramJSON.getLong("endTime");
         //时间转化
         String begTime = null;
         String endTime = null;
@@ -201,12 +210,12 @@ public class OrderService implements IOrderService {
         if ("".equals(accName)) {
             accName = null;
         }
-        if ("".equals(status)){
+        if ("".equals(status)) {
             //0：全部，1：未结清，2，已结清，3退款
             status = null;
         }
         log.info("page=" + page + ";count=" + count + ";openId=" + openId + ";orderId=" + orderId + ";accName=" + accName
-                + ";status=" + status+ ";begTime=" + begTime+ ";endTime=" + endTime);
+                + ";status=" + status + ";begTime=" + begTime + ";endTime=" + endTime);
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("openId", openId);
         map1.put("orderId", orderId);
@@ -216,40 +225,41 @@ public class OrderService implements IOrderService {
         map1.put("endTime", endTime);
         //开始分页
         PageHelper.startPage(page, count);
-        if ("1".equals(status)){
+        if ("1".equals(status)) {
             log.info("========还款中=======");
-            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRepayWeixin(map1)) ;
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRepayWeixin(map1));
             return pageInfo;
-        }else if("2".equals(status)){
+        } else if ("2".equals(status)) {
             log.info("========退款中=======");
             PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRefundWeixin(map1));
             return pageInfo;
-        }else {
-            if("3".equals(status)){
+        } else {
+            if ("3".equals(status)) {
                 log.info("========已结清=======");
                 status = null;
-                map1.put("status",status);
+                map1.put("status", status);
             }
             log.info("========全部=======");
             PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findByFinishWeixin(map1));
             return pageInfo;
         }
     }
+
     /**
      * Pos端订单查询(列表)
      */
     public PageInfo getOrderInfoListByMerchant(String merchantId, String jsonStr) {
         log.info("jsonStr" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
-        String orderId =paramJSON.getString("orderId");
-        String accName =paramJSON.getString("accName");
-        String status =paramJSON.getString("status"); //0：全部，1：未结清，2，已结清，3退款
+        String orderId = paramJSON.getString("orderId");
+        String accName = paramJSON.getString("accName");
+        String status = paramJSON.getString("status"); //0：全部，1：未结清，2，已结清，3退款
         Integer c = paramJSON.getInteger("pageSize");
         Integer p = paramJSON.getInteger("pageNum");
         //时间格式化
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Long createTimeBeg =paramJSON.getLong("beginTime");
-        Long createTimeEnd =paramJSON.getLong("endTime");
+        Long createTimeBeg = paramJSON.getLong("beginTime");
+        Long createTimeEnd = paramJSON.getLong("endTime");
         //时间转化
         String begTime = null;
         String endTime = null;
@@ -282,12 +292,12 @@ public class OrderService implements IOrderService {
         if ("".equals(accName)) {
             accName = null;
         }
-        if ("".equals(status)){
+        if ("".equals(status)) {
             //0：全部，1：未结清，2，已结清，3退款
             status = null;
         }
         log.info("page=" + page + ";count=" + count + ";merchantId=" + merchantId + ";orderId=" + orderId + ";accName=" + accName
-                + ";status=" + status+ ";begTime=" + begTime+ ";endTime=" + endTime);
+                + ";status=" + status + ";begTime=" + begTime + ";endTime=" + endTime);
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("merchantId", merchantId);
         map1.put("orderId", orderId);
@@ -297,29 +307,24 @@ public class OrderService implements IOrderService {
         map1.put("endTime", endTime);
         //开始分页
         PageHelper.startPage(page, count);
-        if ("0".equals(status)){
+        if ("0".equals(status)) {
             log.info("========查询全部=======");
-            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderInfoListByMerchant(map1)) ;
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderInfoListByMerchant(map1));
             return pageInfo;
-        }else if("3".equals(status)){
+        } else if ("3".equals(status)) {
             log.info("========退款中=======");
             PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRefundListPos(map1));
             return pageInfo;
-        }else{
-            if ("1".equals(status)){
+        } else {
+            if ("1".equals(status)) {
                 status = null;
                 log.info("========未结清=======");
-                map1.put("status",status);
+                map1.put("status", status);
             }
             log.info("========已结清=======");
             PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findOrderListPos(map1));
             return pageInfo;
-
         }
-    }
-
-    public OrderInfo getOrderInfoDetailByMerchant(String merchantId, String orderId) {
-        return null;
     }
 
     /**
@@ -371,7 +376,7 @@ public class OrderService implements IOrderService {
         // 0 还款中
         if ("0".equals(contractsState)) {
             log.info("========0000===========");
-            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRepayList(map1)) ;
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRepayList(map1));
             return pageInfo;
         }
         // 1 结清
@@ -383,14 +388,21 @@ public class OrderService implements IOrderService {
         // 2 退款中
         if ("2".equals(contractsState)) {
             log.info("========222222===========");
-            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRefundList(map1)) ;
+            PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.findRefundList(map1));
             return pageInfo;
         }
         return null;
     }
 
-    public OrderInfo getOrderInfoDetailByPlantManager(String orderId) {
-        return null;
+    /**
+     * 微信端查询订单信息.
+     *
+     * @param openId  微信Id
+     * @param orderId 订单id
+     * @return orderInfo
+     */
+    public OrderInfo findOrderInfoWeiXin(String openId, String orderId) {
+        return orderInfoDao.findOrderInfoWeiXin(openId, orderId);
     }
 
 }

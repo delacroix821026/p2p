@@ -37,7 +37,7 @@
         <result column="merchantId" property="merchantId" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
         id,txnTime,merId,txnAmt,txnterms,orderId,userId,accName,accNo,validity,accIdcard,accMobile,CVN2,discount,contractsCode,amount,queryId,poundage,contractsState,sumTerms,sumAmount,remainAmount,cancelAmount,cancelInterest,valueAdded,createTime,stus,openId,merchantId,merName
     </sql>
     <!--插入订单-->
@@ -144,25 +144,25 @@
     <!--根据订单号查询订单信息-->
     <select id="selectOrderInfo" resultMap="BaseResultMap" parameterType="String">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from t_inst_orderinfo
         where orderId = #{orderId}
     </select>
-   <!--根据订单号删除订单-->
+    <!--根据订单号删除订单-->
     <delete id="deleteByOrderId" parameterType="String">
         delete from t_inst_orderinfo where orderId = #{orderId}
     </delete>
     <!--pos端单个订单查询-->
     <select id="selectOrderPos" resultMap="BaseResultMap" parameterType="Map">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from t_inst_orderinfo
         where orderId = #{orderId} and merchantId = #{merchantId} and contractsCode is not null
     </select>
     <!--商户订单查询-->
     <select id="findOrderByPlantByCustomer" resultMap="BaseResultMap" parameterType="Map">
         SELECT
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         FROM t_inst_orderinfo
         <where>
             contractsState <![CDATA[!= ]]> 0
@@ -174,17 +174,18 @@
             </if>
             <if test="orderId != null">
                 and orderId like CONCAT('%','${orderId}','%')
-            </if> ORDER BY createTime desc
+            </if>
+            ORDER BY createTime desc
         </where>
     </select>
     <!--商户结清订单查询-->
     <select id="findOrderInfoListByFinish" resultMap="BaseResultMap" parameterType="Map">
         SELECT
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         FROM t_inst_orderinfo
         <where>
             contractsState <![CDATA[!= ]]> 0
-            AND  contractsState <![CDATA[!= ]]> 1
+            AND contractsState <![CDATA[!= ]]> 1
             <if test="merchantId != null">
                 and merchantId like CONCAT('%','${merchantId}','%')
             </if>
@@ -193,59 +194,60 @@
             </if>
             <if test="orderId != null">
                 and orderId like CONCAT('%','${orderId}','%')
-            </if> ORDER BY createTime desc
+            </if>
+            ORDER BY createTime desc
         </where>
     </select>
 
     <!--商户退款中订单查询-->
-    <resultMap type= "com.newland.financial.p2p.domain.entity.OrderInfo" id="BaseResultRefundMap">
-        <id property="id" column="id" />
+    <resultMap type="com.newland.financial.p2p.domain.entity.OrderInfo" id="BaseResultRefundMap">
+        <id property="id" column="id"/>
         <result property="txnTime" column="txnTime" jdbcType="TIMESTAMP"/>
-        <result property="merId" column="merId" />
-        <result property="txnAmt" column="txnAmt" />
-        <result property="txnterms" column="txnterms" />
-        <result property="orderId" column="orderId" />
-        <result property="userId" column="userId" />
-        <result property="accName" column="accName" />
-        <result property="accNo" column="accNo" />
-        <result property="validity" column="validity" />
-        <result property="accIdcard" column="accIdcard" />
-        <result column="accMobile" property="accMobile" />
-        <result column="CVN2" property="cvn2" />
-        <result column="discount" property="discount" />
-        <result column="contractsCode" property="contractsCode" />
-        <result column="amount" property="amount" />
-        <result column="queryId" property="queryId" />
-        <result column="poundage" property="poundage" />
-        <result column="contractsState" property="contractsState" />
-        <result column="sumTerms" property="sumTerms" />
-        <result column="sumAmount" property="sumAmount" />
-        <result column="remainAmount" property="remainAmount" />
-        <result column="cancelAmount" property="cancelAmount" />
-        <result column="cancelInterest" property="cancelInterest" />
-        <result column="valueAdded" property="valueAdded" />
-        <result column="createTime" property="createTime" />
-        <result column="stus" property="stus" />
-        <result column="openId" property="openId" />
+        <result property="merId" column="merId"/>
+        <result property="txnAmt" column="txnAmt"/>
+        <result property="txnterms" column="txnterms"/>
+        <result property="orderId" column="orderId"/>
+        <result property="userId" column="userId"/>
+        <result property="accName" column="accName"/>
+        <result property="accNo" column="accNo"/>
+        <result property="validity" column="validity"/>
+        <result property="accIdcard" column="accIdcard"/>
+        <result column="accMobile" property="accMobile"/>
+        <result column="CVN2" property="cvn2"/>
+        <result column="discount" property="discount"/>
+        <result column="contractsCode" property="contractsCode"/>
+        <result column="amount" property="amount"/>
+        <result column="queryId" property="queryId"/>
+        <result column="poundage" property="poundage"/>
+        <result column="contractsState" property="contractsState"/>
+        <result column="sumTerms" property="sumTerms"/>
+        <result column="sumAmount" property="sumAmount"/>
+        <result column="remainAmount" property="remainAmount"/>
+        <result column="cancelAmount" property="cancelAmount"/>
+        <result column="cancelInterest" property="cancelInterest"/>
+        <result column="valueAdded" property="valueAdded"/>
+        <result column="createTime" property="createTime"/>
+        <result column="stus" property="stus"/>
+        <result column="openId" property="openId"/>
         <result column="merchantId" property="merchantId" jdbcType="VARCHAR"/>
         <result column="merName" property="merName" jdbcType="VARCHAR"/>
-        <association property="refund" javaType="com.newland.financial.p2p.domain.entity.Refund" >
-            <id property="refundId" column="refundId" />
+        <association property="refund" javaType="com.newland.financial.p2p.domain.entity.Refund">
+            <id property="refundId" column="refundId"/>
             <result property="txnTime" column="refundTime" jdbcType="TIMESTAMP"/>
-            <result property="merId" column="merId" />
-            <result property="contractsCode" column="contractsCode" />
-            <result property="cancelAmount" column="cancelAmount" />
-            <result property="state" column="state" />
-            <result property="orderId" column="orderId" />
-            <result property="vocher" column="vocher" />
-            <result property="sendTime" column="sendTime" />
-            <result property="path" column="path" />
+            <result property="merId" column="merId"/>
+            <result property="contractsCode" column="contractsCode"/>
+            <result property="cancelAmount" column="cancelAmount"/>
+            <result property="state" column="state"/>
+            <result property="orderId" column="orderId"/>
+            <result property="vocher" column="vocher"/>
+            <result property="sendTime" column="sendTime"/>
+            <result property="path" column="path"/>
         </association>
     </resultMap>
     <!--Pos端全部订单查询(列表)-->
     <select id="getOrderByCustomer" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT * FROM t_inst_orderinfo a LEFT JOIN t_inst_refund b ON a.orderId = b.orderId
-        <where> a.merchantId = #{merchantId} AND  a.contractsState is not null
+        <where>a.merchantId = #{merchantId} AND a.contractsState is not null
             <if test="begTime != null">
                 AND DATE_FORMAT(a.txnTime,'%Y-%m-%d') &gt;= #{begTime}
             </if>
@@ -257,7 +259,8 @@
             </if>
             <if test="orderId != null">
                 and a.orderId like CONCAT('%','${orderId}','%')
-            </if> ORDER BY createTime desc
+            </if>
+            ORDER BY createTime desc
         </where>
     </select>
     <!--Pos端退款订单查询(列表)-->
@@ -276,23 +279,24 @@
             </if>
             <if test="orderId != null">
                 and a.orderId like CONCAT('%','${orderId}','%')
-            </if> ORDER BY a.createTime desc
+            </if>
+            ORDER BY a.createTime desc
         </where>
     </select>
     <!--Pos端结清与未结清订单查询(列表)-->
     <select id="findOrderListPos" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT * FROM t_inst_orderinfo a LEFT JOIN t_inst_refund b ON a.orderId = b.orderId
         <where>
-            a.merchantId = #{merchantId} AND  a.contractsState is not null
+            a.merchantId = #{merchantId} AND a.contractsState is not null
             <if test="status != null">
-                AND  a.contractsState <![CDATA[!= ]]> 0
-                AND  a.contractsState <![CDATA[!= ]]> 1
+                AND a.contractsState <![CDATA[!= ]]> 0
+                AND a.contractsState <![CDATA[!= ]]> 1
             </if>
             <if test="status == null">
-                AND  a.contractsState <![CDATA[!= ]]> 2
-                AND  a.contractsState <![CDATA[!= ]]> 3
-                AND  a.contractsState <![CDATA[!= ]]> 4
-                AND  a.contractsState <![CDATA[!= ]]> 5
+                AND a.contractsState <![CDATA[!= ]]> 2
+                AND a.contractsState <![CDATA[!= ]]> 3
+                AND a.contractsState <![CDATA[!= ]]> 4
+                AND a.contractsState <![CDATA[!= ]]> 5
             </if>
             <if test="begTime != null">
                 AND DATE_FORMAT(a.txnTime,'%Y-%m-%d') &gt;= #{begTime}
@@ -305,7 +309,8 @@
             </if>
             <if test="orderId != null">
                 and a.orderId like CONCAT('%','${orderId}','%')
-            </if> ORDER BY a.createTime desc
+            </if>
+            ORDER BY a.createTime desc
         </where>
     </select>
     <!--商户退款中订单查询-->
@@ -321,7 +326,8 @@
             </if>
             <if test="orderId != null">
                 and rd.orderId like CONCAT('%','${orderId}','%')
-            </if> ORDER BY createTime desc
+            </if>
+            ORDER BY createTime desc
         </where>
     </select>
     <!--商户还款中订单查询-->
@@ -375,17 +381,18 @@
             </if>
             <if test="orderId != null">
                 and rd.orderId like CONCAT('%','${orderId}','%')
-            </if> ORDER BY rd.createTime desc
+            </if>
+            ORDER BY rd.createTime desc
         </where>
     </select>
     <!--微信已结清订单查询-->
     <select id="findByFinishWeixin" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT * FROM t_inst_orderinfo a LEFT JOIN t_inst_refund b ON a.orderId = b.orderId
         <where>
-            a.openId = #{openId} AND  a.contractsState is not null
+            a.openId = #{openId} AND a.contractsState is not null
             <if test="status == null">
-                AND  a.contractsState <![CDATA[!= ]]> 0
-                AND  a.contractsState <![CDATA[!= ]]> 1
+                AND a.contractsState <![CDATA[!= ]]> 0
+                AND a.contractsState <![CDATA[!= ]]> 1
             </if>
             <if test="begTime != null">
                 AND DATE_FORMAT(a.txnTime,'%Y-%m-%d') &gt;= #{begTime}
@@ -398,7 +405,15 @@
             </if>
             <if test="orderId != null">
                 and a.orderId like CONCAT('%','${orderId}','%')
-            </if> ORDER BY a.createTime desc
+            </if>
+            ORDER BY a.createTime desc
         </where>
+    </select>
+    <!--微信端单个订单查询-->
+    <select id="selectOrderWinXin" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_inst_orderinfo
+        where orderId = #{orderId} and openId = #{openId} and contractsCode is not null
     </select>
 </mapper>
