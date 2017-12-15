@@ -148,7 +148,7 @@ public class OrderController {
         log.info("=========传入参数========:" + or);
         OrderInfo orderInfo = or;
         orderService.updateOrderInfo(orderInfo);
-        OrderInfo orf = orderService.findOrderInfo(orderInfo.getOrderId());
+        OrderInfo orf = orderService.getOrderInfoByManager(orderInfo.getOrderId());
         orf.setRespCode(orderInfo.getRespCode());
         orf.setRespMsg(orderInfo.getRespMsg());
         orf.setMerName(orderInfo.getMerName());
@@ -286,17 +286,5 @@ public class OrderController {
         OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);
         log.info("OrderQueryReq:" + oq.toString());
         return oq;
-    }
-    /**
-     * 平台管理员查询订单列表.
-     *
-     * @return Object
-     */
-    @RequestMapping(value = "/manager/{orderId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoByManager(@PathVariable(name = "orderId") String orderId) {
-        log.info("*********----平台管理员查询订单详情---***********");
-        log.info("orderId = "+orderId);
-        return orderService.getOrderInfoByManager(orderId);
     }
 }

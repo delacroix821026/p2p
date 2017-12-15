@@ -310,8 +310,6 @@ public class OrderController {
             return RespMessage.setRespMap("0420","不合法的订单");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
-        //更新查询出来的信息
-        orderService.updateOrderInfo(ob1, orderId);
-        return orderService.getOrderInfoByManager(orderId);
+        return orderService.updateAndGetOrder(ob1, orderId);
     }
 }
