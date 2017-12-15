@@ -187,10 +187,10 @@ public class OrderController {
      */
     @RequestMapping(value = "/weixin", method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoDetailByCustomer (@RequestBody String jsonStr) {
-        log.info("*********---------***********");
+    public Object getOrderInfoListByCustomer (@RequestBody String jsonStr) {
+        log.info("*********----getOrderInfoListByCustomer----***********");
         log.info("jsonStr = "+jsonStr);
-        return orderService.getOrderInfoDetailByCustomer(jsonStr);
+        return orderService.getOrderInfoListByCustomer(jsonStr);
     }
 
     /**

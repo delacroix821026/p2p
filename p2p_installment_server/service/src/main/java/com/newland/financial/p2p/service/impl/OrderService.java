@@ -156,7 +156,8 @@ public class OrderService implements IOrderService {
     /**
      * 微信顾客查询订单.
      */
-    public PageInfo<OrderInfo> getOrderInfoDetailByCustomer(String jsonStr) {
+    public PageInfo<OrderInfo> getOrderInfoListByCustomer(String jsonStr) {
+        log.info("======getOrderInfoListByCustomer======");
         log.info("jsonStr" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String openId =paramJSON.getString("openId");

@@ -201,7 +201,7 @@ public class OrderController {
      *//*
     @RequestMapping(value = "/my/{userId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderInfo> getOrderInfoListByCustomer(@PathVariable(name = "userId") String userId, OrderInfo orderInfo) {
+    public List<OrderInfo> getOrderInfoDetailByCustomer(@PathVariable(name = "userId") String userId, OrderInfo orderInfo) {
         return null;
     }*/
 
@@ -212,8 +212,8 @@ public class OrderController {
      */
     @RequestMapping(value = "/weixin", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoDetailByCustomer(@RequestBody String jsonStr) {
-        log.info("========client:getOrderInfoDetailByCustomer=======");
+    public Object getOrderInfoListByCustomer(@RequestBody String jsonStr) {
+        log.info("========client:getOrderInfoListByCustomer=======");
         log.info("jsonStr===" + jsonStr);
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String openId =paramJSON.getString("openId");
@@ -223,7 +223,7 @@ public class OrderController {
             map.put("respMsg", "微信商户代码为空");
             return map;
         }
-        return orderService.getOrderInfoDetailByCustomer(jsonStr);
+        return orderService.getOrderInfoListByCustomer(jsonStr);
     }
 
     /**
