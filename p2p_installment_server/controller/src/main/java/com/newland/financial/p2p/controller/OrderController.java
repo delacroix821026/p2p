@@ -186,7 +186,7 @@ public class OrderController {
      * 用户订单列表.
      *
      * @param jsonStr 查询参数
-     * @return OrderInfolist
+     * @return Object
      */
     @RequestMapping(value = "/weixin", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -272,12 +272,31 @@ public class OrderController {
     /**
      * 平台管理员查询订单列表.
      *
-     * @return OrderInfolist
+     * @return Object
      */
     @RequestMapping(value = "/plant/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public OrderInfo getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId) {
-        return null;
+    public Object getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId) {
+        log.info("orderId = "+orderId);
+        OrderInfo orderInfo = orderService.findOrderInfoManager(orderId);
+        if (orderInfo == null) {
+            return null;
+        }
+        MerInfo merInfo = orderService.findMerInfo(orderInfo);
+        OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);
+        log.info("OrderQueryReq:" + oq.toString());
+        return oq;
     }
-
+    /**
+     * 平台管理员查询订单列表.
+     *
+     * @return Object
+     */
+    @RequestMapping(value = "/manager/{orderId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Object getOrderInfoByManager(@PathVariable(name = "orderId") String orderId) {
+        log.info("*********----平台管理员查询订单详情---***********");
+        log.info("orderId = "+orderId);
+        return orderService.getOrderInfoByManager(orderId);
+    }
 }

@@ -87,5 +87,16 @@ public interface IOrderService {
      * @return orderInfo
      */
     OrderInfo findOrderInfoWeiXin(String openId, String orderId);
-
+    /**
+     * 商户查询订单信息.
+     * @param orderId 订单id
+     * @return orderInfo
+     */
+    OrderInfo findOrderInfoManager(String orderId);
+    /**
+     * 商户查询订单详情.
+     * @param orderId 订单id
+     * @return orderInfo
+     */
+    OrderInfo getOrderInfoByManager(String orderId);
 }

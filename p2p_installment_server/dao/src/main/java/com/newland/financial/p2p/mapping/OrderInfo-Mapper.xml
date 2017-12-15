@@ -345,6 +345,11 @@
         </if>
         ORDER BY createTime DESC
     </select>
+    <!--平台的订单详情查询-->
+    <select id="getOrderInfoByManager" resultMap="BaseResultRefundMap" >
+        SELECT * from t_inst_orderinfo a LEFT JOIN t_inst_refund b ON a.orderId = b.orderId
+        WHERE a.orderId = #{orderId, jdbcType=VARCHAR}
+    </select>
 
     <!--微信还款中订单查询-->
     <select id="findRepayWeixin" resultMap="BaseResultRefundMap" parameterType="Map">

@@ -78,8 +78,16 @@ public class OrderServiceFallBackFactory implements FallbackFactory<IOrderServic
                 return "1026";
             }
 
-            public OrderInfo getOrderInfoDetailByPlantManager(String orderId) {
-                return null;
+            public Object getOrderInfoDetailByPlantManager(String orderId) {
+                log.info("*********getOrderInfoDetailByPlantManager:被熔断***********");
+                log.error(cause);
+                return "1026";
+            }
+
+            public Object getOrderInfoByManager(String orderId) {
+                log.info("*********getOrderInfoByManager:被熔断***********");
+                log.error(cause);
+                return "1026";
             }
         };
     }

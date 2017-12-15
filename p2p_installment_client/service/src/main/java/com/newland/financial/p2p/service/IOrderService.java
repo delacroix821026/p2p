@@ -48,6 +48,8 @@ public interface IOrderService {
     Object getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel);
 
     @RequestMapping(method = RequestMethod.GET, value = "/order/plant/{orderId}")
-    OrderInfo getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId);
+    Object getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId);
+    @RequestMapping(method = RequestMethod.GET, value = "/order/manager/{orderId}")
+    Object getOrderInfoByManager(@PathVariable(name = "orderId")String orderId);
 }
 

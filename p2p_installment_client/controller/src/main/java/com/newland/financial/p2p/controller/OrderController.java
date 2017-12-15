@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Gregory
@@ -56,9 +58,18 @@ public class OrderController {
         log.info("========client:createBlankOrder=======");
         log.info("jsonStr：" + jsonStr);
         String orderId = orderService.createOrderInfo(jsonStr, merchantId);
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("orderId", orderId);
-        return map;
+        String pattern = "^\\d{19}$";
+        Pattern r = Pattern.compile(pattern);
+        Matcher mat = r.matcher(orderId);
+        if (mat.matches()) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("orderId", orderId);
+            map.put("respCode", "0000");
+            map.put("respMsg", "创建成功");
+            return map;
+        } else {
+            return RespMessage.setRespMap("0414", "操作失败");
+        }
     }
 
     /**
@@ -207,7 +218,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     public Object getOrderInfoDetailByCustomer(@PathVariable(name = "openId") String openId, @PathVariable(name = "orderId") String orderId) {
         if (openId == null || "".equals(openId) || orderId == null || "".equals(orderId)) {
-            throw new BaseRuntimeException("2009");
+            return RespMessage.setRespMap("0419","关键参数不能为空");
         }
         Object ob = orderService.getOrderInfoDetailByCustomer(openId, orderId);
         if (ob == null) {
@@ -230,7 +241,7 @@ public class OrderController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String openId = paramJSON.getString("openId");
         if (openId == null || "".equals(openId)) {
-            return RespMessage.setRespMap("0419", "openId不可为空");
+            return RespMessage.setRespMap("0419", "关键参数不能为空");
         }
         return orderService.getOrderInfoListByCustomer(jsonStr);
     }
@@ -284,13 +295,23 @@ public class OrderController {
     }
 
     /**
-     * 平台管理员查询订单列表.
+     * 平台管理员查询订单详情
      *
      * @return OrderInfolist
      */
     @RequestMapping(value = "/plant/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public OrderInfo getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId) {
-        return null;
+    public Object getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId) {
+        if ( orderId == null || "".equals(orderId)) {
+            return RespMessage.setRespMap("0419","关键参数不能为空");
+        }
+        Object ob = orderService.getOrderInfoDetailByPlantManager(orderId);
+        if (ob == null) {
+            return RespMessage.setRespMap("0420","不合法的订单");
+        }
+        Object ob1 = sendService.sendOrderQueryMsg(ob);
+        //更新查询出来的信息
+        orderService.updateOrderInfo(ob1, orderId);
+        return orderService.getOrderInfoByManager(orderId);
     }
 }

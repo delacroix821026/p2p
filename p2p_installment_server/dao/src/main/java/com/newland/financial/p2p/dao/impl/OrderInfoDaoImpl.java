@@ -170,7 +170,15 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
     public List<OrderInfo> findByFinishWeixin(Map<String, Object> map) {
         return super.select("findByFinishWeixin", map);
     }
-
+    /**
+     * 平台的商户查询
+     *
+     * @param orderId 查询条件
+     * @return 信息集合
+     */
+    public OrderInfo  getOrderInfoByManager(String orderId){
+        return super.selectEntity("getOrderInfoByManager", orderId);
+    }
     /**
      * 微信端查询订单信息.
      *
@@ -184,6 +192,5 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
         map.put("orderId", orderId);
         return super.selectEntity("selectOrderWinXin", map);
     }
-
 
 }

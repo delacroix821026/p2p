@@ -113,4 +113,11 @@ public interface IOrderInfoDao {
      * @return orderInfo
      */
     OrderInfo findOrderInfoWeiXin(String openId, String orderId);
+    /**
+     * 平台查询订单详情.
+     *
+     * @param orderId 订单id
+     * @return orderInfo
+     */
+    OrderInfo getOrderInfoByManager(String orderId);
 }

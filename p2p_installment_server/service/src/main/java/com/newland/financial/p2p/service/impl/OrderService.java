@@ -164,6 +164,7 @@ public class OrderService implements IOrderService {
 
     /**
      * 微信顾客查询订单.
+     * @param jsonStr   数据
      */
     public PageInfo<OrderInfo> getOrderInfoListByCustomer(String jsonStr) {
         log.info("======getOrderInfoListByCustomer======");
@@ -246,7 +247,9 @@ public class OrderService implements IOrderService {
     }
 
     /**
-     * Pos端订单查询(列表)
+     * Pos端订单查询(列表).
+     * @param jsonStr   数据
+     * @param merchantId 商户代码
      */
     public PageInfo getOrderInfoListByMerchant(String merchantId, String jsonStr) {
         log.info("jsonStr" + jsonStr);
@@ -329,6 +332,7 @@ public class OrderService implements IOrderService {
 
     /**
      * 运营平台商户查询
+     *
      */
     public PageInfo getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel) {
         String merchantId = pageModel.getModel().getMerchantId();
@@ -404,5 +408,23 @@ public class OrderService implements IOrderService {
     public OrderInfo findOrderInfoWeiXin(String openId, String orderId) {
         return orderInfoDao.findOrderInfoWeiXin(openId, orderId);
     }
-
+    /**
+     * 商户查询订单信息.
+     *
+     * @param orderId 订单id
+     * @return orderInfo
+     */
+    public OrderInfo findOrderInfoManager(String orderId) {
+        return orderInfoDao.selectOrderInfo(orderId);
+    }
+    /**
+     * 商户查询订单详情.
+     *
+     * @param orderId 订单id
+     * @return orderInfo
+     */
+    public OrderInfo getOrderInfoByManager(String orderId) {
+        orderInfoDao.getOrderInfoByManager(orderId);
+        return null;
+    }
 }
