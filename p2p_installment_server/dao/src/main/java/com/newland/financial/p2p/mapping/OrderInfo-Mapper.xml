@@ -245,8 +245,7 @@
     <!--Pos端全部订单查询(列表)-->
     <select id="getOrderByCustomer" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT * FROM t_inst_orderinfo a LEFT JOIN t_inst_refund b ON a.orderId = b.orderId
-        <where> a.merchantId = #{merchantId}
-            AND  a.contractsState <![CDATA[!= ]]> 0 AND  a.contractsState is not null
+        <where> a.merchantId = #{merchantId} AND  a.contractsState is not null
             <if test="begTime != null">
                 AND DATE_FORMAT(a.txnTime,'%Y-%m-%d') &gt;= #{begTime}
             </if>
