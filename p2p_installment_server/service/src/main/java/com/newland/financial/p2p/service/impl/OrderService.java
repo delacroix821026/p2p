@@ -424,7 +424,6 @@ public class OrderService implements IOrderService {
      * @return orderInfo
      */
     public OrderInfo getOrderInfoByManager(String orderId) {
-        orderInfoDao.getOrderInfoByManager(orderId);
-        return null;
+        return orderInfoDao.getOrderInfoByManager(orderId);
     }
 }
