@@ -60,7 +60,7 @@ public class OrderController {
     }
 
     /**
-     * 查询单个订单.
+     * Pos端查询单个订单.
      *
      * @param orderId 请求参数:<BR>
      *                {<BR>
