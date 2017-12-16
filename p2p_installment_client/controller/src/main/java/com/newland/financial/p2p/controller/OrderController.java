@@ -212,7 +212,9 @@ public class OrderController {
     /**
      * 微信用户查询订单详情.
      *
-     * @return OrderInfolist
+     * @param orderId 订单号.
+     * @param openId 订单号.
+     * @return List<OrderInfo>
      */
     @RequestMapping(value = "/weixin/{openId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -231,7 +233,8 @@ public class OrderController {
     /**
      * 微信用户订单列表.
      *
-     * @return OrderInfolist
+     * @param jsonStr
+     * @return List<OrderInfo>
      */
     @RequestMapping(value = "/weixin", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
@@ -249,7 +252,9 @@ public class OrderController {
     /**
      * 商户查询订单列表.
      *
-     * @return OrderInfolist
+     * @param merchantId 商户号.
+     * @param jsonStr .
+     * @return List<OrderInfo>
      */
     @RequestMapping(value = "/{merchantId}/orderList", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -265,7 +270,9 @@ public class OrderController {
     /**
      * 商户查询订单详情.
      *
-     * @return OrderInfo
+     * @param merchantId 商户号.
+     * @param orderId .
+     * @return List<OrderInfo>
      */
     @RequestMapping(value = "/merchant/{merchantId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -276,7 +283,8 @@ public class OrderController {
     /**
      * 平台管理员查询订单列表.
      *
-     * @return OrderInfolist
+     * @param jsonStr .
+     * @return List<OrderInfo>
      */
     @RequestMapping(value = "/orderList", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
@@ -295,9 +303,10 @@ public class OrderController {
     }
 
     /**
-     * 平台管理员查询订单详情
+     * 平台管理员查询订单详情.
      *
-     * @return OrderInfolist
+     * @param orderId 订单Id.
+     * @return List<OrderInfo>
      */
     @RequestMapping(value = "/plant/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)

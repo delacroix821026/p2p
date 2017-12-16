@@ -48,8 +48,8 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
     /**
      * 删除订单.
      *
-     * @param orderId 订单号
-     * @return true or false
+     * @param orderId 订单号.
+     * @return true or false.
      */
     public boolean deleteOrderInfo(String orderId) {
         if (orderId == null || orderId.length() == 0) {
@@ -61,8 +61,8 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
     /**
      * pos端查询单个订单详细信息.
      *
-     * @param orderId    订单号
-     * @param merchantId 商户代码
+     * @param orderId    订单号.
+     * @param merchantId 商户代码.
      */
     public OrderInfo selectOrderInfoPos(String orderId, String merchantId) {
         Map<String, String> map = new HashMap<String, String>();
@@ -72,109 +72,109 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
     }
 
     /**
-     * 运营平台商户订单查询
+     * 运营平台商户订单查询.
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> findOrderInfoListByPlantManager(Map<String, Object> map) {
         return super.select("findOrderByPlantByCustomer", map);
     }
 
     /**
-     * 已结清订单
+     * 已结清订单.
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> findOrderInfoListByFinish(Map<String, Object> map) {
         return super.select("findOrderInfoListByFinish", map);
     }
 
     /**
-     * Pos端全部订单查询(列表)
+     * Pos端全部订单查询(列表).
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> getOrderInfoListByMerchant(Map<String, Object> map) {
         return super.select("getOrderByCustomer", map);
     }
 
     /**
-     * 还款中订单
+     * 还款中订单.
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> findRepayList(Map<String, Object> map) {
         return super.select("findRepayList", map);
     }
 
     /**
-     * 退款中订单
+     * 退款中订单.
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> findRefundList(Map<String, Object> map) {
         return super.select("findFundInfo", map);
     }
 
     /**
-     * POS退款订单查询
+     * POS退款订单查询.
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> findRefundListPos(Map<String, Object> map) {
         return super.select("findRefundListPos", map);
     }
 
     /**
-     * 结清与未结清订单查询
+     * 结清与未结清订单查询.
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> findOrderListPos(Map<String, Object> map) {
         return super.select("findOrderListPos", map);
     }
 
     /**
-     * 微信还款中订单查询
+     * 微信还款中订单查询.
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> findRepayWeixin(Map<String, Object> map) {
         return super.select("findRepayWeixin", map);
     }
 
     /**
-     * 微信退款中订单查询
+     * 微信退款中订单查询.
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> findRefundWeixin(Map<String, Object> map) {
         return super.select("findRefundWeixin", map);
     }
 
     /**
-     * 微信结清与全部订单查询
+     * 微信结清与全部订单查询.
      *
-     * @param map 查询条件
-     * @return 信息集合
+     * @param map 查询条件.
+     * @return 信息集合.
      */
     public List<OrderInfo> findByFinishWeixin(Map<String, Object> map) {
         return super.select("findByFinishWeixin", map);
     }
     /**
-     * 平台的商户查询
+     * 平台的商户查询.
      *
-     * @param orderId 查询条件
-     * @return 信息集合
+     * @param orderId 查询条件.
+     * @return 信息集合.
      */
     public OrderInfo  getOrderInfoByManager(String orderId){
         return super.selectEntity("getOrderInfoByManager", orderId);
@@ -182,9 +182,9 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
     /**
      * 微信端查询订单信息.
      *
-     * @param openId  微信Id
-     * @param orderId 订单id
-     * @return orderInfo
+     * @param openId  微信Id.
+     * @param orderId 订单id.
+     * @return orderInfo.
      */
     public OrderInfo findOrderInfoWeiXin(String openId, String orderId) {
         Map<String, String> map = new HashMap<String, String>();

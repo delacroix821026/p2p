@@ -54,6 +54,7 @@ public class MerchantController {
     /**
      * 商户详情查询.
      *
+     * @param merchantId 商户ID
      * @return MerInfo
      */
     @RequestMapping(value = "/{merchantId}", method = RequestMethod.GET)
@@ -64,6 +65,8 @@ public class MerchantController {
 
     /**
      * 商户同步（后台同步）.
+     *
+     * @param merInfo
      */
     @RequestMapping(value = "/synchMerchant", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -74,6 +77,8 @@ public class MerchantController {
 
     /**
      * 商户附件同步（后台附件同步）.
+     *
+     * @param merInfo
      */
     @RequestMapping(value = "/synchMerchantFile", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -83,6 +88,10 @@ public class MerchantController {
 
     /**
      * 商户更新（前端输入）.
+     *
+     * @param merInfo
+     * @param merchantId
+     * @return Object
      */
     @RequestMapping(value = "/{merchantId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)

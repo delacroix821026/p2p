@@ -59,29 +59,41 @@ public interface IOrderService {
     /**
      * pos端查询单个订单详细信息.
      *
-     * @param orderId 订单号
-     * @param merId   商户代码
+     * @param orderId
+     * @param merId
+     * @return orderInfo
      */
     OrderInfo findOrderInfoPos(String orderId, String merId);
 
     /**
      * 微信顾客查询订单.
+     *
+     * @param jsonStr
+     * @return orderInfo
      */
     PageInfo<OrderInfo> getOrderInfoListByCustomer(String jsonStr);
 
     /**
      * Pos端订单查询(列表)
+     *
+     * @param merchantId
+     * @param jsonStr
+     * @return orderInfo
      */
     Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, String jsonStr);
 
 
     /**
      * 商户订单查询
+     *
+     * @param pageModel
+     * @return orderInfo
      */
     Object getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel);
 
     /**
      * 微信端查询订单信息.
+     *
      * @param openId 微信Id
      * @param orderId 订单id
      * @return orderInfo
@@ -89,12 +101,14 @@ public interface IOrderService {
     OrderInfo findOrderInfoWeiXin(String openId, String orderId);
     /**
      * 商户查询订单信息.
+     *
      * @param orderId 订单id
      * @return orderInfo
      */
     OrderInfo findOrderInfoManager(String orderId);
     /**
      * 商户查询订单详情.
+     *
      * @param orderId 订单id
      * @return orderInfo
      */

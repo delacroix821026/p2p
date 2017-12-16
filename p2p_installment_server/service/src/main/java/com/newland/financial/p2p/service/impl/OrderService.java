@@ -11,8 +11,6 @@ import com.newland.financial.p2p.dao.IRefundDao;
 import com.newland.financial.p2p.dao.IRepayDao;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
-import com.newland.financial.p2p.domain.entity.Refund;
-import com.newland.financial.p2p.domain.entity.Repay;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,22 +42,12 @@ public class OrderService implements IOrderService {
      */
     @Autowired
     private IMerInfoDao merInfoDao;
-    /**
-     * 注入Dao层对象.
-     */
-    @Autowired
-    private IRefundDao refundDao;
-    /**
-     * 注入Dao层对象.
-     */
-    @Autowired
-    private IRepayDao repayDao;
 
     /**
      * 创建一个空白订单.
      *
      * @param jsonStr 订单信息.
-     * @return 空白订单编号
+     * @return 空白订单编号.
      */
     public String createBlankOrder(String jsonStr) {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
@@ -88,8 +76,8 @@ public class OrderService implements IOrderService {
     /**
      * 获取相应订单信息.
      *
-     * @param orderId 订单编号
-     * @return 订单信息
+     * @param orderId 订单编号.
+     * @return 订单信息.
      */
     public OrderInfo findOrderInfo(String orderId) {
         //判断orderId是否为空
@@ -102,7 +90,7 @@ public class OrderService implements IOrderService {
     /**
      * 进行分期交易并更新订单.
      *
-     * @param jsonStr 前端访问信息
+     * @param jsonStr 前端访问信息.
      * @return 返回创建订单请求报文.
      */
     public Object tradeUpdateOrder(String jsonStr) {
@@ -129,7 +117,7 @@ public class OrderService implements IOrderService {
      * 查询商户信息.
      *
      * @param orderInfo 包含商户id.
-     * @return 商户信息
+     * @return 商户信息.
      */
     public MerInfo findMerInfo(OrderInfo orderInfo) {
         String merchantId = orderInfo.getMerchantId();
@@ -139,8 +127,8 @@ public class OrderService implements IOrderService {
     /**
      * 更新订单.
      *
-     * @param or 订单信息
-     * @return true or false
+     * @param or 订单信息.
+     * @return true or false.
      */
     public boolean updateOrderInfo(OrderInfo or) {
         return orderInfoDao.updateOrder(or);
@@ -149,8 +137,9 @@ public class OrderService implements IOrderService {
     /**
      * pos端查询单个订单详细信息.
      *
-     * @param orderId    订单号
-     * @param merchantId 商户代码
+     * @param orderId    订单号.
+     * @param merchantId 商户代码.
+     * @return 订单信息.
      */
     public OrderInfo findOrderInfoPos(String orderId, String merchantId) {
         if (orderId == null || orderId.length() == 0) {
@@ -164,7 +153,9 @@ public class OrderService implements IOrderService {
 
     /**
      * 微信顾客查询订单.
-     * @param jsonStr   数据
+     *
+     * @param jsonStr   数据.
+     * @return 订单信息.
      */
     public PageInfo<OrderInfo> getOrderInfoListByCustomer(String jsonStr) {
         log.info("======getOrderInfoListByCustomer======");
@@ -248,8 +239,10 @@ public class OrderService implements IOrderService {
 
     /**
      * Pos端订单查询(列表).
-     * @param jsonStr   数据
-     * @param merchantId 商户代码
+     *
+     * @param jsonStr   数据.
+     * @param merchantId 商户代码.
+     * @return 订单信息.
      */
     public PageInfo getOrderInfoListByMerchant(String merchantId, String jsonStr) {
         log.info("jsonStr" + jsonStr);
@@ -331,8 +324,10 @@ public class OrderService implements IOrderService {
     }
 
     /**
-     * 运营平台商户查询
+     * 运营平台商户查询.
      *
+     * @param pageModel   数据.
+     * @return 订单信息.
      */
     public PageInfo getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel) {
         String merchantId = pageModel.getModel().getMerchantId();
@@ -401,9 +396,9 @@ public class OrderService implements IOrderService {
     /**
      * 微信端查询订单信息.
      *
-     * @param openId  微信Id
-     * @param orderId 订单id
-     * @return orderInfo
+     * @param openId  微信Id.
+     * @param orderId 订单id.
+     * @return orderInfo.
      */
     public OrderInfo findOrderInfoWeiXin(String openId, String orderId) {
         return orderInfoDao.findOrderInfoWeiXin(openId, orderId);
@@ -411,8 +406,8 @@ public class OrderService implements IOrderService {
     /**
      * 商户查询订单信息.
      *
-     * @param orderId 订单id
-     * @return orderInfo
+     * @param orderId 订单id.
+     * @return orderInfo.
      */
     public OrderInfo findOrderInfoManager(String orderId) {
         return orderInfoDao.selectOrderInfo(orderId);
@@ -420,8 +415,8 @@ public class OrderService implements IOrderService {
     /**
      * 商户查询订单详情.
      *
-     * @param orderId 订单id
-     * @return orderInfo
+     * @param orderId 订单id.
+     * @return orderInfo.
      */
     public OrderInfo getOrderInfoByManager(String orderId) {
         return orderInfoDao.getOrderInfoByManager(orderId);

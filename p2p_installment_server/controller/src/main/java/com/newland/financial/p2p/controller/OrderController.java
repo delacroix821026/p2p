@@ -117,6 +117,7 @@ public class OrderController {
      * 获得相应订单信息.
      *
      * @param orderId orderId
+     * @param merchantId orderId
      * @return 订单信息.
      */
     @RequestMapping(value = "/{merchantId}/{orderId}", method = RequestMethod.GET)
@@ -220,6 +221,8 @@ public class OrderController {
     /**
      * 商户查询订单列表.
      *
+     * @param merchantId
+     * @param jsonStr
      * @return OrderInfolist
      */
     @RequestMapping(value = "/{merchantId}/orderList", method = RequestMethod.POST)
@@ -242,6 +245,8 @@ public class OrderController {
     /**
      * 商户查询订单列表.
      *
+     * @param merchantId
+     * @param orderId
      * @return OrderInfolist
      */
     @RequestMapping(value = "/merchant/{merchantId}/{orderId}", method = RequestMethod.GET)
@@ -253,6 +258,7 @@ public class OrderController {
     /**
      * 平台管理员查询订单列表.
      *
+     * @param pageModel
      * @return OrderInfolist
      */
     @RequestMapping(value = "/orderList", method = RequestMethod.GET)
@@ -272,6 +278,7 @@ public class OrderController {
     /**
      * 平台管理员查询订单列表.
      *
+     * @param orderId
      * @return Object
      */
     @RequestMapping(value = "/plant/{orderId}", method = RequestMethod.GET)
