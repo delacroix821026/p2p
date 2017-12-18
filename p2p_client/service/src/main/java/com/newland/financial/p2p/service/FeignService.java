@@ -17,7 +17,6 @@ public interface FeignService {
 
     @RequestMapping(method = RequestMethod.GET, value = "/add1")
     Integer add2(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b);
-
 }
 
 /*

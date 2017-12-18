@@ -14,6 +14,9 @@ appstore:
     masterHost: 51starpos.com
     masterProtocol: https
     address: http://139.224.133.239:7380/server/remote/cxf/slaveMessageService
+extadp:
+    url: http://106.14.81.177:8623/extadp/tms1010009.json
+    port: 8623
 ...
 
 ---
@@ -33,6 +36,9 @@ appstore:
     masterHost: 51starpos.com
     masterProtocol: https
     address: http://139.224.133.239:7380/server/remote/cxf/slaveMessageService
+extadp:
+    url: http://106.14.81.177:8623/extadp/tms1010009.json
+    port: 8623
 ...
 
 ---
@@ -52,6 +58,9 @@ appstore:
     masterHost: starpos.com.cn
     masterProtocol: https
     address: http://121.43.177.59/server/remote/cxf/slaveMessageService
+extadp:
+    url: http://gateway.starpos.com.cn/extadp/tms1010009.json
+    port: ""
 ...
 
 ---
@@ -76,6 +85,11 @@ zuul:
             path: /installment/**
             sensitiveHeaders:
             serviceId: p2p-installment-client${DEVLOPER_NAME:}
+        extadp:
+            path: /extadp/**
+            sensitiveHeaders:
+            url: ${extadp.url}:${extadp.port}
+            stripPrefix: false
 ...
 
 ---
