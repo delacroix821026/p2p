@@ -13,7 +13,7 @@ HOSTNAME: ${spring.cloud.client.ipAddress}
 spring:
     profiles: test
     application:
-        name: @project.parent.name@
+        name: @project.parent.name
 ...
 
 ---
@@ -30,13 +30,6 @@ server:
         max-connections: 2000
         accept-count: 1000
         max-threads: 1000
-...
-
----
-zuul:
-    host:
-        max-per-route-connections: 1000
-        max-total-connections: 1000
 ...
 
 ---

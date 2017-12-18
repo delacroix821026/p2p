@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Component
 @Log
 public class FeignServiceHystrix implements FeignService {
-    public Integer add(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b) {
+    public Integer add0(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b) {
         log.info("FeignServiceHystrix:add");
         return 1026;
     }

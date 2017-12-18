@@ -3,7 +3,9 @@ package com.newland.financial.p2p;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.hystrix.contrib.javanica.aop.aspectj.HystrixCommandAspect;
 import feign.Feign;
+import feign.Request;
 import feign.hystrix.HystrixFeign;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,12 +16,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.client.RestTemplate;
@@ -58,6 +58,16 @@ public class Application {
         return HystrixFeign.builder();
     }
     */
+    @Bean
+    public Request.Options getOption() {
+        Request.Options options = new Request.Options(60 * 1000, 10 * 1000);
+        return options;
+    }
+
+    @Bean
+    public HystrixCommandAspect getHystrixCommandAspect() {
+        return new HystrixCommandAspect();
+    }
 
     @Bean
     public Jackson2JsonRedisSerializer jackson2JsonRedisSerializer() {

@@ -12,10 +12,11 @@ public class FeignFallbackFactory implements FallbackFactory<FeignService>, Feig
     private Throwable cause;
     public FeignService create(final Throwable cause) {
         this.cause = cause;
+        cause.printStackTrace();
         return this;
 
     }
-    public Integer add(Integer a, Integer b) {
+    public Integer add0(Integer a, Integer b) {
         log.error("aaaa" + cause.getMessage());
 
         return 1026;

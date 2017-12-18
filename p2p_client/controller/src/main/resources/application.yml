@@ -26,23 +26,6 @@ spring:
         password: newland123@456!
         database: 0
 
-hystrix:
-    threadpool:
-        default:
-            coreSize: 500
-    command:
-        default:
-            fallback:
-                isolation:
-                    thread:
-                        maxConcurrentRequests: 50
-            execution:
-                isolation:
-                    strategy: thread
-                    thread:
-                        timeoutInMilliseconds: 10000
-                timeout:
-                    enabled: false
 ...
 
 ---
@@ -75,5 +58,27 @@ feign:
     hystrix:
         enabled: true
 
-#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+spring.cloud.loadbalancer.retry.enabled: false
+hystrix:
+    threadpool:
+        default:
+            coreSize: 500
+    command:
+        default:
+            fallback:
+                isolation:
+                    thread:
+                        maxConcurrentRequests: 50
+            execution:
+                isolation:
+                    strategy: THREAD
+                    thread:
+                        timeoutInMilliseconds: 15000
+                timeout:
+                    #enabled: false
+        "FeignService#add0(Integer,Integer)":
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 500
 ...

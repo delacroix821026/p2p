@@ -1,13 +1,7 @@
 package com.newland.financial.p2p.service;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.service.Impl.FeignFallbackFactory;
-import com.newland.financial.p2p.service.Impl.FeignServiceHystrix;
-import feign.hystrix.FallbackFactory;
-import lombok.extern.log4j.Log4j;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 //@FeignClient(name = "local",url = "localhost:8769", fallbackFactory = FeignFallbackFactory.class)
 @FeignClient(value = "p2p-server${DEVLOPER_NAME:}", fallbackFactory = FeignFallbackFactory.class)
 public interface FeignService {
-    //@HystrixCommand(ignoreExceptions = {BaseRuntimeException.class})
     @RequestMapping(method = RequestMethod.GET, value = "/add1")
-    Integer add(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b);
+    Integer add0(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b);
 
     @RequestMapping(method = RequestMethod.GET, value = "/addtest")
     Integer add1(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b);

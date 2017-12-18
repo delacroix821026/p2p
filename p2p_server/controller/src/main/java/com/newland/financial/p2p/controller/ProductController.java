@@ -102,6 +102,13 @@ public class ProductController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String proId = paramJSON.getString("proId");
         log.debug("ProductController GetProductList:proId--" + proId);
+
+        Thread t = new Thread();
+        try {
+            t.sleep(12000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (proId == null || proId.equals("")) {
             return "proId不可为空";
         } else {
@@ -109,6 +116,8 @@ public class ProductController {
             log.debug(product.toString());
             return product;
         }
+
+
     }
 
     /**
