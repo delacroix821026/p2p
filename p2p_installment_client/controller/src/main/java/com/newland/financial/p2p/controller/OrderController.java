@@ -9,9 +9,21 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
 import com.newland.financial.p2p.service.IOrderService;
 import com.newland.financial.p2p.service.ISendService;
+import com.newland.financial.p2p.service.Impl.SendServiceFallBackFactory;
 import com.newland.financial.p2p.util.RespMessage;
+import feign.Client;
+import feign.Contract;
+import feign.Request;
+import feign.Retryer;
+import feign.codec.Decoder;
+import feign.codec.Encoder;
+import feign.hystrix.FallbackFactory;
+import feign.hystrix.HystrixFeign;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.netflix.feign.FeignClientsConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,7 +45,20 @@ import java.util.regex.Pattern;
 @RestController
 @Log4j
 @RequestMapping("/order")
+@Import(FeignClientsConfiguration.class)
 public class OrderController {
+   /* @Autowired
+    public OrderController(Decoder decoder, Encoder encoder, Client client, Contract contract, @Value("DEVLOPER_NAME") String devlopName) {
+
+        sendService = HystrixFeign.builder()
+                .encoder(encoder)
+                .decoder(decoder)
+                .contract(contract)
+                .client(client)
+                .options(new Request.Options(13 * 1000, 3 * 1000))
+                .retryer(new Retryer.Default(100, 1000, 1))
+                .target(ISendService.class, "http://lfqpay-client" + devlopName, (FallbackFactory<? extends ISendService>) new SendServiceFallBackFactory());
+    }*/
     @Autowired
     private IOrderService orderService;
     @Autowired
@@ -257,7 +282,7 @@ public class OrderController {
      * @return List<OrderInfo>
      */
     @RequestMapping(value = "/{merchantId}/orderList", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public Object getOrderInfoListByMerchant(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
         log.info("========client:getOrderInfoListByMerchant=======");
         log.info("jsonStr===" + jsonStr);
