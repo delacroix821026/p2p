@@ -15,7 +15,7 @@ appstore:
     masterProtocol: https
     address: http://139.224.133.239:7380/server/remote/cxf/slaveMessageService
 extadp:
-    url: http://106.14.81.177:8623/extadp/tms1010009.json
+    url: http://106.14.81.177
     port: 8623
 ...
 
@@ -37,7 +37,7 @@ appstore:
     masterProtocol: https
     address: http://139.224.133.239:7380/server/remote/cxf/slaveMessageService
 extadp:
-    url: http://106.14.81.177:8623/extadp/tms1010009.json
+    url: http://106.14.81.177
     port: 8623
 ...
 
@@ -59,7 +59,7 @@ appstore:
     masterProtocol: https
     address: http://121.43.177.59/server/remote/cxf/slaveMessageService
 extadp:
-    url: http://gateway.starpos.com.cn/extadp/tms1010009.json
+    url: http://gateway.starpos.com.cn
     port: ""
 ...
 
