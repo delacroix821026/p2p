@@ -1,6 +1,8 @@
 package com.newland.financial.p2p.service.impl;
 
+import com.newland.financial.p2p.dao.IOrderInfoDao;
 import com.newland.financial.p2p.dao.IRepayDao;
+import com.newland.financial.p2p.domain.entity.OrderInfo;
 import com.newland.financial.p2p.domain.entity.Repay;
 import com.newland.financial.p2p.service.IRepayService;
 import lombok.extern.log4j.Log4j;
@@ -22,6 +24,11 @@ public class RepayService implements IRepayService {
      */
     @Autowired
     private IRepayDao repayDao;
+    /**
+     * 订单Dao.
+     */
+    @Autowired
+    private IOrderInfoDao orderInfoDao;
 
     /**
      * 接收还款推送信息.
@@ -33,17 +40,21 @@ public class RepayService implements IRepayService {
         log.info("--------------------------------进入RepayService:");
         String id = UUID.randomUUID().toString().replace("-", "");
         boolean bol = false;
-        Repay existRepay = repayDao.findRepayInfo(repay);
-        //首次推送则插入新纪录
-        if (existRepay == null) {
-            repay.setId(id);
-            bol = repayDao.insertRepayInfo(repay);
-        } else {
-            //重复推送则更新还款单
-            repay.setId(existRepay.getId());
-            bol = repayDao.updateRepayInfo(repay);
+        repay.setId(id);
+        bol = repayDao.insertRepayInfo(repay);
+        // 如果是最后一期则需要同步订单的状态
+        if (repay.getTxnAmt() == repay.getSumAmount()) {
+            OrderInfo orderInfo = new OrderInfo();
+            orderInfo.setOrderId(repay.getOrderId());
+            String payType = repay.getPayType();
+            if ("0".equals(payType)) {
+                orderInfo.setContractsState("2");
+            } else if ("1".equals(payType)) {
+                orderInfo.setContractsState("4");
+            }
+            log.info("最后一期还款，更新订单状态：" + orderInfo.toString());
+            orderInfoDao.updateOrder(orderInfo);
         }
-
         if (bol) {
             return "true";
         }

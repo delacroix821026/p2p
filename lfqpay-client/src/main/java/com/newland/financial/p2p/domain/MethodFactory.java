@@ -196,6 +196,9 @@ public class MethodFactory {
      * @return 订单信息
      */
     public static OrderInfo installOrderInfoA(Map<String, String> map) {
+        for (String key : map.keySet()) {
+            log.info("key= "+ key + " and value= " + map.get(key));
+        }
         OrderInfo orderInfo = new OrderInfo();
         String respCode = map.get("respCode");
         orderInfo.setOrderId(map.get("orderId"));
@@ -209,8 +212,18 @@ public class MethodFactory {
             orderInfo.setSumTerms(Integer.parseInt(map.get("sumTerms")));
             orderInfo.setSumAmount(Long.parseLong(map.get("sumAmount")));
             orderInfo.setRemainAmount(Long.parseLong(map.get("remainAmount")));
-            orderInfo.setCancelAmount(Long.parseLong(map.get("cancelAmount")));
-            orderInfo.setCancelInterest(Long.parseLong(map.get("cancelInterest")));
+            if (map.containsKey("cancelAmount")) {
+                // 存在该键说明无法订单还未还清
+                orderInfo.setCancelAmount(Long.parseLong(map.get("cancelAmount")));
+            } else {
+                // 不存在该键说明订单已还清
+                orderInfo.setCancelAmount(0L);
+            }
+            if (map.containsKey("cancelInterest")) {
+                orderInfo.setCancelInterest(Long.parseLong(map.get("cancelInterest")));
+            } else {
+                orderInfo.setCancelInterest(0L);
+            }
         }
         log.info("==============10:单个查询结果begin================");
         log.info(orderInfo.toString());
