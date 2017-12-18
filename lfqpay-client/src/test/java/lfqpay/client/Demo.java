@@ -175,7 +175,26 @@ public class Demo {
 	public void backCancelRequest() throws UnsupportedEncodingException, IOException {
 		String requestUrl = ADDRESS_DEVELOP + "/lfq-pay/gateway/api/backCancelRequest.do";
 		Map<String, String> map = initCommonData();
-	
+		/*Map<String, String> map = new HashMap<String, String>();
+		map.put("version", "1.0.0");
+		map.put("encoding", "UTF-8");
+		map.put("certId", "1459236547464");
+		map.put("txnTime", "20171212202533");
+		map.put("merId", "SHFYJR001");
+		map.put("merPwd", "w90WKRClqOgr+YqWJCEDig==");
+		map.put("merName", "福建新大陆电脑股份有限公司");
+		map.put("merAbbr", "新大陆");
+		map.put("cancelAmount", "95500");
+		map.put("state", "1");
+		map.put("orderId", "2017120816324207862");
+		map.put("contractsCode", "HT20171208163558110038");
+		map.put("respCode", "0000");
+		map.put("respMsg", "成功");*/
+
+
+
+
+
 		map.put("txnType", "04"); // 订单退款：04
 		map.put("contractsCode", "HT20170926121033000002"); // 合同号
 		map.put("backUrl", "http://localhost:8080/lfq-pay/backurl.do"); // 异步推送地址
