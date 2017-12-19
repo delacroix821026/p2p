@@ -54,8 +54,6 @@ spring:
     session:
         store-type: redis
 ...
-<<<<<<< HEAD
-=======
 
 ---
 feign:
@@ -102,4 +100,4 @@ hystrix:
                     thread:
                         timeoutInMilliseconds: 15000
 ...
->>>>>>> 0a8c7028f860401f5091ea9215720a7f52623666
+
