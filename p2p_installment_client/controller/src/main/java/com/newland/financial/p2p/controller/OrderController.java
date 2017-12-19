@@ -91,11 +91,9 @@ public class OrderController {
         if (mat.matches()) {
             Map<String, String> map = new HashMap<String, String>();
             map.put("orderId", orderId);
-            map.put("respCode", "0000");
-            map.put("respMsg", "创建成功");
             return map;
         } else {
-            return RespMessage.setRespMap("0414", "操作失败");
+            throw new BaseRuntimeException("0414");
         }
     }
 
@@ -146,7 +144,7 @@ public class OrderController {
         log.info("orderId:" + orderId + ";merchantId:" + merchantId);
         Object ob = orderService.findOrderInfo(merchantId, orderId);
         if (ob == null) {
-            return RespMessage.setRespMap("0420","不合法的订单");
+            throw new BaseRuntimeException("0420");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1, orderId);
@@ -251,7 +249,7 @@ public class OrderController {
         }
         Object ob = orderService.getOrderInfoDetailByCustomer(openId, orderId);
         if (ob == null) {
-            return RespMessage.setRespMap("0420","不合法的订单");
+            throw new BaseRuntimeException("0420");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1, orderId);
@@ -343,7 +341,7 @@ public class OrderController {
         }
         Object ob = orderService.getOrderInfoDetailByPlantManager(orderId);
         if (ob == null) {
-            return RespMessage.setRespMap("0420","不合法的订单");
+            throw new BaseRuntimeException("0420");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1, orderId);
