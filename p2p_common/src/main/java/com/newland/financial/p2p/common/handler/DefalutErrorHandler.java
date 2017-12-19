@@ -24,7 +24,7 @@ public class DefalutErrorHandler {
         }
         RestError.Builder erb = new RestError.Builder();
         erb.setCode(ex.getErrorCode());
-        erb.setMessage(exceptionMapping.getValue(ex.getErrorCode()));
+        erb.setMessage(exceptionMapping.getValue(ex.getErrorCode(), ex.getArgs()));
         //erb.setMoreInfoUrl("/abc.htm");
         //erb.setThrowable(ex);
         return erb.build();
