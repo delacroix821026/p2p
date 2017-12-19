@@ -59,6 +59,7 @@ public class OrderServiceFallBackFactory implements FallbackFactory<IOrderServic
             public Object getOrderInfoDetailByCustomer(String openId, String orderId) {
                 log.info("*********getOrderInfoDetailByCustomer:被熔断***********");
                 log.error(cause);
+                cause.printStackTrace();
                 return "1026";
             }
 

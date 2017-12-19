@@ -28,24 +28,6 @@ spring:
         port: 9529
         password: newland123@456!
         database: 0
-
-hystrix:
-    threadpool:
-        default:
-            coreSize: 500
-    command:
-        default:
-            fallback:
-                isolation:
-                    thread:
-                        maxConcurrentRequests: 50
-            execution:
-                isolation:
-                    strategy: thread
-                    thread:
-                        timeoutInMilliseconds: 10000
-                timeout:
-                    enabled: false
 ...
 
 ---
@@ -72,3 +54,52 @@ spring:
     session:
         store-type: redis
 ...
+<<<<<<< HEAD
+=======
+
+---
+feign:
+    hystrix:
+        enabled: true
+    httpclient:
+        enabled: true
+
+
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 10000
+#hystrix.command.default.execution.isolation.thread.timeout.enabled: false
+...
+---
+ribbon:
+    ConnectTimeout: 15000
+    ReadTimeout: 15000
+...
+---
+feign:
+    hystrix:
+        enabled: true
+
+spring.cloud.loadbalancer.retry.enabled: false
+hystrix:
+    threadpool:
+        default:
+            coreSize: 500
+    command:
+        default:
+            fallback:
+                isolation:
+                    thread:
+                        maxConcurrentRequests: 50
+            execution:
+                isolation:
+                    strategy: THREAD
+                    thread:
+                        timeoutInMilliseconds: 12000
+                timeout:
+                    #enabled: false
+        "ISendService#sendOrderMsgToLbf(Object)":
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 15000
+...
+>>>>>>> 0a8c7028f860401f5091ea9215720a7f52623666

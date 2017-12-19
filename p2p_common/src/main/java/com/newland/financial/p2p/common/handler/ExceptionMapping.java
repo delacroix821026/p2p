@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +16,8 @@ import java.util.Map;
 public class ExceptionMapping {
     private Map<String, String> exceptionMap = new HashMap<String, String>();
 
-    public String getValue(String key) {
-        return exceptionMap.get(key);
+    public String getValue(String key, String... args) {
+        return MessageFormat.format(exceptionMap.get(key), args);
     }
 
     public Map<String, String> getExceptionMap() {
@@ -26,4 +27,5 @@ public class ExceptionMapping {
     public void setExceptionMap(Map<String, String> exceptionMap) {
         this.exceptionMap = exceptionMap;
     }
+
 }

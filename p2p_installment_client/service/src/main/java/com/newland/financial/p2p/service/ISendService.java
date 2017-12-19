@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "lfqpay-client${DEVLOPER_NAME:}", fallbackFactory = SendServiceFallBackFactory.class)
 public interface ISendService {
     @RequestMapping(method = RequestMethod.POST, value = "/ybforder/sendOrderMsg")
-    @HystrixCommand(commandProperties = {
-            @HystrixProperty(name = "hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds", value = "200")
-    })
     Object sendOrderMsgToLbf(@RequestBody Object object);
 
     @RequestMapping(method = RequestMethod.POST, value = "/ybforder/sendOrderQueryMsg")

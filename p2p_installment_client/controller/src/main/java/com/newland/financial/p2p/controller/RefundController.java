@@ -81,7 +81,7 @@ public class RefundController {
      * @return
      */
     @RequestMapping(value = "/createRefundOrder", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public Object createRefundOrder(@RequestBody String jsonStr) {
         log.info(jsonStr);
         RefundMsgReq refundMsgReq = refundService.getRefundMsg(jsonStr);
