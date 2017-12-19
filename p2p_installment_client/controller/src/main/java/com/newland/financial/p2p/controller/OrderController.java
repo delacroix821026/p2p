@@ -17,6 +17,7 @@ import feign.Request;
 import feign.Retryer;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
+import feign.codec.ErrorDecoder;
 import feign.hystrix.FallbackFactory;
 import feign.hystrix.HystrixFeign;
 import lombok.extern.log4j.Log4j;
@@ -48,7 +49,7 @@ import java.util.regex.Pattern;
 @Import(FeignClientsConfiguration.class)
 public class OrderController {
     @Autowired
-    public OrderController(Decoder decoder, Encoder encoder, Client client, Contract contract, @Value("${DEVLOPER_NAME}") String devlopName) {
+    public OrderController(ErrorDecoder errorDecoder, Decoder decoder, Encoder encoder, Client client, Contract contract, @Value("${DEVLOPER_NAME}") String devlopName) {
 
         sendService = HystrixFeign.builder()
                 .encoder(encoder)
@@ -57,6 +58,7 @@ public class OrderController {
                 .client(client)
                 .options(new Request.Options(13 * 1000, 15 * 1000))
                 .retryer(new Retryer.Default(100, 1000, 1))
+                .errorDecoder(errorDecoder)
                 .target(ISendService.class, "http://lfqpay-client" + devlopName, (FallbackFactory<? extends ISendService>) new SendServiceFallBackFactory());
     }
     @Autowired

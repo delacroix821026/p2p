@@ -128,7 +128,7 @@ spring:
         config:
             profile: ${SPRING_PROFILES_ACTIVE}
             label: master
-            name: p2p-server
+            name: p2p-installment-server
             #uri: http://localhost:2001/
             #failFast: true
             #retry:

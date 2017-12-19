@@ -3,6 +3,7 @@ package com.newland.financial.p2p.domain;
 import com.lfq.pay.client.MpiConstants;
 import com.lfq.pay.client.MpiUtil;
 import com.lfq.pay.client.SecureUtil;
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import lombok.extern.log4j.Log4j;
 
 import java.io.IOException;
@@ -182,6 +183,7 @@ public class MethodFactory {
             log.info("创建订单失败");
             orderInfo.setRespCode(respCodeA);
             orderInfo.setRespMsg(mapA.get("respMsg"));
+            throw new BaseRuntimeException("3000", mapA.get("respMsg"));
         }
         log.info("=============交易后最终返回内容orderInfo begin================");
         log.info(orderInfo.toString());
