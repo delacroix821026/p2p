@@ -2,6 +2,7 @@ package com.newland.financial.p2p.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.domain.entity.InstallObjectFactory;
 import com.newland.financial.p2p.domain.entity.MerInfo;
@@ -75,8 +76,8 @@ public class OrderController {
         String contractsCode = order.getContractsCode();
         log.info("constractscode====:" + contractsCode);
         if (order.getContractsCode() != null) {
-            log.info("已成交的商户不可重复扫码更改信息");
-            return null;
+            log.info("===Exception:0450===");
+            throw new BaseRuntimeException("0450");
         }
         String smsCode = paramJSON.getString("smsCode");
         OrderInfo orderInfo = (OrderInfo) orderService.tradeUpdateOrder(jsonStr);
@@ -123,15 +124,16 @@ public class OrderController {
     @RequestMapping(value = "/{merchantId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Object findOrderInfo(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId) {
-        log.info("======3:come to server:findOrderInfo=====");
+        log.info("===come to server:findOrderInfo===");
         log.info("orderId:" + orderId + ";merchantId:" + merchantId);
         OrderInfo orderInfo = orderService.findOrderInfoPos(orderId, merchantId);
         if (orderInfo == null) {
-            return null;
+            log.info("===Exception:0453===");
+            throw new BaseRuntimeException("0453");
         }
         MerInfo merInfo = orderService.findMerInfo(orderInfo);
         OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);
-        log.info("4:OrderQueryReq:" + oq.toString());
+        log.info("===OrderQueryReq:===" + oq.toString());
         return oq;
     }
 
@@ -173,13 +175,10 @@ public class OrderController {
         long endtime = new Date().getTime();
         if (endtime - createtime > 86400000) {
             log.info("二维码已超过一天有效期endtime - createtime=" + (endtime - createtime));
-            map.put("respCode", "0411");
-            map.put("respMsg", "二维码已过期失效");
-            return map;
+            log.info("===Exception:0411===");
+            throw new BaseRuntimeException("0411");
         }
         map.put("orderInfo", orderInfo);
-        map.put("respCode", "0000");
-        map.put("respMsg", "二维码可用");
         return map;
     }
 
@@ -276,7 +275,7 @@ public class OrderController {
     }
 
     /**
-     * 平台管理员查询订单列表.
+     * 平台管理员查询订单详情.
      *
      * @param orderId
      * @return Object
@@ -287,7 +286,8 @@ public class OrderController {
         log.info("orderId = "+orderId);
         OrderInfo orderInfo = orderService.findOrderInfoManager(orderId);
         if (orderInfo == null) {
-            return null;
+            log.info("===Exception:0453===");
+            throw new BaseRuntimeException("0453");
         }
         MerInfo merInfo = orderService.findMerInfo(orderInfo);
         OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);

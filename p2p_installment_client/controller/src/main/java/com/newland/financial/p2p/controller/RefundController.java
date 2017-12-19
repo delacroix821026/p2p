@@ -7,13 +7,25 @@ import com.newland.financial.p2p.domain.entity.RefundMsgReq;
 import com.newland.financial.p2p.service.IRefundService;
 import com.newland.financial.p2p.service.ISendService;
 import com.newland.financial.p2p.service.ISignatureIfqService;
+import com.newland.financial.p2p.service.Impl.SendServiceFallBackFactory;
 import com.newland.financial.p2p.util.FtpClientEntity;
 import com.newland.financial.p2p.util.NewMerInfoUtils;
 import com.newland.financial.p2p.util.RespMessage;
+import feign.Client;
+import feign.Contract;
+import feign.Request;
+import feign.Retryer;
+import feign.codec.Decoder;
+import feign.codec.Encoder;
+import feign.codec.ErrorDecoder;
+import feign.hystrix.FallbackFactory;
+import feign.hystrix.HystrixFeign;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.netflix.feign.FeignClientsConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +51,21 @@ import java.util.Map;
 @RestController
 @Log4j
 @RequestMapping("/refund")
+@Import(FeignClientsConfiguration.class)
 public class RefundController {
+    @Autowired
+    public RefundController(ErrorDecoder errorDecoder, Decoder decoder, Encoder encoder, Client client, Contract contract, @Value("${DEVLOPER_NAME}") String devlopName) {
+
+        sendService = HystrixFeign.builder()
+                .encoder(encoder)
+                .decoder(decoder)
+                .contract(contract)
+                .client(client)
+                .options(new Request.Options(13 * 1000, 15 * 1000))
+                .retryer(new Retryer.Default(100, 1000, 1))
+                .errorDecoder(errorDecoder)
+                .target(ISendService.class, "http://lfqpay-client" + devlopName, (FallbackFactory<? extends ISendService>) new SendServiceFallBackFactory());
+    }
     /**
      * 注入service.
      */
@@ -48,7 +74,7 @@ public class RefundController {
     /**
      * 注入service.
      */
-    @Autowired
+    /*@Autowired*/
     private ISendService sendService;
     /*** 外发接口.*/
     @Autowired
@@ -86,7 +112,8 @@ public class RefundController {
         log.info(jsonStr);
         RefundMsgReq refundMsgReq = refundService.getRefundMsg(jsonStr);
         if (refundMsgReq == null) {
-            return RespMessage.setRespMap("0422", "订单已经超过45天，无法退款");
+            log.info("===Exception:0422===");
+            throw new BaseRuntimeException("0422");
         }
         log.info("client中拿到的refundMsgReq:" + refundMsgReq.toString());
         Refund refund = sendService.sendRefundMsgReq(refundMsgReq);

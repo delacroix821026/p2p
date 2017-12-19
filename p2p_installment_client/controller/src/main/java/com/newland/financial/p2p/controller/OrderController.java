@@ -61,9 +61,10 @@ public class OrderController {
                 .errorDecoder(errorDecoder)
                 .target(ISendService.class, "http://lfqpay-client" + devlopName, (FallbackFactory<? extends ISendService>) new SendServiceFallBackFactory());
     }
+
     @Autowired
     private IOrderService orderService;
-   /* @Autowired*/
+    /* @Autowired*/
     private ISendService sendService;
 
     /**
@@ -82,7 +83,7 @@ public class OrderController {
     @RequestMapping(value = "/{merchantId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Object createBlankOrder(@PathVariable(name = "merchantId") String merchantId, @RequestBody String jsonStr) {
-        log.info("========client:createBlankOrder=======");
+        log.info("====client:createBlankOrder====");
         log.info("jsonStr：" + jsonStr);
         String orderId = orderService.createOrderInfo(jsonStr, merchantId);
         String pattern = "^\\d{19}$";
@@ -93,6 +94,7 @@ public class OrderController {
             map.put("orderId", orderId);
             return map;
         } else {
+            log.info("===Exception:0414===");
             throw new BaseRuntimeException("0414");
         }
     }
@@ -140,10 +142,11 @@ public class OrderController {
     @RequestMapping(value = "/{merchantId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Object findOrderInfo(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId) {
-        log.info("========1:client:findOrderInfo=======");
-        log.info("orderId:" + orderId + ";merchantId:" + merchantId);
+        log.info("====1:client:findOrderInfo====");
+        log.info("===orderId:" + orderId + ";merchantId:" + merchantId + "===");
         Object ob = orderService.findOrderInfo(merchantId, orderId);
         if (ob == null) {
+            log.info("===Exception:0420===");
             throw new BaseRuntimeException("0420");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
@@ -206,12 +209,9 @@ public class OrderController {
         log.info("1.jsonStr：" + jsonStr);
         Object ob = orderService.tradeUpdateOrder(jsonStr, orderId);
         if (ob == null) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("respCode", "0410");
-            map.put("respMsg", "已请求分期的订单，请不要重复提交");
-            return map;
+            throw new BaseRuntimeException("0410");
         }
-        Object obj = sendService.sendOrderMsgToLbf(ob);
+        OrderInfo obj = (OrderInfo) sendService.sendOrderMsgToLbf(ob);
         log.info("=====obj=====:" + obj);
         orderService.updateOrderInfo(obj, orderId);
         return obj;
@@ -232,20 +232,20 @@ public class OrderController {
         return ob;
     }
 
-   /*    */
 
     /**
      * 微信用户查询订单详情.
      *
      * @param orderId 订单号.
-     * @param openId 订单号.
+     * @param openId  订单号.
      * @return List<OrderInfo>
      */
     @RequestMapping(value = "/weixin/{openId}/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Object getOrderInfoDetailByCustomer(@PathVariable(name = "openId") String openId, @PathVariable(name = "orderId") String orderId) {
         if (openId == null || "".equals(openId) || orderId == null || "".equals(orderId)) {
-            return RespMessage.setRespMap("0419","关键参数不能为空");
+            log.info("===Exception:0419===");
+            throw new BaseRuntimeException("0419");
         }
         Object ob = orderService.getOrderInfoDetailByCustomer(openId, orderId);
         if (ob == null) {
@@ -269,7 +269,8 @@ public class OrderController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String openId = paramJSON.getString("openId");
         if (openId == null || "".equals(openId)) {
-            return RespMessage.setRespMap("0419", "关键参数不能为空");
+            log.info("===Exception:0419===");
+            throw new BaseRuntimeException("0419");
         }
         return orderService.getOrderInfoListByCustomer(jsonStr);
     }
@@ -278,7 +279,7 @@ public class OrderController {
      * 商户查询订单列表.
      *
      * @param merchantId 商户号.
-     * @param jsonStr .
+     * @param jsonStr    .
      * @return List<OrderInfo>
      */
     @RequestMapping(value = "/{merchantId}/orderList", method = RequestMethod.POST)
@@ -287,22 +288,10 @@ public class OrderController {
         log.info("========client:getOrderInfoListByMerchant=======");
         log.info("jsonStr===" + jsonStr);
         if (merchantId == null || "".equals(merchantId.trim())) {
-            return RespMessage.setRespMap("0421", "merchantId不可为空");
+            log.info("===Exception:0452===");
+            throw new BaseRuntimeException("0452");
         }
         return orderService.getOrderInfoListByMerchant(merchantId, jsonStr);
-    }
-
-    /**
-     * 商户查询订单详情.
-     *
-     * @param merchantId 商户号.
-     * @param orderId .
-     * @return List<OrderInfo>
-     */
-    @RequestMapping(value = "/merchant/{merchantId}/{orderId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId) {
-        return null;
     }
 
     /**
@@ -336,11 +325,13 @@ public class OrderController {
     @RequestMapping(value = "/plant/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Object getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId) {
-        if ( orderId == null || "".equals(orderId)) {
-            return RespMessage.setRespMap("0419","关键参数不能为空");
+        if (orderId == null || "".equals(orderId)) {
+            log.info("===Exception:0419===");
+            throw new BaseRuntimeException("0419");
         }
         Object ob = orderService.getOrderInfoDetailByPlantManager(orderId);
         if (ob == null) {
+            log.info("===Exception:0420===");
             throw new BaseRuntimeException("0420");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);

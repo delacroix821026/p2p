@@ -1,5 +1,6 @@
 package com.newland.financial.p2p.controller;
 
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.service.IMerchantService;
@@ -104,11 +105,11 @@ public class MerchantController {
         boolean b = merchantService.updateMerchant(mer);
         Map<String, String> map = new HashMap<String, String>();
         if (b) {
-            map.put("respCode", "0000");
-            map.put("respMsg", "操作成功");
+            map.put("code", "0000");
+            map.put("message", "操作成功");
         } else {
-            map.put("respCode", "0414");
-            map.put("respMsg", "操作失败");
+            log.info("===Exception:0414===");
+            throw new BaseRuntimeException("0414");
         }
         return map;
     }

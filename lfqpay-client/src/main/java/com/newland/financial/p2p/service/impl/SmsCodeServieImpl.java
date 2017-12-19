@@ -3,6 +3,7 @@ package com.newland.financial.p2p.service.impl;
 import com.lfq.pay.client.MpiUtil;
 import com.lfq.pay.client.SecureUtil;
 import com.newland.financial.p2p.Utils.IfqUtil;
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.domain.CodeMsgReq;
 import com.newland.financial.p2p.service.ISmsCodeServie;
 import lombok.extern.log4j.Log4j;
@@ -47,17 +48,7 @@ public class SmsCodeServieImpl implements ISmsCodeServie {
         data.put("encoding", "utf-8"); // 编码
         data.put("txnType", "13"); // 短信验证码：13
         data.put("txnTime", txnTime); // 交易时间：yyyyMMddHHmmss
-//        data.put("mobile", "15900543650"); // 手机号码
-//        data.put("version", codeMsgReq.getVersion()); // 固定值：1.0.0
-//        data.put("encoding", codeMsgReq.getEncoding()); // 编码
-//        data.put("txnType", codeMsgReq.getTxnType()); // 短信验证码：13
-//        data.put("txnTime", txnTime); // 交易时间：yyyyMMddHHmmss
         data.put("mobile", codeMsgReq.getMobile()); // 手机号码
-
-//        data.put("merId", "GZW-001"); // 商户编号
-//        data.put("merName", "newlandTest"); // 商户名称
-//        data.put("merAbbr", "newland"); // 商户简称
-//        data.put("merPwd", SecureUtil.encryptWithDES(txnTime, "12345678")); // 商户密码
         data.put("merId", codeMsgReq.getMerId()); // 商户编号
         data.put("merName", codeMsgReq.getMerName()); // 商户名称
         data.put("merAbbr", codeMsgReq.getMerAbbr()); // 商户简称
@@ -78,7 +69,10 @@ public class SmsCodeServieImpl implements ISmsCodeServie {
         respMap.put("respCode", resp.get("respCode"));
         respMap.put("respMsg", resp.get("respMsg"));
         respMap.put("respTime", resp.get("respTime"));
+        if (!"0000".equals(resp.get("respCode"))) {
+            log.info("===Exception:3000===");
+            throw new BaseRuntimeException("3000", resp.get("respMsg"));
+        }
         return respMap;
-//        return new CodeMsgResp();
     }
 }

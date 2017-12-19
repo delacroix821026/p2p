@@ -1,5 +1,6 @@
 package com.newland.financial.p2p.domain.entity;
 
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import lombok.extern.log4j.Log4j;
 
 import java.util.Date;
@@ -22,7 +23,7 @@ public class InstallObjectFactory {
         OrderMsgReq orm = new OrderMsgReq();
         orm.setTxnType("01");
         orm.setMerId(orderInfo.getMerId());
-        log.info("merInfo:====" + (merInfo == null));
+        log.info("===merInfo:====" + (merInfo == null));
         log.info("===========" + merInfo.toString());
         orm.setMerPwd(merInfo.getMerPwd());
         orm.setMerName(merInfo.getMerName());
@@ -78,7 +79,8 @@ public class InstallObjectFactory {
         log.info("beg:" + beg + ";end:" + end);
         if (end - beg > 3888000000L) {
             log.info("订单时间已经超过45天，无法退款");
-            return null;
+            log.info("===Exception:0422===");
+            throw new BaseRuntimeException("0422");
         }
         return refundMsgReq;
     }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.dao.IMerInfoDao;
 import com.newland.financial.p2p.dao.IOrderInfoDao;
@@ -82,7 +83,8 @@ public class OrderService implements IOrderService {
     public OrderInfo findOrderInfo(String orderId) {
         //判断orderId是否为空
         if (orderId == null || orderId.length() == 0) {
-            return null;
+            log.info("===Exception:0451===");
+            throw new BaseRuntimeException("0451");
         }
         return orderInfoDao.selectOrderInfo(orderId);
     }
@@ -97,7 +99,8 @@ public class OrderService implements IOrderService {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String orderId = paramJSON.getString("orderId");
         if (orderId == null || orderId.length() == 0) {
-            return false;
+            log.info("===Exception:0451===");
+            throw new BaseRuntimeException("0451");
         }
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setOrderId(orderId);
@@ -143,10 +146,12 @@ public class OrderService implements IOrderService {
      */
     public OrderInfo findOrderInfoPos(String orderId, String merchantId) {
         if (orderId == null || orderId.length() == 0) {
-            return null;
+            log.info("===Exception:0451===");
+            throw new BaseRuntimeException("0451");
         }
         if (merchantId == null || merchantId.length() == 0) {
-            return null;
+            log.info("===Exception:0452===");
+            throw new BaseRuntimeException("0452");
         }
         return orderInfoDao.selectOrderInfoPos(orderId, merchantId);
     }

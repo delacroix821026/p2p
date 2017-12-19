@@ -180,9 +180,9 @@ public class MethodFactory {
             }
         } else {
             // 创建订单失败
-            log.info("创建订单失败");
-            orderInfo.setRespCode(respCodeA);
-            orderInfo.setRespMsg(mapA.get("respMsg"));
+            log.info("Exception:3000");
+            /*orderInfo.setRespCode(respCodeA);
+            orderInfo.setRespMsg(mapA.get("respMsg"));*/
             throw new BaseRuntimeException("3000", mapA.get("respMsg"));
         }
         log.info("=============交易后最终返回内容orderInfo begin================");
@@ -226,11 +226,12 @@ public class MethodFactory {
             } else {
                 orderInfo.setCancelInterest(0L);
             }
+            log.info("==============单个查询结果================" + orderInfo.toString());
+            return orderInfo;
+        } else {
+            log.info("===Exception:3000===");
+            throw new BaseRuntimeException("3000", map.get("respMsg"));
         }
-        log.info("==============10:单个查询结果begin================");
-        log.info(orderInfo.toString());
-        log.info("==============11:单个查询结果end================");
-        return orderInfo;
     }
 
     /**
@@ -331,7 +332,8 @@ public class MethodFactory {
         refund.setRespCode(respCode);
         refund.setRespMsg(map.get("respMsg"));
         if (!"0000".equals(respCode)) {
-            return refund;
+            log.info("===Exception:3000===");
+            throw new BaseRuntimeException("3000", map.get("respMsg"));
         }
         refund.setRefundId(UUID.randomUUID().toString().replaceAll("-", ""));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");

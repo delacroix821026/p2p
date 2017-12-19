@@ -1,15 +1,24 @@
 package com.newland.financial.p2p.controller;
 
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.service.ISmsCodeService;
 import com.newland.financial.p2p.service.ISmsIfqService;
-import com.newland.financial.p2p.util.RespMessage;
+import com.newland.financial.p2p.service.Impl.SmsIfqServiceFallBackFactory;
+import feign.Client;
+import feign.Contract;
+import feign.Request;
+import feign.Retryer;
+import feign.codec.Decoder;
+import feign.codec.Encoder;
+import feign.codec.ErrorDecoder;
+import feign.hystrix.FallbackFactory;
+import feign.hystrix.HystrixFeign;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 发送短信验证码.
@@ -20,6 +29,19 @@ import java.util.Map;
 @Log4j
 @RequestMapping("/smscode")
 public class SmsCodeController {
+    @Autowired
+    public SmsCodeController(ErrorDecoder errorDecoder, Decoder decoder, Encoder encoder, Client client, Contract contract, @Value("${DEVLOPER_NAME}") String devlopName) {
+
+        smsIfqService = HystrixFeign.builder()
+                .encoder(encoder)
+                .decoder(decoder)
+                .contract(contract)
+                .client(client)
+                .options(new Request.Options(13 * 1000, 5 * 1000))
+                .retryer(new Retryer.Default(100, 1000, 1))
+                .errorDecoder(errorDecoder)
+                .target(ISmsIfqService.class, "http://lfqpay-client" + devlopName, (FallbackFactory<? extends ISmsIfqService>) new SmsIfqServiceFallBackFactory());
+    }
     /**
      * 内部服务.
      */
@@ -28,7 +50,7 @@ public class SmsCodeController {
     /**
      * 外发接口.
      */
-    @Autowired
+    /*@Autowired*/
     private ISmsIfqService smsIfqService;
 
     /**
@@ -52,7 +74,8 @@ public class SmsCodeController {
         Object msgCodeReqPram = smsCodeService.getMsgCodeReqPram(merchantId,mobile);
         //请求参数未通过校验或没有对应的商户信息
         if (msgCodeReqPram == null) {
-            return RespMessage.setRespMap("0423", "商户不存在");
+            log.info("===Exception:0423===");
+            throw new BaseRuntimeException("0423");
         }
         //请求乐百分短信接口
         log.info("-----------------------------------------请求乐百分短信接口：");

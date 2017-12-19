@@ -56,7 +56,7 @@ public class RefundController {
         OrderInfo orderInfo = orderService.findOrderInfo(orderId);
         if (orderInfo == null) {
             throw new BaseRuntimeException("2004");
-        } else if (orderInfo.getMerchantId() == null) {
+        } else if (orderInfo.getContractsCode() == null) {
             throw new BaseRuntimeException("2005");
         }
         MerInfo merInfo = merchantService.getMerchantDetail(orderInfo.getMerchantId());

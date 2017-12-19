@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.service.ILfqMerchantService;
@@ -148,7 +149,8 @@ public class MerchantController {
         MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
         log.info("======merInfo=====" + merInfo.toString());
         if (merInfo.getMerchantId() == null || "".equals(merInfo.getMerchantId())) {
-            return RespMessage.setRespMap("0414", "操作失败");
+            log.info("===Exception:0452===");
+            throw new BaseRuntimeException("0452");
         }
         return merchantService.updateMerchant(merchantId, merInfo);
     }
