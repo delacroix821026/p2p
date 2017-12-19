@@ -72,20 +72,3 @@ spring:
     session:
         store-type: redis
 ...
-
----
-feign:
-    hystrix:
-        enabled: true
-    httpclient:
-        enabled: true
-
-
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 10000
-#hystrix.command.default.execution.isolation.thread.timeout.enabled: false
-...
----
-ribbon:
-    ConnectTimeout: 15000
-    ReadTimeout: 15000
-...
