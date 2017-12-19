@@ -159,7 +159,7 @@ public class OrderController {
     /**
      * 查询空白订单信息.
      *
-     * @param orderId orderId
+     * @param orderId orderId.
      * @return 订单信息.
      */
     @RequestMapping(value = "/{orderId}/OrderInfo", method = RequestMethod.GET)
@@ -268,8 +268,8 @@ public class OrderController {
         log.info("getMerchantList:" + pageModel.getModel());
         log.info("getMerchantId:" + pageModel.getModel().getMerchantId());
         log.info("getOrderId:" + pageModel.getModel().getOrderId());
-        log.info("getMerName:" + pageModel.getModel().getMerName());
         log.info("getContractsState:" + pageModel.getModel().getContractsState());
+        log.info("getMerName:" + pageModel.getModel().getMerName());
         log.info("getPageNum:" + pageModel.getPageNum());
         log.info("getPageSize:" + pageModel.getPageSize());
         return orderService.getOrderInfoListByPlantManager(pageModel);
