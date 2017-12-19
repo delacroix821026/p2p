@@ -47,21 +47,21 @@ import java.util.regex.Pattern;
 @RequestMapping("/order")
 @Import(FeignClientsConfiguration.class)
 public class OrderController {
-   /* @Autowired
-    public OrderController(Decoder decoder, Encoder encoder, Client client, Contract contract, @Value("DEVLOPER_NAME") String devlopName) {
+    @Autowired
+    public OrderController(Decoder decoder, Encoder encoder, Client client, Contract contract, @Value("${DEVLOPER_NAME}") String devlopName) {
 
         sendService = HystrixFeign.builder()
                 .encoder(encoder)
                 .decoder(decoder)
                 .contract(contract)
                 .client(client)
-                .options(new Request.Options(13 * 1000, 3 * 1000))
+                .options(new Request.Options(13 * 1000, 15 * 1000))
                 .retryer(new Retryer.Default(100, 1000, 1))
                 .target(ISendService.class, "http://lfqpay-client" + devlopName, (FallbackFactory<? extends ISendService>) new SendServiceFallBackFactory());
-    }*/
+    }
     @Autowired
     private IOrderService orderService;
-    @Autowired
+   /* @Autowired*/
     private ISendService sendService;
 
     /**
