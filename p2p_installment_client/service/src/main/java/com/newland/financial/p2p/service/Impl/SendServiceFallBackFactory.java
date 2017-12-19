@@ -20,6 +20,7 @@ public class SendServiceFallBackFactory implements FallbackFactory<ISendService>
             public Object sendOrderQueryMsg(Object object) {
                 log.info("********sendOrderQueryMsg:被熔断********");
                 log.error(cause);
+                cause.printStackTrace();
                 return "1026";
             }
 

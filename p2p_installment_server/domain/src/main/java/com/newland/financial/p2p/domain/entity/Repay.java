@@ -39,6 +39,4 @@ public class Repay extends BaseEntity {
 //    private String respMsg;
     /**响应时间.*/
     private Date respTime;
-    /**还款订单和订单表一对一关联*/
-    private OrderInfo orderInfo;
 }

@@ -42,14 +42,13 @@ public class Example {
                 .retryer(new Retryer.Default(100, 1000, 1))
                 .target(FeignService.class, "http://p2p-serverDelacroix", (FallbackFactory<? extends FeignService>) new FeignFallbackFactory());
     }
-
     @Value("${form}")
     private String form;
 
     @Autowired
     private ExampleService exampleService;
 
-    //@Autowired
+    /*@Autowired*/
     private FeignService feignService;
 
     @RequestMapping("/getForm")
