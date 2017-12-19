@@ -108,8 +108,8 @@ public class MerchantController {
             map.put("code", "0000");
             map.put("message", "操作成功");
         } else {
-            log.info("===Exception:0414===");
-            throw new BaseRuntimeException("0414");
+            log.info("===Exception:2414===");
+            throw new BaseRuntimeException("2414");
         }
         return map;
     }

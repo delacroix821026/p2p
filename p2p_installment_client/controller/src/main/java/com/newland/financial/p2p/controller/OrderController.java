@@ -94,8 +94,8 @@ public class OrderController {
             map.put("orderId", orderId);
             return map;
         } else {
-            log.info("===Exception:0414===");
-            throw new BaseRuntimeException("0414");
+            log.info("===Exception:2414===");
+            throw new BaseRuntimeException("2414");
         }
     }
 
@@ -146,8 +146,8 @@ public class OrderController {
         log.info("===orderId:" + orderId + ";merchantId:" + merchantId + "===");
         Object ob = orderService.findOrderInfo(merchantId, orderId);
         if (ob == null) {
-            log.info("===Exception:0420===");
-            throw new BaseRuntimeException("0420");
+            log.info("===Exception:2420===");
+            throw new BaseRuntimeException("2420");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1, orderId);
@@ -209,7 +209,7 @@ public class OrderController {
         log.info("1.jsonStr：" + jsonStr);
         Object ob = orderService.tradeUpdateOrder(jsonStr, orderId);
         if (ob == null) {
-            throw new BaseRuntimeException("0410");
+            throw new BaseRuntimeException("2410");
         }
         OrderInfo obj = (OrderInfo) sendService.sendOrderMsgToLbf(ob);
         log.info("=====obj=====:" + obj);
@@ -244,12 +244,12 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     public Object getOrderInfoDetailByCustomer(@PathVariable(name = "openId") String openId, @PathVariable(name = "orderId") String orderId) {
         if (openId == null || "".equals(openId) || orderId == null || "".equals(orderId)) {
-            log.info("===Exception:0419===");
-            throw new BaseRuntimeException("0419");
+            log.info("===Exception:2419===");
+            throw new BaseRuntimeException("2419");
         }
         Object ob = orderService.getOrderInfoDetailByCustomer(openId, orderId);
         if (ob == null) {
-            throw new BaseRuntimeException("0420");
+            throw new BaseRuntimeException("2420");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1, orderId);
@@ -269,8 +269,8 @@ public class OrderController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String openId = paramJSON.getString("openId");
         if (openId == null || "".equals(openId)) {
-            log.info("===Exception:0419===");
-            throw new BaseRuntimeException("0419");
+            log.info("===Exception:2419===");
+            throw new BaseRuntimeException("2419");
         }
         return orderService.getOrderInfoListByCustomer(jsonStr);
     }
@@ -288,8 +288,8 @@ public class OrderController {
         log.info("========client:getOrderInfoListByMerchant=======");
         log.info("jsonStr===" + jsonStr);
         if (merchantId == null || "".equals(merchantId.trim())) {
-            log.info("===Exception:0452===");
-            throw new BaseRuntimeException("0452");
+            log.info("===Exception:2452===");
+            throw new BaseRuntimeException("2452");
         }
         return orderService.getOrderInfoListByMerchant(merchantId, jsonStr);
     }
@@ -326,13 +326,13 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     public Object getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId) {
         if (orderId == null || "".equals(orderId)) {
-            log.info("===Exception:0419===");
-            throw new BaseRuntimeException("0419");
+            log.info("===Exception:2419===");
+            throw new BaseRuntimeException("2419");
         }
         Object ob = orderService.getOrderInfoDetailByPlantManager(orderId);
         if (ob == null) {
-            log.info("===Exception:0420===");
-            throw new BaseRuntimeException("0420");
+            log.info("===Exception:2420===");
+            throw new BaseRuntimeException("2420");
         }
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1, orderId);

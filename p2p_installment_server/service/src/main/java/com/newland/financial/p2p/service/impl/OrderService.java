@@ -83,8 +83,8 @@ public class OrderService implements IOrderService {
     public OrderInfo findOrderInfo(String orderId) {
         //判断orderId是否为空
         if (orderId == null || orderId.length() == 0) {
-            log.info("===Exception:0451===");
-            throw new BaseRuntimeException("0451");
+            log.info("===Exception:2451===");
+            throw new BaseRuntimeException("2451");
         }
         return orderInfoDao.selectOrderInfo(orderId);
     }
@@ -99,8 +99,8 @@ public class OrderService implements IOrderService {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         String orderId = paramJSON.getString("orderId");
         if (orderId == null || orderId.length() == 0) {
-            log.info("===Exception:0451===");
-            throw new BaseRuntimeException("0451");
+            log.info("===Exception:2451===");
+            throw new BaseRuntimeException("2451");
         }
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setOrderId(orderId);
@@ -146,12 +146,12 @@ public class OrderService implements IOrderService {
      */
     public OrderInfo findOrderInfoPos(String orderId, String merchantId) {
         if (orderId == null || orderId.length() == 0) {
-            log.info("===Exception:0451===");
-            throw new BaseRuntimeException("0451");
+            log.info("===Exception:2451===");
+            throw new BaseRuntimeException("2451");
         }
         if (merchantId == null || merchantId.length() == 0) {
-            log.info("===Exception:0452===");
-            throw new BaseRuntimeException("0452");
+            log.info("===Exception:2452===");
+            throw new BaseRuntimeException("2452");
         }
         return orderInfoDao.selectOrderInfoPos(orderId, merchantId);
     }

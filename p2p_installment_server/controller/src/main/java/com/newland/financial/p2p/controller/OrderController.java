@@ -76,8 +76,8 @@ public class OrderController {
         String contractsCode = order.getContractsCode();
         log.info("constractscode====:" + contractsCode);
         if (order.getContractsCode() != null) {
-            log.info("===Exception:0450===");
-            throw new BaseRuntimeException("0450");
+            log.info("===Exception:2450===");
+            throw new BaseRuntimeException("2450");
         }
         String smsCode = paramJSON.getString("smsCode");
         OrderInfo orderInfo = (OrderInfo) orderService.tradeUpdateOrder(jsonStr);
@@ -128,8 +128,8 @@ public class OrderController {
         log.info("orderId:" + orderId + ";merchantId:" + merchantId);
         OrderInfo orderInfo = orderService.findOrderInfoPos(orderId, merchantId);
         if (orderInfo == null) {
-            log.info("===Exception:0453===");
-            throw new BaseRuntimeException("0453");
+            log.info("===Exception:2453===");
+            throw new BaseRuntimeException("2453");
         }
         MerInfo merInfo = orderService.findMerInfo(orderInfo);
         OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);
@@ -175,8 +175,8 @@ public class OrderController {
         long endtime = new Date().getTime();
         if (endtime - createtime > 86400000) {
             log.info("二维码已超过一天有效期endtime - createtime=" + (endtime - createtime));
-            log.info("===Exception:0411===");
-            throw new BaseRuntimeException("0411");
+            log.info("===Exception:2411===");
+            throw new BaseRuntimeException("2411");
         }
         map.put("orderInfo", orderInfo);
         return map;
@@ -286,8 +286,8 @@ public class OrderController {
         log.info("orderId = "+orderId);
         OrderInfo orderInfo = orderService.findOrderInfoManager(orderId);
         if (orderInfo == null) {
-            log.info("===Exception:0453===");
-            throw new BaseRuntimeException("0453");
+            log.info("===Exception:2453===");
+            throw new BaseRuntimeException("2453");
         }
         MerInfo merInfo = orderService.findMerInfo(orderInfo);
         OrderQueryReq oq = InstallObjectFactory.installOrderQueryReq(orderInfo, merInfo);

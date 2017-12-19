@@ -79,8 +79,8 @@ public class InstallObjectFactory {
         log.info("beg:" + beg + ";end:" + end);
         if (end - beg > 3888000000L) {
             log.info("订单时间已经超过45天，无法退款");
-            log.info("===Exception:0422===");
-            throw new BaseRuntimeException("0422");
+            log.info("===Exception:2422===");
+            throw new BaseRuntimeException("2422");
         }
         return refundMsgReq;
     }

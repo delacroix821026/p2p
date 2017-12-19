@@ -112,8 +112,8 @@ public class RefundController {
         log.info(jsonStr);
         RefundMsgReq refundMsgReq = refundService.getRefundMsg(jsonStr);
         if (refundMsgReq == null) {
-            log.info("===Exception:0422===");
-            throw new BaseRuntimeException("0422");
+            log.info("===Exception:2422===");
+            throw new BaseRuntimeException("2422");
         }
         log.info("client中拿到的refundMsgReq:" + refundMsgReq.toString());
         Refund refund = sendService.sendRefundMsgReq(refundMsgReq);

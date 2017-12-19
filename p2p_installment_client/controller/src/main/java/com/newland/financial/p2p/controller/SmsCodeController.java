@@ -74,8 +74,8 @@ public class SmsCodeController {
         Object msgCodeReqPram = smsCodeService.getMsgCodeReqPram(merchantId,mobile);
         //请求参数未通过校验或没有对应的商户信息
         if (msgCodeReqPram == null) {
-            log.info("===Exception:0423===");
-            throw new BaseRuntimeException("0423");
+            log.info("===Exception:2423===");
+            throw new BaseRuntimeException("2423");
         }
         //请求乐百分短信接口
         log.info("-----------------------------------------请求乐百分短信接口：");

@@ -149,8 +149,8 @@ public class MerchantController {
         MerInfo merInfo = JSONObject.parseObject(jsonStr, MerInfo.class);
         log.info("======merInfo=====" + merInfo.toString());
         if (merInfo.getMerchantId() == null || "".equals(merInfo.getMerchantId())) {
-            log.info("===Exception:0452===");
-            throw new BaseRuntimeException("0452");
+            log.info("===Exception2452===");
+            throw new BaseRuntimeException("2452");
         }
         return merchantService.updateMerchant(merchantId, merInfo);
     }
