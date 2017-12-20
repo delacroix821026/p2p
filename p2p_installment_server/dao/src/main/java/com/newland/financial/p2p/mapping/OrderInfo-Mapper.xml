@@ -313,7 +313,7 @@
             ORDER BY a.createTime desc
         </where>
     </select>
-    <!--商户退款中订单查询-->
+    <!--管理平台退款中订单查询-->
     <select id="findFundInfo" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT * FROM t_inst_orderinfo rd,t_inst_refund re
         <where>
@@ -330,10 +330,10 @@
             ORDER BY createTime desc
         </where>
     </select>
-    <!--商户还款中订单查询-->
+    <!--管理平台还款中订单查询-->
     <select id="findRepayList" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT * from t_inst_orderinfo
-        WHERE contractsState = 1 AND orderId NOT IN (SELECT orderId from t_inst_refund WHERE state = 2)
+        WHERE contractsState IN ('0','1') AND orderId NOT IN (SELECT orderId from t_inst_refund WHERE state = 2)
         <if test="merchantId != null">
             and merchantId like CONCAT('%','${merchantId}','%')
         </if>
@@ -354,7 +354,7 @@
     <!--微信还款中订单查询-->
     <select id="findRepayWeixin" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT * from t_inst_orderinfo
-        WHERE contractsState = 1 AND orderId NOT IN (SELECT orderId from t_inst_refund WHERE state = 2)
+        WHERE contractsState IN ('0','1') AND orderId NOT IN (SELECT orderId from t_inst_refund WHERE state = 2)
         AND openId = #{openId}
         <if test="begTime != null">
             AND DATE_FORMAT(txnTime,'%Y-%m-%d') &gt;= #{begTime}
@@ -374,7 +374,7 @@
     <select id="findRefundWeixin" resultMap="BaseResultRefundMap" parameterType="Map">
         SELECT * FROM t_inst_orderinfo rd,t_inst_refund re
         <where>
-            re.state = 2 AND rd.orderId = re.orderId AND rd.openId = #{openId}
+            rd.orderId = re.orderId AND rd.openId = #{openId}
             <if test="begTime != null">
                 AND DATE_FORMAT(rd.txnTime,'%Y-%m-%d') &gt;= #{begTime}
             </if>
