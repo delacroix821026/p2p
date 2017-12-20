@@ -94,8 +94,8 @@ public class OrderController {
             map.put("orderId", orderId);
             return map;
         } else {
-            log.info("===Exception:2414===");
-            throw new BaseRuntimeException("2414");
+            log.info("===Exception:2424===");
+            throw new BaseRuntimeException("2424");
         }
     }
 
