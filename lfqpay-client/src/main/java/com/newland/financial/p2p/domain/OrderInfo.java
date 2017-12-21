@@ -74,4 +74,6 @@ public class OrderInfo extends BaseEntity {
     private String merchantId;
     /**应还款总金额.*/
     private Long totleAmount;
+    /**当前时间.*/
+    private Date nowTime = new Date();
 }
