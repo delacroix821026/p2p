@@ -38,4 +38,6 @@ public class Refund extends BaseEntity {
     private Date sendTime;
     /**汇款凭证保存路径.*/
     private String path;
+    /**申请退款金额.*/
+    private Long applyCancelAmount;
 }

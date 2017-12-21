@@ -82,7 +82,7 @@
         <where>
             1=1
             <if test="merchantId != null">
-                and MER_ID like CONCAT('%','${merchantId}','%')
+                and MERCHANT_ID like CONCAT('%','${merchantId}','%')
             </if>
             <if test="merName != null">
                 and MER_NAME like CONCAT('%','${merName}','%')

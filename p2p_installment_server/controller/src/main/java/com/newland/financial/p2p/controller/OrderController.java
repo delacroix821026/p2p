@@ -97,6 +97,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public Object updateOrderInfo(@RequestBody OrderInfo ob, @PathVariable(name = "orderId") String orderId) {
         OrderInfo or = ob;
+        or.setTotleAmount(or.getTxnAmt() + or.getPoundage());
         return orderService.updateOrderInfo(or);
     }
 

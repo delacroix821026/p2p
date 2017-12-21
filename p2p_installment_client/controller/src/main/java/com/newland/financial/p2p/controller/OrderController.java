@@ -211,7 +211,7 @@ public class OrderController {
         if (ob == null) {
             throw new BaseRuntimeException("2410");
         }
-        OrderInfo obj = (OrderInfo) sendService.sendOrderMsgToLbf(ob);
+        Object obj = sendService.sendOrderMsgToLbf(ob);
         log.info("=====obj=====:" + obj);
         orderService.updateOrderInfo(obj, orderId);
         return obj;

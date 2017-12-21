@@ -78,4 +78,6 @@ public class OrderInfo extends BaseEntity {
     private String merchantId;
     /**订单表和退款表的一对一关系*/
     private Refund refund;
+    /**应还款总金额.*/
+    private Long totleAmount;
 }
