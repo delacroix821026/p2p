@@ -228,6 +228,10 @@ public class OrderController {
     public Object findBlankOrder(@PathVariable(name = "orderId") String orderId) {
         log.info("========client:findBlankOrder=======");
         log.info("======orderId======：" + orderId);
+        if (orderId == null || "".equals(orderId.trim())) {
+            log.info("===Exception:2010===");
+            throw new BaseRuntimeException("2010");
+        }
         Object ob = orderService.findBlankOrder(orderId);
         return ob;
     }
