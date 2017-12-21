@@ -21,7 +21,7 @@ spring:
         username: user_admin
         password: admin123%
     redis:
-        host: 10.0.1.41
+        host: 10.0.1.49
         port: 9529
         password: newland123@456!
         database: 0
