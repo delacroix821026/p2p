@@ -1,3 +1,5 @@
+DEVLOPER_NAME: ""
+
 ---
 spring:
     profiles: dev
@@ -10,9 +12,6 @@ spring:
         host: 192.168.10.19
         port: 6379
         database: 0
-
-
-
 ...
 
 ---
