@@ -62,6 +62,6 @@
     <insert id="insertRefund" parameterType="com.newland.financial.p2p.domain.entity.Refund">
         insert into t_inst_refund (<include refid="Base_Column_List"/>) values
         (#{refundId,jdbcType=VARCHAR},#{txnTime,jdbcType=TIMESTAMP},#{merId,jdbcType=VARCHAR},#{contractsCode,jdbcType=VARCHAR},#{cancelAmount,jdbcType=NUMERIC},#{state,jdbcType=VARCHAR},
-        #{orderId,jdbcType=VARCHAR},#{vocher,jdbcType=VARCHAR},#{sendTime,jdbcType=TIMESTAMP},#{path,jdbcType=VARCHAR}),#{applyCancelAmount,jdbcType=NUMERIC}
+        #{orderId,jdbcType=VARCHAR},#{vocher,jdbcType=VARCHAR},#{sendTime,jdbcType=TIMESTAMP},#{path,jdbcType=VARCHAR},#{applyCancelAmount,jdbcType=NUMERIC})
     </insert>
 </mapper>
