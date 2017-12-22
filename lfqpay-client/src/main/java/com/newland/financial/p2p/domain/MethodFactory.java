@@ -305,7 +305,6 @@ public class MethodFactory {
         Map<String, String> map = new HashMap<String, String>();
         map.put("txnType", re.getTxnType()); // 订单退款：04
         map.put("contractsCode", re.getContractsCode()); // 合同号
-        map.put("backUrl", "http://localhost:8080/lfq-pay/backurl.do"); // 异步推送地址
         String merPwd = re.getMerPwd();
         String txnTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         // 通用信息

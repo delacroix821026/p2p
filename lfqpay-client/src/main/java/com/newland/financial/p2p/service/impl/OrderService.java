@@ -40,6 +40,9 @@ public class OrderService implements IOrderService {
     /**退款请求地址.*/
     @Value("${backCancel_address}")
     private String backCancelUrl;
+    /**退款异步推送地址.*/
+    @Value("${backTellUrl}")
+    private String backTellUrl;
 
     /**
      * 创建订单.
@@ -111,6 +114,7 @@ public class OrderService implements IOrderService {
     public Refund senOrderQueryMsg(RefundMsgReq re) {
         RefundMsgReq ref = re;
         Map<String, String> map = MethodFactory.installRefundReqMsg(re);
+        map.put("backUrl", backTellUrl); // 异步推送地址
         MpiUtil.sign(map, "utf-8"); // 签名
         Map<String, String> mapA = IfqUtil.execute(backCancelUrl, map);
         Refund refund = MethodFactory.installRefund(mapA);

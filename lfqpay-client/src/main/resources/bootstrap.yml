@@ -34,6 +34,7 @@ IFQ_MERCHANT_ADDRESS: https://tt.lfqpay.com/lfq-manager/merchant/register.do
 parentChannelsCode: XDLCS001
 parentChannelsPwd: XDLCS127
 backCancel_address: https://tt.lfqpay.com/lfq-pay/gateway/api/backCancelRequest.do
+backTellUrl: http://192.168.10.18:5001/installment/repay/receiveRepaymentInfo
 ...
 
 ---
@@ -57,13 +58,14 @@ spring:
         database: 0
 HOSTNAME: ${spring.cloud.client.ipAddress}
 IFQ_SMSCODE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backSMSCodeRequest.do
-IFQ_REPAY_ADDRESS: http://192.168.10.18:5001/installment/repay/receiveRepaymentInfo
+IFQ_REPAY_ADDRESS: http://47.96.24.11:5001/installment/repay/receiveRepaymentInfo
 IFQ_CREATE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backTransRequest.do
 IFQ_QUERY_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/singleQueryRequest.do
 IFQ_MERCHANT_ADDRESS: https://tt.lfqpay.com/lfq-manager/merchant/register.do
 parentChannelsCode: XDLCS001
 parentChannelsPwd: XDLCS127
 backCancel_address: https://tt.lfqpay.com/lfq-pay/gateway/api/backCancelRequest.do
+backTellUrl: http://47.96.24.11:5001/installment/repay/receiveRepaymentInfo
 ...
 
 ---
