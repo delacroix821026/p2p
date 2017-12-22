@@ -13,7 +13,7 @@ HOSTNAME: ${spring.cloud.client.ipAddress}
 spring:
     profiles: test
     application:
-        name: @project.parent.name
+        name: @project.parent.name@
 ...
 
 ---
