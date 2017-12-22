@@ -6,8 +6,9 @@
 
     <groupId>com.newland.financial</groupId>
     <artifactId>p2p</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>p2p</name>
+    <packaging>pom</packaging>
 
     <modules>
         <module>p2p_common</module>
