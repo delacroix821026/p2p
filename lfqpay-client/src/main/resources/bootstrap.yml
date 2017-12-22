@@ -34,7 +34,7 @@ IFQ_MERCHANT_ADDRESS: https://tt.lfqpay.com/lfq-manager/merchant/register.do
 parentChannelsCode: XDLCS001
 parentChannelsPwd: XDLCS127
 backCancel_address: https://tt.lfqpay.com/lfq-pay/gateway/api/backCancelRequest.do
-backTellUrl: http://192.168.10.18:5001/installment/repay/receiveRepaymentInfo
+backTellUrl: http://192.168.10.18:5001/installment/refund/receiveRefund
 ...
 
 ---
@@ -65,7 +65,7 @@ IFQ_MERCHANT_ADDRESS: https://tt.lfqpay.com/lfq-manager/merchant/register.do
 parentChannelsCode: XDLCS001
 parentChannelsPwd: XDLCS127
 backCancel_address: https://tt.lfqpay.com/lfq-pay/gateway/api/backCancelRequest.do
-backTellUrl: http://47.96.24.11:5001/installment/repay/receiveRepaymentInfo
+backTellUrl: http://47.96.24.11:5001/installment/refund/receiveRefund
 ...
 
 ---
