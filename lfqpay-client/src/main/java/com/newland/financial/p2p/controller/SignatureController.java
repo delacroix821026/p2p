@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * 验签接口.
  *
@@ -31,7 +33,7 @@ public class SignatureController {
      */
     @RequestMapping(value = "/sign",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public String signature(@RequestBody String jsonStr) {
+    public String signature(@RequestBody String jsonStr) throws UnsupportedEncodingException {
         log.info("-------------------------验签:");
         return signatureService.signature(jsonStr);
     }
