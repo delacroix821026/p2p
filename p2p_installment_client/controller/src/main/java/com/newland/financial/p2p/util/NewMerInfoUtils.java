@@ -11,6 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -56,5 +57,31 @@ public class NewMerInfoUtils {
         refund.setState(map.get("state"));
         refund.setOrderId(map.get("orderId"));
         return refund;
+    }
+
+    public static String castMapToString(String jsonStr) {
+        String str = null;
+        try {
+            str = URLDecoder.decode(jsonStr, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String[] s1 = str.split("&");
+        StringBuffer sbf = new StringBuffer();
+        sbf.append("{");
+        for (int i = 0; i < s1.length; i++) {
+            String s2 = s1[i];
+            int index = s2.indexOf("=");
+            String key = s2.substring(0, index);
+            String value = s2.substring(index + 1);
+            if (i == s1.length - 1) {
+                sbf.append(key+":"+value);
+            } else {
+                sbf.append(key+":"+value+",");
+            }
+
+        }
+        sbf.append("}");
+        return sbf.toString();
     }
 }

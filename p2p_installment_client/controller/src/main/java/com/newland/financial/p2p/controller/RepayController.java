@@ -2,6 +2,7 @@ package com.newland.financial.p2p.controller;
 
 import com.newland.financial.p2p.service.IRepayService;
 import com.newland.financial.p2p.service.ISignatureIfqService;
+import com.newland.financial.p2p.util.NewMerInfoUtils;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,9 @@ public class RepayController {
         //判断验签结果，成功则调用server更新还款表HttpServletRequest request
         if ("true".equals(respStus)) {
             log.info("------------------------验签成功，更新还款信息表");
-            String repayResp = repayService.updateRepayInfo(jsonStr);
+            String str = NewMerInfoUtils.castMapToString(jsonStr);
+            log.info("=====装换后的jsonstr=====" + str);
+            String repayResp = repayService.updateRepayInfo(str);
             if ("true".equals(repayResp)) {
                 //更新完成后应答“success”
                 log.info("------------------------更新还款推送信息成功");

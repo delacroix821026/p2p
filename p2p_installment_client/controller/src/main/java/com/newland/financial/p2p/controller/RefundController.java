@@ -137,7 +137,9 @@ public class RefundController {
         //判断验签结果，成功则调用server更新还款表HttpServletRequest request
         if ("true".equals(respStus)) {
             log.info("------------------------验签成功，更新退款信息");
-            Boolean repayResp = (Boolean) refundService.insertRefund(NewMerInfoUtils.getNewRefund(jsonStr));
+            String str = NewMerInfoUtils.castMapToString(jsonStr);
+            log.info("=====装换后的jsonstr=====" + str);
+            Boolean repayResp = (Boolean) refundService.insertRefund(NewMerInfoUtils.getNewRefund(str));
             if (repayResp) {
                 //更新完成后应答“success”
                 log.info("------------------------更新还款推送信息成功");
