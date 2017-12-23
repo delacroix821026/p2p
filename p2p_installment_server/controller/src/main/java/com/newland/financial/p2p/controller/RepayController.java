@@ -1,6 +1,7 @@
 package com.newland.financial.p2p.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.newland.financial.p2p.domain.entity.Repay;
 import com.newland.financial.p2p.service.IRepayService;
 import lombok.extern.log4j.Log4j;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 还款推送.
@@ -62,8 +67,38 @@ public class RepayController {
     @ResponseStatus(HttpStatus.OK)
     public String updateRepayInfo02(@RequestBody String jsonStr) {
         log.info("--------------------------进入RepayController:" + jsonStr);
+        JSONObject param = JSON.parseObject(jsonStr);
         Repay repay = new Repay();
-        repay = JSON.parseObject(jsonStr, Repay.class);
+        repay.setOrderId(param.getString("orderId"));
+        repay.setContractsCode(param.getString("contractsCode"));
+        repay.setTxnAmt(param.getLong("txnAmt"));
+        repay.setTerms(param.getInteger("terms"));
+        repay.setAmount(param.getLong("amount"));
+        repay.setSumAmount(param.getLong("sumAmount"));
+        // 第一次还款推送，判断某些字段是否存在
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String intd = param.getString("instalmentDate");
+        if (intd != null) {
+            try {
+                repay.setInstalmentDate(sdf.parse(intd));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            repay.setInstalmentDate(new Date());
+        }
+        String neD = param.getString("nextDate");
+        if (neD != null) {
+            try {
+                repay.setNextDate(sdf.parse(neD));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        String rept = param.getString("payType");
+        if (rept != null) {
+            repay.setPayType(rept);
+        }
         log.info("--------------------------还款时间：" + repay.getInstalmentDate());
         String resp = repayService.receiveRepayInfo(repay);
         return resp;
