@@ -75,9 +75,9 @@ public class NewMerInfoUtils {
             String key = s2.substring(0, index);
             String value = s2.substring(index + 1);
             if (i == s1.length - 1) {
-                sbf.append(key+":"+value);
+                sbf.append("\"" + key  + "\":\"" + value + "\"");
             } else {
-                sbf.append(key+":"+value+",");
+                sbf.append("\"" + key  + "\":\"" + value + "\",");
             }
 
         }
