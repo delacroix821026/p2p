@@ -87,11 +87,16 @@ spring:
         host: 10.0.1.47
         port: 6379
         database: 0
-IFQ_SMSCODE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backSMSCodeRequest.do
+HOSTNAME: ${spring.cloud.client.ipAddress}
+IFQ_SMSCODE_ADDRESS: https://interface.lfqpay.com/lfq-pay/gateway/api/backSMSCodeRequest.do
 IFQ_REPAY_ADDRESS: http://47.96.17.236:5001/installment/repay/receiveRepaymentInfo
-IFQ_CREATE_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/backTransRequest.do
-IFQ_QUERY_ADDRESS: https://tt.lfqpay.com:343/lfq-pay/gateway/api/singleQueryRequest.do
-IFQ_MERCHANT_ADDRESS: https://tt.lfqpay.com/lfq-manager/merchant/register.do
+IFQ_CREATE_ADDRESS: https://interface.lfqpay.com/lfq-pay/gateway/api/backTransRequest.do
+IFQ_QUERY_ADDRESS: https://interface.lfqpay.com/lfq-pay/gateway/api/singleQueryRequest.do
+IFQ_MERCHANT_ADDRESS: https://interface.lfqpay.com/lfq-manager/merchant/register.do
+parentChannelsCode: GTXY145
+parentChannelsPwd: lbf88888
+backCancel_address: https://interface.lfqpay.com/lfq-pay/gateway/api/backCancelRequest.do
+backTellUrl: http://47.96.17.236:5001/installment/refund/receiveRefund
 ...
 
 ---
