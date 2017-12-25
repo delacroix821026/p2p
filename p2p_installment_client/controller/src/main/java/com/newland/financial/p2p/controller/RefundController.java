@@ -163,7 +163,7 @@ public class RefundController {
             throw new BaseRuntimeException("2007");
         }
         //存在ftp图片服务器的路径
-        String path = "/home/certificate";
+        String path = "/";
         String filename = orderId + ".jpg"; //获得原始的文件名
         InputStream input = file.getInputStream();
         log.info("------------上传文件名-----------" + filename);
