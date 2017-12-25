@@ -30,6 +30,7 @@ spring:
     profiles: prod
     application:
         name: @project.parent.name@
+HOSTNAME: ${spring.cloud.client.ipAddress}
 ...
 
 ---

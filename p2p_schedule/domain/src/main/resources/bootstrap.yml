@@ -37,7 +37,7 @@ spring:
                 #label: master
                 serviceId: P2P-CONFIG-SERVER
 SMALLLOAN_FILE_ADDRESS: /home/smallloan/
-SMALLLOAN_HOST: 10.0.1.41
+SMALLLOAN_HOST: 10.0.1.49
 SMALLLOAN_PORT: 8021
 SMALLLOAN_USERNAME: ftpuser
 SMALLLOAN_PASSWORD: +<99XV`l10$3IN8}3a3\8V5yt%2xfT<089+6J;>?_1>VTb
