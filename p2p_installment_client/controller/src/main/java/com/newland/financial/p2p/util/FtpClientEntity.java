@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPClientConfig;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
-
+@Log4j
 public class FtpClientEntity {
     /**
      * 获得连接FTP方式
@@ -77,6 +78,7 @@ public class FtpClientEntity {
     public boolean uploadFile(FTPClient ftp, String path, String fileName, InputStream inputStream) {
         boolean success = false;
         try {
+            ftp.setRemoteVerificationEnabled(false);
             ftp.changeWorkingDirectory(path);//转移到指定FTP服务器目录
             FTPFile[] fs = ftp.listFiles();//得到目录的相应文件列表
             fileName = FtpClientEntity.changeName(fileName, fs);
@@ -94,7 +96,7 @@ public class FtpClientEntity {
             ftp.logout();
             //表示上传成功
             success = true;
-            System.out.println("上传成功。。。。。。");
+            log.info("上传成功。。。。。。");
         } catch (Exception e) {
             e.printStackTrace();
         }

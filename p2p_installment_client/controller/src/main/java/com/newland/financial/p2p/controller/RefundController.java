@@ -170,6 +170,7 @@ public class RefundController {
         FtpClientEntity a = new FtpClientEntity();
         log.info("hostName:" + hostName + ";port:" + port + ";userName:" + userName + ";passWord:" + passWord);
         FTPClient ftp = a.getConnectionFTP(hostName, port, userName, passWord);
+        ftp.setPassiveNatWorkaround(true);
         boolean result = a.uploadFile(ftp, path, filename, input);
         a.closeFTP(ftp);
         Map<String, String> map = new HashMap<String, String>();
