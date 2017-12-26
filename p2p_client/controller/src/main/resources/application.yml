@@ -39,7 +39,7 @@ spring:
     redis:
         host: 10.0.1.47
         port: 9529
-        password: admin123%Test
+        password: newland123@456!
         database: 0
 ...
 
