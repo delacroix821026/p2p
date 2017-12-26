@@ -72,12 +72,17 @@ public class OrderController {
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         log.info("========tradeUpdateOrder========jsonStr:" + jsonStr);
         if (orderId == null || "".equals(orderId.trim())) {
+            log.info("===Exception:2451===");
             throw new BaseRuntimeException("2451");
         }
         OrderInfo order = orderService.findOrderInfo(orderId);
+        if (order == null) {
+            log.info("===Exception:2453===");
+            throw new BaseRuntimeException("2453");
+        }
         String contractsCode = order.getContractsCode();
         log.info("constractscode====:" + contractsCode);
-        if (order.getContractsCode() != null) {
+        if (order.getContractsCode() != null) { //判断订单是否已经经过交易
             log.info("===Exception:2450===");
             throw new BaseRuntimeException("2450");
         }
