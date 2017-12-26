@@ -23,7 +23,7 @@ spring:
 HOSTNAME: ${spring.cloud.client.ipAddress}
 ftp:
     crt:
-        hostName: 47.96.24.11
+        hostName: 10.0.1.49
         port: 8021
         userName: certificateuser
         passWord: ftpusertest123%
