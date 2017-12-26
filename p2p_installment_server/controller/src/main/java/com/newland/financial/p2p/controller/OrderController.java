@@ -71,6 +71,9 @@ public class OrderController {
         log.info("======come to server:tradeUpdateOrder=====");
         JSONObject paramJSON = JSON.parseObject(jsonStr);
         log.info("========tradeUpdateOrder========jsonStr:" + jsonStr);
+        if (orderId == null || "".equals(orderId.trim())) {
+            throw new BaseRuntimeException("2451");
+        }
         OrderInfo order = orderService.findOrderInfo(orderId);
         String contractsCode = order.getContractsCode();
         log.info("constractscode====:" + contractsCode);
