@@ -199,7 +199,7 @@ public class MethodFactory {
      */
     public static OrderInfo installOrderInfoA(Map<String, String> map) {
         for (String key : map.keySet()) {
-            log.info("key= "+ key + " and value= " + map.get(key));
+            log.info("key= " + key + " and value= " + map.get(key));
         }
         OrderInfo orderInfo = new OrderInfo();
         String respCode = map.get("respCode");
@@ -337,7 +337,7 @@ public class MethodFactory {
         refund.setRefundId(UUID.randomUUID().toString().replaceAll("-", ""));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         try {
-            refund.setTxnTime(sdf.parse(map.get("txnTime")) );
+            refund.setTxnTime(sdf.parse(map.get("txnTime")));
         } catch (ParseException e) {
             log.error("时间转换错误");
         }

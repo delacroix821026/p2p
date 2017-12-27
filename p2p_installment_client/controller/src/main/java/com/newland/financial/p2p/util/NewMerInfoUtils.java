@@ -53,7 +53,9 @@ public class NewMerInfoUtils {
         if (!"0000".equals(respCode)) {
             return refund;
         }
-        refund.setCancelAmount(Long.parseLong(map.get("cancelAmount")));
+        if (map.get("cancelAmount") != null) {
+            refund.setCancelAmount(Long.parseLong(map.get("cancelAmount")));
+        }
         refund.setState(map.get("state"));
         refund.setOrderId(map.get("orderId"));
         return refund;
