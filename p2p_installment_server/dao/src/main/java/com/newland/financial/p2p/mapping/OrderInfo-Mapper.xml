@@ -428,4 +428,14 @@
         from t_inst_orderinfo
         where orderId = #{orderId} and openId = #{openId} and contractsCode is not null
     </select>
+    <!--根据商户ID查询退款订单-->
+    <select id="findOrderRundList" resultMap="BaseResultRefundMap" parameterType="java.util.List">
+        SELECT * FROM t_inst_orderinfo a, t_inst_refund b
+        WHERE a.orderId = b.orderId and b.merId
+        IN (SELECT merId FROM t_inst_orderinfo WHERE merchantId
+        IN<foreach collection="list" item="employeeId" index="index" open="(" close=")" separator=",">
+        #{employeeId}
+          </foreach>
+              )
+    </select>
 </mapper>

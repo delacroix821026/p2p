@@ -341,4 +341,19 @@ public class OrderController {
         Object ob1 = sendService.sendOrderQueryMsg(ob);
         return orderService.updateAndGetOrder(ob1, orderId);
     }
+
+    /**
+     * 平台管理员查询退款订单.
+     *
+     * @param jsonStr .
+     * @return List<OrderInfo>
+     */
+    @RequestMapping(value = "/orderRundList", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public Object getOrderRundListByPlantManager(@RequestBody String jsonStr) {
+        log.info("========client:getOrderRundListByPlantManager=======");
+        log.info(jsonStr);
+
+        return orderService.getOrderRundListByPlantManager(jsonStr);
+    }
 }

@@ -90,6 +90,12 @@ public class OrderServiceFallBackFactory implements FallbackFactory<IOrderServic
                 log.error(cause);
                 return "1026";
             }
+
+            public Object getOrderRundListByPlantManager(String jsonStr) {
+                log.info("*********getOrderRundListByPlantManager:被熔断***********");
+                log.error(cause);
+                return "1026";
+            }
         };
     }
 }

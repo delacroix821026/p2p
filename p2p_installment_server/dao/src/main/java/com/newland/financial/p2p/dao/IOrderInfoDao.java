@@ -136,4 +136,11 @@ public interface IOrderInfoDao {
      * @return orderInfo.
      */
     OrderInfo getOrderInfoByManager(String orderId);
+    /**
+     * 平台管理员查询退款订单.
+     *
+     * @param list   数据.
+     * @return 订单信息.
+     */
+    List<OrderInfo> getOrderRundListByPlantManager(List<String> list);
 }

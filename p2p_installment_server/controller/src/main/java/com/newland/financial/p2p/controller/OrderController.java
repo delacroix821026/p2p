@@ -302,4 +302,18 @@ public class OrderController {
         log.info("OrderQueryReq:" + oq.toString());
         return oq;
     }
+
+    /**
+     * 平台管理员查询退款订单.
+     *
+     * @param jsonStr .
+     * @return List<OrderInfo>
+     */
+    @RequestMapping(value = "/orderRundList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Object getOrderRundListByPlantManager(@RequestBody String jsonStr) {
+        log.info("===getOrderRundListByPlantManager===");
+        log.info("jsonStr = " + jsonStr);
+        return orderService.getOrderRundListByPlantManager(jsonStr);
+    }
 }

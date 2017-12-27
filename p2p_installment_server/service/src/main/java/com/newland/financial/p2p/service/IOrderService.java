@@ -113,4 +113,11 @@ public interface IOrderService {
      * @return orderInfo
      */
     OrderInfo getOrderInfoByManager(String orderId);
+    /**
+     * 平台管理员查询退款订单.
+     *
+     * @param  jsonStr
+     * @return orderInfo
+     */
+    PageInfo<OrderInfo> getOrderRundListByPlantManager(String jsonStr);
 }

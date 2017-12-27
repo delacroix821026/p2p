@@ -179,6 +179,7 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
     public OrderInfo  getOrderInfoByManager(String orderId){
         return super.selectEntity("getOrderInfoByManager", orderId);
     }
+
     /**
      * 微信端查询订单信息.
      *
@@ -191,6 +192,16 @@ public class OrderInfoDaoImpl extends MybatisBaseDao<OrderInfo> implements IOrde
         map.put("openId", openId);
         map.put("orderId", orderId);
         return super.selectEntity("selectOrderWinXin", map);
+    }
+
+    /**
+     * 平台管理员查询退款订单.
+     *
+     * @param list 数据.
+     * @return 订单信息.
+     */
+    public List<OrderInfo> getOrderRundListByPlantManager(List<String> list) {
+        return super.select("findOrderRundList", list);
     }
 
 }

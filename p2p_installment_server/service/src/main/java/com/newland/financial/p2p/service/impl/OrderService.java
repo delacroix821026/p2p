@@ -1,6 +1,7 @@
 package com.newland.financial.p2p.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -19,11 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 订单处理ServiceImpl.
@@ -425,5 +422,40 @@ public class OrderService implements IOrderService {
      */
     public OrderInfo getOrderInfoByManager(String orderId) {
         return orderInfoDao.getOrderInfoByManager(orderId);
+    }
+    /**
+     * 平台管理员查询退款订单.
+     *
+     * @param jsonStr   数据.
+     * @return 订单信息.
+     */
+    public PageInfo<OrderInfo> getOrderRundListByPlantManager(String jsonStr) {
+        log.info("======getOrderRundListByPlantManager======");
+        log.info("jsonStr" + jsonStr);
+        JSONObject jsonObj = JSON.parseObject(jsonStr);
+        JSONArray result = jsonObj.getJSONArray("merchantId");
+        List<String> list = JSON.parseArray(result.toJSONString(),String.class);
+
+        Integer c = jsonObj.getInteger("pageSize");
+        Integer p = jsonObj.getInteger("pageNum");
+        
+        Integer page = null;
+        Integer count = null;
+        if (p == null || p < 1) {
+            page = 1;
+        } else {
+            page = p;
+        }
+        if (c == null || c < 5) {
+            count = 5;
+        } else {
+            count = c;
+        }
+        log.info("page=" + page + ";count=" + count + ";List<OrderInfo>=" + list);
+
+        //开始分页
+        PageHelper.startPage(page, count);
+        PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderRundListByPlantManager(list));
+        return pageInfo;
     }
 }
