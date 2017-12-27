@@ -76,4 +76,6 @@ public class OrderInfo extends BaseEntity {
     private Long totleAmount;
     /**当前时间.*/
     private Date nowTime = new Date();
+    /**申请退款金额.*/
+    private Long applyCancelAmount;
 }

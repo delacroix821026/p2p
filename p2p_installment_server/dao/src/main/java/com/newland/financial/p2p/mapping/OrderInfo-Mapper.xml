@@ -36,10 +36,11 @@
         <result column="merName" property="merName" jdbcType="VARCHAR"/>
         <result column="merchantId" property="merchantId" jdbcType="VARCHAR"/>
         <result column="totleAmount" property="totleAmount" jdbcType="BIGINT"/>
+        <result column="applyCancelAmount" property="applyCancelAmount" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,txnTime,merId,txnAmt,txnterms,orderId,userId,accName,accNo,validity,accIdcard,accMobile,CVN2,discount,contractsCode,amount,queryId,poundage,contractsState,sumTerms,sumAmount,remainAmount,cancelAmount,cancelInterest,valueAdded,createTime,stus,openId,merchantId,merName,totleAmount
+        id,txnTime,merId,txnAmt,txnterms,orderId,userId,accName,accNo,validity,accIdcard,accMobile,CVN2,discount,contractsCode,amount,queryId,poundage,contractsState,sumTerms,sumAmount,remainAmount,cancelAmount,cancelInterest,valueAdded,createTime,stus,openId,merchantId,merName,totleAmount,applyCancelAmount
     </sql>
     <!--插入订单-->
     <insert id="insertOrder" parameterType="com.newland.financial.p2p.domain.entity.OrderInfo">
@@ -50,7 +51,7 @@
         #{amount,jdbcType=BIGINT},#{queryId,jdbcType=VARCHAR},#{poundage,jdbcType=BIGINT},#{contractsState,jdbcType=VARCHAR},#{sumTerms,jdbcType=INTEGER},
         #{sumAmount,jdbcType=BIGINT},#{remainAmount,jdbcType=BIGINT},#{cancelAmount,jdbcType=BIGINT},#{cancelInterest,jdbcType=BIGINT},
         #{valueAdded,jdbcType=BIGINT},#{createTime,jdbcType=TIMESTAMP},#{stus,jdbcType=VARCHAR},#{openId,jdbcType=VARCHAR},#{merchantId,jdbcType=VARCHAR},
-        #{merName,jdbcType=VARCHAR},#{totleAmount,jdbcType=BIGINT})
+        #{merName,jdbcType=VARCHAR},#{totleAmount,jdbcType=BIGINT},#{applyCancelAmount,jdbcType=NUMERIC})
     </insert>
     <!--根据订单号更新订单-->
     <update id="updateByOrderId" parameterType="com.newland.financial.p2p.domain.entity.OrderInfo">
@@ -142,6 +143,9 @@
             </if>
             <if test="totleAmount != null">
                 totleAmount = #{totleAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="applyCancelAmount != null">
+                applyCancelAmount = #{applyCancelAmount,jdbcType=NUMERIC},
             </if>
         </set>
         WHERE orderId = #{orderId,jdbcType=VARCHAR}
@@ -237,6 +241,7 @@
         <result column="merchantId" property="merchantId" jdbcType="VARCHAR"/>
         <result column="merName" property="merName" jdbcType="VARCHAR"/>
         <result column="totleAmount" property="totleAmount" jdbcType="BIGINT"/>
+        <result column="applyCancelAmount" property="applyCancelAmount" jdbcType="VARCHAR"/>
         <association property="refund" javaType="com.newland.financial.p2p.domain.entity.Refund">
             <id property="refundId" column="refundId"/>
             <result property="txnTime" column="refundTime" jdbcType="TIMESTAMP"/>
@@ -248,7 +253,6 @@
             <result property="vocher" column="vocher"/>
             <result property="sendTime" column="sendTime"/>
             <result property="path" column="path"/>
-            <result column="applyCancelAmount" property="applyCancelAmount"/>
         </association>
     </resultMap>
     <!--Pos端全部订单查询(列表)-->

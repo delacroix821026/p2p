@@ -67,6 +67,7 @@ public class OrderService implements IOrderService {
         orderInfo.setCreateTime(date);
         orderInfo.setMerchantId(merchantId);
         orderInfo.setTxnAmt(paramJSON.getLong("txnAmt"));
+        orderInfo.setApplyCancelAmount(paramJSON.getLong("txnAmt")); //申请退款金额，暂时和订单金额相等，后期逻辑可能修改
         orderInfoDao.insertOrder(orderInfo);
         return new String(s);
     }

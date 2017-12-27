@@ -15,11 +15,10 @@
         <result column="vocher" property="vocher" jdbcType="VARCHAR"/> <!-- 凭证状态 (0:未上传，1:已上传)-->
         <result column="sendTime" property="sendTime" jdbcType="TIMESTAMP"/> <!-- 凭证上传时间-->
         <result column="path" property="path" jdbcType="VARCHAR"/> <!-- 汇款凭证保存路径-->
-        <result column="applyCancelAmount" property="applyCancelAmount" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        refundId,refundTime,merId,contractsCode,cancelAmount,state,orderId,vocher,sendTime,path,applyCancelAmount
+        refundId,refundTime,merId,contractsCode,cancelAmount,state,orderId,vocher,sendTime,path
     </sql>
 <!--根据订单号查询退款单-->
     <select id="selectRefundByOrderId" resultMap="BaseResultMap" parameterType="String">
@@ -53,15 +52,12 @@
             <if test="path != null">
                 path = #{path,jdbcType=VARCHAR},
             </if>
-            <if test="applyCancelAmount != null">
-                applyCancelAmount = #{applyCancelAmount,jdbcType=NUMERIC},
-            </if>
         </set>
         WHERE orderId = #{orderId,jdbcType=VARCHAR}
     </update>
     <insert id="insertRefund" parameterType="com.newland.financial.p2p.domain.entity.Refund">
         insert into t_inst_refund (<include refid="Base_Column_List"/>) values
         (#{refundId,jdbcType=VARCHAR},#{txnTime,jdbcType=TIMESTAMP},#{merId,jdbcType=VARCHAR},#{contractsCode,jdbcType=VARCHAR},#{cancelAmount,jdbcType=NUMERIC},#{state,jdbcType=VARCHAR},
-        #{orderId,jdbcType=VARCHAR},#{vocher,jdbcType=VARCHAR},#{sendTime,jdbcType=TIMESTAMP},#{path,jdbcType=VARCHAR},#{applyCancelAmount,jdbcType=NUMERIC})
+        #{orderId,jdbcType=VARCHAR},#{vocher,jdbcType=VARCHAR},#{sendTime,jdbcType=TIMESTAMP},#{path,jdbcType=VARCHAR})
     </insert>
 </mapper>
