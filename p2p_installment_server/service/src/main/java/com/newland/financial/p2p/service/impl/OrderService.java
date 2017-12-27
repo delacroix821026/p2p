@@ -329,16 +329,39 @@ public class OrderService implements IOrderService {
     /**
      * 运营平台商户查询.
      *
-     * @param pageModel   数据.
+     * @param jsonStr   数据.
      * @return 订单信息.
      */
-    public PageInfo getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel) {
-        String merchantId = pageModel.getModel().getMerchantId();
-        String orderId = pageModel.getModel().getOrderId();
-        String merName = pageModel.getModel().getMerName();
-        String contractsState = pageModel.getModel().getContractsState();
-        Integer p = pageModel.getPageNum();
-        Integer c = pageModel.getPageSize();
+    public PageInfo getOrderInfoListByPlantManager(String jsonStr) {
+        log.info("jsonStr" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+
+        String orderId = paramJSON.getString("orderId");
+        String merchantId = paramJSON.getString("merchantId");
+        String merName = paramJSON.getString("merName");
+        String accName = paramJSON.getString("accName");
+        String contractsState = paramJSON.getString("contractsState");
+
+        Integer c = paramJSON.getInteger("pageSize");
+        Integer p = paramJSON.getInteger("pageNum");
+        //时间格式化
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Long createTimeBeg = paramJSON.getLong("beginTime");
+        Long createTimeEnd = paramJSON.getLong("endTime");
+        //时间转化
+        String begTime = null;
+        String endTime = null;
+        if (createTimeBeg != null) {
+            Date begTimeDate = new Date(createTimeBeg);
+            begTime = sdf.format(begTimeDate);
+            log.debug("---------------------------------" + begTime);
+        }
+        if (createTimeEnd != null) {
+            Date endTimeDate = new Date(createTimeEnd);
+            endTime = sdf.format(endTimeDate);
+            log.debug("---------------------------------" + endTime);
+        }
+
         Integer page = null;
         Integer count = null;
         if (p == null || p < 1) {
@@ -363,12 +386,20 @@ public class OrderService implements IOrderService {
         if ("".equals(contractsState)) {
             contractsState = null;
         }
-        log.info("page=" + page + ";count=" + count + ";merchantId=" + merchantId + ";orderId=" + orderId + ";merName=" + merName + ";contractsState=" + contractsState);
+        if ("".equals(accName)) {
+            accName = null;
+        }
+        log.info("page=" + page + ";count=" + count + ";merchantId=" + merchantId + ";orderId=" + orderId
+                + ";merName=" + merName + ";contractsState=" + contractsState
+                + ";accName=" + accName + ";begTime=" + begTime + ";endTime=" + endTime);
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("merchantId", merchantId);
         map1.put("orderId", orderId);
         map1.put("merName", merName);
         map1.put("contractsState", contractsState);
+        map1.put("accName", accName);
+        map1.put("begTime", begTime);
+        map1.put("endTime", endTime);
         //开始分页
         PageHelper.startPage(page, count);
         if (contractsState == null) {

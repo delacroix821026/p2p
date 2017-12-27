@@ -45,7 +45,7 @@ public interface IOrderService {
     OrderInfo getOrderInfoDetailByMerchant(@PathVariable(name = "merchantId") String merchantId, @PathVariable(name = "orderId") String orderId);
 
     @RequestMapping(method = RequestMethod.GET, value = "/order/orderList")
-    Object getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel);
+    Object getOrderInfoListByPlantManager(@RequestBody String jsonStr);
 
     @RequestMapping(method = RequestMethod.GET, value = "/order/plant/{orderId}")
     Object getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId);

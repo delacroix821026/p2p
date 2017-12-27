@@ -86,10 +86,10 @@ public interface IOrderService {
     /**
      * 商户订单查询
      *
-     * @param pageModel
+     * @param jsonStr
      * @return orderInfo
      */
-    Object getOrderInfoListByPlantManager(PageModel<OrderInfo> pageModel);
+    Object getOrderInfoListByPlantManager(String jsonStr);
 
     /**
      * 微信端查询订单信息.

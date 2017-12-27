@@ -265,21 +265,15 @@ public class OrderController {
     /**
      * 平台管理员查询订单列表.
      *
-     * @param pageModel
+     * @param jsonStr
      * @return OrderInfolist
      */
     @RequestMapping(value = "/orderList", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Object getOrderInfoListByPlantManager(@RequestBody PageModel<OrderInfo> pageModel) {
-        log.info("*********----管理员查询订单---***********");
-        log.info("getMerchantList:" + pageModel.getModel());
-        log.info("getMerchantId:" + pageModel.getModel().getMerchantId());
-        log.info("getOrderId:" + pageModel.getModel().getOrderId());
-        log.info("getContractsState:" + pageModel.getModel().getContractsState());
-        log.info("getMerName:" + pageModel.getModel().getMerName());
-        log.info("getPageNum:" + pageModel.getPageNum());
-        log.info("getPageSize:" + pageModel.getPageSize());
-        return orderService.getOrderInfoListByPlantManager(pageModel);
+    public Object getOrderInfoListByPlantManager(@RequestBody String jsonStr) {
+        log.info("===管理员查询订单===");
+        log.info("jsonStr = " + jsonStr);
+        return orderService.getOrderInfoListByPlantManager(jsonStr);
     }
 
     /**

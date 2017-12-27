@@ -184,6 +184,15 @@
             <if test="orderId != null">
                 and orderId like CONCAT('%','${orderId}','%')
             </if>
+            <if test="accName != null">
+                and accName like CONCAT('%','${accName}','%')
+            </if>
+            <if test="begTime != null">
+                AND DATE_FORMAT(txnTime,'%Y-%m-%d') &gt;= #{begTime}
+            </if>
+            <if test="endTime != null">
+                AND DATE_FORMAT(txnTime,'%Y-%m-%d') &lt;= #{endTime}
+            </if>
             ORDER BY createTime desc
         </where>
     </select>
@@ -203,6 +212,15 @@
             </if>
             <if test="orderId != null">
                 and orderId like CONCAT('%','${orderId}','%')
+            </if>
+            <if test="accName != null">
+                and accName like CONCAT('%','${accName}','%')
+            </if>
+            <if test="begTime != null">
+                AND DATE_FORMAT(txnTime,'%Y-%m-%d') &gt;= #{begTime}
+            </if>
+            <if test="endTime != null">
+                AND DATE_FORMAT(txnTime,'%Y-%m-%d') &lt;= #{endTime}
             </if>
             ORDER BY createTime desc
         </where>
@@ -338,6 +356,15 @@
             <if test="orderId != null">
                 and rd.orderId like CONCAT('%','${orderId}','%')
             </if>
+            <if test="accName != null">
+                and rd.accName like CONCAT('%','${accName}','%')
+            </if>
+            <if test="begTime != null">
+                AND DATE_FORMAT(rd.txnTime,'%Y-%m-%d') &gt;= #{begTime}
+            </if>
+            <if test="endTime != null">
+                AND DATE_FORMAT(rd.txnTime,'%Y-%m-%d') &lt;= #{endTime}
+            </if>
             ORDER BY createTime desc
         </where>
     </select>
@@ -353,6 +380,15 @@
         </if>
         <if test="orderId != null">
             and orderId like CONCAT('%','${orderId}','%')
+        </if>
+        <if test="accName != null">
+            and accName like CONCAT('%','${accName}','%')
+        </if>
+        <if test="begTime != null">
+            AND DATE_FORMAT(txnTime,'%Y-%m-%d') &gt;= #{begTime}
+        </if>
+        <if test="endTime != null">
+            AND DATE_FORMAT(txnTime,'%Y-%m-%d') &lt;= #{endTime}
         </if>
         ORDER BY createTime DESC
     </select>

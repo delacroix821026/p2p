@@ -308,16 +308,8 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     public Object getOrderInfoListByPlantManager(@RequestBody String jsonStr) {
         log.info("========client:getOrderInfoListByPlantManager=======");
-        log.info(jsonStr);
-        ObjectMapper objectMapper = new ObjectMapper();
-        PageModel<OrderInfo> pageModel = null;
-        try {
-            pageModel = objectMapper.readValue(jsonStr, new TypeReference<PageModel<OrderInfo>>() {
-            });
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
-        return orderService.getOrderInfoListByPlantManager(pageModel);
+        log.info("jsonStr = " + jsonStr);
+        return orderService.getOrderInfoListByPlantManager(jsonStr);
     }
 
     /**
