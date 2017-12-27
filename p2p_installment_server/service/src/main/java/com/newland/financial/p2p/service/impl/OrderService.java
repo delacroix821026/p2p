@@ -467,7 +467,10 @@ public class OrderService implements IOrderService {
         JSONObject jsonObj = JSON.parseObject(jsonStr);
         JSONArray result = jsonObj.getJSONArray("merchantId");
         List<String> list = JSON.parseArray(result.toJSONString(),String.class);
-
+        if(list.size()<1){
+            log.info("===Exception:2452===");
+            throw new BaseRuntimeException("2452");
+        }
         Integer c = jsonObj.getInteger("pageSize");
         Integer p = jsonObj.getInteger("pageNum");
         
