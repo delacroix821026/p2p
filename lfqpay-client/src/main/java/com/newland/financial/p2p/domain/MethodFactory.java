@@ -7,11 +7,13 @@ import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import lombok.extern.log4j.Log4j;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -336,8 +338,16 @@ public class MethodFactory {
             log.info("===Exception:3000===");
             throw new BaseRuntimeException("3000", map.get("respMsg"));
         }
-        refund.setRefundId(UUID.randomUUID().toString().replaceAll("-", ""));
+        //refund.setRefundId(UUID.randomUUID().toString().replaceAll("-", ""));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        // 生成退款单号
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        Random r = new Random();
+        String str = new DecimalFormat("00").format(r.nextInt(100));
+        Date date1 = new Date();
+        StringBuffer s = new StringBuffer("T" + sdf1.format(date1));
+        s.append(str);
+        refund.setRefundId(new String(s));
         try {
             refund.setTxnTime(sdf.parse(map.get("txnTime")));
         } catch (ParseException e) {
