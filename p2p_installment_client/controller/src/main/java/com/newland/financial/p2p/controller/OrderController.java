@@ -209,7 +209,7 @@ public class OrderController {
         log.info("1.jsonStr：" + jsonStr);
         Object ob = orderService.tradeUpdateOrder(jsonStr, orderId);
         if (ob == null) {
-            throw new BaseRuntimeException("2410");
+            return RespMessage.setRespMap("2410", "订单号为空或该订单不可进行分期，请重新生成订单");
         }
         Object obj = sendService.sendOrderMsgToLbf(ob);
         log.info("=====obj=====:" + obj);

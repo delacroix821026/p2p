@@ -135,6 +135,7 @@ public class MethodFactory {
         if ("0000".equals(respCodeA)) {
             // 创建订单成功
             log.info("创建订单成功");
+            orderInfo.setStus("1");
             String respCodeB = mapB.get("respCode");
             log.info("====查询订单结果====" + respCodeB);
             if ("0000".equals(respCodeB)) {
@@ -181,9 +182,10 @@ public class MethodFactory {
         } else {
             // 创建订单失败
             log.info("Exception:3000");
-            /*orderInfo.setRespCode(respCodeA);
-            orderInfo.setRespMsg(mapA.get("respMsg"));*/
-            throw new BaseRuntimeException("3000", mapA.get("respMsg"));
+            orderInfo.setRespCode(respCodeA);
+            orderInfo.setRespMsg(mapA.get("respMsg"));
+            orderInfo.setStus("0");
+            orderInfo.setPoundage(0l);
         }
         log.info("=============交易后最终返回内容orderInfo begin================");
         log.info(orderInfo.toString());

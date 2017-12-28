@@ -70,21 +70,22 @@ public class OrderController {
     public Object tradeUpdateOrder(@RequestBody String jsonStr, @PathVariable(name = "orderId") String orderId) {
         log.info("======come to server:tradeUpdateOrder=====");
         JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String orderid = paramJSON.getString("orderId");
         log.info("========tradeUpdateOrder========jsonStr:" + jsonStr);
-        if (orderId == null || "".equals(orderId.trim())) {
+        if (orderid == null || "".equals(orderid.trim())) {
             log.info("===Exception:2451===");
-            throw new BaseRuntimeException("2451");
+            return null;
         }
-        OrderInfo order = orderService.findOrderInfo(orderId);
+        OrderInfo order = orderService.findOrderInfo(orderid);
         if (order == null) {
             log.info("===Exception:2453===");
-            throw new BaseRuntimeException("2453");
+            return null;
         }
         String contractsCode = order.getContractsCode();
         log.info("constractscode====:" + contractsCode);
         if (order.getContractsCode() != null) { //判断订单是否已经经过交易
             log.info("===Exception:2450===");
-            throw new BaseRuntimeException("2450");
+            return null;
         }
         String smsCode = paramJSON.getString("smsCode");
         OrderInfo orderInfo = (OrderInfo) orderService.tradeUpdateOrder(jsonStr);
@@ -181,8 +182,8 @@ public class OrderController {
         Map<String, Object> map = new HashMap<String, Object>();
         long createtime = orderInfo.getCreateTime().getTime();
         long endtime = new Date().getTime();
-        if (endtime - createtime > 86400000) {
-            log.info("二维码已超过一天有效期endtime - createtime=" + (endtime - createtime));
+        if (endtime - createtime > 1800000) {
+            log.info("二维码已超过30分钟endtime - createtime=" + (endtime - createtime));
             log.info("===Exception:2411===");
             throw new BaseRuntimeException("2411");
         }
