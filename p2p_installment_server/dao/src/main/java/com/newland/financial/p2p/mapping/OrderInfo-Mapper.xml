@@ -169,60 +169,56 @@
         where orderId = #{orderId} and merchantId = #{merchantId} and contractsCode is not null
     </select>
     <!--商户订单查询-->
-    <select id="findOrderByPlantByCustomer" resultMap="BaseResultMap" parameterType="Map">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM t_inst_orderinfo
+    <select id="findOrderByPlantByCustomer" resultMap="BaseResultRefundMap" parameterType="Map">
+        SELECT * FROM t_inst_orderinfo a LEFT JOIN t_inst_refund b ON a.orderId = b.orderId
         <where>
-            contractsState <![CDATA[!= ]]> 0
+            a.contractsState <![CDATA[!= ]]> 0
             <if test="merchantId != null">
-                and merchantId like CONCAT('%','${merchantId}','%')
+                and a.merchantId like CONCAT('%','${merchantId}','%')
             </if>
             <if test="merName != null">
-                and merName like CONCAT('%','${merName}','%')
+                and a.merName like CONCAT('%','${merName}','%')
             </if>
             <if test="orderId != null">
-                and orderId like CONCAT('%','${orderId}','%')
+                and a.orderId like CONCAT('%','${orderId}','%')
             </if>
             <if test="accName != null">
-                and accName like CONCAT('%','${accName}','%')
+                and a.accName like CONCAT('%','${accName}','%')
             </if>
             <if test="begTime != null">
-                AND DATE_FORMAT(txnTime,'%Y-%m-%d') &gt;= #{begTime}
+                AND DATE_FORMAT(a.txnTime,'%Y-%m-%d') &gt;= #{begTime}
             </if>
             <if test="endTime != null">
-                AND DATE_FORMAT(txnTime,'%Y-%m-%d') &lt;= #{endTime}
+                AND DATE_FORMAT(a.txnTime,'%Y-%m-%d') &lt;= #{endTime}
             </if>
-            ORDER BY createTime desc
+            ORDER BY a.createTime desc
         </where>
     </select>
     <!--商户结清订单查询-->
-    <select id="findOrderInfoListByFinish" resultMap="BaseResultMap" parameterType="Map">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM t_inst_orderinfo
+    <select id="findOrderInfoListByFinish" resultMap="BaseResultRefundMap" parameterType="Map">
+        SELECT * FROM t_inst_orderinfo a LEFT JOIN t_inst_refund b ON a.orderId = b.orderId
         <where>
-            contractsState <![CDATA[!= ]]> 0
-            AND contractsState <![CDATA[!= ]]> 1
+            a.contractsState <![CDATA[!= ]]> 0
+            AND a.contractsState <![CDATA[!= ]]> 1
             <if test="merchantId != null">
-                and merchantId like CONCAT('%','${merchantId}','%')
+                and a.merchantId like CONCAT('%','${merchantId}','%')
             </if>
             <if test="merName != null">
-                and merName like CONCAT('%','${merName}','%')
+                and a.merName like CONCAT('%','${merName}','%')
             </if>
             <if test="orderId != null">
-                and orderId like CONCAT('%','${orderId}','%')
+                and a.orderId like CONCAT('%','${orderId}','%')
             </if>
             <if test="accName != null">
-                and accName like CONCAT('%','${accName}','%')
+                and a.accName like CONCAT('%','${accName}','%')
             </if>
             <if test="begTime != null">
-                AND DATE_FORMAT(txnTime,'%Y-%m-%d') &gt;= #{begTime}
+                AND DATE_FORMAT(a.txnTime,'%Y-%m-%d') &gt;= #{begTime}
             </if>
             <if test="endTime != null">
-                AND DATE_FORMAT(txnTime,'%Y-%m-%d') &lt;= #{endTime}
+                AND DATE_FORMAT(a.txnTime,'%Y-%m-%d') &lt;= #{endTime}
             </if>
-            ORDER BY createTime desc
+            ORDER BY a.createTime desc
         </where>
     </select>
 
