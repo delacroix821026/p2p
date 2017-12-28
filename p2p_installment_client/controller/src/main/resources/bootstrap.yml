@@ -39,7 +39,7 @@ ftp:
     crt:
         hostName: 47.96.13.217
         port: 8021
-        userName: ftpuser
+        userName: certificateuser
         passWord: +<99XV`l10$3IN8}3a3\8V5yt%2xfT<089+6J;>?_1>VTb
 ...
 
