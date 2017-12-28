@@ -157,7 +157,7 @@ public class OrderService implements IOrderService {
     /**
      * 微信顾客查询订单.
      *
-     * @param jsonStr   数据.
+     * @param jsonStr 数据.
      * @return 订单信息.
      */
     public PageInfo<OrderInfo> getOrderInfoListByCustomer(String jsonStr) {
@@ -243,7 +243,7 @@ public class OrderService implements IOrderService {
     /**
      * Pos端订单查询(列表).
      *
-     * @param jsonStr   数据.
+     * @param jsonStr    数据.
      * @param merchantId 商户代码.
      * @return 订单信息.
      */
@@ -329,7 +329,7 @@ public class OrderService implements IOrderService {
     /**
      * 运营平台商户查询.
      *
-     * @param jsonStr   数据.
+     * @param jsonStr 数据.
      * @return 订单信息.
      */
     public PageInfo getOrderInfoListByPlantManager(String jsonStr) {
@@ -437,6 +437,7 @@ public class OrderService implements IOrderService {
     public OrderInfo findOrderInfoWeiXin(String openId, String orderId) {
         return orderInfoDao.findOrderInfoWeiXin(openId, orderId);
     }
+
     /**
      * 商户查询订单信息.
      *
@@ -446,6 +447,7 @@ public class OrderService implements IOrderService {
     public OrderInfo findOrderInfoManager(String orderId) {
         return orderInfoDao.selectOrderInfo(orderId);
     }
+
     /**
      * 商户查询订单详情.
      *
@@ -455,10 +457,11 @@ public class OrderService implements IOrderService {
     public OrderInfo getOrderInfoByManager(String orderId) {
         return orderInfoDao.getOrderInfoByManager(orderId);
     }
+
     /**
      * 平台管理员查询退款订单.
      *
-     * @param jsonStr   数据.
+     * @param jsonStr 数据.
      * @return 订单信息.
      */
     public PageInfo<OrderInfo> getOrderRundListByPlantManager(String jsonStr) {
@@ -466,14 +469,14 @@ public class OrderService implements IOrderService {
         log.info("jsonStr" + jsonStr);
         JSONObject jsonObj = JSON.parseObject(jsonStr);
         JSONArray result = jsonObj.getJSONArray("merchantId");
-        List<String> list = JSON.parseArray(result.toJSONString(),String.class);
-        if(list.size()<1){
+        List<String> list = JSON.parseArray(result.toJSONString(), String.class);
+        if (list.size() < 1) {
             log.info("===Exception:2452===");
             throw new BaseRuntimeException("2452");
         }
         Integer c = jsonObj.getInteger("pageSize");
         Integer p = jsonObj.getInteger("pageNum");
-        
+
         Integer page = null;
         Integer count = null;
         if (p == null || p < 1) {
