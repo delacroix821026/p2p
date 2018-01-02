@@ -133,6 +133,8 @@ zipkin:
             index: zipkin
             index-shards: 3
             index-replicas: 1
+            username: elastic
+            password: NE^z^z#7Mjh^Jd~B=TPs
 
 
 ...

@@ -7,7 +7,7 @@
     <groupId>com.newland.financial</groupId>
     <artifactId>p2p_server</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>p2p-server</name>
 
     <modules>
@@ -387,7 +387,7 @@
                     <dependency>
                         <groupId>com.newland.financial</groupId>
                         <artifactId>p2p_common</artifactId>
-                        <version>1.0.1-SNAPSHOT</version>
+                        <version>1.0.2-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
                 <executions>

@@ -6,7 +6,7 @@
 
     <groupId>com.newland.financial</groupId>
     <artifactId>p2p_eureka</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>p2p-eureka-server</name>
 
     <properties>

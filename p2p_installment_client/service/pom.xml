@@ -5,14 +5,14 @@
     <parent>
         <artifactId>p2p_installment_client</artifactId>
         <groupId>com.newland.financial</groupId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>p2p_installment_client_service</artifactId>
     <name>p2p_installment_client_service</name>
     <packaging>jar</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <dependencies>
 
