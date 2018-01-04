@@ -50,12 +50,14 @@
         <result column="FAILURE" property="failure" jdbcType="VARCHAR"/>
         <result column="MERCHANT_ID" property="merchantId" jdbcType="VARCHAR"/>
         <result column="SCHEDULE_NUM" property="scheduleNum" jdbcType="VARCHAR"/>
+        <result column="MERCHANT_PROPORTION" property="merchantProportion" jdbcType="NUMERIC"/>
+        <result column="CUSTOMER_PROPORTION" property="customerProportion" jdbcType="NUMERIC"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         ID,MER_ID,MER_NAME,MER_PWD,MER_ABBR,REGISTERED_ADDRESS,PARENT_CHANNELS_CODE,PARENT_MERCHANT_CODE,ADDR,CORPORATE_REPRESENTATIVE,LXR,TEL,MOBILE,EMAIL,FAX,NATURE,LEASE,SITEAREA,START_BUSINESS,
         BUSINESS_HOURSE,INDUSTRIES_ID,INDUSTRIES_EXPLAI,BANKCARD_TURNOVER,SALESSLIP_TURNOVER,LFQ_TURNOVER,CHANNELS_ID,BANK_NAME,BANK_NUM,HOLDER_NAME,CARD_NUM,UNIONPAY_MERCHANT_NUM,PARENT_NAME,
-        LEV,REMARK,STATE,SCHEDULE_STATE,RATE_SIX,RATE_TWELVE,RATE_TWENTY_FOUR,SUBSIDY,CREATE_TIME,CONTRACTS_CODE,FAILURE,MERCHANT_ID,SCHEDULE_NUM
+        LEV,REMARK,STATE,SCHEDULE_STATE,RATE_SIX,RATE_TWELVE,RATE_TWENTY_FOUR,SUBSIDY,CREATE_TIME,CONTRACTS_CODE,FAILURE,MERCHANT_ID,SCHEDULE_NUM,MERCHANT_PROPORTION,CUSTOMER_PROPORTION
     </sql>
     <!--插入商户-->
     <insert id="insertMerInfo" parameterType="com.newland.financial.p2p.domain.entity.MerInfo">
@@ -67,7 +69,7 @@
         ,#{lfqTurnover,jdbcType=INTEGER},#{channelsId,jdbcType=VARCHAR},#{bankName,jdbcType=VARCHAR},#{bankNum,jdbcType=VARCHAR},#{holderName,jdbcType=VARCHAR},#{cardNum,jdbcType=VARCHAR},#{unionpayMerchantNum,jdbcType=VARCHAR}
         ,#{parentName,jdbcType=VARCHAR},#{level,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{scheduleState,jdbcType=VARCHAR},#{rateSix,jdbcType=NUMERIC},#{rateTwelve,jdbcType=NUMERIC}
         ,#{rateTwentyFour,jdbcType=NUMERIC},#{subsidy,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{contractsCode,jdbcType=VARCHAR},#{failure,jdbcType=VARCHAR},#{merchantId,jdbcType=VARCHAR},
-        #{scheduleNum,jdbcType=VARCHAR})
+        #{scheduleNum,jdbcType=VARCHAR},#{merchantProportion,jdbcType=NUMERIC},#{customerProportion,jdbcType=NUMERIC})
     </insert>
 
     <select id="selectByMerId" resultMap="BaseResultMap" parameterType="String">
@@ -90,21 +92,30 @@
             ORDER BY CREATE_TIME desc
         </where>
     </select>
-    <!--利率和合同号更新-->
+    <!--利率和合同号以及补贴模式更新-->
     <update id="updateMerchantRateAndCon" parameterType="com.newland.financial.p2p.domain.entity.MerInfo">
         update t_inst_merinfo
         <set>
-            <if test="rateSix != null">
+            <if test="rateSix != null and rateSix != ''">
                 RATE_SIX = #{rateSix,jdbcType=NUMERIC},
             </if>
-            <if test="rateTwelve != null">
+            <if test="rateTwelve != null and rateTwelve != ''">
                 RATE_TWELVE = #{rateTwelve,jdbcType=NUMERIC},
             </if>
-            <if test="rateTwentyFour != null">
+            <if test="rateTwentyFour != null and rateTwentyFour != ''">
                 RATE_TWENTY_FOUR = #{rateTwentyFour,jdbcType=NUMERIC},
             </if>
-            <if test="contractsCode != null">
+            <if test="contractsCode != null and contractsCode != ''">
                 CONTRACTS_CODE = #{contractsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="subsidy != null and subsidy != ''">
+                SUBSIDY = #{subsidy,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantProportion != null and merchantProportion != ''">
+                MERCHANT_PROPORTION = #{merchantProportion,jdbcType=VARCHAR},
+            </if>
+            <if test="customerProportion != null and customerProportion != ''">
+                CUSTOMER_PROPORTION = #{customerProportion,jdbcType=VARCHAR},
             </if>
         </set>
         WHERE MERCHANT_ID = #{merchantId,jdbcType=VARCHAR}
@@ -238,6 +249,12 @@
             </if>
             <if test="scheduleNum != null and scheduleNum != ''">
                 SCHEDULE_NUM = #{scheduleNum,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantProportion != null and merchantProportion != ''">
+                MERCHANT_PROPORTION = #{merchantProportion,jdbcType=NUMERIC},
+            </if>
+            <if test="customerProportion != null and customerProportion != ''">
+                CUSTOMER_PROPORTION = #{customerProportion,jdbcType=NUMERIC},
             </if>
         </set>
         WHERE MERCHANT_ID = #{merchantId,jdbcType=VARCHAR}

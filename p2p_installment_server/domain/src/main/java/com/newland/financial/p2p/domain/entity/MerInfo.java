@@ -91,7 +91,7 @@ public class MerInfo extends BaseEntity {
     private BigDecimal rateTwelve;
     /**24期费率.*/
     private BigDecimal rateTwentyFour;
-    /**补贴方式，0：持卡人补贴  1：商户补贴.*/
+    /**补贴方式：0商户补贴，1消费者补贴，2按比例补贴.*/
     private String subsidy;
     /**接入时间.*/
     private Date createTime;
@@ -103,5 +103,8 @@ public class MerInfo extends BaseEntity {
     private String merchantId;
     /**商户查询码.*/
     private String scheduleNum;
-
+    /**手续费补贴商户占比（只在按比例补贴模式有值）.*/
+    private BigDecimal merchantProportion;
+    /**手续费补贴消费者占比（只在按比例补贴模式有值）.*/
+    private BigDecimal customerProportion;
 }

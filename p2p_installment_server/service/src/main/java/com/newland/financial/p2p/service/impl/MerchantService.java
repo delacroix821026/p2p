@@ -2,6 +2,8 @@ package com.newland.financial.p2p.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.newland.financial.p2p.common.exception.BaseException;
+import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import com.newland.financial.p2p.common.util.PageModel;
 import com.newland.financial.p2p.dao.IMerInfoDao;
 import com.newland.financial.p2p.domain.entity.CodeMsgReq;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -92,6 +95,12 @@ public class MerchantService implements IMerchantService {
         return pageInfo;
     }
 
+    /**
+     * 根据merchantId来获取商户信息.
+     *
+     * @param merchantId 新大陆商户id
+     * @return 相关信息
+     */
     public MerInfo getMerchantDetail(String merchantId) {
         return iMerInfoDao.selectMerInfoByMerchantId(merchantId);
     }
@@ -129,8 +138,28 @@ public class MerchantService implements IMerchantService {
      * @return boolean
      */
     public boolean updateMerchant(MerInfo merInfo) {
+        // 判断按比例分配相加是否等于100
+        if (merInfo.getMerchantProportion() != null || merInfo.getCustomerProportion() != null || "2".equals(merInfo.getSubsidy())) {
+            BigDecimal mpo = merInfo.getMerchantProportion();
+            BigDecimal cpo = merInfo.getCustomerProportion();
+            if (mpo == null || cpo == null) {
+                log.info("===Exception:2412===");
+                throw new BaseRuntimeException("2412");
+            }
+            if (mpo.add(cpo).doubleValue() != 100) {
+                log.info("===Exception:2412===");
+                throw new BaseRuntimeException("2412");
+            }
+        }
+        // 判断是否传入的都是空值
+        if (merInfo.getRateSix() == null && merInfo.getRateTwelve() == null && merInfo.getRateTwentyFour() == null
+                && (merInfo.getContractsCode() == null || "".equals(merInfo.getContractsCode().trim())) &&
+                (merInfo.getSubsidy() == null || "".equals(merInfo.getSubsidy().trim())) &&
+                merInfo.getMerchantProportion() == null && merInfo.getCustomerProportion() == null) {
+            log.info("===Exception:2413===");
+            throw new BaseRuntimeException("2413");
+        }
         return iMerInfoDao.updateMerchant(merInfo);
     }
-
 
 }

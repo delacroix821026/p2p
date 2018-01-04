@@ -9,6 +9,7 @@ import com.newland.financial.p2p.domain.entity.MerInfo;
 import com.newland.financial.p2p.domain.entity.OrderInfo;
 import com.newland.financial.p2p.domain.entity.OrderMsgReq;
 import com.newland.financial.p2p.domain.entity.OrderQueryReq;
+import com.newland.financial.p2p.service.IMerchantService;
 import com.newland.financial.p2p.service.IOrderService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class OrderController {
      */
     @Autowired
     private IOrderService orderService;
+    /**
+     * 注入对象.
+     */
+    @Autowired
+    private IMerchantService merchantService;
 
     /**
      * 分期交易时进行更新订单.
@@ -126,7 +132,7 @@ public class OrderController {
     /**
      * 获得相应订单信息.
      *
-     * @param orderId orderId
+     * @param orderId    orderId
      * @param merchantId orderId
      * @return 订单信息.
      */
@@ -179,6 +185,10 @@ public class OrderController {
         log.info("======come to server:findBlankOrder=====");
         log.info("orderId:" + orderId);
         OrderInfo orderInfo = orderService.findOrderInfo(orderId);
+        if (orderInfo == null) {
+            log.info("===Exception:2004===");
+            throw new BaseRuntimeException("2004");
+        }
         Map<String, Object> map = new HashMap<String, Object>();
         long createtime = orderInfo.getCreateTime().getTime();
         long endtime = new Date().getTime();
@@ -187,8 +197,10 @@ public class OrderController {
             log.info("===Exception:2411===");
             throw new BaseRuntimeException("2411");
         }
+        String merechantId = orderInfo.getMerchantId();
+        MerInfo merInfo = merchantService.getMerchantDetail(merechantId);
         map.put("orderInfo", orderInfo);
-        return map;
+        return InstallObjectFactory.getBlankOrder(map, merInfo);
     }
 
     /**
@@ -208,7 +220,7 @@ public class OrderController {
     /**
      * 用户订单详情.
      *
-     * @param openId 用户id
+     * @param openId  用户id
      * @param orderId 订单id
      * @return OrderInfolist
      */
@@ -216,7 +228,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     public Object getOrderInfoDetailByCustomer(@PathVariable(name = "openId") String openId, @PathVariable(name = "orderId") String orderId) {
         log.info("openId:" + openId + ";orderId:" + orderId);
-        OrderInfo orderInfo = orderService.findOrderInfoWeiXin(openId,orderId);
+        OrderInfo orderInfo = orderService.findOrderInfoWeiXin(openId, orderId);
         if (orderInfo == null) {
             return null;
         }
@@ -286,7 +298,7 @@ public class OrderController {
     @RequestMapping(value = "/plant/{orderId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Object getOrderInfoDetailByPlantManager(@PathVariable(name = "orderId") String orderId) {
-        log.info("orderId = "+orderId);
+        log.info("orderId = " + orderId);
         OrderInfo orderInfo = orderService.findOrderInfoManager(orderId);
         if (orderInfo == null) {
             log.info("===Exception:2453===");
