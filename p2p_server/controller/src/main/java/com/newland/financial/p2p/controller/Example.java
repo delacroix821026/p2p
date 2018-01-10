@@ -1,6 +1,9 @@
 package com.newland.financial.p2p.controller;
 
+import com.newland.financial.p2p.RabbitConfigration;
+import com.newland.financial.p2p.common.handler.RestError;
 import lombok.extern.log4j.Log4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -52,7 +55,8 @@ public class Example {
 
         }*/
         //throw new BaseRuntimeException("TEST001");
-        return r;
+        throw new NullPointerException();
+        //return r;
     }
 
     /**
@@ -78,4 +82,22 @@ public class Example {
     /***/
    /* @Autowired
     private ExceptionMapping exceptionMapping;*/
+
+    /**
+     * @return Integer
+     * @throws Exception if has error
+     */
+    @RequestMapping(value = "/sendmsg", method = RequestMethod.GET)
+    public String sendmsg() {
+        RestError.Builder builder = new RestError.Builder();
+        builder.setCode("10001");
+        builder.setMessage("Testxx");
+        log.info("Server sendmsg!");
+        rabbitTemplate.convertAndSend(RabbitConfigration.QUEUENAME, builder.build());
+        return "success";
+    }
+
+    /***/
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 }

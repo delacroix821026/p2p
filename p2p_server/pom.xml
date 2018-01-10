@@ -7,7 +7,7 @@
     <groupId>com.newland.financial</groupId>
     <artifactId>p2p_server</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <name>p2p-server</name>
 
     <modules>
@@ -288,7 +288,7 @@
                 <executions>
                     <execution>
                         <id>run-integration-test</id>
-                        <phase>integration-tes</phase>
+                        <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
@@ -387,7 +387,7 @@
                     <dependency>
                         <groupId>com.newland.financial</groupId>
                         <artifactId>p2p_common</artifactId>
-                        <version>1.0.2-SNAPSHOT</version>
+                        <version>1.0.3-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
                 <executions>

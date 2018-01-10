@@ -6,7 +6,7 @@
 
     <groupId>com.newland.financial</groupId>
     <artifactId>p2p</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <name>p2p</name>
     <packaging>pom</packaging>
 
@@ -16,6 +16,7 @@
         <module>p2p_config</module>
         <module>p2p_admin</module>
         <module>p2p_logcent</module>
+        <module>p2p_turbine</module>
         <module>p2p_zuul</module>
         <module>p2p_server</module>
         <module>p2p_client</module>
