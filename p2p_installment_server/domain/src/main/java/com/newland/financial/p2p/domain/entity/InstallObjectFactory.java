@@ -4,6 +4,7 @@ import com.newland.financial.p2p.common.exception.BaseRuntimeException;
 import lombok.extern.log4j.Log4j;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @author Mxia
@@ -15,8 +16,8 @@ public class InstallObjectFactory {
      * 创建订单请求报文信息封装.
      *
      * @param orderInfo 订单信息
-     * @param merInfo 商户信息
-     * @param smsCode 短信验证码
+     * @param merInfo   商户信息
+     * @param smsCode   短信验证码
      * @return OrderMsgReq
      */
     public static OrderMsgReq installOrderMsgReq(OrderInfo orderInfo, MerInfo merInfo, String smsCode) {
@@ -45,7 +46,7 @@ public class InstallObjectFactory {
      * 封装订单查询请求报文.
      *
      * @param orderInfo 订单信息
-     * @param merInfo 商户信息
+     * @param merInfo   商户信息
      * @return OrderQueryReq
      */
     public static OrderQueryReq installOrderQueryReq(OrderInfo orderInfo, MerInfo merInfo) {
@@ -83,6 +84,22 @@ public class InstallObjectFactory {
             throw new BaseRuntimeException("2422");
         }
         return refundMsgReq;
+    }
+
+    /**
+     * 空白订单信息封装.
+     * @param map 订单信息
+     * @param merInfo 商户信息
+     * @return 封装后的值
+     */
+    public static Map<String, Object> getBlankOrder(Map<String, Object> map, MerInfo merInfo) {
+        map.put("rateSix", merInfo.getRateSix());
+        map.put("rateTwelve", merInfo.getRateTwelve());
+        map.put("rateTwentyFour", merInfo.getRateTwentyFour());
+        map.put("subsidy", merInfo.getSubsidy());
+        map.put("customerProportion", merInfo.getCustomerProportion());
+        map.put("merchantProportion", merInfo.getMerchantProportion());
+        return map;
     }
 
 }
