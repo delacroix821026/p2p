@@ -57,7 +57,7 @@ public class OrderController {
                 .decoder(decoder)
                 .contract(contract)
                 .client(client)
-                .options(new Request.Options(13 * 1000, 15 * 1000))
+                .options(new Request.Options(15 * 1000, 20 * 1000))
                 .retryer(new Retryer.Default(100, 1000, 1))
                 .errorDecoder(errorDecoder)
                 .target(ISendService.class, "http://lfqpay-client" + devlopName, (FallbackFactory<? extends ISendService>) new SendServiceFallBackFactory());

@@ -90,13 +90,13 @@ hystrix:
                 isolation:
                     strategy: THREAD
                     thread:
-                        timeoutInMilliseconds: 12000
+                        timeoutInMilliseconds: 15000
                 timeout:
                     #enabled: false
         "ISendService#sendOrderMsgToLbf(Object)":
             execution:
                 isolation:
                     thread:
-                        timeoutInMilliseconds: 15000
+                        timeoutInMilliseconds: 17000
 ...
 
