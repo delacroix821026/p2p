@@ -3,6 +3,8 @@ package com.newland.financial.p2p.common.handler;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;
 
+import java.io.Serializable;
+
 public class RestError {
     private HttpStatus status;
     private String code;

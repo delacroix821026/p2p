@@ -9,6 +9,7 @@ import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.log4j.Log4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 
@@ -18,16 +19,16 @@ import static feign.FeignException.errorStatus;
 @Configuration
 public class BaseErrorDecode implements ErrorDecoder {
     public Exception decode(String methodKey, Response response) {
-        if (response.status() == 400) {
+        if (response.status() == HttpStatus.BAD_REQUEST.value()) {
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 RestError restError = mapper.readValue(response.body().asReader(), RestError.class);
                 return new HystrixBadRequestException("", new BaseRuntimeException(restError));
 
             } catch (IOException e) {
-                log.error(e);
+                log.error("IOException",e);
             }
-            log.info("reason" + response.reason());
+            //log.info("reason" + response.reason());
 
         }
         return FeignException.errorStatus(methodKey, response);

@@ -132,54 +132,41 @@ public class MethodFactory {
         orderInfo.setOrderId(orm.getOrderId());
         orderInfo.setMerName(orm.getMerName());
         orderInfo.setMerId(orm.getMerId());
+        orderInfo.setAccName(orm.getAccName());
         orderInfo.setTxnAmt(Long.parseLong(orm.getTxnAmt()));
         orderInfo.setTxnterms(Integer.parseInt(orm.getTxnTerms()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String txnTime = mapA.get("txnTime");
+        Date date = null;
+        try {
+            date = sdf.parse(txnTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        orderInfo.setTxnTime(date);
         if ("0000".equals(respCodeA)) {
             // 创建订单成功
             log.info("创建订单成功");
             orderInfo.setStus("1");
+            orderInfo.setPoundage(Long.parseLong(mapA.get("poundage")));
+            orderInfo.setAmount(Long.parseLong(mapA.get("amount")));
             String respCodeB = mapB.get("respCode");
+            orderInfo.setContractsCode(mapA.get("contractsCode"));
+            orderInfo.setRespMsg(mapB.get("respMsg"));
+            orderInfo.setRespCode(respCodeB);
             log.info("====查询订单结果====" + respCodeB);
             if ("0000".equals(respCodeB)) {
                 //查询订单成功
                 log.info("查询订单成功");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                String txnTime = mapA.get("txnTime");
-                Date date = null;
-                try {
-                    date = sdf.parse(txnTime);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                orderInfo.setTxnTime(date);
-                orderInfo.setContractsCode(mapA.get("contractsCode"));
-                orderInfo.setAmount(Long.parseLong(mapA.get("amount")));
-                orderInfo.setPoundage(Long.parseLong(mapA.get("poundage")));
                 orderInfo.setContractsState(mapB.get("contractsState"));
                 orderInfo.setSumTerms(Integer.parseInt(mapB.get("sumTerms")));
                 orderInfo.setSumAmount(Long.parseLong(mapB.get("sumAmount")));
                 orderInfo.setRemainAmount(Long.parseLong(mapB.get("remainAmount")));
                 orderInfo.setCancelAmount(Long.parseLong(mapB.get("cancelAmount")));
                 orderInfo.setCancelInterest(Long.parseLong(mapB.get("cancelInterest")));
-                orderInfo.setRespCode(respCodeB);
-                orderInfo.setRespMsg(mapB.get("respMsg"));
             } else {
                 //查询订单失败
                 log.info("查询订单失败");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                String txnTime = mapA.get("txnTime");
-                Date date = null;
-                try {
-                    date = sdf.parse(txnTime);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                orderInfo.setTxnTime(date);
-                orderInfo.setContractsCode(mapA.get("contractsCode"));
-                orderInfo.setAmount(Long.parseLong(mapA.get("amount")));
-                orderInfo.setPoundage(Long.parseLong(mapA.get("poundage")));
-                orderInfo.setRespCode(respCodeB);
-                orderInfo.setRespMsg(mapB.get("respMsg"));
             }
         } else {
             // 创建订单失败
@@ -219,7 +206,7 @@ public class MethodFactory {
             orderInfo.setSumAmount(Long.parseLong(map.get("sumAmount")));
             orderInfo.setRemainAmount(Long.parseLong(map.get("remainAmount")));
             if (map.containsKey("cancelAmount")) {
-                // 存在该键说明无法订单还未还清
+                // 存在该键说明订单还未还清
                 orderInfo.setCancelAmount(Long.parseLong(map.get("cancelAmount")));
             } else {
                 // 不存在该键说明订单已还清

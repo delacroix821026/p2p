@@ -140,12 +140,14 @@ public class MerchantService implements IMerchantService {
     public boolean updateMerchant(MerInfo merInfo) {
         // 判断按比例分配相加是否等于100
         if (merInfo.getMerchantProportion() != null || merInfo.getCustomerProportion() != null || "2".equals(merInfo.getSubsidy())) {
-            BigDecimal mpo = merInfo.getMerchantProportion();
-            BigDecimal cpo = merInfo.getCustomerProportion();
+            BigDecimal mpo = merInfo.getMerchantProportion(); // 商户补贴占比
+            BigDecimal cpo = merInfo.getCustomerProportion(); // 持卡人补贴占比
+            // 如果有一个有值，另外一个也必须有值
             if (mpo == null || cpo == null) {
                 log.info("===Exception:2412===");
                 throw new BaseRuntimeException("2412");
             }
+            // 判断2者比例之和是否满足100%
             if (mpo.add(cpo).doubleValue() != 100) {
                 log.info("===Exception:2412===");
                 throw new BaseRuntimeException("2412");
