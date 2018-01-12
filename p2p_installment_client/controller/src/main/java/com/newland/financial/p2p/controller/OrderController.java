@@ -10,6 +10,7 @@ import com.newland.financial.p2p.domain.entity.OrderInfo;
 import com.newland.financial.p2p.service.IOrderService;
 import com.newland.financial.p2p.service.ISendService;
 import com.newland.financial.p2p.service.Impl.SendServiceFallBackFactory;
+import com.newland.financial.p2p.util.JiguangPush;
 import com.newland.financial.p2p.util.RespMessage;
 import feign.Client;
 import feign.Contract;
@@ -207,13 +208,25 @@ public class OrderController {
     public Object tradeUpdateOrder(@PathVariable(name = "orderId") String orderId, @RequestBody String jsonStr) {
         log.info("========client:tradeUpdateOrder=======");
         log.info("1.jsonStr：" + jsonStr);
+        JSONObject param = JSON.parseObject(jsonStr);
+        String merchantId = param.getString("merchantId");
+        if (merchantId == null || "".equals(merchantId.trim())) {
+            return RespMessage.setRespMap("2424", "请提交正确的商户号");
+        }
         Object ob = orderService.tradeUpdateOrder(jsonStr, orderId);
         if (ob == null) {
             return RespMessage.setRespMap("2410", "订单号为空或该订单不可进行分期，请重新生成订单");
         }
-        Object obj = sendService.sendOrderMsgToLbf(ob);
+        OrderInfo obj = sendService.sendOrderMsgToLbf(ob);
         log.info("=====obj=====:" + obj);
-        orderService.updateOrderInfo(obj, orderId);
+        JiguangPush jiguangPush = new JiguangPush();
+        try {
+            orderService.updateOrderInfo(obj, orderId);
+            jiguangPush.jiguangPush(merchantId, obj);
+        } catch (Exception e) {
+            log.info("更新到数据库或者推送出错");
+            return obj;
+        }
         return obj;
     }
 
@@ -347,5 +360,14 @@ public class OrderController {
         log.info(jsonStr);
 
         return orderService.getOrderRundListByPlantManager(jsonStr);
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void pushTest(@RequestBody String jsonStr) {
+        log.info("========client:pushTest=======");
+        log.info(jsonStr);
+        JiguangPush jiguangPush = new JiguangPush();
+        //jiguangPush.jiguangPush("NLP200002001");
     }
 }

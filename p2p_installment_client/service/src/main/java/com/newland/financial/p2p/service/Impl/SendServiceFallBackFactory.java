@@ -1,5 +1,6 @@
 package com.newland.financial.p2p.service.Impl;
 
+import com.newland.financial.p2p.domain.entity.OrderInfo;
 import com.newland.financial.p2p.domain.entity.Refund;
 import com.newland.financial.p2p.domain.entity.RefundMsgReq;
 import com.newland.financial.p2p.service.ISendService;
@@ -12,10 +13,10 @@ import org.springframework.stereotype.Component;
 public class SendServiceFallBackFactory implements FallbackFactory<ISendService> {
     public ISendService create(final Throwable cause) {
         return new ISendService() {
-            public Object sendOrderMsgToLbf(Object object) {
+            public OrderInfo sendOrderMsgToLbf(Object object) {
                 log.info("********sendOrderMsgToLbf:被熔断********");
                 log.error(cause);
-                return "1026";
+                return null;
             }
             public Object sendOrderQueryMsg(Object object) {
                 log.info("********sendOrderQueryMsg:被熔断********");

@@ -153,7 +153,7 @@ public class OrderController {
     }
 
     /**
-     * 更新订单并过去最新订单信息.
+     * 更新订单并获去最新订单信息.
      *
      * @param orderId 订单号
      * @param or      订单信息
