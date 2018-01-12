@@ -362,7 +362,6 @@ public class OrderController {
         return orderService.getOrderRundListByPlantManager(jsonStr);
     }
 
-<<<<<<< HEAD
     /**
      *  excel导出
      *
@@ -374,7 +373,7 @@ public class OrderController {
         log.info("========client:exportOrderInfoExcel=======");
         log.info(jsonStr);
         orderService.exportOrderInfoExcel(jsonStr);
-=======
+    }
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void pushTest(@RequestBody String jsonStr) {
@@ -382,6 +381,5 @@ public class OrderController {
         log.info(jsonStr);
         JiguangPush jiguangPush = new JiguangPush();
         //jiguangPush.jiguangPush("NLP200002001");
->>>>>>> 372e6273788261fba6d383254eb0994f163db3a6
     }
 }
