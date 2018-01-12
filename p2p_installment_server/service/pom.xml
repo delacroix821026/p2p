@@ -36,6 +36,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.37</version>
         </dependency>
+        <dependency>
+            <groupId>com.newland.financial</groupId>
+            <artifactId>p2p_server_domain</artifactId>
+            <version>1.0.3-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
