@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
 @Import(FeignClientsConfiguration.class)
 public class Example {
     @Autowired
-    public Example(Decoder decoder, Encoder encoder,Client client, Contract contract) {
+    public Example(Decoder decoder, Encoder encoder,Client client, Contract contract, @Value("${DEVLOPER_NAME}") String devlopName) {
 
         feignService = HystrixFeign.builder()
                 .encoder(encoder)
@@ -40,7 +40,7 @@ public class Example {
                 .client(client)
                 .options(new Request.Options(13 * 1000, 3 * 1000))
                 .retryer(new Retryer.Default(100, 1000, 1))
-                .target(FeignService.class, "http://p2p-serverDelacroix", (FallbackFactory<? extends FeignService>) new FeignFallbackFactory());
+                .target(FeignService.class, "http://p2p-server" + devlopName, (FallbackFactory<? extends FeignService>) new FeignFallbackFactory());
     }
     @Value("${form}")
     private String form;
@@ -59,6 +59,7 @@ public class Example {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public Object add() {
         //log.info("controller add Enter=====" + UserInfoUtils.getUserInfo().getLoginName());
+        //throw new NullPointerException();
         return feignService.add0(6,9);
     }
 

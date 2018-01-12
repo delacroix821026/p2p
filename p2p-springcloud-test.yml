@@ -53,6 +53,33 @@ services:
             - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
             - EUREKA_INSTANCE_HOSTNAME=p2padmin
             - SERVER_PORT = 6001
+    p2pturbine:
+        image: nexusserver:8082/p2p-turbine:latest
+        volumes:
+            - /home/DockerCommand/:/home/DockerCommand/
+        depends_on:
+            - p2pconfig
+        deploy:
+            restart_policy:
+                condition: on-failure
+            resources:
+                limits:
+                    #cpus: '0.001'
+                    memory: 1024M
+                reservations:
+                    #cpus: '0.0001'
+                    memory: 64M
+        networks:
+            docker-net:
+                aliases:
+                    - p2pturbine
+        ports:
+            - "6002:6002"
+        environment:
+            - SPRING_PROFILES_ACTIVE=test
+            - EUREKA_SERVER_ADDRESS=http://eurekaserver:1111/eureka/
+            - EUREKA_INSTANCE_HOSTNAME=p2pturbine
+            - SERVER_PORT = 6002
 networks:
     docker-net:
         external:

@@ -37,4 +37,14 @@ public class DefalutErrorHandler {
         BaseRuntimeException baseRuntimeException = (BaseRuntimeException) ex.getCause();
         return baseRuntimeException.getRestError();
     }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(Exception.class)
+    public RestError handlerException(Exception ex) {
+        log.error("未捕获的错误", ex);
+        RestError.Builder erb = new RestError.Builder();
+        erb.setCode("000");
+        erb.setMessage("系统异常");
+        return erb.build();
+    }
 }
