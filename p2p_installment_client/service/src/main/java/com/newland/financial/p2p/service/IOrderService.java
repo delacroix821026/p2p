@@ -54,6 +54,7 @@ public interface IOrderService {
 
     @RequestMapping(method = RequestMethod.GET, value = "/order/orderRundList")
     Object getOrderRundListByPlantManager(@RequestBody String jsonStr);
-
+    @RequestMapping(method = RequestMethod.GET, value = "/order/excel")
+    void exportOrderInfoExcel(String jsonStr);
 }
 

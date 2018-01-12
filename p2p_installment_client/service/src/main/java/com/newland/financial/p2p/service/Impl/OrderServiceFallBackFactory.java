@@ -96,6 +96,11 @@ public class OrderServiceFallBackFactory implements FallbackFactory<IOrderServic
                 log.error(cause);
                 return "1026";
             }
+
+            public void exportOrderInfoExcel(String jsonStr) {
+                log.info("*********exportOrderInfoExcel:被熔断***********");
+                log.error(cause);
+            }
         };
     }
 }

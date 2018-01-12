@@ -120,4 +120,11 @@ public interface IOrderService {
      * @return orderInfo
      */
     PageInfo<OrderInfo> getOrderRundListByPlantManager(String jsonStr);
+    /**
+     * excel导出.
+     *
+     * @param  jsonStr
+     *
+     */
+    void exportOrderInfoExcel(String jsonStr);
 }

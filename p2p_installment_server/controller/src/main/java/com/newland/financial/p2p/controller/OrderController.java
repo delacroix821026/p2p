@@ -323,4 +323,17 @@ public class OrderController {
         log.info("jsonStr = " + jsonStr);
         return orderService.getOrderRundListByPlantManager(jsonStr);
     }
+    /**
+     *  excel导出
+     *
+     * @param jsonStr .
+     */
+    @RequestMapping(value = "/orderRundList", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public void exportOrderInfoExcel(@RequestBody String jsonStr) {
+        log.info("===exportOrderInfoExcel===");
+        log.info("jsonStr = " + jsonStr);
+        orderService.exportOrderInfoExcel(jsonStr);
+    }
+
 }

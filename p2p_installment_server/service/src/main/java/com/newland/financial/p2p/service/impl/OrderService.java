@@ -496,4 +496,81 @@ public class OrderService implements IOrderService {
         PageInfo<OrderInfo> pageInfo = new PageInfo<OrderInfo>(orderInfoDao.getOrderRundListByPlantManager(list));
         return pageInfo;
     }
+    /**
+     * 导出excel.
+     *
+     * @param jsonStr 数据.
+     */
+    public void exportOrderInfoExcel(String jsonStr) {
+        log.info("jsonStr" + jsonStr);
+        JSONObject paramJSON = JSON.parseObject(jsonStr);
+        String orderId = paramJSON.getString("orderId");
+        String merchantId = paramJSON.getString("merchantId");
+        String merName = paramJSON.getString("merName");
+        String accName = paramJSON.getString("accName");
+        String contractsState = paramJSON.getString("contractsState");
+        //时间格式化
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Long createTimeBeg = paramJSON.getLong("beginTime");
+        Long createTimeEnd = paramJSON.getLong("endTime");
+        //时间转化
+        String begTime = null;
+        String endTime = null;
+        if (createTimeBeg != null) {
+            Date begTimeDate = new Date(createTimeBeg);
+            begTime = sdf.format(begTimeDate);
+            log.debug("---------------------------------" + begTime);
+        }
+        if (createTimeEnd != null) {
+            Date endTimeDate = new Date(createTimeEnd);
+            endTime = sdf.format(endTimeDate);
+            log.debug("---------------------------------" + endTime);
+        }
+        if ("".equals(merchantId)) {
+            merchantId = null;
+        }
+        if ("".equals(merName)) {
+            merName = null;
+        }
+        if ("".equals(orderId)) {
+            orderId = null;
+        }
+        if ("".equals(contractsState)) {
+            contractsState = null;
+        }
+        if ("".equals(accName)) {
+            accName = null;
+        }
+        log.info(";merchantId=" + merchantId + ";orderId=" + orderId
+                + ";merName=" + merName + ";contractsState=" + contractsState
+                + ";accName=" + accName + ";begTime=" + begTime + ";endTime=" + endTime);
+        Map<String, Object> map1 = new HashMap<String, Object>();
+        map1.put("merchantId", merchantId);
+        map1.put("orderId", orderId);
+        map1.put("merName", merName);
+        map1.put("contractsState", contractsState);
+        map1.put("accName", accName);
+        map1.put("begTime", begTime);
+        map1.put("endTime", endTime);
+        // 查询全部
+        if (contractsState == null) {
+            List<OrderInfo> orderInfo = orderInfoDao.findOrderInfoListByPlantManager(map1);
+        }
+        // 0 还款中
+        if ("0".equals(contractsState)) {
+            log.info("========0000===========");
+            List<OrderInfo> orderInfo =  orderInfoDao.findRepayList(map1);
+        }
+        // 1 结清
+        if ("1".equals(contractsState)) {
+            log.info("========11111===========");
+            List<OrderInfo> orderInfo = orderInfoDao.findOrderInfoListByFinish(map1);
+        }
+        // 2 退款中
+        if ("2".equals(contractsState)) {
+            log.info("========222222===========");
+            List<OrderInfo> orderInfo = orderInfoDao.findRefundList(map1);
+
+        }
+    }
 }
