@@ -55,5 +55,5 @@ services:
             - SERVER_PORT = 6001
 networks:
     docker-net:
-        external:
-            name: docker-net
+        external: true
+            #name: docker-net

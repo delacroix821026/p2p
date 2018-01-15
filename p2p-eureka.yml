@@ -74,5 +74,5 @@ services:
 
 networks:
     docker-net:
-        external:
-            name: docker-net
+        external: true
+            #name: docker-net
