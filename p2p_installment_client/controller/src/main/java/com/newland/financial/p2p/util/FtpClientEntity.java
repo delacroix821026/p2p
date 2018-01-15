@@ -78,6 +78,7 @@ public class FtpClientEntity {
     public boolean uploadFile(FTPClient ftp, String path, String fileName, InputStream inputStream) {
         boolean success = false;
         try {
+            ftp.enterLocalPassiveMode();
             ftp.setRemoteVerificationEnabled(false);
             ftp.changeWorkingDirectory(path);//转移到指定FTP服务器目录
             FTPFile[] fs = ftp.listFiles();//得到目录的相应文件列表
