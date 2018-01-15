@@ -328,7 +328,7 @@ public class OrderController {
      *
      * @param jsonStr .
      */
-    @RequestMapping(value = "/orderRundList", method = RequestMethod.GET)
+    @RequestMapping(value = "/excel", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public void exportOrderInfoExcel(@RequestBody String jsonStr) {
         log.info("===exportOrderInfoExcel===");
